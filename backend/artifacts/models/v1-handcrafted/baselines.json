@@ -1,0 +1,536 @@
+{
+  "version": "baselines-1",
+  "model_version": "v1-handcrafted",
+  "selected_on": "validation",
+  "screening_threshold": 0.5,
+  "random_seed": 42,
+  "feature_representation": {
+    "feature_mode": "multimodal",
+    "extractor": "handcrafted_lab",
+    "preprocessing_version": "carescan-preproc-1",
+    "pipeline_version": "carescan-pipeline-1"
+  },
+  "n_reduced_features": 181,
+  "baselines": {
+    "logistic_regression": {
+      "record": {
+        "name": "logistic_regression",
+        "version": "baselines-1",
+        "hyperparameters": {
+          "C": 0.01
+        },
+        "candidate_scores": [
+          {
+            "hyperparameters": {
+              "C": 0.01
+            },
+            "validation_pr_auc": 0.587325
+          },
+          {
+            "hyperparameters": {
+              "C": 0.1
+            },
+            "validation_pr_auc": 0.492109
+          },
+          {
+            "hyperparameters": {
+              "C": 1.0
+            },
+            "validation_pr_auc": 0.393491
+          },
+          {
+            "hyperparameters": {
+              "C": 10.0
+            },
+            "validation_pr_auc": 0.328306
+          }
+        ],
+        "selection_metric": "validation_pr_auc",
+        "random_seed": 42,
+        "n_train_samples": 1692,
+        "n_train_positive": 104,
+        "feature_dimension": 181,
+        "feature_mode": "multimodal",
+        "extractor": "handcrafted_lab",
+        "preprocessing_version": "carescan-preproc-1",
+        "pipeline_version": "carescan-pipeline-1",
+        "class_weighting": "balanced",
+        "training_duration_seconds": 1.251,
+        "description": "L2-regularised linear model on the reduced feature vector. The linear reference point, and the only baseline that is a calibrated probability model by construction."
+      },
+      "weights": {
+        "coefficients": [
+          -0.09146122789122088,
+          -0.08102410274552811,
+          0.043213904654097184,
+          -0.061109997052657565,
+          0.05898536675419404,
+          0.10181891740974325,
+          -0.09821825706672359,
+          0.021393164266308506,
+          0.044502625025951564,
+          -0.001149882525058747,
+          0.11565625657313679,
+          0.0317259282625618,
+          0.02177191024976341,
+          0.012002265137840787,
+          0.02178548122182954,
+          0.08687445838859063,
+          0.13659830544462465,
+          0.12949183875119777,
+          0.07974562701212635,
+          -0.1376757432230321,
+          -0.022463411565395885,
+          -0.031087463267225394,
+          -0.023568182245838412,
+          0.0773254084402125,
+          -0.12269164926618806,
+          -0.16454129036823217,
+          0.07364646665497097,
+          -0.0481374776927653,
+          -0.16241910077562036,
+          0.07537384617026985,
+          -0.2461383059817517,
+          -0.1339975858924505,
+          -0.07857923312988818,
+          -0.017659941833933462,
+          -0.21874256308837658,
+          0.1402035714889645,
+          -0.16956834807405316,
+          -0.12619781905243427,
+          -0.1028002752656312,
+          0.12717869470496634,
+          -0.0883772846004414,
+          0.2174699811394261,
+          0.003918673536486921,
+          -0.14813809102707656,
+          -0.08599941662590138,
+          -0.17314970975992658,
+          -0.1275360341182771,
+          -0.13081341061957832,
+          0.035150844364962665,
+          -0.12319058954078645,
+          0.017233640136405742,
+          -0.0095294385661783,
+          0.06297911233036971,
+          0.04471719553253608,
+          -0.041891036722421816,
+          -0.05236587337689937,
+          -0.09642258715888197,
+          0.022759332618306184,
+          -0.22988839951150303,
+          0.11668485776159168,
+          -0.1308882499428048,
+          0.012750636865293444,
+          -0.172246305120386,
+          -0.03225862973482733,
+          -0.17007420323094125,
+          0.039610652891553744,
+          0.0342794690189211,
+          -0.03492617363890559,
+          0.0320699345047465,
+          0.002358942681335686,
+          0.012654200534576204,
+          0.01072112220748218,
+          0.13567860732628195,
+          0.055733619990631394,
+          0.09559932656610495,
+          0.010255830831221563,
+          0.05310389560431274,
+          -0.03863939399739914,
+          -0.11373782693906372,
+          -0.048893636656497354,
+          0.16423386319011346,
+          -0.12894660159967464,
+          0.005989611253250589,
+          0.12233343546461047,
+          -0.1036867669056787,
+          0.07068153999468356,
+          -0.12189572829902365,
+          -0.17947274683260636,
+          -0.006762268029473541,
+          0.02496565153751139,
+          0.12770621207741487,
+          0.03833177913297827,
+          0.05358024280338648,
+          -0.049179483022126644,
+          0.10704675664495632,
+          -0.09316927863287824,
+          -0.056868838197163096,
+          -0.2047671101387306,
+          -0.1253661303362602,
+          0.12371359793958724,
+          0.1472691358942987,
+          0.1163866434823076,
+          0.3124070777637153,
+          -0.08389691406881175,
+          -0.2284225741803162,
+          -0.06819602073692065,
+          -0.09595104030364288,
+          0.025142594239562166,
+          0.0,
+          0.0,
+          0.0,
+          -0.0018675154394861154,
+          -0.009104509152319104,
+          0.13783681923828942,
+          0.03188648250684581,
+          -0.019197704859871326,
+          -0.046320951763351104,
+          0.0160676939048203,
+          -0.0009529889559456654,
+          0.0,
+          0.005344288030310488,
+          -0.022048053752548487,
+          -4.803207545497486e-06,
+          0.014836196484865987,
+          4.334720474417518e-05,
+          0.05774532452345484,
+          -0.027155196170857394,
+          0.012646190572123303,
+          -0.003784055586376556,
+          -0.005954198222909206,
+          -0.05428352437434745,
+          -0.01769023984784885,
+          0.011699652237736351,
+          -0.09967942597780294,
+          -0.015839781864346193,
+          0.024338745640339,
+          0.105813692581949,
+          -0.09621495095335683,
+          -0.0025392758480516676,
+          -0.0035671405277451465,
+          -0.07305144223515123,
+          0.10041595490478397,
+          0.06577019846341689,
+          0.04375958623947146,
+          -0.12373519209325684,
+          -0.11852075465253374,
+          0.09759626917013595,
+          -0.029880697827006523,
+          -0.009542627495759078,
+          0.1631742497708707,
+          0.02580586524934813,
+          -0.19580881329777072,
+          -0.01527032975460387,
+          0.031013193058952483,
+          -0.012767389302008283,
+          0.01551454739642914,
+          -0.03707406665068475,
+          0.1480830793169619,
+          -0.06804492522791533,
+          -0.05721446894221083,
+          0.02705164501386923,
+          -0.09509573576379815,
+          -0.04483360258846274,
+          0.19953710894670132,
+          0.11997691426498339,
+          -0.17260783572262825,
+          -0.0032085513281402984,
+          -0.06051593663270609,
+          0.11997691426498339,
+          -0.040627642474539434,
+          -0.08387201907430682,
+          0.3429088640000145,
+          0.11997691426498339,
+          -0.012016761764219102,
+          0.15827559204430877,
+          0.2845169860228695,
+          -0.019313569052862294,
+          0.11997691426498339,
+          -0.19867589351773565,
+          0.1582505983695306,
+          0.11997691426498339
+        ],
+        "intercept": -2.4933498497692166
+      },
+      "validation_metrics": {
+        "n_samples": 363,
+        "n_positive": 21,
+        "n_negative": 342,
+        "prevalence": 0.057851,
+        "threshold": 0.5,
+        "accuracy": 0.92562,
+        "precision": 0.4375,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 0.921053,
+        "f1": 0.608696,
+        "balanced_accuracy": 0.960526,
+        "roc_auc": 0.965608,
+        "pr_auc": 0.587325,
+        "brier": 0.070742,
+        "log_loss": 0.243064,
+        "ece": 0.132113,
+        "mean_predicted": 0.189964,
+        "confusion_matrix": {
+          "true_positive": 21,
+          "false_positive": 27,
+          "true_negative": 315,
+          "false_negative": 0,
+          "threshold": 0.5
+        }
+      },
+      "validation_sensitivity_at_specificity_090": {
+        "target_specificity": 0.9,
+        "sensitivity": 1.0,
+        "achieved_specificity": 0.9006,
+        "threshold": 0.4356892090019777
+      }
+    },
+    "random_forest": {
+      "record": {
+        "name": "random_forest",
+        "version": "baselines-1",
+        "hyperparameters": {
+          "n_estimators": 600,
+          "max_depth": 12,
+          "min_samples_leaf": 4
+        },
+        "candidate_scores": [
+          {
+            "hyperparameters": {
+              "n_estimators": 300,
+              "max_depth": null,
+              "min_samples_leaf": 1
+            },
+            "validation_pr_auc": 0.593587
+          },
+          {
+            "hyperparameters": {
+              "n_estimators": 300,
+              "max_depth": 8,
+              "min_samples_leaf": 2
+            },
+            "validation_pr_auc": 0.556869
+          },
+          {
+            "hyperparameters": {
+              "n_estimators": 600,
+              "max_depth": 12,
+              "min_samples_leaf": 4
+            },
+            "validation_pr_auc": 0.636768
+          }
+        ],
+        "selection_metric": "validation_pr_auc",
+        "random_seed": 42,
+        "n_train_samples": 1692,
+        "n_train_positive": 104,
+        "feature_dimension": 181,
+        "feature_mode": "multimodal",
+        "extractor": "handcrafted_lab",
+        "preprocessing_version": "carescan-preproc-1",
+        "pipeline_version": "carescan-pipeline-1",
+        "class_weighting": "balanced",
+        "training_duration_seconds": 6.236,
+        "description": "Bagged decision trees with balanced class weights. High-capacity, variance-reducing reference."
+      },
+      "validation_metrics": {
+        "n_samples": 363,
+        "n_positive": 21,
+        "n_negative": 342,
+        "prevalence": 0.057851,
+        "threshold": 0.5,
+        "accuracy": 0.947658,
+        "precision": 0.5625,
+        "recall": 0.428571,
+        "sensitivity": 0.428571,
+        "specificity": 0.979532,
+        "f1": 0.486486,
+        "balanced_accuracy": 0.704052,
+        "roc_auc": 0.963659,
+        "pr_auc": 0.636768,
+        "brier": 0.04559,
+        "log_loss": 0.186744,
+        "ece": 0.100395,
+        "mean_predicted": 0.153131,
+        "confusion_matrix": {
+          "true_positive": 9,
+          "false_positive": 7,
+          "true_negative": 335,
+          "false_negative": 12,
+          "threshold": 0.5
+        }
+      },
+      "validation_sensitivity_at_specificity_090": {
+        "target_specificity": 0.9,
+        "sensitivity": 0.9524,
+        "achieved_specificity": 0.9006,
+        "threshold": 0.2849890507891094
+      }
+    },
+    "gradient_boosting": {
+      "record": {
+        "name": "gradient_boosting",
+        "version": "baselines-1",
+        "hyperparameters": {
+          "n_estimators": 200,
+          "learning_rate": 0.1,
+          "max_depth": 3
+        },
+        "candidate_scores": [
+          {
+            "hyperparameters": {
+              "n_estimators": 200,
+              "learning_rate": 0.05,
+              "max_depth": 2
+            },
+            "validation_pr_auc": 0.56515
+          },
+          {
+            "hyperparameters": {
+              "n_estimators": 200,
+              "learning_rate": 0.1,
+              "max_depth": 3
+            },
+            "validation_pr_auc": 0.598644
+          },
+          {
+            "hyperparameters": {
+              "n_estimators": 400,
+              "learning_rate": 0.05,
+              "max_depth": 3
+            },
+            "validation_pr_auc": 0.596948
+          }
+        ],
+        "selection_metric": "validation_pr_auc",
+        "random_seed": 42,
+        "n_train_samples": 1692,
+        "n_train_positive": 104,
+        "feature_dimension": 181,
+        "feature_mode": "multimodal",
+        "extractor": "handcrafted_lab",
+        "preprocessing_version": "carescan-preproc-1",
+        "pipeline_version": "carescan-pipeline-1",
+        "class_weighting": "balanced",
+        "training_duration_seconds": 35.027,
+        "description": "Sequentially boosted shallow trees with per-sample class weights. Usually the strongest classical option on tabular features of this size."
+      },
+      "validation_metrics": {
+        "n_samples": 363,
+        "n_positive": 21,
+        "n_negative": 342,
+        "prevalence": 0.057851,
+        "threshold": 0.5,
+        "accuracy": 0.947658,
+        "precision": 0.545455,
+        "recall": 0.571429,
+        "sensitivity": 0.571429,
+        "specificity": 0.97076,
+        "f1": 0.55814,
+        "balanced_accuracy": 0.771094,
+        "roc_auc": 0.965052,
+        "pr_auc": 0.598644,
+        "brier": 0.034755,
+        "log_loss": 0.113085,
+        "ece": 0.026389,
+        "mean_predicted": 0.065588,
+        "confusion_matrix": {
+          "true_positive": 12,
+          "false_positive": 10,
+          "true_negative": 332,
+          "false_negative": 9,
+          "threshold": 0.5
+        }
+      },
+      "validation_sensitivity_at_specificity_090": {
+        "target_specificity": 0.9,
+        "sensitivity": 0.9048,
+        "achieved_specificity": 0.9006,
+        "threshold": 0.050739186717793344
+      }
+    }
+  },
+  "validation_ranking": [
+    {
+      "model": "random_forest",
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.947658,
+      "precision": 0.5625,
+      "recall": 0.428571,
+      "sensitivity": 0.428571,
+      "specificity": 0.979532,
+      "f1": 0.486486,
+      "balanced_accuracy": 0.704052,
+      "roc_auc": 0.963659,
+      "pr_auc": 0.636768,
+      "brier": 0.04559,
+      "log_loss": 0.186744,
+      "ece": 0.100395,
+      "mean_predicted": 0.153131,
+      "confusion_matrix": {
+        "true_positive": 9,
+        "false_positive": 7,
+        "true_negative": 335,
+        "false_negative": 12,
+        "threshold": 0.5
+      },
+      "rank": 1
+    },
+    {
+      "model": "gradient_boosting",
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.947658,
+      "precision": 0.545455,
+      "recall": 0.571429,
+      "sensitivity": 0.571429,
+      "specificity": 0.97076,
+      "f1": 0.55814,
+      "balanced_accuracy": 0.771094,
+      "roc_auc": 0.965052,
+      "pr_auc": 0.598644,
+      "brier": 0.034755,
+      "log_loss": 0.113085,
+      "ece": 0.026389,
+      "mean_predicted": 0.065588,
+      "confusion_matrix": {
+        "true_positive": 12,
+        "false_positive": 10,
+        "true_negative": 332,
+        "false_negative": 9,
+        "threshold": 0.5
+      },
+      "rank": 2
+    },
+    {
+      "model": "logistic_regression",
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.92562,
+      "precision": 0.4375,
+      "recall": 1.0,
+      "sensitivity": 1.0,
+      "specificity": 0.921053,
+      "f1": 0.608696,
+      "balanced_accuracy": 0.960526,
+      "roc_auc": 0.965608,
+      "pr_auc": 0.587325,
+      "brier": 0.070742,
+      "log_loss": 0.243064,
+      "ece": 0.132113,
+      "mean_predicted": 0.189964,
+      "confusion_matrix": {
+        "true_positive": 21,
+        "false_positive": 27,
+        "true_negative": 315,
+        "false_negative": 0,
+        "threshold": 0.5
+      },
+      "rank": 3
+    }
+  ],
+  "note": "Metrics here are on the validation partition, which was also used to select hyperparameters, so they are optimistic. The honest numbers come from backend.evaluation.evaluate on the held-out test partition."
+}

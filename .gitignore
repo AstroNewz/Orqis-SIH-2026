@@ -1,0 +1,31 @@
+
+# Full AAS source repository — skills are copied selectively into .agent/skills/
+agentic-awesome-skills/
+
+# Flutter generated/build files
+carescan/build/
+carescan/.dart_tool/
+carescan/.flutter-plugins
+carescan/.flutter-plugins-dependencies
+carescan/.packages
+carescan/.pub-cache/
+
+# Python & Backend exclusions
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.db
+*.sqlite3
+.env
+.env.local
+
+
+*.npz
+backend/artifacts/dataset/
+uploads/
+

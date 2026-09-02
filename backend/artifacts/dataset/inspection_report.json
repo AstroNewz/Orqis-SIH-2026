@@ -1,0 +1,959 @@
+{
+  "annotation_format": "VGG Image Annotator (VIA) v2 project JSON; polygon/rect/ellipse/polyline shapes under _via_img_metadata[*].regions",
+  "annotation_tree_counts": {
+    "normal/full": 2145,
+    "normal/region": 2145,
+    "normal/unannotated": 2145,
+    "opmd/full": 125,
+    "opmd/lesion": 125,
+    "opmd/region": 125,
+    "opmd/unannotated": 125,
+    "oral_cancer/full": 20,
+    "oral_cancer/lesion": 20,
+    "oral_cancer/region": 20,
+    "oral_cancer/unannotated": 20,
+    "variation_from_normal/full": 179,
+    "variation_from_normal/lesion": 179,
+    "variation_from_normal/region": 179,
+    "variation_from_normal/unannotated": 179
+  },
+  "binary_label_distribution": {
+    "negative": 2324,
+    "positive": 145
+  },
+  "capture_mode_distribution": {
+    "R": 1981,
+    "W": 420,
+    "unspecified": 68
+  },
+  "class_distribution": {
+    "normal": 2145,
+    "opmd": 125,
+    "oral_cancer": 20,
+    "variation_from_normal": 179
+  },
+  "clinical_feature_availability": {
+    "alcohol": {
+      "known_absent": 286,
+      "n_patients": 304,
+      "present": 18,
+      "unknown": 0
+    },
+    "betel_quid": {
+      "known_absent": 256,
+      "n_patients": 304,
+      "present": 48,
+      "unknown": 0
+    },
+    "smoking": {
+      "known_absent": 266,
+      "n_patients": 304,
+      "present": 38,
+      "unknown": 0
+    }
+  },
+  "clinical_metadata_coverage": {
+    "image_patients_with_demographics": 302,
+    "image_patients_without_demographics": 27,
+    "patients_in_clinical_findings_sheet": 304,
+    "patients_in_demographics_sheet": 304
+  },
+  "cross_class_duplicate_groups": [
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/dorsal_tongue/SMITA00001_W_DT",
+        "variation_from_normal/dorsal_tongue/SMITA00001_W_DT"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/dorsal_tongue/SMITA000233_R_DT",
+        "variation_from_normal/dorsal_tongue/SMITA000233_R_DT"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/dorsal_tongue/SMITA00157_R_DT",
+        "variation_from_normal/dorsal_tongue/SMITA00157_R_DT"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/dorsal_tongue/SMITA00216_W_DT",
+        "variation_from_normal/dorsal_tongue/SMITA00216_W_DT"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/dorsal_tongue/SMITA00262_R_DT",
+        "variation_from_normal/dorsal_tongue/SMITA00262_R_DT"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/dorsal_tongue/SMITA00303_R_DT",
+        "variation_from_normal/dorsal_tongue/SMITA00303_R_DT"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA00001_W_LB",
+        "opmd/left_buccal_mucosa/SMITA00001_W_LB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA000233_R_LB1",
+        "opmd/left_buccal_mucosa/SMITA000233_R_LB1"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA000233_R_LB2",
+        "opmd/left_buccal_mucosa/SMITA000233_R_LB2"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA00111_R_LB",
+        "variation_from_normal/left_buccal_mucosa/SMITA00111_R_LB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA00216_W_LB2",
+        "opmd/left_buccal_mucosa/SMITA00216_W_LB2"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA00262_R_LB",
+        "opmd/left_buccal_mucosa/SMITA00262_R_LB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/left_buccal_mucosa/SMITA00291_R_LB",
+        "opmd/left_buccal_mucosa/SMITA00291_R_LB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/lower_lip/SMITA00220_W_LL1",
+        "variation_from_normal/lower_lip/SMITA00220_W_LL1"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/lower_lip/SMITA00220_W_LL2",
+        "variation_from_normal/lower_lip/SMITA00220_W_LL2"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/lower_lip/SMITA00303_R_LL1",
+        "opmd/lower_lip/SMITA00303_R_LL1"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/lower_lip/SMITA00303_R_LL2",
+        "opmd/lower_lip/SMITA00303_R_LL2"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00001_W_RB",
+        "opmd/right_buccal_mucosa/SMITA00001_W_RB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00059_R_RB",
+        "opmd/right_buccal_mucosa/SMITA00059_R_RB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00157_R_RB",
+        "opmd/right_buccal_mucosa/SMITA00157_R_RB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00216_W_RB",
+        "opmd/right_buccal_mucosa/SMITA00216_W_RB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00220_W_RB",
+        "opmd/right_buccal_mucosa/SMITA00220_W_RB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00262_R_RB1",
+        "opmd/right_buccal_mucosa/SMITA00262_R_RB1"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00262_R_RB2",
+        "opmd/right_buccal_mucosa/SMITA00262_R_RB2"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "opmd"
+      ],
+      "images": [
+        "normal/right_buccal_mucosa/SMITA00291_R_RB",
+        "opmd/right_buccal_mucosa/SMITA00291_R_RB"
+      ]
+    },
+    {
+      "classes": [
+        "normal",
+        "variation_from_normal"
+      ],
+      "images": [
+        "normal/ventral_tongue/SMITA00059_R_VT",
+        "variation_from_normal/ventral_tongue/SMITA00059_R_VT"
+      ]
+    },
+    {
+      "classes": [
+        "opmd",
+        "variation_from_normal"
+      ],
+      "images": [
+        "opmd/left_buccal_mucosa/SMITA00218_W_LB2",
+        "variation_from_normal/left_buccal_mucosa/SMITA00218_W_LB2"
+      ]
+    }
+  ],
+  "dataset_root": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\SMART-OM",
+  "descriptor_label_counts": {
+    "Angular cheilitis": 3,
+    "Attrition": 20,
+    "Candidiasis (Acute atrophic)": 10,
+    "Dental caries": 34,
+    "Dorsal Tongue": 142,
+    "Dorsal tongue": 155,
+    "Extrinsic stains": 58,
+    "Fibroma": 8,
+    "Fissured tongue": 6,
+    "Fordyce granules": 2,
+    "Geographic tongue": 2,
+    "Homogenous Leukoplakia": 65,
+    "Homogenous leukoplakia": 44,
+    "Left Buccal Mucosa": 75,
+    "Left buccal mucosa": 142,
+    "Lower labial mucosa": 274,
+    "Lower right first molar": 19,
+    "Lower right second molar": 66,
+    "Lower right second premolar": 5,
+    "Lower right third molar": 88,
+    "Neoplasm/cancer": 8,
+    "Neoplastic ulcer": 11,
+    "Oral submucous fibrosis": 8,
+    "Out of focus": 31,
+    "Pigmentation": 95,
+    "Right buccal mucosa": 228,
+    "Shadow": 48,
+    "Smoker's palate": 14,
+    "Tobacco pouch keratosis": 29,
+    "Traumatic ulcer": 3,
+    "Upper labial mucosa": 274,
+    "Upper left second molar": 2,
+    "Upper right central incisor": 3,
+    "Upper right first molar": 24,
+    "Upper right first premolar": 6,
+    "Upper right lateral incisor": 2,
+    "Upper right second molar": 96,
+    "Upper right second premolar": 5,
+    "Upper right third molar": 41,
+    "Ventral tongue": 294
+  },
+  "dimension_summary": {
+    "height_max": 4032.0,
+    "height_mean": 1060.2,
+    "height_min": 143.0,
+    "megapixels_max": 9.145,
+    "megapixels_mean": 1.448,
+    "megapixels_min": 0.045,
+    "width_max": 2268.0,
+    "width_mean": 1334.6,
+    "width_min": 211.0
+  },
+  "duplicate_groups": [
+    [
+      "normal/dorsal_tongue/SMITA00001_W_DT",
+      "variation_from_normal/dorsal_tongue/SMITA00001_W_DT"
+    ],
+    [
+      "normal/dorsal_tongue/SMITA000233_R_DT",
+      "variation_from_normal/dorsal_tongue/SMITA000233_R_DT"
+    ],
+    [
+      "normal/dorsal_tongue/SMITA00157_R_DT",
+      "variation_from_normal/dorsal_tongue/SMITA00157_R_DT"
+    ],
+    [
+      "normal/dorsal_tongue/SMITA00216_W_DT",
+      "variation_from_normal/dorsal_tongue/SMITA00216_W_DT"
+    ],
+    [
+      "normal/dorsal_tongue/SMITA00262_R_DT",
+      "variation_from_normal/dorsal_tongue/SMITA00262_R_DT"
+    ],
+    [
+      "normal/dorsal_tongue/SMITA00303_R_DT",
+      "variation_from_normal/dorsal_tongue/SMITA00303_R_DT"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA00001_W_LB",
+      "opmd/left_buccal_mucosa/SMITA00001_W_LB"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA000233_R_LB1",
+      "opmd/left_buccal_mucosa/SMITA000233_R_LB1"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA000233_R_LB2",
+      "opmd/left_buccal_mucosa/SMITA000233_R_LB2"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA00111_R_LB",
+      "variation_from_normal/left_buccal_mucosa/SMITA00111_R_LB"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA00216_W_LB2",
+      "opmd/left_buccal_mucosa/SMITA00216_W_LB2"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA00262_R_LB",
+      "opmd/left_buccal_mucosa/SMITA00262_R_LB"
+    ],
+    [
+      "normal/left_buccal_mucosa/SMITA00291_R_LB",
+      "opmd/left_buccal_mucosa/SMITA00291_R_LB"
+    ],
+    [
+      "normal/lower_lip/SMITA00220_W_LL1",
+      "variation_from_normal/lower_lip/SMITA00220_W_LL1"
+    ],
+    [
+      "normal/lower_lip/SMITA00220_W_LL2",
+      "variation_from_normal/lower_lip/SMITA00220_W_LL2"
+    ],
+    [
+      "normal/lower_lip/SMITA00303_R_LL1",
+      "opmd/lower_lip/SMITA00303_R_LL1"
+    ],
+    [
+      "normal/lower_lip/SMITA00303_R_LL2",
+      "opmd/lower_lip/SMITA00303_R_LL2"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00001_W_RB",
+      "opmd/right_buccal_mucosa/SMITA00001_W_RB"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00059_R_RB",
+      "opmd/right_buccal_mucosa/SMITA00059_R_RB"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00157_R_RB",
+      "opmd/right_buccal_mucosa/SMITA00157_R_RB"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00216_W_RB",
+      "opmd/right_buccal_mucosa/SMITA00216_W_RB"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00220_W_RB",
+      "opmd/right_buccal_mucosa/SMITA00220_W_RB"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00262_R_RB1",
+      "opmd/right_buccal_mucosa/SMITA00262_R_RB1"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00262_R_RB2",
+      "opmd/right_buccal_mucosa/SMITA00262_R_RB2"
+    ],
+    [
+      "normal/right_buccal_mucosa/SMITA00291_R_RB",
+      "opmd/right_buccal_mucosa/SMITA00291_R_RB"
+    ],
+    [
+      "normal/ventral_tongue/SMITA00059_R_VT",
+      "variation_from_normal/ventral_tongue/SMITA00059_R_VT"
+    ],
+    [
+      "opmd/left_buccal_mucosa/SMITA00218_W_LB2",
+      "variation_from_normal/left_buccal_mucosa/SMITA00218_W_LB2"
+    ]
+  ],
+  "exclusion_candidates": {
+    "normal/dorsal_tongue/SMITA00001_W_DT": "pixel-identical to variation_from_normal/dorsal_tongue/SMITA00001_W_DT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/dorsal_tongue/SMITA000233_R_DT": "pixel-identical to variation_from_normal/dorsal_tongue/SMITA000233_R_DT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/dorsal_tongue/SMITA00157_R_DT": "pixel-identical to variation_from_normal/dorsal_tongue/SMITA00157_R_DT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/dorsal_tongue/SMITA00216_W_DT": "pixel-identical to variation_from_normal/dorsal_tongue/SMITA00216_W_DT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/dorsal_tongue/SMITA00262_R_DT": "pixel-identical to variation_from_normal/dorsal_tongue/SMITA00262_R_DT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/dorsal_tongue/SMITA00303_R_DT": "pixel-identical to variation_from_normal/dorsal_tongue/SMITA00303_R_DT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA00001_W_LB": "pixel-identical to opmd/left_buccal_mucosa/SMITA00001_W_LB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA000233_R_LB1": "pixel-identical to opmd/left_buccal_mucosa/SMITA000233_R_LB1 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA000233_R_LB2": "pixel-identical to opmd/left_buccal_mucosa/SMITA000233_R_LB2 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA00111_R_LB": "pixel-identical to variation_from_normal/left_buccal_mucosa/SMITA00111_R_LB but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA00216_W_LB2": "pixel-identical to opmd/left_buccal_mucosa/SMITA00216_W_LB2 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA00262_R_LB": "pixel-identical to opmd/left_buccal_mucosa/SMITA00262_R_LB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/left_buccal_mucosa/SMITA00291_R_LB": "pixel-identical to opmd/left_buccal_mucosa/SMITA00291_R_LB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/lower_lip/SMITA00220_W_LL1": "pixel-identical to variation_from_normal/lower_lip/SMITA00220_W_LL1 but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/lower_lip/SMITA00220_W_LL2": "pixel-identical to variation_from_normal/lower_lip/SMITA00220_W_LL2 but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/lower_lip/SMITA00303_R_LL1": "pixel-identical to opmd/lower_lip/SMITA00303_R_LL1 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/lower_lip/SMITA00303_R_LL2": "pixel-identical to opmd/lower_lip/SMITA00303_R_LL2 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00001_W_RB": "pixel-identical to opmd/right_buccal_mucosa/SMITA00001_W_RB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00059_R_RB": "pixel-identical to opmd/right_buccal_mucosa/SMITA00059_R_RB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00157_R_RB": "pixel-identical to opmd/right_buccal_mucosa/SMITA00157_R_RB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00216_W_RB": "pixel-identical to opmd/right_buccal_mucosa/SMITA00216_W_RB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00220_W_RB": "pixel-identical to opmd/right_buccal_mucosa/SMITA00220_W_RB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00262_R_RB1": "pixel-identical to opmd/right_buccal_mucosa/SMITA00262_R_RB1 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00262_R_RB2": "pixel-identical to opmd/right_buccal_mucosa/SMITA00262_R_RB2 but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/right_buccal_mucosa/SMITA00291_R_RB": "pixel-identical to opmd/right_buccal_mucosa/SMITA00291_R_RB but labelled 'normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label",
+    "normal/ventral_tongue/SMITA00059_R_VT": "pixel-identical to variation_from_normal/ventral_tongue/SMITA00059_R_VT but labelled 'normal' vs 'variation_from_normal'; lower-severity copy dropped to avoid a contradictory label",
+    "variation_from_normal/left_buccal_mucosa/SMITA00218_W_LB2": "pixel-identical to opmd/left_buccal_mucosa/SMITA00218_W_LB2 but labelled 'variation_from_normal' vs 'opmd'; lower-severity copy dropped to avoid a contradictory label"
+  },
+  "generated_by": "backend.training.inspect_dataset",
+  "image_formats": {
+    "JPEG": 2389,
+    "MPO": 72,
+    "PNG": 8
+  },
+  "image_modes": {
+    "RGB": 2461,
+    "RGBA": 8
+  },
+  "images_per_patient": {
+    "CA-0001": 1,
+    "CA-0002": 2,
+    "CA-0003": 1,
+    "CA-0004": 2,
+    "CA-0005": 1,
+    "CA-0006": 1,
+    "CA-0007": 1,
+    "CA-0008": 1,
+    "CA-0009": 1,
+    "CA-0010": 1,
+    "NUM-06026": 1,
+    "NUM-06095": 1,
+    "NUM-06098": 1,
+    "NUM-06099": 1,
+    "NUM-06765": 1,
+    "NUM-06766": 1,
+    "NUM-07059": 1,
+    "NUM-07252": 1,
+    "SER-normal-0005": 8,
+    "SER-normal-0006": 8,
+    "SER-normal-0007": 1,
+    "SER-normal-0008": 6,
+    "SER-normal-0009": 8,
+    "SER-opmd-0008": 1,
+    "SER-variation_from_normal-0010": 1,
+    "SMITA00001": 9,
+    "SMITA00002": 9,
+    "SMITA00003": 5,
+    "SMITA00004": 4,
+    "SMITA00005": 8,
+    "SMITA00006": 16,
+    "SMITA00007": 14,
+    "SMITA00008": 9,
+    "SMITA00009": 10,
+    "SMITA00010": 16,
+    "SMITA00011": 15,
+    "SMITA00012": 17,
+    "SMITA00013": 8,
+    "SMITA00014": 16,
+    "SMITA00015": 16,
+    "SMITA00016": 14,
+    "SMITA00017": 12,
+    "SMITA00018": 13,
+    "SMITA00019": 10,
+    "SMITA00020": 13,
+    "SMITA00021": 15,
+    "SMITA00022": 8,
+    "SMITA00023": 4,
+    "SMITA00024": 9,
+    "SMITA00025": 7,
+    "SMITA00026": 6,
+    "SMITA00027": 14,
+    "SMITA00028": 8,
+    "SMITA00031": 5,
+    "SMITA00034": 10,
+    "SMITA00035": 8,
+    "SMITA00036": 7,
+    "SMITA00037": 8,
+    "SMITA00038": 9,
+    "SMITA00039": 8,
+    "SMITA00040": 8,
+    "SMITA00041": 8,
+    "SMITA00042": 8,
+    "SMITA00044": 8,
+    "SMITA00045": 9,
+    "SMITA00046": 8,
+    "SMITA00047": 7,
+    "SMITA00048": 6,
+    "SMITA00050": 8,
+    "SMITA00051": 8,
+    "SMITA00052": 4,
+    "SMITA00053": 8,
+    "SMITA00054": 8,
+    "SMITA00055": 8,
+    "SMITA00056": 8,
+    "SMITA00057": 8,
+    "SMITA00058": 8,
+    "SMITA00059": 11,
+    "SMITA00060": 8,
+    "SMITA00061": 8,
+    "SMITA00062": 6,
+    "SMITA00063": 2,
+    "SMITA00064": 8,
+    "SMITA00065": 8,
+    "SMITA00066": 8,
+    "SMITA00067": 8,
+    "SMITA00069": 8,
+    "SMITA00070": 8,
+    "SMITA00071": 8,
+    "SMITA00072": 9,
+    "SMITA00073": 8,
+    "SMITA00074": 8,
+    "SMITA00075": 5,
+    "SMITA00076": 7,
+    "SMITA00080": 8,
+    "SMITA00081": 3,
+    "SMITA00082": 8,
+    "SMITA00083": 8,
+    "SMITA00084": 8,
+    "SMITA00086": 8,
+    "SMITA00087": 6,
+    "SMITA00088": 1,
+    "SMITA00089": 8,
+    "SMITA00090": 8,
+    "SMITA00092": 8,
+    "SMITA00104": 8,
+    "SMITA00105": 8,
+    "SMITA00106": 8,
+    "SMITA00107": 8,
+    "SMITA00108": 7,
+    "SMITA00109": 8,
+    "SMITA00110": 8,
+    "SMITA00111": 5,
+    "SMITA00112": 9,
+    "SMITA00113": 7,
+    "SMITA00114": 8,
+    "SMITA00115": 7,
+    "SMITA00116": 3,
+    "SMITA00117": 8,
+    "SMITA00125": 8,
+    "SMITA00126": 8,
+    "SMITA00127": 8,
+    "SMITA00128": 8,
+    "SMITA00129": 1,
+    "SMITA00130": 8,
+    "SMITA00131": 7,
+    "SMITA00132": 8,
+    "SMITA00133": 8,
+    "SMITA00134": 8,
+    "SMITA00135": 8,
+    "SMITA00136": 8,
+    "SMITA00137": 8,
+    "SMITA00138": 8,
+    "SMITA00141": 7,
+    "SMITA00142": 8,
+    "SMITA00143": 8,
+    "SMITA00144": 8,
+    "SMITA00145": 8,
+    "SMITA00146": 8,
+    "SMITA00147": 8,
+    "SMITA00148": 8,
+    "SMITA00149": 8,
+    "SMITA00150": 6,
+    "SMITA00151": 6,
+    "SMITA00152": 8,
+    "SMITA00153": 8,
+    "SMITA00154": 8,
+    "SMITA00155": 8,
+    "SMITA00156": 8,
+    "SMITA00157": 8,
+    "SMITA00158": 8,
+    "SMITA00159": 8,
+    "SMITA00160": 8,
+    "SMITA00161": 8,
+    "SMITA00162": 8,
+    "SMITA00163": 8,
+    "SMITA00164": 8,
+    "SMITA00165": 8,
+    "SMITA00166": 8,
+    "SMITA00167": 9,
+    "SMITA00168": 8,
+    "SMITA00169": 8,
+    "SMITA00170": 8,
+    "SMITA00171": 8,
+    "SMITA00172": 8,
+    "SMITA00173": 5,
+    "SMITA00174": 8,
+    "SMITA00176": 8,
+    "SMITA00177": 8,
+    "SMITA00178": 8,
+    "SMITA00179": 8,
+    "SMITA00180": 5,
+    "SMITA00181": 8,
+    "SMITA00182": 8,
+    "SMITA00183": 7,
+    "SMITA00184": 8,
+    "SMITA00185": 8,
+    "SMITA00186": 8,
+    "SMITA00187": 7,
+    "SMITA00189": 8,
+    "SMITA00190": 8,
+    "SMITA00191": 8,
+    "SMITA00192": 8,
+    "SMITA00193": 8,
+    "SMITA00194": 9,
+    "SMITA00195": 8,
+    "SMITA00196": 8,
+    "SMITA00197": 8,
+    "SMITA00199": 8,
+    "SMITA00201": 8,
+    "SMITA00202": 8,
+    "SMITA00203": 8,
+    "SMITA00204": 8,
+    "SMITA00205": 8,
+    "SMITA00206": 8,
+    "SMITA00207": 8,
+    "SMITA00210": 8,
+    "SMITA00211": 8,
+    "SMITA00212": 9,
+    "SMITA00213": 8,
+    "SMITA00214": 9,
+    "SMITA00215": 8,
+    "SMITA00216": 12,
+    "SMITA00217": 9,
+    "SMITA00218": 10,
+    "SMITA00219": 7,
+    "SMITA00220": 12,
+    "SMITA00221": 16,
+    "SMITA00222": 9,
+    "SMITA00223": 9,
+    "SMITA00224": 8,
+    "SMITA00225": 8,
+    "SMITA00226": 1,
+    "SMITA00228": 8,
+    "SMITA00229": 8,
+    "SMITA00230": 8,
+    "SMITA00231": 8,
+    "SMITA00232": 8,
+    "SMITA00233": 12,
+    "SMITA00234": 8,
+    "SMITA00235": 8,
+    "SMITA00236": 8,
+    "SMITA00237": 8,
+    "SMITA00238": 8,
+    "SMITA00239": 8,
+    "SMITA00240": 8,
+    "SMITA00241": 7,
+    "SMITA00242": 8,
+    "SMITA00243": 8,
+    "SMITA00244": 8,
+    "SMITA00245": 8,
+    "SMITA00246": 8,
+    "SMITA00247": 8,
+    "SMITA00248": 8,
+    "SMITA00249": 8,
+    "SMITA00250": 8,
+    "SMITA00251": 8,
+    "SMITA00252": 8,
+    "SMITA00253": 8,
+    "SMITA00254": 8,
+    "SMITA00255": 8,
+    "SMITA00256": 7,
+    "SMITA00257": 8,
+    "SMITA00258": 8,
+    "SMITA00259": 8,
+    "SMITA00260": 8,
+    "SMITA00261": 9,
+    "SMITA00262": 13,
+    "SMITA00263": 7,
+    "SMITA00264": 8,
+    "SMITA00265": 8,
+    "SMITA00266": 8,
+    "SMITA00267": 8,
+    "SMITA00268": 7,
+    "SMITA00269": 5,
+    "SMITA00270": 8,
+    "SMITA00271": 8,
+    "SMITA00272": 6,
+    "SMITA00273": 6,
+    "SMITA00274": 7,
+    "SMITA00275": 7,
+    "SMITA00276": 5,
+    "SMITA00277": 4,
+    "SMITA00278": 3,
+    "SMITA00279": 3,
+    "SMITA00280": 5,
+    "SMITA00281": 4,
+    "SMITA00282": 3,
+    "SMITA00283": 7,
+    "SMITA00284": 7,
+    "SMITA00285": 8,
+    "SMITA00286": 8,
+    "SMITA00287": 7,
+    "SMITA00288": 7,
+    "SMITA00289": 7,
+    "SMITA00290": 4,
+    "SMITA00291": 8,
+    "SMITA00292": 8,
+    "SMITA00293": 8,
+    "SMITA00294": 8,
+    "SMITA00295": 8,
+    "SMITA00296": 8,
+    "SMITA00297": 8,
+    "SMITA00298": 8,
+    "SMITA00299": 8,
+    "SMITA00300": 8,
+    "SMITA00301": 8,
+    "SMITA00302": 5,
+    "SMITA00303": 12,
+    "SMITA00304": 7,
+    "SMITA00305": 8,
+    "SMITA00306": 8,
+    "SMITA00307": 4,
+    "SMITA00308": 8,
+    "SMITA00309": 8,
+    "SMITA00310": 8,
+    "SMITA00311": 8,
+    "SMITA00313": 7,
+    "SMITA00314": 8,
+    "SMITA00315": 8,
+    "SMITA00316": 8,
+    "SMITA00317": 8,
+    "SMITA00318": 8,
+    "SMITA00319": 8,
+    "SMITA00320": 8,
+    "SMITA00321": 8,
+    "SMITA00322": 8,
+    "SMITA00323": 8,
+    "SMITA00324": 8,
+    "SMITA00325": 8,
+    "SMITA00326": 8,
+    "SMITA00327": 8,
+    "SMITA00328": 2,
+    "SMITA00329": 8,
+    "SMITA00330": 8,
+    "SMITA00331": 8,
+    "SMITA00332": 8,
+    "SMITA00333": 8,
+    "SMITA00334": 8,
+    "SMITA00335": 8,
+    "SMITA00336": 7,
+    "SMITA00337": 8,
+    "SMITA00338": 7,
+    "SMITA00339": 8,
+    "SMITA00341": 8,
+    "SMITA00343": 8,
+    "SMITA00344": 8,
+    "SMITA00345": 8,
+    "SMITA00346": 8
+  },
+  "images_per_patient_histogram": {
+    "1": 22,
+    "10": 4,
+    "11": 1,
+    "12": 5,
+    "13": 3,
+    "14": 3,
+    "15": 2,
+    "16": 5,
+    "17": 1,
+    "2": 4,
+    "3": 5,
+    "4": 7,
+    "5": 10,
+    "6": 9,
+    "7": 27,
+    "8": 205,
+    "9": 16
+  },
+  "images_without_descriptor": [
+    "normal/ventral_tongue/SMITA00145_R_VT",
+    "normal/right_buccal_mucosa/SMITA00044_R_RB",
+    "normal/lower_lip/SMITA00205_R_LINGUAL",
+    "variation_from_normal/ventral_tongue/SMITA00023_R_VT1",
+    "variation_from_normal/ventral_tongue/SMITA00023_R_VT2",
+    "variation_from_normal/ventral_tongue/SMITA00023_R_VT3",
+    "variation_from_normal/ventral_tongue/SMITA00059_R_VT",
+    "variation_from_normal/ventral_tongue/SMITA00194_R_VT",
+    "variation_from_normal/left_buccal_mucosa/SMITA00111_R_LB",
+    "variation_from_normal/lower_lip/10 - LL",
+    "opmd/left_buccal_mucosa/8 - LB"
+  ],
+  "label_type": "multiclass(4) reduced to binary screening target",
+  "n_cross_class_duplicate_groups": 27,
+  "n_duplicate_images": 27,
+  "n_images_all_trees": 7731,
+  "n_images_canonical": 2469,
+  "n_images_without_descriptor": 11,
+  "n_patients": 329,
+  "n_patients_multi_class": 140,
+  "n_unreadable": 0,
+  "patient_id_sources": {
+    "ca_series": 12,
+    "legacy_numeric": 33,
+    "numeric": 8,
+    "smita": 2416
+  },
+  "patients_per_class": {
+    "normal": 305,
+    "opmd": 64,
+    "oral_cancer": 18,
+    "variation_from_normal": 110
+  },
+  "patients_per_stratum": {
+    "normal": 166,
+    "opmd": 64,
+    "oral_cancer": 18,
+    "variation_from_normal": 81
+  },
+  "positive_classes": [
+    "opmd",
+    "oral_cancer"
+  ],
+  "roi_availability": {
+    "lesion_polygon": 318,
+    "no_polygon": 615,
+    "region_polygon_only": 1536
+  },
+  "site_distribution": {
+    "dorsal_tongue": 327,
+    "left_buccal_mucosa": 330,
+    "lower_arch": 291,
+    "lower_lip": 315,
+    "right_buccal_mucosa": 334,
+    "upper_arch": 287,
+    "upper_lip": 275,
+    "ventral_tongue": 310
+  },
+  "unmatched_descriptor_keys": [
+    "normal::smita00044rr",
+    "normal::smita00145vt",
+    "opmd::smitar8lb",
+    "variation_from_normal::smita00023rt1",
+    "variation_from_normal::smita00023rt2",
+    "variation_from_normal::smita00023rt3",
+    "variation_from_normal::smita00059rt",
+    "variation_from_normal::smita00131rlb",
+    "variation_from_normal::smita00194rt"
+  ],
+  "unmatched_paths": [],
+  "unreadable_images": [],
+  "warnings": []
+}

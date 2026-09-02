@@ -1,0 +1,271 @@
+{
+  "model_version": "v1-handcrafted",
+  "created_at": "2026-09-01T20:10:20.818647+00:00",
+  "pipeline": {
+    "pipeline_version": "carescan-pipeline-1",
+    "preprocessing_version": "carescan-preproc-1",
+    "feature_mode": "multimodal",
+    "target_size": [
+      224,
+      224
+    ],
+    "center_crop_fraction": 0.8,
+    "image_extractor": {
+      "name": "handcrafted_lab",
+      "version": "1",
+      "input_shape": [
+        224,
+        224,
+        3
+      ],
+      "feature_dimension": 163,
+      "preprocessing_version": "carescan-preproc-1",
+      "weights_source": "none (closed-form descriptor)",
+      "deterministic": true,
+      "notes": "4x4 CIELAB cell statistics, 12-bin per-channel histograms, gradient-energy texture, chromatic and specular summaries."
+    },
+    "clinical_encoder": {
+      "version": "clinical-encoder-1",
+      "fitted": true,
+      "n_features": 18,
+      "n_fit_rows": 1646
+    },
+    "fusion": {
+      "version": "fusion-1",
+      "mode": "multimodal",
+      "n_image_features": 163,
+      "n_clinical_features": 18,
+      "n_features": 181
+    },
+    "reduction": {
+      "version": "reduction-1",
+      "method": "identity",
+      "n_features_in": 181,
+      "n_components": 181,
+      "target_dimension": 256,
+      "qubits": 8,
+      "pads_to_target": true,
+      "zero_padded_slots": 75,
+      "explained_variance_ratio": 1.0,
+      "whiten": false,
+      "n_samples_seen": 1692
+    },
+    "n_qubits": 8,
+    "quantum_dimension": 256,
+    "training_metadata": {}
+  },
+  "training": {
+    "entry_point": "backend.training.train_classical",
+    "random_seed": 42,
+    "screening_threshold": 0.5,
+    "dataset": {
+      "extractor": "handcrafted_lab",
+      "feature_mode": "multimodal",
+      "n_qubits": 8,
+      "quantum_dimension": 256,
+      "n_reduced_features": 181,
+      "explained_variance_ratio": 1.0,
+      "split_seed": 42,
+      "positive_classes": [
+        "opmd",
+        "oral_cancer"
+      ],
+      "partitions": [
+        {
+          "partition": "train",
+          "n_images": 1692,
+          "n_patients": 230,
+          "n_positive": 104,
+          "n_negative": 1588,
+          "prevalence": 0.0615,
+          "n_reduced_features": 181
+        },
+        {
+          "partition": "validation",
+          "n_images": 363,
+          "n_patients": 50,
+          "n_positive": 21,
+          "n_negative": 342,
+          "prevalence": 0.0579,
+          "n_reduced_features": 181
+        },
+        {
+          "partition": "test",
+          "n_images": 381,
+          "n_patients": 48,
+          "n_positive": 18,
+          "n_negative": 363,
+          "prevalence": 0.0472,
+          "n_reduced_features": 181
+        }
+      ]
+    },
+    "class_balance": {
+      "train": {
+        "normal": 1471,
+        "opmd": 90,
+        "oral_cancer": 14,
+        "variation_from_normal": 117
+      },
+      "validation": {
+        "normal": 311,
+        "opmd": 18,
+        "oral_cancer": 3,
+        "variation_from_normal": 31
+      },
+      "test": {
+        "normal": 332,
+        "opmd": 16,
+        "oral_cancer": 2,
+        "variation_from_normal": 31
+      }
+    },
+    "cache_metadata": {
+      "cache_version": "features-1",
+      "extractor": "handcrafted_lab",
+      "extractor_info": {
+        "name": "handcrafted_lab",
+        "version": "1",
+        "input_shape": [
+          224,
+          224,
+          3
+        ],
+        "feature_dimension": 163,
+        "preprocessing_version": "carescan-preproc-1",
+        "weights_source": "none (closed-form descriptor)",
+        "deterministic": true,
+        "notes": "4x4 CIELAB cell statistics, 12-bin per-channel histograms, gradient-energy texture, chromatic and specular summaries."
+      },
+      "preprocessing_version": "carescan-preproc-1",
+      "rejections": {
+        "normal/dorsal_tongue/SMITA00036_R_DT": [
+          "insufficient_illumination"
+        ],
+        "normal/ventral_tongue/SMITA00012_R_VT": [
+          "excessive_illumination"
+        ],
+        "normal/ventral_tongue/SMITA00021_W_VT": [
+          "insufficient_resolution"
+        ],
+        "normal/ventral_tongue/SMITA00022_R_VT": [
+          "excessive_blur"
+        ],
+        "normal/ventral_tongue/SMITA00177_W_VT": [
+          "excessive_blur"
+        ],
+        "normal/left_buccal_mucosa/SMITA00190_R_LB": [
+          "excessive_blur"
+        ],
+        "normal/left_buccal_mucosa/SMITA00286_R_LB": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/5 - UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00009_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00066_R-UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00083_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00086_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00089_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00092_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00104_R_UL": [
+          "excessive_illumination",
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00135_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00160_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00162_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00167_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00171_R_UL": [
+          "excessive_blur"
+        ],
+        "normal/upper_lip/SMITA00185_W_UL": [
+          "excessive_blur",
+          "insufficient_resolution"
+        ],
+        "normal/lower_lip/SMITA00021_W_LL": [
+          "insufficient_resolution"
+        ],
+        "normal/lower_lip/SMITA00050_R_LL": [
+          "excessive_blur"
+        ],
+        "normal/lower_lip/SMITA00061_R_LL": [
+          "excessive_blur"
+        ],
+        "normal/lower_lip/SMITA00090_R_LL": [
+          "excessive_blur"
+        ],
+        "normal/lower_lip/SMITA00104_R_LL": [
+          "excessive_blur"
+        ],
+        "normal/lower_lip/SMITA00115_R_LL": [
+          "excessive_illumination"
+        ],
+        "normal/lower_lip/SMITA00125_R_LL": [
+          "excessive_blur"
+        ],
+        "normal/lower_lip/SMITA00309_R_LL": [
+          "excessive_blur"
+        ],
+        "normal/lower_lip/SMITA00319_R__LL": [
+          "excessive_blur"
+        ],
+        "normal/upper_arch/SMITA00185_W_UA": [
+          "excessive_blur"
+        ],
+        "opmd/upper_lip/SMITA00187_W_UL": [
+          "insufficient_resolution"
+        ],
+        "oral_cancer/right_buccal_mucosa/Ca 8": [
+          "insufficient_resolution",
+          "incomplete_lesion_visibility"
+        ]
+      },
+      "failures": {},
+      "n_candidates": 2469,
+      "duration_seconds": 202.47784560000036
+    }
+  },
+  "calibration": {
+    "method": "platt",
+    "fitted_on": "train+validation",
+    "n_fit_samples": 2055,
+    "n_fit_positive": 125,
+    "out_of_fold_brier": 0.05100741093793388,
+    "scored_in_mode": "ideal_simulation",
+    "recommended_threshold": 0.040673343495943814,
+    "recommended_threshold_target_sensitivity": 0.85,
+    "recommended_high_risk_threshold": 0.18868649139171967,
+    "recommended_high_risk_target_specificity": 0.95
+  },
+  "evaluation": {
+    "evaluated_at": "2026-09-01T22:44:37.342476+00:00",
+    "times_scored": 3,
+    "execution_mode": "ideal_simulation",
+    "best_model": "random_forest",
+    "quantum_rank": 4,
+    "quantum_test_pr_auc": 0.21803823717358226,
+    "target_sensitivity": 0.85
+  }
+}

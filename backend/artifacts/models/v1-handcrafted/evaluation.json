@@ -1,0 +1,583 @@
+{
+  "model_version": "v1-handcrafted",
+  "evaluated_at": "2026-09-01T22:44:37.342476+00:00",
+  "times_scored": 3,
+  "test_partition_used": true,
+  "partition_summary": {
+    "train": {
+      "partition": "train",
+      "n_images": 1692,
+      "n_patients": 230,
+      "n_positive": 104,
+      "n_negative": 1588,
+      "prevalence": 0.0615,
+      "n_reduced_features": 181
+    },
+    "validation": {
+      "partition": "validation",
+      "n_images": 363,
+      "n_patients": 50,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.0579,
+      "n_reduced_features": 181
+    },
+    "test": {
+      "partition": "test",
+      "n_images": 381,
+      "n_patients": 48,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.0472,
+      "n_reduced_features": 181
+    }
+  },
+  "feature_representation": {
+    "extractor": "handcrafted_lab",
+    "feature_mode": "multimodal",
+    "n_reduced_features": 181,
+    "preprocessing_version": "carescan-preproc-1",
+    "pipeline_version": "carescan-pipeline-1",
+    "note": "Every model below was scored on this matrix, produced by the persisted pipeline and never refitted. Differences are model differences, not preprocessing differences."
+  },
+  "quantum": {
+    "n_qubits": 8,
+    "n_layers": 2,
+    "n_parameters": 32,
+    "ansatz_depth": 20,
+    "amplitude_dimension": 256,
+    "execution_mode": "ideal_simulation",
+    "backend_name": "aer_simulator_statevector",
+    "shots": null,
+    "requested_mode": "ideal_simulation",
+    "fell_back": false,
+    "fallback_reason": null,
+    "calibration_method": "platt",
+    "calibrator_fitted_on": "train+validation",
+    "calibrator_scored_in_mode": "ideal_simulation",
+    "raw_test_score_range": [
+      0.383062,
+      0.566839
+    ]
+  },
+  "target_sensitivity": 0.85,
+  "operating_points": {
+    "quantum_vqc_calibrated": {
+      "target_sensitivity": 0.85,
+      "threshold": 0.044447651484417344,
+      "sensitivity": 0.8571,
+      "specificity": 0.5994,
+      "precision": 0.1161,
+      "n_flagged": 155,
+      "false_negative": 3,
+      "model": "quantum_vqc_calibrated",
+      "chosen_on": "validation",
+      "is_clinically_validated": false
+    },
+    "logistic_regression": {
+      "target_sensitivity": 0.85,
+      "threshold": 0.6450508367171909,
+      "sensitivity": 0.8571,
+      "specificity": 0.9327,
+      "precision": 0.439,
+      "n_flagged": 41,
+      "false_negative": 3,
+      "model": "logistic_regression",
+      "chosen_on": "validation",
+      "is_clinically_validated": false
+    },
+    "random_forest": {
+      "target_sensitivity": 0.85,
+      "threshold": 0.33656920745269797,
+      "sensitivity": 0.8571,
+      "specificity": 0.9269,
+      "precision": 0.4186,
+      "n_flagged": 43,
+      "false_negative": 3,
+      "model": "random_forest",
+      "chosen_on": "validation",
+      "is_clinically_validated": false
+    },
+    "gradient_boosting": {
+      "target_sensitivity": 0.85,
+      "threshold": 0.08983356385473223,
+      "sensitivity": 0.8571,
+      "specificity": 0.9357,
+      "precision": 0.45,
+      "n_flagged": 40,
+      "false_negative": 3,
+      "model": "gradient_boosting",
+      "chosen_on": "validation",
+      "is_clinically_validated": false
+    }
+  },
+  "test_metrics": {
+    "quantum_vqc_calibrated": {
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.044447651484417344,
+      "accuracy": 0.685039,
+      "precision": 0.095238,
+      "recall": 0.666667,
+      "sensitivity": 0.666667,
+      "specificity": 0.68595,
+      "f1": 0.166667,
+      "balanced_accuracy": 0.676309,
+      "roc_auc": 0.767065,
+      "pr_auc": 0.218038,
+      "brier": 0.042228,
+      "log_loss": 0.168593,
+      "ece": 0.022242,
+      "mean_predicted": 0.052914,
+      "confusion_matrix": {
+        "true_positive": 12,
+        "false_positive": 114,
+        "true_negative": 249,
+        "false_negative": 6,
+        "threshold": 0.044447651484417344
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ]
+    },
+    "logistic_regression": {
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.6450508367171909,
+      "accuracy": 0.905512,
+      "precision": 0.295455,
+      "recall": 0.722222,
+      "sensitivity": 0.722222,
+      "specificity": 0.914601,
+      "f1": 0.419355,
+      "balanced_accuracy": 0.818411,
+      "roc_auc": 0.92562,
+      "pr_auc": 0.51253,
+      "brier": 0.090308,
+      "log_loss": 0.288913,
+      "ece": 0.14722,
+      "mean_predicted": 0.194464,
+      "confusion_matrix": {
+        "true_positive": 13,
+        "false_positive": 31,
+        "true_negative": 332,
+        "false_negative": 5,
+        "threshold": 0.6450508367171909
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ]
+    },
+    "random_forest": {
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.33656920745269797,
+      "accuracy": 0.923885,
+      "precision": 0.358974,
+      "recall": 0.777778,
+      "sensitivity": 0.777778,
+      "specificity": 0.931129,
+      "f1": 0.491228,
+      "balanced_accuracy": 0.854454,
+      "roc_auc": 0.941077,
+      "pr_auc": 0.575009,
+      "brier": 0.041724,
+      "log_loss": 0.172782,
+      "ece": 0.093169,
+      "mean_predicted": 0.136939,
+      "confusion_matrix": {
+        "true_positive": 14,
+        "false_positive": 25,
+        "true_negative": 338,
+        "false_negative": 4,
+        "threshold": 0.33656920745269797
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ]
+    },
+    "gradient_boosting": {
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.08983356385473223,
+      "accuracy": 0.913386,
+      "precision": 0.333333,
+      "recall": 0.833333,
+      "sensitivity": 0.833333,
+      "specificity": 0.917355,
+      "f1": 0.47619,
+      "balanced_accuracy": 0.875344,
+      "roc_auc": 0.93266,
+      "pr_auc": 0.562539,
+      "brier": 0.030477,
+      "log_loss": 0.110955,
+      "ece": 0.016755,
+      "mean_predicted": 0.054827,
+      "confusion_matrix": {
+        "true_positive": 15,
+        "false_positive": 30,
+        "true_negative": 333,
+        "false_negative": 3,
+        "threshold": 0.08983356385473223
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ]
+    }
+  },
+  "test_metrics_at_configured_threshold": {
+    "threshold": 0.040673343495943814,
+    "bands_source": "calibration_artifact",
+    "note": "The model's shipped screening threshold applied to every model. Reported for reference only: it is one number applied to models whose score distributions differ, so it is not a fair comparison and is not what the ranking uses.",
+    "metrics": {
+      "quantum_vqc_calibrated": {
+        "n_samples": 381,
+        "n_positive": 18,
+        "n_negative": 363,
+        "prevalence": 0.047244,
+        "threshold": 0.040673343495943814,
+        "accuracy": 0.664042,
+        "precision": 0.089552,
+        "recall": 0.666667,
+        "sensitivity": 0.666667,
+        "specificity": 0.663912,
+        "f1": 0.157895,
+        "balanced_accuracy": 0.665289,
+        "roc_auc": 0.767065,
+        "pr_auc": 0.218038,
+        "brier": 0.042228,
+        "log_loss": 0.168593,
+        "ece": 0.022242,
+        "mean_predicted": 0.052914,
+        "confusion_matrix": {
+          "true_positive": 12,
+          "false_positive": 122,
+          "true_negative": 241,
+          "false_negative": 6,
+          "threshold": 0.040673343495943814
+        },
+        "notes": [
+          "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+        ]
+      },
+      "logistic_regression": {
+        "n_samples": 381,
+        "n_positive": 18,
+        "n_negative": 363,
+        "prevalence": 0.047244,
+        "threshold": 0.040673343495943814,
+        "accuracy": 0.469816,
+        "precision": 0.081818,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 0.443526,
+        "f1": 0.151261,
+        "balanced_accuracy": 0.721763,
+        "roc_auc": 0.92562,
+        "pr_auc": 0.51253,
+        "brier": 0.090308,
+        "log_loss": 0.288913,
+        "ece": 0.14722,
+        "mean_predicted": 0.194464,
+        "confusion_matrix": {
+          "true_positive": 18,
+          "false_positive": 202,
+          "true_negative": 161,
+          "false_negative": 0,
+          "threshold": 0.040673343495943814
+        },
+        "notes": [
+          "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+        ]
+      },
+      "random_forest": {
+        "n_samples": 381,
+        "n_positive": 18,
+        "n_negative": 363,
+        "prevalence": 0.047244,
+        "threshold": 0.040673343495943814,
+        "accuracy": 0.307087,
+        "precision": 0.06383,
+        "recall": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 0.272727,
+        "f1": 0.12,
+        "balanced_accuracy": 0.636364,
+        "roc_auc": 0.941077,
+        "pr_auc": 0.575009,
+        "brier": 0.041724,
+        "log_loss": 0.172782,
+        "ece": 0.093169,
+        "mean_predicted": 0.136939,
+        "confusion_matrix": {
+          "true_positive": 18,
+          "false_positive": 264,
+          "true_negative": 99,
+          "false_negative": 0,
+          "threshold": 0.040673343495943814
+        },
+        "notes": [
+          "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+        ]
+      },
+      "gradient_boosting": {
+        "n_samples": 381,
+        "n_positive": 18,
+        "n_negative": 363,
+        "prevalence": 0.047244,
+        "threshold": 0.040673343495943814,
+        "accuracy": 0.879265,
+        "precision": 0.266667,
+        "recall": 0.888889,
+        "sensitivity": 0.888889,
+        "specificity": 0.878788,
+        "f1": 0.410256,
+        "balanced_accuracy": 0.883838,
+        "roc_auc": 0.93266,
+        "pr_auc": 0.562539,
+        "brier": 0.030477,
+        "log_loss": 0.110955,
+        "ece": 0.016755,
+        "mean_predicted": 0.054827,
+        "confusion_matrix": {
+          "true_positive": 16,
+          "false_positive": 44,
+          "true_negative": 319,
+          "false_negative": 2,
+          "threshold": 0.040673343495943814
+        },
+        "notes": [
+          "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+        ]
+      }
+    }
+  },
+  "sensitivity_at_specificity_090": {
+    "quantum_vqc_calibrated": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.3333,
+      "achieved_specificity": 0.9697,
+      "threshold": 0.20832747621123732
+    },
+    "logistic_regression": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.7222,
+      "achieved_specificity": 0.9284,
+      "threshold": 0.7047012203364744
+    },
+    "random_forest": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.8333,
+      "achieved_specificity": 0.9229,
+      "threshold": 0.31297278506848225
+    },
+    "gradient_boosting": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.8889,
+      "achieved_specificity": 0.9008,
+      "threshold": 0.0584242174506956
+    }
+  },
+  "ranking": [
+    {
+      "model": "random_forest",
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.33656920745269797,
+      "accuracy": 0.923885,
+      "precision": 0.358974,
+      "recall": 0.777778,
+      "sensitivity": 0.777778,
+      "specificity": 0.931129,
+      "f1": 0.491228,
+      "balanced_accuracy": 0.854454,
+      "roc_auc": 0.941077,
+      "pr_auc": 0.575009,
+      "brier": 0.041724,
+      "log_loss": 0.172782,
+      "ece": 0.093169,
+      "mean_predicted": 0.136939,
+      "confusion_matrix": {
+        "true_positive": 14,
+        "false_positive": 25,
+        "true_negative": 338,
+        "false_negative": 4,
+        "threshold": 0.33656920745269797
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ],
+      "rank": 1
+    },
+    {
+      "model": "gradient_boosting",
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.08983356385473223,
+      "accuracy": 0.913386,
+      "precision": 0.333333,
+      "recall": 0.833333,
+      "sensitivity": 0.833333,
+      "specificity": 0.917355,
+      "f1": 0.47619,
+      "balanced_accuracy": 0.875344,
+      "roc_auc": 0.93266,
+      "pr_auc": 0.562539,
+      "brier": 0.030477,
+      "log_loss": 0.110955,
+      "ece": 0.016755,
+      "mean_predicted": 0.054827,
+      "confusion_matrix": {
+        "true_positive": 15,
+        "false_positive": 30,
+        "true_negative": 333,
+        "false_negative": 3,
+        "threshold": 0.08983356385473223
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ],
+      "rank": 2
+    },
+    {
+      "model": "logistic_regression",
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.6450508367171909,
+      "accuracy": 0.905512,
+      "precision": 0.295455,
+      "recall": 0.722222,
+      "sensitivity": 0.722222,
+      "specificity": 0.914601,
+      "f1": 0.419355,
+      "balanced_accuracy": 0.818411,
+      "roc_auc": 0.92562,
+      "pr_auc": 0.51253,
+      "brier": 0.090308,
+      "log_loss": 0.288913,
+      "ece": 0.14722,
+      "mean_predicted": 0.194464,
+      "confusion_matrix": {
+        "true_positive": 13,
+        "false_positive": 31,
+        "true_negative": 332,
+        "false_negative": 5,
+        "threshold": 0.6450508367171909
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ],
+      "rank": 3
+    },
+    {
+      "model": "quantum_vqc_calibrated",
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "prevalence": 0.047244,
+      "threshold": 0.044447651484417344,
+      "accuracy": 0.685039,
+      "precision": 0.095238,
+      "recall": 0.666667,
+      "sensitivity": 0.666667,
+      "specificity": 0.68595,
+      "f1": 0.166667,
+      "balanced_accuracy": 0.676309,
+      "roc_auc": 0.767065,
+      "pr_auc": 0.218038,
+      "brier": 0.042228,
+      "log_loss": 0.168593,
+      "ece": 0.022242,
+      "mean_predicted": 0.052914,
+      "confusion_matrix": {
+        "true_positive": 12,
+        "false_positive": 114,
+        "true_negative": 249,
+        "false_negative": 6,
+        "threshold": 0.044447651484417344
+      },
+      "notes": [
+        "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+      ],
+      "rank": 4
+    }
+  ],
+  "verdict": {
+    "statement": "The quantum model ranks 4 of 4 on the held-out test set: PR-AUC 0.2180 against random_forest at 0.5750. On this dataset the variational circuit does not outperform a classical baseline. The test partition contains only 18 positive images, so the ordering between models is not statistically meaningful and should not be quoted as a result about quantum machine learning in general.",
+    "quantum_rank": 4,
+    "n_models": 4,
+    "best_model": "random_forest",
+    "quantum_pr_auc": 0.21803823717358226,
+    "best_pr_auc": 0.5750091063509937,
+    "pr_auc_gap": 0.356971,
+    "n_test_positive": 18,
+    "statistically_underpowered": true,
+    "quantum_outperforms_classical": false
+  },
+  "risk_band_reachability": {
+    "screening_threshold": 0.040673343495943814,
+    "high_risk_threshold": 0.18868649139171967,
+    "bands_source": "calibration_artifact",
+    "observed_raw_range": [
+      0.38306186932783604,
+      0.5668392689586712
+    ],
+    "observed_calibrated_range": [
+      0.0009493200092961206,
+      0.41265132578559327
+    ],
+    "theoretical_calibrated_range": [
+      9.954679871288803e-10,
+      0.9999997537109122
+    ],
+    "screening_threshold_reachable_observed": true,
+    "high_risk_threshold_reachable_observed": true,
+    "high_risk_threshold_reachable_theoretical": true
+  },
+  "calibration_comparability_caveat": "Brier, log-loss and ECE are comparable across models only with care. The quantum probabilities are calibrated; the baselines' come from scikit-learn under class_weight='balanced', which shifts them away from the base rate by design. PR-AUC and ROC-AUC are rank-based and unaffected, which is why the ranking uses PR-AUC.",
+  "clinical_disclaimer": "These are research metrics for an AI-assisted oral-cancer screening risk estimate on a single small dataset. They do not establish clinical validity, and no threshold here is a validated clinical cut-off. The system does not replace professional clinical assessment or histopathological confirmation.",
+  "previous_run": {
+    "evaluated_at": "2026-09-01T22:37:02.900720+00:00",
+    "ranking": [
+      {
+        "rank": 1,
+        "model": "random_forest",
+        "pr_auc": 0.575009,
+        "roc_auc": 0.941077
+      },
+      {
+        "rank": 2,
+        "model": "gradient_boosting",
+        "pr_auc": 0.562539,
+        "roc_auc": 0.93266
+      },
+      {
+        "rank": 3,
+        "model": "logistic_regression",
+        "pr_auc": 0.51253,
+        "roc_auc": 0.92562
+      },
+      {
+        "rank": 4,
+        "model": "quantum_vqc_calibrated",
+        "pr_auc": 0.218038,
+        "roc_auc": 0.767065
+      }
+    ],
+    "note": "Kept so a change between test evaluations is visible. A model that improved here after being changed in response to an earlier test run has been tuned on the test set."
+  }
+}

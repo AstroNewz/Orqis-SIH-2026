@@ -1,0 +1,306 @@
+{
+  "version": "calibration-1",
+  "method": "platt",
+  "model": {
+    "method": "platt",
+    "a": -35.94456774106783,
+    "b": 20.727808149526126,
+    "n_samples": 2055,
+    "n_positive": 125,
+    "converged": true,
+    "n_iterations": 7
+  },
+  "fit_metrics": {
+    "brier": 0.05100741093793388,
+    "log_loss": 0.1897007508186549,
+    "ece": 0.007055855747103324,
+    "brier_uncalibrated": 0.23157543039822356,
+    "mean_predicted": 0.06084030460352453,
+    "observed_rate": 0.06082725060827251,
+    "estimated_on": "5-fold cross-validation within the fitting data"
+  },
+  "candidate_metrics": {
+    "platt": {
+      "brier": 0.05100741093793388,
+      "log_loss": 0.1897007508186549,
+      "ece": 0.007055855747103324
+    },
+    "isotonic": {
+      "brier": 0.05192361861707913,
+      "log_loss": 0.21552088097323502,
+      "ece": 0.01123884709808245
+    }
+  },
+  "selection_basis": "auto: Platt chosen -- Brier(isotonic) - Brier(Platt) = +0.000916, within 1 SE (0.000518) on the 5-fold cross-validation within the fitting data, so the two-parameter model wins the tie",
+  "n_fit_samples": 2055,
+  "n_fit_positive": 125,
+  "fitted_on": "train+validation",
+  "model_version": "v1-handcrafted",
+  "scored_in_mode": "ideal_simulation",
+  "scored_on_backend": "aer_simulator_statevector",
+  "thresholds": {
+    "screening_threshold": 0.5,
+    "high_risk_threshold": 0.7,
+    "quantum_weight": 0.5,
+    "bands_source": "explicit",
+    "thresholds_are_clinically_validated": false
+  },
+  "recommended_threshold": {
+    "target_sensitivity": 0.85,
+    "threshold": 0.040673343495943814,
+    "sensitivity": 0.856,
+    "specificity": 0.5995,
+    "precision": 0.1216,
+    "n_flagged": 880,
+    "false_negative": 18,
+    "estimated_on": "5-fold cross-validation within the fitting data",
+    "is_clinically_validated": false,
+    "basis": "Highest threshold reaching the target sensitivity on out-of-fold calibrated probabilities from the train+validation partitions. An experimental screening operating point, not a validated clinical cut-off.",
+    "sweep": [
+      {
+        "threshold": 0.05,
+        "sensitivity": 0.768,
+        "specificity": 0.6627,
+        "precision": 0.1285,
+        "n_flagged": 747,
+        "true_positive": 96,
+        "false_negative": 29
+      },
+      {
+        "threshold": 0.1,
+        "sensitivity": 0.528,
+        "specificity": 0.8503,
+        "precision": 0.1859,
+        "n_flagged": 355,
+        "true_positive": 66,
+        "false_negative": 59
+      },
+      {
+        "threshold": 0.15,
+        "sensitivity": 0.376,
+        "specificity": 0.9228,
+        "precision": 0.2398,
+        "n_flagged": 196,
+        "true_positive": 47,
+        "false_negative": 78
+      },
+      {
+        "threshold": 0.2,
+        "sensitivity": 0.304,
+        "specificity": 0.9554,
+        "precision": 0.3065,
+        "n_flagged": 124,
+        "true_positive": 38,
+        "false_negative": 87
+      },
+      {
+        "threshold": 0.25,
+        "sensitivity": 0.24,
+        "specificity": 0.9715,
+        "precision": 0.3529,
+        "n_flagged": 85,
+        "true_positive": 30,
+        "false_negative": 95
+      },
+      {
+        "threshold": 0.3,
+        "sensitivity": 0.16,
+        "specificity": 0.9839,
+        "precision": 0.3922,
+        "n_flagged": 51,
+        "true_positive": 20,
+        "false_negative": 105
+      },
+      {
+        "threshold": 0.35,
+        "sensitivity": 0.12,
+        "specificity": 0.9922,
+        "precision": 0.5,
+        "n_flagged": 30,
+        "true_positive": 15,
+        "false_negative": 110
+      },
+      {
+        "threshold": 0.4,
+        "sensitivity": 0.088,
+        "specificity": 0.9964,
+        "precision": 0.6111,
+        "n_flagged": 18,
+        "true_positive": 11,
+        "false_negative": 114
+      },
+      {
+        "threshold": 0.45,
+        "sensitivity": 0.056,
+        "specificity": 0.9969,
+        "precision": 0.5385,
+        "n_flagged": 13,
+        "true_positive": 7,
+        "false_negative": 118
+      },
+      {
+        "threshold": 0.5,
+        "sensitivity": 0.032,
+        "specificity": 0.9984,
+        "precision": 0.5714,
+        "n_flagged": 7,
+        "true_positive": 4,
+        "false_negative": 121
+      },
+      {
+        "threshold": 0.55,
+        "sensitivity": 0.024,
+        "specificity": 0.999,
+        "precision": 0.6,
+        "n_flagged": 5,
+        "true_positive": 3,
+        "false_negative": 122
+      },
+      {
+        "threshold": 0.6,
+        "sensitivity": 0.024,
+        "specificity": 0.9995,
+        "precision": 0.75,
+        "n_flagged": 4,
+        "true_positive": 3,
+        "false_negative": 122
+      },
+      {
+        "threshold": 0.65,
+        "sensitivity": 0.008,
+        "specificity": 0.9995,
+        "precision": 0.5,
+        "n_flagged": 2,
+        "true_positive": 1,
+        "false_negative": 124
+      },
+      {
+        "threshold": 0.7,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 125
+      },
+      {
+        "threshold": 0.75,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 125
+      },
+      {
+        "threshold": 0.8,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 125
+      },
+      {
+        "threshold": 0.85,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 125
+      },
+      {
+        "threshold": 0.9,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 125
+      },
+      {
+        "threshold": 0.95,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 125
+      }
+    ],
+    "sensitivity_at_specificity_090": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.44,
+      "achieved_specificity": 0.9,
+      "threshold": 0.1320931805682747
+    }
+  },
+  "recommended_high_risk_threshold": {
+    "target_specificity": 0.95,
+    "sensitivity": 0.328,
+    "achieved_specificity": 0.9503,
+    "threshold": 0.18868649139171967,
+    "estimated_on": "5-fold cross-validation within the fitting data",
+    "is_clinically_validated": false,
+    "basis": "Threshold reaching the target specificity on out-of-fold calibrated probabilities from the train+validation partitions. An experimental triage boundary, not a validated clinical cut-off."
+  },
+  "resolved_bands": {
+    "screening_threshold": 0.040673343495943814,
+    "high_risk_threshold": 0.18868649139171967,
+    "target_sensitivity": 0.85,
+    "target_specificity": 0.95,
+    "derived_from": "out-of-fold calibrated probabilities on train+validation",
+    "is_clinically_validated": false,
+    "configured_fallback": {
+      "screening_threshold": 0.5,
+      "high_risk_threshold": 0.7,
+      "quantum_weight": 0.5,
+      "bands_source": "explicit",
+      "thresholds_are_clinically_validated": false
+    },
+    "note": "Model-specific experimental band boundaries. They depend on this model's calibrated score distribution, so they are not transferable to another model version."
+  },
+  "in_sample_validation": {
+    "brier": 0.044184705350496456,
+    "log_loss": 0.16922504668300842,
+    "ece": 0.02681510798815654,
+    "brier_uncalibrated": 0.23169409134086927,
+    "mean_predicted": 0.06025514593126858,
+    "observed_rate": 0.05785123966942149,
+    "metrics": {
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.944904,
+      "precision": 1.0,
+      "recall": 0.047619,
+      "sensitivity": 0.047619,
+      "specificity": 1.0,
+      "f1": 0.090909,
+      "balanced_accuracy": 0.52381,
+      "roc_auc": 0.834308,
+      "pr_auc": 0.463564,
+      "brier": 0.044185,
+      "log_loss": 0.169225,
+      "ece": 0.026815,
+      "mean_predicted": 0.060255,
+      "confusion_matrix": {
+        "true_positive": 1,
+        "false_positive": 0,
+        "true_negative": 342,
+        "false_negative": 20,
+        "threshold": 0.5
+      }
+    },
+    "sensitivity_at_specificity_090": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.5714,
+      "achieved_specificity": 0.9123,
+      "threshold": 0.13483652182730976
+    },
+    "note": "Validation rows were part of the calibrator's fitting set, so these are in-sample. Use fit_metrics (out-of-fold) or the held-out test report for honest numbers."
+  }
+}
