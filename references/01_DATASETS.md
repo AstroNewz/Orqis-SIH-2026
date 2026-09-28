@@ -1,6 +1,6 @@
 # Dataset Reference Dossier: Biomedical Corpora, Quality Governance, and Patient-Disjoint Partitions
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
@@ -13,7 +13,7 @@
 
 A foundational failure mode in published biomedical artificial intelligence—particularly in oral oncology and quantum machine learning—is the contamination of evaluation results through **patient identity leakage**, **unreported file duplicates**, and **vague cohort accounting**. Many published models report 95%+ classification accuracy simply because multiple photographs or recordings from the same individual were randomly distributed across training and testing splits, allowing classifiers to memorize individual skin pigmentation, camera lighting, or dental anatomy rather than pathological lesions.
 
-The CareScan platform enforces a **zero-leakage data governance standard** ($k=0$ biological patient overlap across all partitions) backed by machine-verified JSON manifests and byte-level checksums. The project evaluates two distinct biomedical modalities:
+The Orqis platform enforces a **zero-leakage data governance standard** ($k=0$ biological patient overlap across all partitions) backed by machine-verified JSON manifests and byte-level checksums. The project evaluates two distinct biomedical modalities:
 1. **Primary Clinical Track (Oral Cavity Cancer Screening):** The University of Peradeniya / SMART-OM clinical photographic corpus.
 2. **Secondary Extensible Signal Track (Biomedical ECG Classification):** The PhysioNet PTB-XL 12-lead electrocardiography benchmark.
 
@@ -39,7 +39,7 @@ The CareScan platform enforces a **zero-leakage data governance standard** ($k=0
 
 ### 2.3 Dataset Curation Funnel and Deduplication
 
-A complete data audit accounts for every raw record. In the CareScan repository, raw annotations were consolidated and deduplicated via cryptographic hashing:
+A complete data audit accounts for every raw record. In the Orqis repository, raw annotations were consolidated and deduplicated via cryptographic hashing:
 
 ```
 +--------------------------------------------------------------------------+
@@ -107,7 +107,7 @@ $$\text{Patients}(\text{Train}) \cap \text{Patients}(\text{Val}) \cap \text{Pati
 
 During phase E0 diagnosis (DEC-024), an insidious geometric leak was identified in standard whole-image crops: annotators had provided tight polygon bounding boxes around genuine lesions, but had assigned expansive rectangular crops to normal mucosal regions. Consequently, naive models achieved high accuracy merely by detecting bounding-box area rather than mucosal tissue patterns.
 
-To definitively solve this, CareScan established the **primary benchmark condition** $A_\text{lesion\_polygon}$, which isolates the exact annotator polygon region across both classes:
+To definitively solve this, Orqis established the **primary benchmark condition** $A_\text{lesion\_polygon}$, which isolates the exact annotator polygon region across both classes:
 * **Train Subset ($A_\text{lesion\_polygon}$):** 215 images across 112 patients (103 positive, 112 negative).
 * **Validation Subset ($A_\text{lesion\_polygon}$):** **52 images across 25 patients (21 positive, 31 negative)**.
 * **Validation Prevalence:** $21 / 52 = \mathbf{0.4038}$ (Enriched validation cohort enabling sensitive discrimination analysis).

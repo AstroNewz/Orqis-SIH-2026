@@ -1,6 +1,6 @@
 # Literature Review & Baseline Analysis: Existing Methods in Oral Cancer Screening and Quantum Machine Learning
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
@@ -11,7 +11,7 @@
 
 ## 1. Executive Summary
 
-To assess whether the CareScan platform introduces meaningful technological progress, its components must be evaluated against the full spectrum of **prior art**:
+To assess whether the Orqis platform introduces meaningful technological progress, its components must be evaluated against the full spectrum of **prior art**:
 1. **Clinical Standard of Care:** Conventional oral visual examination and optical diagnostic adjuncts.
 2. **Classical Biomedical Computer Vision:** Handcrafted colorimetric, gradient, and texture feature engineering.
 3. **Deep Learning Architectures:** Convolutional backbones (ResNet, MobileNet, VGG) applied to mucosal photography.
@@ -56,7 +56,7 @@ Prior classical engineering methods extract structured morphological, colorimetr
 ### 3.1 Color Space Engineering: RGB vs HSV vs CIELAB
 * **RGB Color Space:** Highly coupled to illumination intensity. Ambient light shifts dramatically skew Euclidean distances between normal mucosa and erythema.
 * **HSV (Hue-Saturation-Value):** While decoupling value, Hue exhibits critical angular circularity ($\theta \in [0, 2\pi)$). In oral mucosa, the primary pathological color spectrum spans the red boundary, where minor photometric variations cause discontinuous wrapping between $0.0$ and $1.0$. Additionally, when saturation or value drops in shadowed oral crevices, hue becomes mathematically undefined.
-* **CIE $L^*a^*b^*$ (Selected in CareScan):** Decouples perceived luminance ($L^*$) from red-green ($a^*$) and yellow-blue ($b^*$) opponent chromatic channels. Distances in $L^*a^*b^*$ space approximate human visual perceptual thresholds ($\Delta E^*$), aligning with hemoglobin oxygenation absorption bands.
+* **CIE $L^*a^*b^*$ (Selected in Orqis):** Decouples perceived luminance ($L^*$) from red-green ($a^*$) and yellow-blue ($b^*$) opponent chromatic channels. Distances in $L^*a^*b^*$ space approximate human visual perceptual thresholds ($\Delta E^*$), aligning with hemoglobin oxygenation absorption bands.
 
 ### 3.2 Texture and Gradient Descriptors
 * **Histograms of Oriented Gradients (HOG):** Dalal & Triggs (2005). Captures local edge direction distributions across $16 \times 16$ spatial blocks with 9 orientation bins. Useful for boundary delineation in ulcerated lesions.
@@ -73,7 +73,7 @@ Recent biomedical literature has evaluated off-the-shelf convolutional neural ne
 |                                    DEEP LEARNING TAXONOMY IN ORAL AI                              |
 +--------------------------+------------------------------+------------------------------------------+
 |  Heavyweight CNNs        |  Lightweight Edge Backbones  |  Reported Flaws in Published Papers      |
-|  - ResNet-50 / VGG-16    |  - MobileNetV3-Small (CareScan)|  - Image-level random splits (Leakage!) |
+|  - ResNet-50 / VGG-16    |  - MobileNetV3-Small (Orqis)|  - Image-level random splits (Leakage!) |
 |  - 25M+ parameters       |  - 2.5M parameters           |  - Conflating PR-AUC with "Accuracy"     |
 |  - Severe overfitting on |  - Optimized for smartphone  |  - No focus/lighting rejection gates     |
 |    small oral datasets   |  - Frozen SHA-256 checkpoint |  - Bounding box area geometric exploit   |
@@ -112,25 +112,25 @@ Quantum Machine Learning applies parameterized quantum circuits and quantum-enha
 * **Theoretical Foundation:** Maps classical input vectors $\mathbf{x} \in \mathbb{R}^n$ into an $n$-qubit quantum state $|\Phi(\mathbf{x})\rangle$ via single-qubit Hadamard gates and non-linear pairwise entangling phase gates:
   $$\mathcal{U}_{\Phi(\mathbf{x})} = U_{\Phi(\mathbf{x})} H^{\otimes n} U_{\Phi(\mathbf{x})} H^{\otimes n}, \quad U_{\Phi(\mathbf{x})} = \exp\left( i \sum_{j} x_j Z_j + i \sum_{j < k} (\pi - x_j)(\pi - x_k) Z_j Z_k \right)$$
 * **Published Hypothesis:** Conjecture that the classical difficulty of simulating pairwise $ZZ$ phase evolution implies quantum advantage on structured classification tasks.
-* **CareScan Empirical Audit Finding:** When capacity-matched against an identical classical polynomial mapping over the exact same index set ($\mathbb{R}^8 \to \mathbb{R}^{36}$, identical logistic regression head), the Havlíček ZZ map incurred a **statistically significant deficit of $-0.124457$ ROC-AUC** ($95\%$ bootstrap CI: $[-0.145524, -0.105109]$).
+* **Orqis Empirical Audit Finding:** When capacity-matched against an identical classical polynomial mapping over the exact same index set ($\mathbb{R}^8 \to \mathbb{R}^{36}$, identical logistic regression head), the Havlíček ZZ map incurred a **statistically significant deficit of $-0.124457$ ROC-AUC** ($95\%$ bootstrap CI: $[-0.145524, -0.105109]$).
 
 ### 5.2 Variational Quantum Circuits (VQC) & Barren Plateaus
 * **Mechanics:** Data encoded via angle rotations $R_Y(\mathbf{x})$, followed by alternating entangling layers ($CZ$, $CX$) and trainable parameter rotations $R(\boldsymbol{\theta})$.
 * **Barren Plateau Phenomenon (McClean et al., 2018; Cerezo et al., 2021):** As circuit depth or qubit count scales under random initialization, the variance of gradients vanishes exponentially in the number of qubits:
   $$\operatorname{Var}\left( \frac{\partial \langle O \rangle}{\partial \theta_k} \right) \sim \mathcal{O}\left( \frac{1}{2^n} \right)$$
-* **CareScan Empirical Finding:** Ablating two-qubit entangling gates ($CZ$) from the trainable visual VQC **improved** validation PR-AUC from $0.770660$ to **$0.778527$**, proving that two-qubit entanglement was inducing trainability degradation rather than computational utility.
+* **Orqis Empirical Finding:** Ablating two-qubit entangling gates ($CZ$) from the trainable visual VQC **improved** validation PR-AUC from $0.770660$ to **$0.778527$**, proving that two-qubit entanglement was inducing trainability degradation rather than computational utility.
 
 ### 5.3 Quantum Kernel Methods (Schuld, 2021; Huang et al., 2021)
 * **Mechanics:** Compute kernel matrix elements $K_{ij} = |\langle \Phi(\mathbf{x}_i) | \Phi(\mathbf{x}_j) \rangle|^2$ on quantum hardware, subsequently passing the precomputed Gram matrix to a classical Support Vector Machine (QSVM).
-* **CareScan Finding:** Evaluated across the primary oral validation cohort, the Quantum Fidelity Kernel scored **$0.772148$ PR-AUC**, lagging behind a matched classical Radial Basis Function (RBF) kernel at **$0.803026$ PR-AUC**.
+* **Orqis Finding:** Evaluated across the primary oral validation cohort, the Quantum Fidelity Kernel scored **$0.772148$ PR-AUC**, lagging behind a matched classical Radial Basis Function (RBF) kernel at **$0.803026$ PR-AUC**.
 
 ---
 
 ## 6. Comprehensive Benchmark Comparison Table
 
-The following matrix systematically contrasts CareScan (Braket 3.1.0) against existing clinical, classical, deep learning, and quantum methods:
+The following matrix systematically contrasts Orqis (Braket 3.1.0) against existing clinical, classical, deep learning, and quantum methods:
 
-| Dimension / Feature | Conventional Oral Exam (COE) | VELscope Tissue Autofluorescence | Standalone Deep ResNet-50 | Prior QML Proposals (Unverified) | **CareScan / Braket 3.1.0 (Our Platform)** |
+| Dimension / Feature | Conventional Oral Exam (COE) | VELscope Tissue Autofluorescence | Standalone Deep ResNet-50 | Prior QML Proposals (Unverified) | **Orqis / Braket 3.1.0 (Our Platform)** |
 |---|:---:|:---:|:---:|:---:|:---:|
 | **Target Modality** | Direct Human Vision | Blue Excitation (400-460nm) | RGB Photography | Synthetic Vectors / Toy Bits | **Smartphone RGB Photography (+ 12-Lead ECG Track)** |
 | **Physical Hardware** | Incandescent Light | Specialized Optical Scope ($\$4,000+$) | High-End GPU Workstation | Quantum Annealer / Toy Simulator | **Standard Commodity Smartphone (Zero GPU / Zero QPU Required)** |

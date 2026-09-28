@@ -1,6 +1,6 @@
 # Future Scope & Translation Roadmap: Clinical Validation, ABDM Integration, and Fault-Tolerant QML
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
@@ -11,7 +11,7 @@
 
 ## 1. Executive Summary
 
-The transition of CareScan / Braket 3.1.0 from a hackathon-proven engineering prototype into a nationally deployed clinical diagnostic device requires a disciplined multi-stage translation plan. This document delineates our comprehensive five-phase roadmap spanning:
+The transition of Orqis / Braket 3.1.0 from a hackathon-proven engineering prototype into a nationally deployed clinical diagnostic device requires a disciplined multi-stage translation plan. This document delineates our comprehensive five-phase roadmap spanning:
 1. **Community Deployment & ASHA Pilot Workflows** in high-incidence tobacco corridors.
 2. **Prospective Multicentre Clinical Trial Protocol** ($N = 2,500$ patients).
 3. **Regulatory Strategy for Software as a Medical Device (SaMD)** under CDSCO and US FDA frameworks.
@@ -28,7 +28,7 @@ The transition of CareScan / Braket 3.1.0 from a hackathon-proven engineering pr
 +----------------------------------------------------------------------------------------------------+
 |  High-Incidence Districts (UP, Bihar, WB, Maharashtra):                                            |
 |                                                                                                    |
-|  [ASHA / ANM Worker]  --->  [CareScan Mobile Viewfinder]  --->  [Edge Quality Gate (Laplacian)]    |
+|  [ASHA / ANM Worker]  --->  [Orqis Mobile Viewfinder]  --->  [Edge Quality Gate (Laplacian)]    |
 |                                                                          |                         |
 |                                                                   Passed Frame                     |
 |                                                                          v                         |
@@ -45,7 +45,7 @@ India accounts for nearly one-third of the global oral cancer burden, driven by 
 * **Maharashtra:** Vidarbha region.
 
 ### 2.2 Frontline Healthcare Worker Operational Workflow
-1. **Device Provisioning:** CareScan installed on standard Government-issued Android smartphones (RAM $\ge 3\,\text{GB}$, Android 10+).
+1. **Device Provisioning:** Orqis installed on standard Government-issued Android smartphones (RAM $\ge 3\,\text{GB}$, Android 10+).
 2. **Guided Mucosal Photography:** Interactive on-screen viewfinder guides the Accredited Social Health Activist (ASHA) through standard retraction protocols.
 3. **Automated Quality Verification:** Instant auditory and visual feedback ensures blur-free, non-glare acquisition.
 4. **Offline Risk Stratification:** On-device quantized model evaluates the lesion in under $50$ ms without requiring cellular data connectivity.
@@ -67,7 +67,7 @@ India accounts for nearly one-third of the global oral cancer burden, driven by 
 |                   |                                                             |                  |
 |                   v                                                             v                  |
 |         ARM 1: STANDARD OF CARE                                        ARM 2: EXPERIMENTAL         |
-|      - Conventional Visual Exam (COE)                               - CareScan Mobile AI Triage    |
+|      - Conventional Visual Exam (COE)                               - Orqis Mobile AI Triage    |
 |      - Expert Oncosurgeon Assessment                                - Automated Lesion BBox HUD    |
 |      - Adjunctive VELscope Autofluorescence                         - Calibrated Probability Score |
 |                   |                                                             |                  |
@@ -97,7 +97,7 @@ India accounts for nearly one-third of the global oral cancer burden, driven by 
 
 ## 4. Phase 3: Regulatory Strategy & Quality Management (SaMD)
 
-CareScan will follow the statutory regulatory pathways for Software as a Medical Device (SaMD):
+Orqis will follow the statutory regulatory pathways for Software as a Medical Device (SaMD):
 
 ```
 +----------------------------------------------------------------------------------------------------+
@@ -127,13 +127,13 @@ CareScan will follow the statutory regulatory pathways for Software as a Medical
 
 ## 5. Phase 4: National Digital Health Ecosystem Integration (ABDM & FHIR)
 
-CareScan natively integrates with India's Ayushman Bharat Digital Mission (ABDM), creating a seamless continuum of digital care from village screening to tertiary oncology centers.
+Orqis natively integrates with India's Ayushman Bharat Digital Mission (ABDM), creating a seamless continuum of digital care from village screening to tertiary oncology centers.
 
 ```
 +----------------------------------------------------------------------------------------------------+
 |                         ABDM & HL7 FHIR INTEROPERABILITY ARCHITECTURE                              |
 +----------------------------------------------------------------------------------------------------+
-|  [CareScan Mobile App]                                                                             |
+|  [Orqis Mobile App]                                                                             |
 |         |                                                                                          |
 |         v                                                                                          |
 |  [ABHA Address Verification]  ===>  Queries ABDM Gateway via OAuth 2.0 / Ayushman Bharat SDK       |
@@ -161,7 +161,7 @@ CareScan natively integrates with India's Ayushman Bharat Digital Mission (ABDM)
 
 ## 6. Phase 5: Fault-Tolerant Quantum Machine Learning (FTQC) Evolution
 
-While current NISQ systems are constrained by coherence decay and $O(2^n)$ state preparation overhead, CareScan's modular architecture is designed to integrate early Fault-Tolerant Quantum Computing (FTQC) as quantum error correction matures.
+While current NISQ systems are constrained by coherence decay and $O(2^n)$ state preparation overhead, Orqis's modular architecture is designed to integrate early Fault-Tolerant Quantum Computing (FTQC) as quantum error correction matures.
 
 ```
 +----------------------------------------------------------------------------------------------------+
@@ -185,6 +185,6 @@ While current NISQ systems are constrained by coherence decay and $O(2^n)$ state
 
 ---
 
-## 7. Conclusion: The CareScan Vision
+## 7. Conclusion: The Orqis Vision
 
-CareScan / Braket 3.1.0 does not merely propose a theoretical model; it provides an end-to-end, scientifically validated, and regulatory-ready platform. By linking on-device real-time edge screening with national health registries and establishing a clear path toward fault-tolerant quantum computation, CareScan delivers an enduring contribution to the eradication of late-stage oral cancer in India.
+Orqis / Braket 3.1.0 does not merely propose a theoretical model; it provides an end-to-end, scientifically validated, and regulatory-ready platform. By linking on-device real-time edge screening with national health registries and establishing a clear path toward fault-tolerant quantum computation, Orqis delivers an enduring contribution to the eradication of late-stage oral cancer in India.

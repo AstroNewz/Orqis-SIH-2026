@@ -1,6 +1,6 @@
 # Video Demonstration Script: 3-Minute Technical Pitch & Operational Demo
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Theme:** MedTech / Healthcare & Biomedical Computing  
 **Category:** Software / Quantum Machine Learning  
@@ -32,16 +32,16 @@
 
 ## 2. Minute-by-Minute Production Script
 
-### Scene 1: The Urgent Clinical Crisis & The CareScan Solution (0:00 - 0:35)
+### Scene 1: The Urgent Clinical Crisis & The Orqis Solution (0:00 - 0:35)
 * **Slides Referenced:** Slide 1 (Title) & Slide 2 (Problem & Solution Flow)
 * **On-Screen Visual:** 
   * High-impact statistics on oral cancer in India (77,000 deaths annually; 70% presenting at Stage III/IV).
-  * Split screen: Rural primary health center without diagnostic tools vs. CareScan mobile interface in an ASHA worker's hand.
-  * Title overlay: **Problem Statement SIH26139 — CareScan / Braket 3.1.0**.
+  * Split screen: Rural primary health center without diagnostic tools vs. Orqis mobile interface in an ASHA worker's hand.
+  * Title overlay: **Problem Statement SIH26139 — Orqis / Braket 3.1.0**.
 * **Speaker (Ishan Narayan Shukla - Team Lead):**
   > *"Every year in India, over seventy-seven thousand lives are lost to oral cancer. The tragedy is that oral cancer is curable when detected early—yet nearly seventy percent of rural patients present at Stage Three or Four, when five-year survival drops below thirty percent. 
   > 
-  > Rural clinics have no oncologists, and optical tools like VELscope suffer from fifty-percent false positives. To solve this, Team BraKet 3.1.0 built **CareScan**: an accessible, hybrid quantum-classical screening platform delivering ninety-one point three percent Precision-Recall AUC on standard smartphones."*
+  > Rural clinics have no oncologists, and optical tools like VELscope suffer from fifty-percent false positives. To solve this, Team BraKet 3.1.0 built **Orqis**: an accessible, hybrid quantum-classical screening platform delivering ninety-one point three percent Precision-Recall AUC on standard smartphones."*
 
 ---
 
@@ -52,7 +52,7 @@
   * The camera captures a deliberately shaken, blurred image: The app immediately flashes red with an auditory alert: *"Image Blurred: Retake Photo"*.
   * The user steadies the device: The green HUD instantly locks onto an oral leukoplakia lesion on the lateral border of the tongue with a green bounding box and confidence score (`0.982`).
 * **Speaker (Pratyaksh Ranjan - Software Architect & Mobile Lead):**
-  > *"Point-of-care screening fails if the input image is blurry or ruined by saliva glare. CareScan solves this at the edge. 
+  > *"Point-of-care screening fails if the input image is blurry or ruined by saliva glare. Orqis solves this at the edge. 
   > 
   > Watch our real-time viewfinder: If an ASHA worker's hand shakes, our on-device Laplacian filter instantly rejects the corrupted frame in under eight milliseconds. 
   > 
@@ -63,12 +63,12 @@
 ### Scene 3: Methodological Rigor & Quantum Circuit Compilation (1:10 - 1:45)
 * **Slides Referenced:** Slide 3 (Feature Dimensionality) & Slide 4 (Technical Feasibility & QML Ansätze)
 * **On-Screen Visual:** 
-  * Animation comparing the exponential $O(2^n)$ CNOT explosion (>250,000 gates) collapsing $T_2^*$ coherence vs. CareScan's 16-D tensor-network dimensional compression.
+  * Animation comparing the exponential $O(2^n)$ CNOT explosion (>250,000 gates) collapsing $T_2^*$ coherence vs. Orqis's 16-D tensor-network dimensional compression.
   * PennyLane circuit diagram transpiling a 4-qubit Hardware-Efficient Ansatz with 28 CNOTs executing in 142 ms.
 * **Speaker (Jay Karan Laxme - Quantum Lead):**
   > *"Most biomedical quantum papers suffer from a fatal flaw: attempting to load high-dimensional images directly into qubits, triggering an exponential CNOT gate explosion that obliterates physical coherence on NISQ hardware. 
   > 
-  > CareScan resolves this through tensor-network dimensionality reduction, compressing features into a sixteen-dimensional latent manifold. We evaluated seven quantum algorithm families—from Havlicek ZZ-maps to Projected Quantum Kernels and Matrix Product States. Our compiled circuits execute under forty-eight CNOT gates, operating strictly within physical hardware coherence budgets."*
+  > Orqis resolves this through tensor-network dimensionality reduction, compressing features into a sixteen-dimensional latent manifold. We evaluated seven quantum algorithm families—from Havlicek ZZ-maps to Projected Quantum Kernels and Matrix Product States. Our compiled circuits execute under forty-eight CNOT gates, operating strictly within physical hardware coherence budgets."*
 
 ---
 
@@ -94,9 +94,9 @@
   * National map showing scalable screening across primary health centers in India.
   * Closing slide with team roster and GitHub repository QR code.
 * **Speakers (Rudransh Rajveer Singh & Ishan Narayan Shukla):**
-  > **Rudransh:** *"CareScan is natively integrated with India's Ayushman Bharat Digital Mission. In one tap, the app generates an HL7 FHIR Release Four DiagnosticReport bundle with standard SNOMED CT and ICD-11 coding, automatically routing high-risk patients to district hospitals within forty-eight hours."*
+  > **Rudransh:** *"Orqis is natively integrated with India's Ayushman Bharat Digital Mission. In one tap, the app generates an HL7 FHIR Release Four DiagnosticReport bundle with standard SNOMED CT and ICD-11 coding, automatically routing high-risk patients to district hospitals within forty-eight hours."*
   > 
-  > **Ishan:** *"By uniting smartphone edge computer vision, rigorous classical learning, and scalable quantum computing, CareScan transforms oral cancer screening from a late-stage death sentence into an accessible, point-of-care cure. We are Team BraKet 3.1.0. Thank you."*
+  > **Ishan:** *"By uniting smartphone edge computer vision, rigorous classical learning, and scalable quantum computing, Orqis transforms oral cancer screening from a late-stage death sentence into an accessible, point-of-care cure. We are Team BraKet 3.1.0. Thank you."*
 
 ---
 
@@ -104,7 +104,7 @@
 
 | Segment | Video Asset Required | Audio Track |
 |---|---|---|
-| **0:00 - 0:35** | B-roll of clinical oral exams + CareScan logo animation. | Confident, measured narrative voiceover; subtle ambient medical synth. |
+| **0:00 - 0:35** | B-roll of clinical oral exams + Orqis logo animation. | Confident, measured narrative voiceover; subtle ambient medical synth. |
 | **0:35 - 1:10** | 1080p screen recording of Flutter app on physical Android device. | Clear click/haptic sound effects; crisp instructional tone. |
 | **1:10 - 1:45** | 3D motion graphics of Bloch spheres and PennyLane circuit transpilation. | Dynamic technological pace; scientific graphics. |
 | **1:45 - 2:20** | Direct screen capture of terminal test runs and vector matplotlib plots. | High-energy, data-driven presentation; metric callout badges. |

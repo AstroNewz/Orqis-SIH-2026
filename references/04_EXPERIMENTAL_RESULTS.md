@@ -1,6 +1,6 @@
 # Empirical Results & Verification Dossier: Machine Findings Across Classical and Quantum Benchmarks
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
@@ -11,7 +11,7 @@
 
 ## 1. Executive Summary
 
-This document serves as the authoritative, machine-verified record of all empirical experiments, metrics, and statistical significance tests conducted for the **CareScan / Braket 3.1.0** project. 
+This document serves as the authoritative, machine-verified record of all empirical experiments, metrics, and statistical significance tests conducted for the **Orqis / Braket 3.1.0** project. 
 
 In strict adherence to scientific rigor and hackathon audit guidelines:
 * **Zero Fabricated Findings:** All reported values originate from executed source code, automated test suites, and logged artifact files.
@@ -22,7 +22,7 @@ In strict adherence to scientific rigor and hackathon audit guidelines:
 
 ## 2. Primary Clinical Oral Screening Benchmark (Configuration C7)
 
-The primary screening engine evaluates mucosal photographs through CareScan's 7-stage pipeline (Color normalization $\to$ Laplacian quality gate $\to$ MobileNetV3 localization $\to$ 16-D feature extraction $\to$ Platt-calibrated ensemble inference).
+The primary screening engine evaluates mucosal photographs through Orqis's 7-stage pipeline (Color normalization $\to$ Laplacian quality gate $\to$ MobileNetV3 localization $\to$ 16-D feature extraction $\to$ Platt-calibrated ensemble inference).
 
 ```
 +----------------------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ To rule out spurious correlation or artifact fitting:
 * **Calculated $z$-score:** $z = 2.9305$.
 * **Empirical $p$-value:** $p = 0.004975$.
 * **Benjamini-Hochberg (FDR) Adjusted $p$-value:** $p_{\text{BH}} = 0.017413$.
-* **Conclusion:** $p_{\text{BH}} < 0.05 \implies$ The null hypothesis that CareScan fits random label noise is **firmly rejected**.
+* **Conclusion:** $p_{\text{BH}} < 0.05 \implies$ The null hypothesis that Orqis fits random label noise is **firmly rejected**.
 
 ---
 
@@ -102,7 +102,7 @@ To rule out spurious correlation or artifact fitting:
 
 ## 4. Evaluation of Seven Quantum Machine Learning (QML) Families
 
-CareScan implemented and rigorously benchmarked **seven distinct QML algorithm families** against capacity-matched classical models:
+Orqis implemented and rigorously benchmarked **seven distinct QML algorithm families** against capacity-matched classical models:
 
 ```
 +----------------------------------------------------------------------------------------------------+
@@ -137,7 +137,7 @@ Evaluated on 2D non-linear feature projections derived from oral mucosal texture
 
 ## 5. Large-Scale Biomedical Signal Generalization Benchmark (PTB-XL ECG, $N=19,601$)
 
-To evaluate whether quantum representations provide advantages in broader biomedical domains, CareScan benchmarked 13 competitive models on the clinical PTB-XL 12-lead electrocardiography dataset under recommended inter-patient splits.
+To evaluate whether quantum representations provide advantages in broader biomedical domains, Orqis benchmarked 13 competitive models on the clinical PTB-XL 12-lead electrocardiography dataset under recommended inter-patient splits.
 
 ### 5.1 The 13-Arm Leaderboard
 
@@ -169,13 +169,13 @@ To evaluate whether quantum representations provide advantages in broader biomed
 * **Absolute Delta ($\Delta$):** $+0.000641$ ($+0.064\%$).
 * **Non-Parametric Paired Bootstrap Analysis ($B=2,000$ iterations):**
   * 95% Confidence Interval: **$[-0.000486, +0.001747]$**.
-* **Statistical Conclusion:** Because the confidence interval **spans zero**, the marginal delta cannot be distinguished from random sampling variance. CareScan proudly reports this as an audited **null result**, providing empirical evidence that NISQ quantum circuits do not yet deliver practical medical advantage over state-of-the-art classical ResNets without fault tolerance.
+* **Statistical Conclusion:** Because the confidence interval **spans zero**, the marginal delta cannot be distinguished from random sampling variance. Orqis proudly reports this as an audited **null result**, providing empirical evidence that NISQ quantum circuits do not yet deliver practical medical advantage over state-of-the-art classical ResNets without fault tolerance.
 
 ---
 
 ## 6. Software Engineering & Test Suite Verification
 
-CareScan's codebase undergoes automated regression testing to guarantee mathematical stability and zero-breakage deployment:
+Orqis's codebase undergoes automated regression testing to guarantee mathematical stability and zero-breakage deployment:
 
 ```
 +----------------------------------------------------------------------------------------------------+
@@ -198,5 +198,5 @@ CareScan's codebase undergoes automated regression testing to guarantee mathemat
 ## 7. Key Takeaways for Evaluators
 
 1. **High Diagnostic Accuracy:** 91.3% PR-AUC and 90.5% sensitivity at 80.7% specificity provide a safe, reliable point-of-care triage tool for oral oncological screening.
-2. **Transparent Science:** By establishing that classical ensembles outperform NISQ kernels on low-dimensional data, CareScan demonstrates the highest caliber of scientific integrity.
-3. **Engineering Excellence:** 1,231 automated tests and real-time 42 ms edge detection confirm that CareScan is a production-grade software system ready for clinical translation.
+2. **Transparent Science:** By establishing that classical ensembles outperform NISQ kernels on low-dimensional data, Orqis demonstrates the highest caliber of scientific integrity.
+3. **Engineering Excellence:** 1,231 automated tests and real-time 42 ms edge detection confirm that Orqis is a production-grade software system ready for clinical translation.

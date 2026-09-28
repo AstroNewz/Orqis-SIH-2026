@@ -1,6 +1,6 @@
 # FINAL 20–30 PAGE REPORT PLAN
 
-**Document:** CareScan — Hybrid Quantum–Classical Screening Platform: Engineering Report and Measured Quantum Contribution
+**Document:** Orqis — Hybrid Quantum–Classical Screening Platform: Engineering Report and Measured Quantum Contribution
 **Class:** `report`, 11pt, A4. **Target:** 26 pages body + front matter + bibliography.
 **Source:** `report/main.tex` + `report/references.bib`.
 

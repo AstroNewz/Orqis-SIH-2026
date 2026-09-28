@@ -1,18 +1,18 @@
 # Interactive Prototype Guide & Architecture Walkthrough
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
 *(Ishan Narayan Shukla, Jay Karan Laxme, Rudransh Rajveer Singh, Pratyaksh Ranjan, Priyanshi Saraswat, Prajjwal Patel)*  
 **Document Link Identifier:** `SLIDE_2_PROTOTYPE_LINK`  
-**Web Demo Prototype:** [CareScan Interactive Web Workspace](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/orion-workspace/index.html)
+**Web Demo Prototype:** [Orqis Interactive Web Workspace](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/orion-workspace/index.html)
 
 ---
 
 ## 1. Executive Summary
 
-The CareScan prototype is an operational, cross-platform medical screening application consisting of:
+The Orqis prototype is an operational, cross-platform medical screening application consisting of:
 1. **A Flutter Mobile Application:** A frontline point-of-care Android/iOS client featuring camera lifecycle management, real-time edge quality gating (Laplacian blur and glare detection), interactive bounding box overlays, and offline-first storage.
 2. **A FastAPI Backend Service:** A high-throughput REST service providing MobileNetV3 lesion localization, 16-D feature extraction, Platt-calibrated ensemble inference, and PennyLane/Braket QML circuit simulation.
 3. **An Interactive Web Dashboard:** A zero-install browser-based clinical workstation (`orion-workspace/index.html`) demonstrating the end-to-end triage pipeline for evaluators and clinicians.
@@ -23,7 +23,7 @@ The CareScan prototype is an operational, cross-platform medical screening appli
 
 ```
 +----------------------------------------------------------------------------------------------------+
-|                         CARECASCAN PROTOTYPE OPERATIONAL WORKFLOW                                  |
+|                         ORQIS PROTOTYPE OPERATIONAL WORKFLOW                                  |
 +----------------------------------------------------------------------------------------------------+
 |  STEP 1: PATIENT REGISTRATION & ABHA LINKING                                                       |
 |  - Input 14-digit Ayushman Bharat Health Account (ABHA) ID or generate anonymous patient token.   |

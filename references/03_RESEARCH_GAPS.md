@@ -1,6 +1,6 @@
 # Research Gaps & Methodological Challenges in Biomedical Quantum Machine Learning and Oral Cancer Screening
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
@@ -18,7 +18,7 @@ While academic literature in both deep learning for oncology and Quantum Machine
 4. **Uncalibrated Deep Learning Probabilities and Pathological Overconfidence.**
 5. **Absence of Capacity-Matched Classical Baselines and Rigorous Hypothesis Testing in QML.**
 
-This dossier details the exact mathematical mechanisms, empirical evidence, and clinical implications of these five gaps, establishing the rationale for the CareScan architectural design.
+This dossier details the exact mathematical mechanisms, empirical evidence, and clinical implications of these five gaps, establishing the rationale for the Orqis architectural design.
 
 ---
 
@@ -64,7 +64,7 @@ The quantum state decoheres into the maximally mixed state $\rho \to \frac{1}{2^
 ### 2.3 Gap in Prior Literature
 Published literature in quantum biomedical imaging frequently reports numerical simulations on noiseless statevector simulators while claiming impending "quantum advantage." When transpiled to physical architectures, their circuits require gate counts that exceed hardware coherence limits by three to five orders of magnitude. 
 
-*CareScan Solution:* CareScan limits QML feature dimensions to $d \le 16$, utilizing tensor-network PCA and structured angle encoding with shallow $L=2$ entangling layers ($< 48$ CNOTs), staying well within physical $T_2^*$ coherence budgets.
+*Orqis Solution:* Orqis limits QML feature dimensions to $d \le 16$, utilizing tensor-network PCA and structured angle encoding with shallow $L=2$ entangling layers ($< 48$ CNOTs), staying well within physical $T_2^*$ coherence budgets.
 
 ---
 
@@ -79,7 +79,7 @@ Published literature in quantum biomedical imaging frequently reports numerical 
 |  Artifacts: Tooth shape, gold fillings, buccal pigmentation, camera chromaticity.                 |
 |  Result: 99.2% Test Accuracy (Memorization of patient anatomy, not neoplastic lesions).           |
 +----------------------------------------------------------------------------------------------------+
-|  STRICT CAIT-CERTIFIED SPLIT (CareScan Patient-Disjoint Partitioning):                             |
+|  STRICT CAIT-CERTIFIED SPLIT (Orqis Patient-Disjoint Partitioning):                             |
 |  Patient #42: [Photo A, Photo B, Photo C]  ====>  TRAIN SET EXCLUSIVELY                            |
 |  Patient #89: [Photo D, Photo E]          ====>  TEST SET EXCLUSIVELY                             |
 |  Patient Overlap: ZERO (k = 0). True Generalization: 91.3% PR-AUC.                                 |
@@ -102,7 +102,7 @@ Consequently, published test accuracies of $96\text{--}99\%$ in oral cancer lite
 ### 3.2 Spatial Shortcut Learning ($A_{\text{lesion\_polygon}}$ Leakage)
 In unsegmented mucosal photographs, the dysplastic lesion typically occupies less than $15\%$ of the total pixel field. When models are trained on full uncropped frames, gradient attribution maps (Grad-CAM) frequently reveal that deep networks focus on the reflection of the dental mirror, lips, or tongue dorsum rather than the lesion margin.
 
-*CareScan Solution:* CareScan enforces **100% patient-disjoint stratification** ($k = 0$ patient overlap) verified via SHA-256 partition checksums. Furthermore, the MobileNetV3 bounding box detector ($374/381$ test images localized) isolates the lesion sub-region before feature extraction, eliminating peripheral dental and facial shortcuts.
+*Orqis Solution:* Orqis enforces **100% patient-disjoint stratification** ($k = 0$ patient overlap) verified via SHA-256 partition checksums. Furthermore, the MobileNetV3 bounding box detector ($374/381$ test images localized) isolates the lesion sub-region before feature extraction, eliminating peripheral dental and facial shortcuts.
 
 ---
 
@@ -130,7 +130,7 @@ Three severe optical artifacts dominate:
 ### 4.2 Failure Mode of Existing Systems
 Existing AI screening tools ingest raw photographs directly, silently generating high-confidence diagnostic classifications on completely blurred or blown-out images. In clinical triage, this produces dangerous false negatives.
 
-*CareScan Solution:* CareScan incorporates a real-time, zero-latency **Edge Quality Assurance Gate** directly within the Flutter mobile client:
+*Orqis Solution:* Orqis incorporates a real-time, zero-latency **Edge Quality Assurance Gate** directly within the Flutter mobile client:
 * **Laplacian Variance Blur Detector:** $\sigma_{\nabla^2}^2 = \frac{1}{HW}\sum (I * \mathbf{L} - \mu)^2 < 120$ triggers immediate re-take guidance.
 * **Specular Glare Segmenter:** Detects luminance saturation clusters ($V > 0.95$ in HSV space covering $> 8\%$ of the frame).
 * **Dynamic Exposure & Histogram Checker:** Prevents underexposed acquisitions from ever entering the inference pipeline.
@@ -148,7 +148,7 @@ Existing AI screening tools ingest raw photographs directly, silently generating
 | Raw Softmax Output: P(Malignant) = 0.984   <---- SEVERELY OVERCONFIDENT!                           |
 | Clinical Outcome: Unnecessary panic, invasive scalpel biopsy, overburdened tertiary hospital.      |
 +----------------------------------------------------------------------------------------------------+
-| CareScan Calibrated Pipeline (Platt Scaling + Conformal Prediction):                               |
+| Orqis Calibrated Pipeline (Platt Scaling + Conformal Prediction):                               |
 | Calibrated Probability: P(Malignant) = 0.54 +/- 0.18                                               |
 | Conformal Prediction Set: {Benign, Malignant}  (FLAGGED AS AMBIGUOUS / BIOPSY RECOMMENDED)         |
 | Clinical Outcome: Honest uncertainty communicated to frontline provider.                          |
@@ -165,7 +165,7 @@ When primary health workers rely on automated triage tools, uncalibrated overcon
 1. **Unwarranted Reassurance:** A false-negative prediction with $0.95$ "benign" confidence delays biopsy until the lesion progresses to incurable late-stage carcinoma.
 2. **Systemic Alarm Overload:** Benign aphthous ulcers classified with $0.99$ malignancy probability flood tertiary cancer institutes, displacing urgent patients.
 
-*CareScan Solution:* CareScan enforces **Isotonic Regression & Platt Temperature Scaling** calibrated on held-out patient splits, achieving an audited **Brier Score of $0.110620$**. Furthermore, CareScan integrates conformal prediction intervals, outputting ambiguous prediction sets when model uncertainty exceeds safe clinical thresholds.
+*Orqis Solution:* Orqis enforces **Isotonic Regression & Platt Temperature Scaling** calibrated on held-out patient splits, achieving an audited **Brier Score of $0.110620$**. Furthermore, Orqis integrates conformal prediction intervals, outputting ambiguous prediction sets when model uncertainty exceeds safe clinical thresholds.
 
 ---
 
@@ -180,7 +180,7 @@ When primary health workers rely on automated triage tools, uncalibrated overcon
 | Classical Baseline: Un-tuned Single-Layer Perceptron (Default PyTorch) ===> 72.1% Accuracy        |
 | Claim: "Quantum Advantage Demonstrated in Biomedical Classification!"                              |
 +----------------------------------------------------------------------------------------------------+
-| RIGOROUS AUDITED BENCHMARK (CareScan Protocol):                                                    |
+| RIGOROUS AUDITED BENCHMARK (Orqis Protocol):                                                    |
 | Classical Arm: Tuned Ensemble (LightGBM + XGBoost + RBF SVM)            ===> 91.30% PR-AUC         |
 | Quantum Arm: Havlicek ZZ-Map Quantum Kernel (QPU Transpiled)            ===> 78.86% PR-AUC         |
 | Statistically Paired Delta: Delta = -0.124457 (95% CI: [-0.1455, -0.1051])                       |
@@ -199,8 +199,8 @@ Most QML studies report single point-estimate accuracies across small, non-repre
 * Permutation null hypothesis tests to rule out random label noise fitting.
 * False discovery rate (Benjamini-Hochberg) corrections across multiple parameter searches.
 
-### 6.3 CareScan's Honest Empirical Findings
-CareScan evaluated **seven distinct QML algorithm families** against capacity-matched classical models across two extensive biomedical datasets (Peradeniya Oral Imaging and PTB-XL ECG):
+### 6.3 Orqis's Honest Empirical Findings
+Orqis evaluated **seven distinct QML algorithm families** against capacity-matched classical models across two extensive biomedical datasets (Peradeniya Oral Imaging and PTB-XL ECG):
 * **On 16D Fused Biomedical Features (PTB-XL, $N=19,601$):**
   * Classical 1D-ResNet Baseline: ROC-AUC = $0.940234$.
   * Hybrid QML Fusion: ROC-AUC = $0.940875$.
@@ -208,13 +208,13 @@ CareScan evaluated **seven distinct QML algorithm families** against capacity-ma
 * **On Single-Arm 2D Features (Havlicek ZZ-Map Kernel vs. RBF SVM):**
   * $\Delta = -0.124457$, 95% Bootstrap CI: $[-0.145524, -0.105109]$ (Excludes Zero $\implies$ **Statistically Significant Classical Superiority**).
 
-Rather than fabricating an artificial quantum advantage, CareScan's findings demonstrate scientific integrity: **current NISQ quantum kernels do not outperform capacity-matched classical ensembles on low-dimensional oral image features**, establishing that hybrid quantum advantages in medicine require higher dimensional entanglement and fault-tolerant hardware error correction.
+Rather than fabricating an artificial quantum advantage, Orqis's findings demonstrate scientific integrity: **current NISQ quantum kernels do not outperform capacity-matched classical ensembles on low-dimensional oral image features**, establishing that hybrid quantum advantages in medicine require higher dimensional entanglement and fault-tolerant hardware error correction.
 
 ---
 
-## 7. Comprehensive Gap vs. CareScan Solution Matrix
+## 7. Comprehensive Gap vs. Orqis Solution Matrix
 
-| # | Identified Research Gap | Flawed Standard in Literature | CareScan Audited Architectural Solution |
+| # | Identified Research Gap | Flawed Standard in Literature | Orqis Audited Architectural Solution |
 |---|---|---|---|
 | **1** | **State Prep Gate Explosion** | Direct amplitude encoding ($O(2^n)$ CNOTs) collapses circuit fidelity to $<2\%$ on NISQ hardware. | 16-D tensor-network dimensionality reduction + shallow $L=2$ parameterized circuits ($<48$ CNOTs). |
 | **2** | **Patient Leakage** | Random image-level splits allow patient anatomy memorization, leading to false $>98\%$ test claims. | Strict $k=0$ patient-disjoint stratification verified via SHA-256 splits + MobileNetV3 lesion cropping. |
@@ -226,4 +226,4 @@ Rather than fabricating an artificial quantum advantage, CareScan's findings dem
 
 ## 8. Summary for Evaluators
 
-By explicitly diagnosing and solving these five systemic flaws, CareScan shifts medical AI from academic benchmark gaming to clinically robust, verifiable point-of-care screening. Every architectural decision—from the on-device quality gate to the hybrid quantum-classical pipeline—directly resolves an empirical failure mode documented in prior literature.
+By explicitly diagnosing and solving these five systemic flaws, Orqis shifts medical AI from academic benchmark gaming to clinically robust, verifiable point-of-care screening. Every architectural decision—from the on-device quality gate to the hybrid quantum-classical pipeline—directly resolves an empirical failure mode documented in prior literature.

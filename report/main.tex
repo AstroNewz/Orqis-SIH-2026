@@ -1,5 +1,5 @@
 % =====================================================================
-%  CareScan / SIH26139
+%  Orqis / SIH26139
 %  Engineering Report and Measured Quantum Contribution
 %
 %  COMPILE (Overleaf): upload main.tex + references.bib, compiler = pdfLaTeX,
@@ -48,7 +48,7 @@
 \definecolor{csgreen}{RGB}{30,120,60}
 
 \hypersetup{
-  pdftitle={CareScan: A Hybrid Quantum-Classical Screening Platform and a Measured Quantum Null},
+  pdftitle={Orqis: A Hybrid Quantum-Classical Screening Platform and a Measured Quantum Null},
   pdfsubject={Smart India Hackathon 2026, problem SIH26139},
   pdfkeywords={oral cancer screening, quantum machine learning, PTB-XL, pre-registration, null result},
   colorlinks=true,
@@ -92,7 +92,7 @@
 {\color{csteal}\rule{\textwidth}{2.2pt}}
 \vspace{0.35cm}
 
-{\Huge \bfseries \color{csteal} CareScan / Braket 3.1.0}\\[0.30cm]
+{\Huge \bfseries \color{csteal} Orqis / Braket 3.1.0}\\[0.30cm]
 {\Large \bfseries A Hybrid Quantum--Classical Biomedical Screening Platform and a Rigorously Measured Quantum Null}\\[0.20cm]
 {\large \itshape Engineering Architecture, Quality Gates, Patient-Disjoint Validation, and Multi-Family QML Evaluation}
 
@@ -146,7 +146,7 @@ Prajjwal Patel & \textbf{Biomedical Signal Processing \& Verification Lead} \new
 \begin{minipage}{0.92\textwidth}
 \tiny
 \textbf{Core Scientific Stance of this Report:}\\
-This document is a technical and empirical audit of the CareScan codebase. It is \textbf{not} a speculative proposal or marketing brochure. Every metric reported here is transcribed from machine-generated evaluation artifacts. We report an end-to-end smartphone triage application alongside a disciplined quantum evaluation across seven distinct circuit families. In our matched, pre-registered benchmarks, the evaluated quantum feature maps \textbf{did not outperform} matched classical controls. Rather than obscuring this negative result, this report documents the rigorous statistical controls and circuit proofs that make the null finding a genuine scientific contribution.
+This document is a technical and empirical audit of the Orqis codebase. It is \textbf{not} a speculative proposal or marketing brochure. Every metric reported here is transcribed from machine-generated evaluation artifacts. We report an end-to-end smartphone triage application alongside a disciplined quantum evaluation across seven distinct circuit families. In our matched, pre-registered benchmarks, the evaluated quantum feature maps \textbf{did not outperform} matched classical controls. Rather than obscuring this negative result, this report documents the rigorous statistical controls and circuit proofs that make the null finding a genuine scientific contribution.
 \end{minipage}
 
 \vfill
@@ -161,7 +161,7 @@ This document is a technical and empirical audit of the CareScan codebase. It is
 \chapter*{Executive Summary}
 \addcontentsline{toc}{chapter}{Executive Summary}
 
-This engineering report documents the architecture, experimental methodology, and verified empirical achievements of \textbf{CareScan} (Braket 3.1.0), developed under Smart India Hackathon problem statement \textbf{SIH26139}: \textit{Hybrid Quantum Machine Learning Platform for Early Disease Detection}. The primary clinical application is the triage screening of oral precancerous and cancerous lesions from smartphone-captured photographs, supported by an extensible biomedical signal processing platform evaluated on 12-lead electrocardiograms (PTB-XL).
+This engineering report documents the architecture, experimental methodology, and verified empirical achievements of \textbf{Orqis} (Braket 3.1.0), developed under Smart India Hackathon problem statement \textbf{SIH26139}: \textit{Hybrid Quantum Machine Learning Platform for Early Disease Detection}. The primary clinical application is the triage screening of oral precancerous and cancerous lesions from smartphone-captured photographs, supported by an extensible biomedical signal processing platform evaluated on 12-lead electrocardiograms (PTB-XL).
 
 \section*{Key Verified Deliverables}
 \begin{enumerate}[leftmargin=*]
@@ -226,7 +226,7 @@ Oral squamous cell carcinoma (OSCC) represents one of the most prevalent and let
 The diagnostic bottleneck is fundamentally infrastructural. Specialized oral oncologists and maxillofacial surgeons are concentrated in urban tertiary referral centres, while primary health centres (PHCs) and community health workers (ASHA workers) lack specialized diagnostic instrumentation. Conventional clinical examination with incandescent white light relies entirely on subjective visual pattern recognition, resulting in high misclassification rates between benign inflammatory variations and oral potentially malignant disorders (OPMDs) such as leukoplakia, erythroplakia, and oral submucous fibrosis (OSF).
 
 \section{Smart India Hackathon Problem Framing (SIH26139)}
-Problem statement \textbf{SIH26139} challenges participants to develop a \textit{Hybrid Quantum Machine Learning Platform for Early Disease Detection}. The engineering objective assigned to the CareScan initiative is to establish a rigorous, smartphone-assisted triage pipeline capable of:
+Problem statement \textbf{SIH26139} challenges participants to develop a \textit{Hybrid Quantum Machine Learning Platform for Early Disease Detection}. The engineering objective assigned to the Orqis initiative is to establish a rigorous, smartphone-assisted triage pipeline capable of:
 \begin{enumerate}
   \item Acquiring standard RGB mucosal photographs using commodity mobile hardware;
   \item Enforcing local quality control to eliminate blurred, under-exposed, or improperly focused frames before computation;
@@ -249,7 +249,7 @@ Scientific integrity requires an unambiguous demarcation of the project scope.
 \begin{itemize}
   \item \textbf{No Quantum Advantage:} Across all evaluated benchmarks, quantum feature representations did not outperform matched classical controls. We report a pre-registered null finding.
   \item \textbf{No Clinical Validation:} The system has not undergone prospective clinical trials, multi-centre external cohort validation, or regulatory clearance (CDSCO, FDA, CE).
-  \item \textbf{No Medical Diagnostic Claims:} CareScan is an engineering screening and triage demonstrator; it does not generate medical diagnoses or replace histopathological biopsy.
+  \item \textbf{No Medical Diagnostic Claims:} Orqis is an engineering screening and triage demonstrator; it does not generate medical diagnoses or replace histopathological biopsy.
   \item \textbf{No Untracked Cost Claims:} In the absence of formal health economics modelling, no claims of ``60--70\% infrastructure cost reduction'' are made.
 \end{itemize}
 
@@ -259,12 +259,12 @@ Scientific integrity requires an unambiguous demarcation of the project scope.
 \chapter{System Architecture and Pipeline Design}
 
 \section{End-to-End Pipeline Architecture}
-The CareScan platform is structured as a modular, seven-stage sequential processing pipeline designed to decouple image acquisition, quality assurance, spatial localization, representation engineering, inference, and clinical data export.
+The Orqis platform is structured as a modular, seven-stage sequential processing pipeline designed to decouple image acquisition, quality assurance, spatial localization, representation engineering, inference, and clinical data export.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_pipeline_architecture.png}
-\caption{CareScan / Braket 3.1.0 End-to-End System Pipeline Architecture. The modular pipeline decouples client-side guidance, deterministic server quality gating, MobileNetV3 lesion localization, multimodal classical feature extraction, quantum feature mapping under the same-shape contract, calibrated classification, and HL7 FHIR export.}
+\caption{Orqis / Braket 3.1.0 End-to-End System Pipeline Architecture. The modular pipeline decouples client-side guidance, deterministic server quality gating, MobileNetV3 lesion localization, multimodal classical feature extraction, quantum feature mapping under the same-shape contract, calibrated classification, and HL7 FHIR export.}
 \label{fig:pipeline_arch}
 \end{figure}
 
@@ -445,7 +445,7 @@ Standard computer vision pipelines frequently employ HSV (Hue-Saturation-Value).
   \item \textbf{Hue Circularity:} Hue is an angular coordinate $\theta \in [0, 2\pi)$. Near the red spectrum boundary (which dominates oral mucosa), small photometric variations cause values to wrap between $0.0$ and $1.0$, creating discontinuous gradients.
   \item \textbf{Low-Luma Instability:} When value $V \to 0$ or saturation $S \to 0$, hue becomes undefined, introducing numerical noise in shadowed buccal crevices.
 \end{enumerate}
-CareScan transforms all images into the \textbf{CIE $L^*a^*b^*$} color space (\artifact{backend/ml/preprocessing.py}). $L^*$ explicitly decouples perceived lightness, while $a^*$ (green--red axis) and $b^*$ (blue--yellow axis) provide Euclidean color distances that align with human visual perception and hemoglobin absorption peaks.
+Orqis transforms all images into the \textbf{CIE $L^*a^*b^*$} color space (\artifact{backend/ml/preprocessing.py}). $L^*$ explicitly decouples perceived lightness, while $a^*$ (green--red axis) and $b^*$ (blue--yellow axis) provide Euclidean color distances that align with human visual perception and hemoglobin absorption peaks.
 
 \section{Feature Block Construction}
 For every image, five distinct feature blocks are extracted:
@@ -524,7 +524,7 @@ Boxes with $\text{IoU} \ge 0.75$ & 7 / 47 (\textbf{14.89\%}) & Near-exact match 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.88\textwidth]{figures/fig3_lesion_localization_sample.png}
-\caption{Representative Clinical Mucosal Photograph Processed through the CareScan Triage Pipeline. Overlay demonstrates the real-time QA telemetry HUD (focus, luminance, clipping, and red-tissue checks) alongside the MobileNetV3-Small predicted lesion bounding box (pinned checkpoint SHA-256: \nolinkurl{27d6036e...}, evaluated IoU 0.5279, acceptance rate 0.9816) and resulting high-risk referral banner.}
+\caption{Representative Clinical Mucosal Photograph Processed through the Orqis Triage Pipeline. Overlay demonstrates the real-time QA telemetry HUD (focus, luminance, clipping, and red-tissue checks) alongside the MobileNetV3-Small predicted lesion bounding box (pinned checkpoint SHA-256: \nolinkurl{27d6036e...}, evaluated IoU 0.5279, acceptance rate 0.9816) and resulting high-risk referral banner.}
 \label{fig:lesion_localization_sample}
 \end{figure}
 
@@ -543,7 +543,7 @@ The localizer metrics carry vital engineering caveats that must not be obfuscate
 \chapter{Image Quality Assurance and Acquisition Gating}
 
 \section{Two-Tier Safety Philosophy}
-Inferring clinical risk from a severely blurred, over-exposed, or improperly framed smartphone photograph produces confident-looking probabilities with zero diagnostic foundation. CareScan implements a strict two-stage quality gate: a client-side real-time filter to minimize network transfer of flawed captures, and an authoritative server-side gate enforcing hard rejection boundaries.
+Inferring clinical risk from a severely blurred, over-exposed, or improperly framed smartphone photograph produces confident-looking probabilities with zero diagnostic foundation. Orqis implements a strict two-stage quality gate: a client-side real-time filter to minimize network transfer of flawed captures, and an authoritative server-side gate enforcing hard rejection boundaries.
 
 \section{The Authoritative Backend Gate (7 Parametric Checks)}
 Implemented in \artifact{backend/ml/image\_quality.py}, every check is parametrized in \artifact{backend/core/config.py}. Thresholds represent engineering acceptability limits derived from empirical analysis of 400 pilot captures.
@@ -682,7 +682,7 @@ Under low positive support ($N=18$), individual model ranks carry wide confidenc
 \chapter{Quantum Machine Learning --- Seven Evaluated Families}
 
 \section{Overview of the QML Investigation}
-A central mandate of SIH26139 is investigating quantum machine learning for early disease detection. Rather than deploying a single unverified toy circuit, CareScan executed a structured, multi-phase investigation across \textbf{seven distinct quantum architecture families} spanning both oral imaging and ECG signal processing.
+A central mandate of SIH26139 is investigating quantum machine learning for early disease detection. Rather than deploying a single unverified toy circuit, Orqis executed a structured, multi-phase investigation across \textbf{seven distinct quantum architecture families} spanning both oral imaging and ECG signal processing.
 
 \section{Family 1: 16-Qubit Raw-Pixel Amplitude-Encoded VQC (E0)}
 The earliest design attempted direct classification of $256 \times 256$ grayscale oral crops via 16-qubit amplitude encoding ($2^{16} = 65,536$ statevector amplitudes), followed by a parameterized ansatz and expectation measurement $\langle Z_0 \rangle$ (\artifact{reports\_final\_oracle.json}).
@@ -711,7 +711,7 @@ Crucially, the repository assessed the hardware viability of this circuit. Synth
 10 Qubits ($2^{10} = 1,024$ amplitudes) & 1,013 CX & Measured Qiskit Transpiler \\
 12 Qubits ($2^{12} = 4,096$ amplitudes) & 4,083 CX & Measured Qiskit Transpiler \\
 \midrule
-\textbf{16 Qubits (CareScan E0)} & \textbf{62,940 CX} & \textbf{Polynomial/Spline Extrapolation} \\
+\textbf{16 Qubits (Orqis E0)} & \textbf{62,940 CX} & \textbf{Polynomial/Spline Extrapolation} \\
 16 Qubits (Shende--Bullock--Markov Bound) & 131,038 CX & Theoretical Worst-Case Upper Bound~\cite{shende2006synthesis} \\
 \textbf{Ansatz Gate Depth (L=1)} & \textbf{16 CX} & \textbf{Parameter Layer Depth} \\
 \bottomrule
@@ -820,7 +820,7 @@ The paired interval unambiguously spans zero. The quantum feature map contribute
 \chapter{Statistical Methodology and Leakage Prevention}
 
 \section{Information Leakage Prevention Protocols}
-In medical machine learning, data leakage frequently inflates reported performance, producing catastrophic failures during prospective deployment. CareScan enforces five structural barriers against leakage:
+In medical machine learning, data leakage frequently inflates reported performance, producing catastrophic failures during prospective deployment. Orqis enforces five structural barriers against leakage:
 \begin{enumerate}
   \item \textbf{Patient-Disjoint Partitioning:} Split assignment is computed on patient identifiers ($k=0$ cross-partition overlap). All multiple captures from a single individual reside in the same fold.
   \item \textbf{Train-Only Transformations:} All scaling parameters, PCA projection bases, imputation medians, and probability calibrators are fitted exclusively on training rows.
@@ -830,7 +830,7 @@ In medical machine learning, data leakage frequently inflates reported performan
 \end{enumerate}
 
 \section{Permutation Null Hypothesis Framework}
-To establish whether predictive increments reflect genuine biological patterns rather than feature dimensionality artifacts, CareScan implements two distinct permutation null test families:
+To establish whether predictive increments reflect genuine biological patterns rather than feature dimensionality artifacts, Orqis implements two distinct permutation null test families:
 
 \subsection{Column-Permutation Null (Gating)}
 When testing candidate block $\mathbf{X}_B$ concatenated with baseline $\mathbf{X}_A$, rows of $\mathbf{X}_B$ are shuffled in intact patient blocks while preserving labels $\mathbf{y}$ and baseline $\mathbf{X}_A$. This preserves marginal feature distributions and within-patient dependencies while breaking cross-feature covariance. If an increment fails this null ($p \ge 0.05$), it is discarded as dimensional noise.
@@ -917,7 +917,7 @@ A deep 1D convolutional network (\texttt{resnet\_small}, 126,649 parameters) was
 The 1D-CNN provided no statistically meaningful advantage over carefully engineered domain features. However, a blended ensemble (\texttt{fusion@cnn+gbm}) leveraged residual orthogonality to reach \textbf{0.946293 ROC-AUC}.
 
 \section{The Centrepiece Forest Plot: Four Decisive Comparisons}
-The empirical conclusions of the CareScan project are encapsulated in the paired bootstrap distributions across its four core structural questions:
+The empirical conclusions of the Orqis project are encapsulated in the paired bootstrap distributions across its four core structural questions:
 
 \begin{figure}[H]
 \centering
@@ -934,7 +934,7 @@ The empirical conclusions of the CareScan project are encapsulated in the paired
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/fig9_mobile_application_mockup.png}
-\caption{CareScan Flutter Mobile Application Architecture and Screening Workflow. The five-step user journey comprises offline patient intake, real-time smart camera guidance, deterministic quality gate validation, MobileNetV3 lesion localization, and calibrated tri-band risk triage with HL7 FHIR R4 export.}
+\caption{Orqis Flutter Mobile Application Architecture and Screening Workflow. The five-step user journey comprises offline patient intake, real-time smart camera guidance, deterministic quality gate validation, MobileNetV3 lesion localization, and calibrated tri-band risk triage with HL7 FHIR R4 export.}
 \label{fig:mobile_mockup}
 \end{figure}
 
@@ -980,7 +980,7 @@ $ python -m pytest tests -q
 .........................................................................
 1038 passed in 732.71s (0:12:12) [Exit Code: 0]
 \end{lstlisting}
-Across the platform, \textbf{1,038 automated backend tests passed with zero failures}. Combined with the 193 Flutter mobile tests, the CareScan project possesses an automated test coverage base of \textbf{1,231 verified tests}.
+Across the platform, \textbf{1,038 automated backend tests passed with zero failures}. Combined with the 193 Flutter mobile tests, the Orqis project possesses an automated test coverage base of \textbf{1,231 verified tests}.
 
 \section{Clinical Interoperability: HL7 FHIR R4 Export}
 To enable seamless integration into hospital information systems and Electronic Health Records (EHR), the backend serializes screening results into standard HL7 FHIR Release 4 resources (\artifact{hl7.org/fhir/R4/}) accessible via \texttt{GET /api/screening/\{id\}/fhir}:
@@ -996,7 +996,7 @@ To enable seamless integration into hospital information systems and Electronic 
 \chapter{Security, Privacy, and Responsible AI}
 
 \section{Implemented Security Controls}
-CareScan incorporates standard foundational security controls:
+Orqis incorporates standard foundational security controls:
 \begin{table}[H]
 \centering
 \small
@@ -1033,7 +1033,7 @@ In accordance with professional audit standards, several architectural limitatio
 \chapter{Feasibility, Economic Analysis, and Limitations}
 
 \section{Technical and Operational Feasibility}
-The CareScan architecture demonstrates practical feasibility within community screening constraints:
+The Orqis architecture demonstrates practical feasibility within community screening constraints:
 \begin{itemize}
   \item \textbf{Hardware Agnosticism:} Inference executes entirely on standard x86/ARM CPU architectures. No GPU or specialized quantum coprocessor is required at the inference edge.
   \item \textbf{Bandwidth Efficiency:} The client-side quality gate eliminates upstream transmission of unprocessable captures, preserving mobile data in rural settings.
@@ -1063,7 +1063,7 @@ Circulating project pitch decks frequently claim ``60--70\% lower infrastructure
 \chapter{Final Achievements and Conclusion}
 
 \section{Synthesis of What Was Built and Demonstrated}
-The CareScan / Braket 3.1.0 project addressed SIH26139 by constructing a verified, two-tier biomedical screening platform and executing an uncompromised empirical investigation of quantum machine learning.
+The Orqis / Braket 3.1.0 project addressed SIH26139 by constructing a verified, two-tier biomedical screening platform and executing an uncompromised empirical investigation of quantum machine learning.
 
 \begin{table}[H]
 \centering
@@ -1100,7 +1100,7 @@ In applied machine learning, negative results are frequently buried or transform
   \item In every evaluated setting, quantum feature maps either matched classical approximations or lagged behind matched classical controls.
 \end{itemize}
 
-A system designed to fabricate a quantum advantage would easily have found one by comparing a heavily tuned quantum model against an unregularized classical baseline. CareScan was engineered to measure whether a quantum advantage genuinely exists under leak-free medical conditions. It reports honestly that, on these benchmarks, it does not.
+A system designed to fabricate a quantum advantage would easily have found one by comparing a heavily tuned quantum model against an unregularized classical baseline. Orqis was engineered to measure whether a quantum advantage genuinely exists under leak-free medical conditions. It reports honestly that, on these benchmarks, it does not.
 
 % =====================================================================
 % REFERENCES
@@ -1133,7 +1133,7 @@ To align all project communications with verified repository evidence, the follo
 
 \chapter{Machine-Generated Artifact Index and Traceability Matrix}
 
-Every empirical metric reported in this engineering document traces directly to a versioned machine-generated artifact in the CareScan repository:
+Every empirical metric reported in this engineering document traces directly to a versioned machine-generated artifact in the Orqis repository:
 
 \begin{table}[H]
 \centering

@@ -1,6 +1,6 @@
 # Master Link Index & Reference Directory
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Theme:** MedTech / Healthcare & Biomedical Computing  
 **Category:** Software / Quantum Machine Learning  
@@ -100,12 +100,12 @@ This directory provides the comprehensive, modular evidence dossiers created to 
 ### Slide 2: Presentation Resource Links
 
 #### 6. [`report/main.pdf`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/report/main.pdf) & [`references/06_PROJECT_REPORT.md`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/references/06_PROJECT_REPORT.md)
-* **Title:** *CareScan: A Hybrid Quantum-Classical Platform for Early Oral Cancer Screening (53 Pages)*
+* **Title:** *Orqis: A Hybrid Quantum-Classical Platform for Early Oral Cancer Screening (53 Pages)*
 * **File Specs:** 53 pages, 8.51 MB, compiled via Tectonic v0.15 with 9 high-resolution scientific diagrams.
 * **Author Roster:** Ishan Narayan Shukla, Jay Karan Laxme, Rudransh Rajveer Singh, Pratyaksh Ranjan, Priyanshi Saraswat, Prajjwal Patel.
 
 #### 7. [`orion-workspace/index.html`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/orion-workspace/index.html) & [`references/07_PROTOTYPE_GUIDE.md`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/references/07_PROTOTYPE_GUIDE.md)
-* **Title:** *CareScan Interactive Prototype Guide & Operational Runbook*
+* **Title:** *Orqis Interactive Prototype Guide & Operational Runbook*
 * **Content:** Architecture walkthrough of the Flutter mobile client and FastAPI backend (`/api/v1/screen/oral`), step-by-step user journey, and local launch instructions.
 
 #### 8. [`references/08_VIDEO_DEMO_SCRIPT.md`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/references/08_VIDEO_DEMO_SCRIPT.md)

@@ -1,24 +1,24 @@
 # Comprehensive Project Report Guide & Executive Summary
 
-**Project:** CareScan / Braket 3.1.0  
+**Project:** Orqis / Braket 3.1.0  
 **Initiative:** Smart India Hackathon 2026 — Problem Statement **SIH26139**  
 **Category:** MedTech / Biomedical Computing / Quantum Machine Learning  
 **Team:** **Team BraKet 3.1.0**  
 *(Ishan Narayan Shukla, Jay Karan Laxme, Rudransh Rajveer Singh, Pratyaksh Ranjan, Priyanshi Saraswat, Prajjwal Patel)*  
 **Document Link Identifier:** `SLIDE_2_REPORT_LINK`  
-**Primary PDF Artifact:** [CareScan Complete Engineering & Scientific Audit Report (53 Pages)](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/report/main.pdf)
+**Primary PDF Artifact:** [Orqis Complete Engineering & Scientific Audit Report (53 Pages)](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/report/main.pdf)
 
 ---
 
 ## 1. Document Overview
 
-This document provides the executive guide to the official **53-page CareScan Engineering & Scientific Audit Report**, compiled and validated in `report/main.pdf`. 
+This document provides the executive guide to the official **53-page Orqis Engineering & Scientific Audit Report**, compiled and validated in `report/main.pdf`. 
 
-Unlike generic hackathon presentations or high-level slide decks, the project report represents an exhaustive, production-grade technical dissertation covering every mathematical derivation, software layer, dataset provenance ledger, empirical experiment, and regulatory framework in the CareScan ecosystem.
+Unlike generic hackathon presentations or high-level slide decks, the project report represents an exhaustive, production-grade technical dissertation covering every mathematical derivation, software layer, dataset provenance ledger, empirical experiment, and regulatory framework in the Orqis ecosystem.
 
 ```
 +----------------------------------------------------------------------------------------------------+
-|                         CARECASCAN 53-PAGE AUDIT REPORT SPECIFICATIONS                             |
+|                         ORQIS 53-PAGE AUDIT REPORT SPECIFICATIONS                             |
 +------------------------------+----------------------------------+----------------------------------+
 |         Document File        |          Total Pages             |            File Size             |
 |       report/main.pdf        |            53 Pages              |             8.51 MB              |
@@ -77,7 +77,7 @@ All nine technical figures embedded within `report/main.pdf` are rendered at $30
    * Forest plot demonstrating that the Hybrid Fusion delta spans zero ($[-0.000486, +0.001747]$) while the Havlicek ZZ kernel exhibits a statistically significant deficit.
 8. **Figure 8: PTB-XL 13-Arm Biomedical Generalization Leaderboard** (`report/figures/ptbxl_leaderboard.png`)
    * Horizontal bar chart ranking all 13 classical and quantum architectures on $N=19,601$ 12-lead ECG records.
-9. **Figure 9: CareScan Frontline Smartphone Mobile Application Interface** (`report/figures/mobile_app_mockup.png`)
+9. **Figure 9: Orqis Frontline Smartphone Mobile Application Interface** (`report/figures/mobile_app_mockup.png`)
    * Pixel-perfect UI mockup showing real-time camera viewfinder, blur detection HUD, patient risk card, and ABDM/ABHA export modal.
 
 ---

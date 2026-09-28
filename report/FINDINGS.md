@@ -1,4 +1,4 @@
-# CARESCAN — FINAL VERIFIED FINDINGS
+# ORQIS — FINAL VERIFIED FINDINGS
 
 **Problem statement:** SIH26139 — Hybrid Quantum Machine Learning Platform for Early Disease Detection
 **Repository audited:** `C:\Users\ISHAN SHUKLA\Downloads\Orqis-main\Orqis-main`

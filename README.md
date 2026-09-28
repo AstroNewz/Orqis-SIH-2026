@@ -1,7 +1,7 @@
-# CareScan / Braket 3.1.0: Hybrid Quantum-Classical Biomedical Screening Platform
+# Orqis / Braket 3.1.0: Hybrid Quantum-Classical Biomedical Screening Platform
 
 <p align="center">
-  <img src="report/figures/fig1_pipeline_architecture.png" alt="CareScan Architecture" width="850">
+  <img src="report/figures/fig1_pipeline_architecture.png" alt="Orqis Architecture" width="850">
 </p>
 
 <p align="center">
@@ -152,7 +152,7 @@ cd carescan && flutter test
 
 ## 📜 Regulatory & ABDM Interoperability
 
-CareScan is architected from the ground up for medical device translation:
+Orqis is architected from the ground up for medical device translation:
 * **CDSCO Medical Device Rules 2017:** Form MD-14 compliant investigational Software as a Medical Device (SaMD Class B/C).
 * **Ayushman Bharat Digital Mission (ABDM):** Direct linking with 14-digit ABHA IDs.
 * **HL7 FHIR Release 4:** Automated generation of `DiagnosticReport`, `Observation`, and `Media` bundles.
