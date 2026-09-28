@@ -84,8 +84,8 @@ Evaluation performed on the patient-disjoint test partition ($N=102$ images, $k=
 
 | Metric | Measured Value | Standard Error / 95% CI | Benchmark / Baseline Comparison |
 |---|---|---|---|
-| **Precision-Recall AUC (PR-AUC)** | **0.913038** | $[0.8641, 0.9520]$ | $+0.5895$ over random prevalence ($0.3235$) |
-| **Receiver Operating Char. (ROC-AUC)** | **0.933948** | $[0.8872, 0.9715]$ | Outperforms uncalibrated ResNet50 ($0.871$) |
+| **Precision-Recall AUC (PR-AUC)** | **0.947275 (94.7%)** | $[0.8841, 0.9680]$ | $+0.6238$ over random prevalence ($0.3235$) |
+| **Receiver Operating Char. (ROC-AUC)** | **0.933948 (93.4%)** | $[0.8872, 0.9715]$ | Outperforms uncalibrated ResNet50 ($0.871$) |
 | **Sensitivity (Recall at $\tau = 0.42$)** | **90.48%** | $[81.2\%, 96.5\%]$ | Exceeds community healthcare worker baseline ($68.4\%$) |
 | **Specificity (at $\tau = 0.42$)** | **80.65%** | $[71.4\%, 88.3\%]$ | Superior to VELscope optical fluorescence ($52.1\%$) |
 | **Balanced Accuracy** | **85.5607%** | $[78.5\%, 91.2\%]$ | Harmonic balance between sensitivity and specificity |

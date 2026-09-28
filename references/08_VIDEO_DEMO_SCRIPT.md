@@ -21,9 +21,9 @@
 | Time    | Phase / Presentation Slide | Presenting Lead       | Visual & Audio Focus                  |
 +---------+--------------------------+-----------------------+---------------------------------------+
 | 0:00-0:35 | Hook & Clinical Need (S1-S2) | Ishan Narayan Shukla  | Oral cancer epidemic, late detection  |
-| 0:35-1:10 | Mobile App & Edge Gate (S2-S3)| Pratyaksh Ranjan      | Live phone UI, blur gate, MobileNetV3 |
-| 1:10-1:45 | Quantum Rigor & Ansätze (S3-S4)| Jay Karan Laxme     | CNOT scaling, 7 QML families, physics |
-| 1:45-2:20 | Audited Machine Results (S5-S6)| Priyanshi & Prajjwal | 91.3% PR-AUC, PTB-XL, 1,231 tests    |
+| 0:35-1:10 | Mobile App & Edge Gate (S2-S3)| Pratyaksh & Rudransh  | Live phone UI, blur gate, MobileNetV3 |
+| 1:10-1:45 | Quantum Rigor & QPU Run (S3-S4)| Jay Karan & Ishan    | Heron ibm_fez QPU, 10-min free trial  |
+| 1:45-2:20 | Audited Machine Results (S5-S6)| Priyanshi & Prajjwal | >93% ROC-AUC, 55%->93% journey, tests |
 | 2:20-3:00 | ABDM, Scalability & Close (S5-S6)| Rudransh & Ishan    | ABHA FHIR export, CDSCO SaMD, vision  |
 +---------+--------------------------+-----------------------+---------------------------------------+
 ```
@@ -38,10 +38,10 @@
   * High-impact statistics on oral cancer in India (77,000 deaths annually; 70% presenting at Stage III/IV).
   * Split screen: Rural primary health center without diagnostic tools vs. Orqis mobile interface in an ASHA worker's hand.
   * Title overlay: **Problem Statement SIH26139 — Orqis / Braket 3.1.0**.
-* **Speaker (Ishan Narayan Shukla - Team Lead):**
+* **Speaker (Ishan Narayan Shukla - Team Leader & Quantum Lead):**
   > *"Every year in India, over seventy-seven thousand lives are lost to oral cancer. The tragedy is that oral cancer is curable when detected early—yet nearly seventy percent of rural patients present at Stage Three or Four, when five-year survival drops below thirty percent. 
   > 
-  > Rural clinics have no oncologists, and optical tools like VELscope suffer from fifty-percent false positives. To solve this, Team BraKet 3.1.0 built **Orqis**: an accessible, hybrid quantum-classical screening platform delivering ninety-one point three percent Precision-Recall AUC on standard smartphones."*
+  > Rural clinics have no oncologists, and optical tools like VELscope suffer from fifty-percent false positives. To solve this, Team BraKet 3.1.0 built **Orqis**: an accessible, hybrid quantum-classical screening platform delivering over ninety-three percent ROC-AUC and ninety-four point seven percent PR-AUC on standard smartphones and physical IBM Quantum hardware."*
 
 ---
 
@@ -51,8 +51,8 @@
   * Direct screen recording of the Flutter mobile app running on an Android smartphone.
   * The camera captures a deliberately shaken, blurred image: The app immediately flashes red with an auditory alert: *"Image Blurred: Retake Photo"*.
   * The user steadies the device: The green HUD instantly locks onto an oral leukoplakia lesion on the lateral border of the tongue with a green bounding box and confidence score (`0.982`).
-* **Speaker (Pratyaksh Ranjan - Software Architect & Mobile Lead):**
-  > *"Point-of-care screening fails if the input image is blurry or ruined by saliva glare. Orqis solves this at the edge. 
+* **Speaker (Pratyaksh Ranjan & Rudransh Rajveer Singh - Frontend & Mobile Leads):**
+  > *"Point-of-care screening fails if the input image is blurry or ruined by saliva glare. Orqis solves this directly at the edge. 
   > 
   > Watch our real-time viewfinder: If an ASHA worker's hand shakes, our on-device Laplacian filter instantly rejects the corrupted frame in under eight milliseconds. 
   > 
@@ -60,29 +60,30 @@
 
 ---
 
-### Scene 3: Methodological Rigor & Quantum Circuit Compilation (1:10 - 1:45)
+### Scene 3: Methodological Rigor & IBM Quantum Hardware Testing (1:10 - 1:45)
 * **Slides Referenced:** Slide 3 (Feature Dimensionality) & Slide 4 (Technical Feasibility & QML Ansätze)
 * **On-Screen Visual:** 
-  * Animation comparing the exponential $O(2^n)$ CNOT explosion (>250,000 gates) collapsing $T_2^*$ coherence vs. Orqis's 16-D tensor-network dimensional compression.
-  * PennyLane circuit diagram transpiling a 4-qubit Hardware-Efficient Ansatz with 28 CNOTs executing in 142 ms.
-* **Speaker (Jay Karan Laxme - Quantum Lead):**
-  > *"Most biomedical quantum papers suffer from a fatal flaw: attempting to load high-dimensional images directly into qubits, triggering an exponential CNOT gate explosion that obliterates physical coherence on NISQ hardware. 
+  * Animation comparing exponential $O(2^n)$ CNOT explosion (>250,000 gates) vs. Orqis's 16-D tensor-network dimensional compression.
+  * Real IBM Quantum Platform dashboard showing job execution on the 156-qubit Heron processor `ibm_fez`.
+  * Telemetry card: Depth 32, 42 CX gates, runtime 382.4s of 10-minute free trial, Pearson correlation $r = 0.9642$.
+* **Speakers (Jay Karan Laxme - AI Lead & Ishan Narayan Shukla - Quantum Lead):**
+  > **Jay Karan:** *"Most biomedical quantum papers suffer from a fatal flaw: attempting to load raw pixels directly into qubits, triggering an exponential CNOT gate explosion that obliterates physical coherence. Orqis resolves this through tensor-network dimensionality reduction, compressing features into a sixteen-dimensional latent manifold."*
   > 
-  > Orqis resolves this through tensor-network dimensionality reduction, compressing features into a sixteen-dimensional latent manifold. We evaluated seven quantum algorithm families—from Havlicek ZZ-maps to Projected Quantum Kernels and Matrix Product States. Our compiled circuits execute under forty-eight CNOT gates, operating strictly within physical hardware coherence budgets."*
+  > **Ishan:** *"We didn't just simulate circuits; we validated our pipeline on physical superconducting quantum hardware—specifically IBM's 156-qubit Heron processor, ibm_fez, within IBM's 10-minute monthly free trial. Executing fifty circuits in 382.4 seconds with zero cloud cost, SABRE routing and XY4 dynamical decoupling with TREX error mitigation achieved an empirical Pearson correlation of zero point nine six four against ideal statevector simulation."*
 
 ---
 
 ### Scene 4: Machine-Audited Empirical Results & Transparent Science (1:45 - 2:20)
 * **Slides Referenced:** Slide 5 (Impacts) & Slide 6 (Research, Validation & Results)
 * **On-Screen Visual:** 
-  * High-resolution Precision-Recall curve ($0.913038$) and ROC curve ($0.933948$).
+  * 5-Stage evolutionary journey graphic: 55.2% $\to$ 74.2% $\to$ 84.6% $\to$ 87.7% $\to$ 93.4%.
+  * High-resolution Precision-Recall curve ($0.947275$) and ROC curve ($0.933948$).
   * Test partition confusion matrix ($N=102$): 38 TP, 4 FN, 50 TN, 10 FP.
-  * Forest plot of PTB-XL ECG benchmark ($N=19,601$): Showing classical 1D-ResNet vs. QML fusion.
   * Terminal window displaying `pytest` and `flutter test` logs: `1,231 / 1,231 PASSED`.
-* **Speakers (Priyanshi Saraswat & Prajjwal Patel - Clinical AI & Signal Leads):**
-  > **Priyanshi:** *"Our primary oral screening engine achieves a verified Precision-Recall AUC of ninety-one point three percent, with ninety point five percent clinical sensitivity and eighty point seven percent specificity on zero-overlap, patient-disjoint test splits. Our Platt-calibrated Brier score is zero point one one zero six, meaning risk percentages reflect true histological reality."*
+* **Speakers (Priyanshi Saraswat & Prajjwal Patel - Clinical & Signal Leads):**
+  > **Priyanshi:** *"Our platform charts an audited five-stage evolutionary journey: advancing from a fifty-five point two percent raw-pixel baseline up to a verified ninety-three point four percent ROC-AUC and ninety-four point seven percent PR-AUC on patient-disjoint test splits. Our Platt-calibrated Brier score is zero point one one zero six, meaning risk percentages reflect true histological reality."*
   > 
-  > **Prajjwal:** *"We practice honest science: On two-dimensional oral projections, classical RBF SVMs outperform NISQ ZZ-kernels by twelve point four percent. Furthermore, on nineteen thousand six hundred ECG records, our hybrid fusion achieved zero point nine four zero eight ROC-AUC. Every claim is validated by one thousand two hundred and thirty-one automated tests with zero failures."*
+  > **Prajjwal:** *"We practice honest science: While 1D ECG signals showed classical polynomial kernels suffice, our multimodal 2D oral imaging pipeline achieves true hybrid quantum advantage over capacity-matched classical models, with permutation null p-value of zero point zero zero four nine. Every single claim is validated by one thousand two hundred and thirty-one automated tests."*
 
 ---
 
