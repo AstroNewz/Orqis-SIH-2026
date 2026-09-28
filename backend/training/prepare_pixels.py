@@ -86,13 +86,33 @@ def extract_pixels(
     limit: Optional[int] = None,
     classes: Optional[Sequence[str]] = None,
     progress_every: int = 200,
+    roi_mode: RoiMode = "oracle",
+    localizer: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """Localise, grayscale and resize every record to a 256x256 uint8 ROI.
 
+    Args:
+        roi_mode: ``"oracle"`` derives the ROI from the annotator's polygons
+            (evaluation condition A); ``"predicted"`` runs ``localizer`` on the
+            whole image (condition B). The two produce different pixels for the same
+            image and are cached separately.
+        localizer: a loaded :class:`~backend.ml.localizer.LesionLocalizer`, required
+            when ``roi_mode`` is ``"predicted"``.
+
     Rejections and failures are recorded per image with their reasons rather than
     dropped, so the count in the summary always accounts for every candidate.
+
+    In predicted mode the localisation outcome is recorded per image alongside the
+    ROI source, so a row cropped after a localisation *failure* is distinguishable
+    from one cropped from an accepted box. Quality control runs on the ROI that was
+    actually used, whichever mode produced it, so the two caches stay comparable.
     """
     cfg = config or default_settings
+    if roi_mode == "predicted" and localizer is None:
+        raise ValueError(
+            "roi_mode='predicted' needs a trained localiser. Load one with "
+            "LesionLocalizer.load(store.localizer_dir(LOCALIZER_VERSION))."
+        )
 
     records: List[ImageRecord] = list(index.records)
     if classes:
@@ -106,8 +126,11 @@ def extract_pixels(
     roi_boxes: List[List[int]] = []
     roi_sources: List[str] = []
     source_sizes: List[List[int]] = []
+    localization_statuses: List[str] = []
+    localization_confidences: List[float] = []
     rejections: Dict[str, List[str]] = {}
     failures: Dict[str, str] = {}
+    localization_reasons: Dict[str, List[str]] = {}
 
     started = time.perf_counter()
     for position, record in enumerate(records, start=1):
@@ -129,12 +152,30 @@ def extract_pixels(
             with Image.open(path) as handle:
                 handle.load()
                 width, height = handle.size
-                roi = extract_roi(
-                    width,
-                    height,
-                    lesion_polygons=record.lesion_polygons,
-                    region_polygons=record.region_polygons,
-                )
+                status = "oracle"
+                confidence = float("nan")
+                if roi_mode == "predicted":
+                    outcome = localizer.localize(handle.convert("RGB"))
+                    status = outcome.status.value
+                    confidence = float(outcome.confidence)
+                    if outcome.roi is None:
+                        # No ROI at all: there is nothing to cache. Recorded as a
+                        # localisation failure rather than back-filled with a crop.
+                        localization_reasons[record.image_id] = list(outcome.reasons)
+                        failures[record.image_id] = (
+                            f"localization_rejected: {', '.join(outcome.reasons)}"
+                        )
+                        continue
+                    if outcome.reasons:
+                        localization_reasons[record.image_id] = list(outcome.reasons)
+                    roi = outcome.roi
+                else:
+                    roi = extract_roi(
+                        width,
+                        height,
+                        lesion_polygons=record.lesion_polygons,
+                        region_polygons=record.region_polygons,
+                    )
                 quality = assess_image_quality(
                     handle,
                     file_size_bytes=file_size,
@@ -159,6 +200,8 @@ def extract_pixels(
         roi_boxes.append(list(roi.box))
         roi_sources.append(str(getattr(roi.source, "value", roi.source)))
         source_sizes.append([width, height])
+        localization_statuses.append(status)
+        localization_confidences.append(confidence)
 
     matrix = (
         np.vstack(rows)
@@ -170,7 +213,10 @@ def extract_pixels(
     return {
         "cache_version": PIXEL_CACHE_VERSION,
         "preprocessing_version": V1_PIXEL_PREPROCESSING_VERSION,
-        "roi_mode": "oracle",
+        "roi_mode": roi_mode,
+        "localizer_version": (
+            getattr(localizer, "version", None) if roi_mode == "predicted" else None
+        ),
         "qubit_count": V1_QUBIT_COUNT,
         "roi_edge_px": V1_ROI_EDGE_PX,
         "resample_filter": V1_RESAMPLE_NAME,
@@ -179,6 +225,11 @@ def extract_pixels(
         "roi_boxes": np.asarray(roi_boxes, dtype=np.int32).reshape(-1, 4),
         "roi_sources": roi_sources,
         "source_sizes": np.asarray(source_sizes, dtype=np.int32).reshape(-1, 2),
+        "localization_statuses": localization_statuses,
+        "localization_confidences": np.asarray(
+            localization_confidences, dtype=np.float64
+        ),
+        "localization_reasons": localization_reasons,
         "rejections": rejections,
         "failures": failures,
         "n_candidates": len(records),
@@ -205,6 +256,24 @@ def save_pixel_cache(payload: Dict[str, Any], path: Path) -> Path:
             "duration_seconds",
         )
     }
+    # Optional in an oracle cache, required in a predicted one. Fetched with a
+    # default so a caller assembling a minimal payload does not have to know about
+    # localisation, but present whenever ``extract_pixels`` produced them.
+    for key in ("localizer_version", "localization_reasons"):
+        if key in payload:
+            metadata[key] = payload[key]
+
+    n = len(payload["image_ids"])
+    statuses = list(payload.get("localization_statuses") or ["oracle"] * n)
+    confidences = np.asarray(
+        payload.get("localization_confidences", np.full(n, np.nan)), dtype=np.float64
+    )
+    if len(statuses) != n or confidences.shape[0] != n:
+        raise ValueError(
+            f"Localisation columns are misaligned: {len(statuses)} statuses and "
+            f"{confidences.shape[0]} confidences for {n} images."
+        )
+
     np.savez_compressed(
         path,
         raw=payload["raw"],
@@ -212,6 +281,8 @@ def save_pixel_cache(payload: Dict[str, Any], path: Path) -> Path:
         roi_boxes=payload["roi_boxes"],
         roi_sources=np.asarray(payload["roi_sources"], dtype=object),
         source_sizes=payload["source_sizes"],
+        localization_statuses=np.asarray(statuses, dtype=object),
+        localization_confidences=confidences,
         metadata=json.dumps(metadata),
     )
     return path
@@ -240,12 +311,37 @@ def load_pixel_cache(path: Path) -> Dict[str, Any]:
             "roi_sources": [str(v) for v in handle["roi_sources"]],
             "source_sizes": np.asarray(handle["source_sizes"], dtype=np.int32),
         }
+        n = raw.shape[0]
+        # Absent in a cache written before localisation existed. Defaulted rather
+        # than refused, because an oracle cache has no localisation to report and
+        # forcing a rebuild would invalidate a correct artifact.
+        payload["localization_statuses"] = (
+            [str(v) for v in handle["localization_statuses"]]
+            if "localization_statuses" in handle.files
+            else ["oracle"] * n
+        )
+        payload["localization_confidences"] = (
+            np.asarray(handle["localization_confidences"], dtype=np.float64)
+            if "localization_confidences" in handle.files
+            else np.full(n, np.nan)
+        )
     payload.update(metadata)
 
     if raw.shape[0] != len(payload["image_ids"]):
         raise ValueError(
             f"Pixel cache is inconsistent: {raw.shape[0]} rows for "
             f"{len(payload['image_ids'])} image ids."
+        )
+    if len(payload["localization_statuses"]) != raw.shape[0]:
+        raise ValueError(
+            f"Pixel cache is inconsistent: {len(payload['localization_statuses'])} "
+            f"localisation statuses for {raw.shape[0]} rows."
+        )
+    if payload.get("roi_mode") == "predicted" and not payload.get("localizer_version"):
+        raise ValueError(
+            f"Predicted-ROI cache at {path} does not record which localiser produced "
+            "it. Without that the crops cannot be traced to a model, so a condition B "
+            "result could not be attributed. Rebuild the cache."
         )
     if raw.size and raw.shape[1] != V1_PIXEL_COUNT:
         raise ValueError(
@@ -273,12 +369,19 @@ def prepare(
     cfg = config or default_settings
     store = ArtifactStore.from_settings(cfg)
 
-    if roi_mode != "oracle":
-        raise NotImplementedError(
-            "Only the oracle ROI cache is available until the MobileNet localiser is "
-            "trained. Build it with `--roi oracle`; the predicted-ROI cache is "
-            "produced by the localiser, keyed by its model version, so that an "
-            "oracle result can never be reported as a predicted one."
+    if roi_mode not in ("oracle", "predicted"):
+        raise ValueError(f"Unknown ROI mode {roi_mode!r}; expected oracle or predicted.")
+
+    localizer = None
+    if roi_mode == "predicted":
+        # Imported here, not at module scope: the oracle path must not require torch.
+        from backend.ml.localizer import LOCALIZER_VERSION, LesionLocalizer
+
+        localizer = LesionLocalizer.load(store.localizer_dir(LOCALIZER_VERSION))
+        logger.info(
+            "Localiser %s, min confidence %.2f",
+            localizer.version,
+            localizer.min_confidence,
         )
 
     logger.info("Indexing dataset...")
@@ -286,7 +389,14 @@ def prepare(
     logger.info("  %d records", len(index.records))
 
     logger.info("Caching %dx%d grayscale ROIs...", V1_ROI_EDGE_PX, V1_ROI_EDGE_PX)
-    payload = extract_pixels(index, config=cfg, limit=limit, classes=classes)
+    payload = extract_pixels(
+        index,
+        config=cfg,
+        limit=limit,
+        classes=classes,
+        roi_mode=roi_mode,
+        localizer=localizer,
+    )
     path = pixel_cache_path(store, roi_mode)
     save_pixel_cache(payload, path)
 
@@ -305,6 +415,7 @@ def prepare(
         "pixel_cache": str(path),
         "cache_version": PIXEL_CACHE_VERSION,
         "roi_mode": roi_mode,
+        "localizer_version": payload.get("localizer_version"),
         "qubit_count": V1_QUBIT_COUNT,
         "pixels_per_image": V1_PIXEL_COUNT,
         "n_images": int(raw.shape[0]),
@@ -318,6 +429,27 @@ def prepare(
             for source in sorted(set(payload["roi_sources"]))
         },
     }
+    if roi_mode == "predicted":
+        statuses = payload["localization_statuses"]
+        accepted = statuses.count("localized")
+        cached = max(1, len(statuses))
+        confidences = np.asarray(payload["localization_confidences"], dtype=np.float64)
+        summary["localization"] = {
+            # Rates over *cached* images. The images dropped by localisation failure
+            # are in n_failed, and the two together account for every candidate --
+            # asserted in tests/test_pixel_data.py.
+            "status_counts": {
+                status: statuses.count(status) for status in sorted(set(statuses))
+            },
+            "localized_share_of_cached": round(accepted / cached, 4),
+            "fallback_share_of_cached": round(
+                statuses.count("fallback_used") / cached, 4
+            ),
+            "n_dropped_no_roi": len(payload["failures"]),
+            "confidence_mean": (
+                round(float(np.nanmean(confidences)), 4) if confidences.size else None
+            ),
+        }
     if raw.size:
         summary["raw_grayscale"] = {
             "min": int(raw.min()),

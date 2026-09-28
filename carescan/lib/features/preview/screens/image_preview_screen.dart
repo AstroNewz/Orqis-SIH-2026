@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carescan/core/theme/app_shapes.dart';
 import 'package:carescan/core/theme/app_spacing.dart';
 import 'package:carescan/shared/widgets/app_button.dart';
 import 'package:carescan/shared/widgets/empty_state_widget.dart';
@@ -41,7 +42,7 @@ class ImagePreviewScreen extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainer,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppShapes.radiusMd,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.04),
@@ -51,7 +52,7 @@ class ImagePreviewScreen extends StatelessWidget {
                     ],
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: AppShapes.radiusMd,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -135,7 +136,9 @@ class ImagePreviewScreen extends StatelessWidget {
                 width: double.infinity,
                 child: AppButton(
                   label: 'Use This Image',
-                  onPressed: hasImage ? () => context.push('/analyzing') : null,
+                  onPressed: hasImage
+                      ? () => context.push('/analyzing', extra: imagePath)
+                      : null,
                   variant: AppButtonVariant.primary,
                 ),
               ),

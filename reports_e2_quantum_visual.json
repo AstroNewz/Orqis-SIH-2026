@@ -1,0 +1,933 @@
+{
+ "e2_version": "v1-e2-quantum-visual-driver-1",
+ "architecture": "DEC-035 Candidate B: fixed 8-qubit angle-encoded visual reservoir",
+ "role": "EXPERIMENTAL quantum visual demonstrator (SIH fallback). Secondary signal only; the classical baseline remains the primary clinical decision-maker (DEC-033/DEC-034). No quantum-advantage claim is made or authorised.",
+ "test_partition_used": false,
+ "partitions_read": [
+  "train",
+  "validation"
+ ],
+ "test_partition_note": "E2 reads TRAIN and VALIDATION only. No code path in this module can select the test partition; PCA, the angle scaler, the RFF bandwidth, every head and every null saw train rows only, and validation was scored once per representation.",
+ "primary_condition": "A_lesion_polygon",
+ "provenance": {
+  "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+  "mobilenet_source": "E1 feature cache matrix_mobilenet (MobileNetV3-Small, 576-d)",
+  "mobilenet_dimension": 576,
+  "e1_cache_version": "v1-e1-features-1",
+  "e1_cache_rows": 2436,
+  "pixel_cache_version": "v1-pixels-1",
+  "rows_dropped_for_cache_misalignment": {
+   "A_lesion_polygon": {
+    "train": 0,
+    "validation": 0
+   },
+   "A_all": {
+    "train": 0,
+    "validation": 0
+   }
+  },
+  "join": "MobileNet descriptor by image id from the E1 cache; labels/patients from the oracle pixel partition; the two label derivations cross-checked. Rows missing from either cache are dropped and counted.",
+  "label_cross_check": "pixel-cache labels asserted equal to the handcrafted-descriptor cache labels on the joined rows; a mismatch raises rather than picks one silently"
+ },
+ "conditions": {
+  "A_lesion_polygon": {
+   "condition": "A_lesion_polygon",
+   "condition_note": "Condition A restricted to annotator lesion boxes: the tightest oracle ROI and the only one that isolates the lesion. PRIMARY condition: one ROI source, so the DEC-024 area channel is removed by construction and PR-AUC is read against the base rate.",
+   "is_primary": true,
+   "rows": {
+    "n_train": 215,
+    "n_validation": 52,
+    "n_train_positive": 103,
+    "n_validation_positive": 21,
+    "train_prevalence": 0.47907,
+    "validation_prevalence": 0.403846,
+    "n_train_patients": 112,
+    "n_validation_patients": 25,
+    "patient_overlap_train_validation": 0
+   },
+   "geometry_leak_bar": {
+    "area_only_validation_roc_auc": 0.72,
+    "applies": false
+   },
+   "preprocessor": {
+    "version": "v1-e2-quantum-visual-1",
+    "artifact_hash": "30fd12d9ad1c28226c329462de4dfad93167ca71362c2fa3fd3c1bdf5750bfa7",
+    "pca_explained_variance_ratio": [
+     0.143495,
+     0.111266,
+     0.057347,
+     0.047674,
+     0.043003,
+     0.033144,
+     0.028445,
+     0.025764
+    ],
+    "pca_total_explained_variance": 0.490139,
+    "angle_quantile": 0.02
+   },
+   "rff_control": {
+    "gamma": 0.49171422,
+    "median_squared_distance": 2.03370161,
+    "n_features": 16,
+    "seed": 42
+   },
+   "aer_validation": {
+    "max_abs_deviation": 8.881784197001252e-16,
+    "tolerance": 1e-10,
+    "passed": true,
+    "n_samples_checked": 24,
+    "n_observables": 16
+   },
+   "representations": {
+    "quantum": {
+     "representation": "quantum",
+     "label": "fixed 8-qubit angle-encoded reservoir, 16 local Z observables",
+     "is_quantum": true,
+     "input_dimension": 16,
+     "n_train": 215,
+     "n_validation": 52,
+     "readout": {
+      "kind": "logistic",
+      "n_trainable_parameters": 17,
+      "regularisation_C": 0.001,
+      "selection": "L2 logistic; C chosen by 5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+      "n_excluded_below_variance_floor": 0
+     },
+     "portable_head_max_deviation_vs_sklearn": 1.1102230246251565e-16,
+     "train_metrics": {
+      "n_samples": 215,
+      "n_positive": 103,
+      "n_negative": 112,
+      "prevalence": 0.47907,
+      "threshold": 0.5,
+      "accuracy": 0.660465,
+      "precision": 0.633929,
+      "recall": 0.68932,
+      "sensitivity": 0.68932,
+      "specificity": 0.633929,
+      "f1": 0.660465,
+      "balanced_accuracy": 0.661624,
+      "roc_auc": 0.752254,
+      "pr_auc": 0.69952,
+      "brier": 0.238666,
+      "log_loss": 0.670426,
+      "ece": 0.137606,
+      "mean_predicted": 0.499485,
+      "confusion_matrix": {
+       "true_positive": 71,
+       "false_positive": 41,
+       "true_negative": 71,
+       "false_negative": 32,
+       "threshold": 0.5
+      }
+     },
+     "validation_metrics": {
+      "n_samples": 52,
+      "n_positive": 21,
+      "n_negative": 31,
+      "prevalence": 0.403846,
+      "threshold": 0.5,
+      "accuracy": 0.788462,
+      "precision": 0.692308,
+      "recall": 0.857143,
+      "sensitivity": 0.857143,
+      "specificity": 0.741935,
+      "f1": 0.765957,
+      "balanced_accuracy": 0.799539,
+      "roc_auc": 0.880184,
+      "pr_auc": 0.878649,
+      "brier": 0.231416,
+      "log_loss": 0.655875,
+      "ece": 0.263612,
+      "mean_predicted": 0.492298,
+      "confusion_matrix": {
+       "true_positive": 18,
+       "false_positive": 8,
+       "true_negative": 23,
+       "false_negative": 3,
+       "threshold": 0.5
+      }
+     },
+     "validation_pr_auc": 0.878649,
+     "degeneracy": {
+      "n_features": 16,
+      "n_constant_observables": 0,
+      "variance_floor": 1e-09,
+      "min_feature_variance": 0.1018364837819632,
+      "max_feature_variance": 0.24302244756631786,
+      "effective_rank_centred": 16,
+      "non_degenerate": true
+     },
+     "column_permutation_null": {
+      "n_requested": 200,
+      "n_usable": 200,
+      "blocking": "every feature column shuffled in whole patient blocks, TRAIN and VALIDATION independently; labels untouched; head refit per draw",
+      "pr_auc": {
+       "n": 200,
+       "mean": 0.439523,
+       "sd": 0.076252,
+       "p50": 0.423874,
+       "p95": 0.58748,
+       "p99": 0.6522,
+       "max": 0.662864
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.004975,
+       "exceeds_null_p95": true,
+       "z_vs_null": 5.7589
+      },
+      "gates_the_claim": true
+     },
+     "survives_gating_null": true,
+     "label_permutation_null": {
+      "n_requested": 200,
+      "n_usable": 200,
+      "blocking": "patient-level TRAIN label permutation; head refit per draw",
+      "pr_auc": {
+       "n": 200,
+       "mean": 0.446962,
+       "sd": 0.141415,
+       "p50": 0.407544,
+       "p95": 0.723801,
+       "p99": 0.818712,
+       "max": 0.880173
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 1,
+       "empirical_p": 0.00995,
+       "exceeds_null_p95": true,
+       "z_vs_null": 3.0526
+      },
+      "gates_the_claim": false,
+      "power_note": "reported, not gated. Refitting on permuted labels while scoring against real labels randomises the head and floors the empirical p near the base rate, so it is a weaker instrument than the column-permutation null for this decision."
+     }
+    },
+    "rff": {
+     "representation": "rff",
+     "label": "random Fourier features (RBF) of the same PCA-8 input, 16-d",
+     "is_quantum": false,
+     "input_dimension": 16,
+     "n_train": 215,
+     "n_validation": 52,
+     "readout": {
+      "kind": "logistic",
+      "n_trainable_parameters": 17,
+      "regularisation_C": 0.01,
+      "selection": "L2 logistic; C chosen by 5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+      "n_excluded_below_variance_floor": 0
+     },
+     "portable_head_max_deviation_vs_sklearn": 1.1102230246251565e-16,
+     "train_metrics": {
+      "n_samples": 215,
+      "n_positive": 103,
+      "n_negative": 112,
+      "prevalence": 0.47907,
+      "threshold": 0.5,
+      "accuracy": 0.669767,
+      "precision": 0.648148,
+      "recall": 0.679612,
+      "sensitivity": 0.679612,
+      "specificity": 0.660714,
+      "f1": 0.663507,
+      "balanced_accuracy": 0.670163,
+      "roc_auc": 0.708825,
+      "pr_auc": 0.650969,
+      "brier": 0.229518,
+      "log_loss": 0.651754,
+      "ece": 0.108874,
+      "mean_predicted": 0.499018,
+      "confusion_matrix": {
+       "true_positive": 70,
+       "false_positive": 38,
+       "true_negative": 74,
+       "false_negative": 33,
+       "threshold": 0.5
+      }
+     },
+     "validation_metrics": {
+      "n_samples": 52,
+      "n_positive": 21,
+      "n_negative": 31,
+      "prevalence": 0.403846,
+      "threshold": 0.5,
+      "accuracy": 0.865385,
+      "precision": 0.818182,
+      "recall": 0.857143,
+      "sensitivity": 0.857143,
+      "specificity": 0.870968,
+      "f1": 0.837209,
+      "balanced_accuracy": 0.864055,
+      "roc_auc": 0.907834,
+      "pr_auc": 0.871222,
+      "brier": 0.201846,
+      "log_loss": 0.595756,
+      "ece": 0.297102,
+      "mean_predicted": 0.498257,
+      "confusion_matrix": {
+       "true_positive": 18,
+       "false_positive": 4,
+       "true_negative": 27,
+       "false_negative": 3,
+       "threshold": 0.5
+      }
+     },
+     "validation_pr_auc": 0.871222,
+     "degeneracy": {
+      "n_features": 16,
+      "n_constant_observables": 0,
+      "variance_floor": 1e-09,
+      "min_feature_variance": 0.004520339505533066,
+      "max_feature_variance": 0.04545164989845683,
+      "effective_rank_centred": 16,
+      "non_degenerate": true
+     },
+     "column_permutation_null": {
+      "n_requested": 200,
+      "n_usable": 200,
+      "blocking": "every feature column shuffled in whole patient blocks, TRAIN and VALIDATION independently; labels untouched; head refit per draw",
+      "pr_auc": {
+       "n": 200,
+       "mean": 0.450289,
+       "sd": 0.073854,
+       "p50": 0.43958,
+       "p95": 0.591758,
+       "p99": 0.632488,
+       "max": 0.760086
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.004975,
+       "exceeds_null_p95": true,
+       "z_vs_null": 5.6995
+      },
+      "gates_the_claim": true
+     },
+     "survives_gating_null": true
+    },
+    "pca": {
+     "representation": "pca",
+     "label": "raw PCA-8 scores handed straight to the head",
+     "is_quantum": false,
+     "input_dimension": 8,
+     "n_train": 215,
+     "n_validation": 52,
+     "readout": {
+      "kind": "logistic",
+      "n_trainable_parameters": 9,
+      "regularisation_C": 1.0,
+      "selection": "L2 logistic; C chosen by 5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+      "n_excluded_below_variance_floor": 0
+     },
+     "portable_head_max_deviation_vs_sklearn": 1.1102230246251565e-16,
+     "train_metrics": {
+      "n_samples": 215,
+      "n_positive": 103,
+      "n_negative": 112,
+      "prevalence": 0.47907,
+      "threshold": 0.5,
+      "accuracy": 0.697674,
+      "precision": 0.666667,
+      "recall": 0.737864,
+      "sensitivity": 0.737864,
+      "specificity": 0.660714,
+      "f1": 0.700461,
+      "balanced_accuracy": 0.699289,
+      "roc_auc": 0.757368,
+      "pr_auc": 0.680144,
+      "brier": 0.198844,
+      "log_loss": 0.578571,
+      "ece": 0.065432,
+      "mean_predicted": 0.495781,
+      "confusion_matrix": {
+       "true_positive": 76,
+       "false_positive": 38,
+       "true_negative": 74,
+       "false_negative": 27,
+       "threshold": 0.5
+      }
+     },
+     "validation_metrics": {
+      "n_samples": 52,
+      "n_positive": 21,
+      "n_negative": 31,
+      "prevalence": 0.403846,
+      "threshold": 0.5,
+      "accuracy": 0.826923,
+      "precision": 0.730769,
+      "recall": 0.904762,
+      "sensitivity": 0.904762,
+      "specificity": 0.774194,
+      "f1": 0.808511,
+      "balanced_accuracy": 0.839478,
+      "roc_auc": 0.861751,
+      "pr_auc": 0.775453,
+      "brier": 0.157371,
+      "log_loss": 0.481068,
+      "ece": 0.139989,
+      "mean_predicted": 0.453314,
+      "confusion_matrix": {
+       "true_positive": 19,
+       "false_positive": 7,
+       "true_negative": 24,
+       "false_negative": 2,
+       "threshold": 0.5
+      }
+     },
+     "validation_pr_auc": 0.775453,
+     "degeneracy": {
+      "n_features": 8,
+      "n_constant_observables": 0,
+      "variance_floor": 1e-09,
+      "min_feature_variance": 1.5077857463592284,
+      "max_feature_variance": 8.397709559925024,
+      "effective_rank_centred": 8,
+      "non_degenerate": true
+     },
+     "column_permutation_null": {
+      "n_requested": 200,
+      "n_usable": 200,
+      "blocking": "every feature column shuffled in whole patient blocks, TRAIN and VALIDATION independently; labels untouched; head refit per draw",
+      "pr_auc": {
+       "n": 200,
+       "mean": 0.442548,
+       "sd": 0.078381,
+       "p50": 0.429646,
+       "p95": 0.588608,
+       "p99": 0.672296,
+       "max": 0.717701
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.004975,
+       "exceeds_null_p95": true,
+       "z_vs_null": 4.2473
+      },
+      "gates_the_claim": true
+     },
+     "survives_gating_null": true
+    }
+   },
+   "matched_controls_vs_quantum": {
+    "quantum_validation_pr_auc": 0.878649,
+    "controls": {
+     "rff": {
+      "validation_pr_auc": 0.871222,
+      "survives_gating_null": true
+     },
+     "pca": {
+      "validation_pr_auc": 0.775453,
+      "survives_gating_null": true
+     }
+    },
+    "note": "the quantum PR-AUC is reported here beside its equal-dimension RFF control and the raw PCA-8 control on identical rows and the identical head; it is never reported alone."
+   },
+   "connected_correlation_telemetry": {
+    "note": "connected correlations C_i = <Z_iZ_{i+1}> - <Z_i><Z_{i+1}> per NN ring edge, averaged over TRAIN rows. Nonzero values are direct evidence the CZ ring produced correlations a separable angle encoding could not. Entanglement witness only -- NOT an advantage metric.",
+    "mean_abs_connected_correlation_per_edge": [
+     0.11818071,
+     0.07720113,
+     0.26764397,
+     0.21885016,
+     0.15360785,
+     0.19254969,
+     0.17792152,
+     0.26438143
+    ],
+    "max_abs_connected_correlation": 0.67188126
+   },
+   "latency": {
+    "budget_ms_per_image": 500.0,
+    "cold_ms_first_image": 2.366,
+    "sustained_ms_per_image_mean": 1.468,
+    "sustained_ms_per_image_p95": 1.957,
+    "batch_ms_per_image": 0.789,
+    "n_sustained_samples": 32,
+    "passes": true
+   },
+   "keep_kill": {
+    "K1_latency": {
+     "passes": true,
+     "budget_ms_per_image": 500.0,
+     "cold_ms_first_image": 2.366,
+     "sustained_ms_per_image_mean": 1.468
+    },
+    "K2_non_degenerate": {
+     "passes": true,
+     "effective_rank_centred": 16,
+     "n_constant_observables": 0
+    },
+    "K3_exceeds_own_null_p95": {
+     "passes": true,
+     "observed_vs_null": {
+      "n_null_at_or_above_observed": 0,
+      "empirical_p": 0.004975,
+      "exceeds_null_p95": true,
+      "z_vs_null": 5.7589
+     },
+     "null_p95": 0.58748
+    },
+    "decision": "KEEP",
+    "decision_note": "KEEP: the quantum stage runs within budget, its features are non-degenerate, and its validation PR-AUC exceeds its own patient-blocked null p95 (p<=0.05)."
+   },
+   "duration_seconds": 32.201,
+   "null_budget_note": null
+  },
+  "A_all": {
+   "condition": "A_all",
+   "condition_note": "Condition A: every row of the oracle cache, whichever annotation supplied the ROI. Confounded by annotation practice -- see the subdivisions. SECONDARY condition: the DEC-024 geometry leak is PRESENT -- ROI area alone scores validation ROC-AUC 0.72, so read every number against that, not 0.5.",
+   "is_primary": false,
+   "rows": {
+    "n_train": 1692,
+    "n_validation": 363,
+    "n_train_positive": 104,
+    "n_validation_positive": 21,
+    "train_prevalence": 0.061466,
+    "validation_prevalence": 0.057851,
+    "n_train_patients": 230,
+    "n_validation_patients": 50,
+    "patient_overlap_train_validation": 0
+   },
+   "geometry_leak_bar": {
+    "area_only_validation_roc_auc": 0.72,
+    "applies": true
+   },
+   "preprocessor": {
+    "version": "v1-e2-quantum-visual-1",
+    "artifact_hash": "df14cbb28a0a8ca78914e418316888292af9431352c3ec6cc18a5a689207f86c",
+    "pca_explained_variance_ratio": [
+     0.134996,
+     0.10383,
+     0.063881,
+     0.047165,
+     0.044685,
+     0.034879,
+     0.028805,
+     0.026208
+    ],
+    "pca_total_explained_variance": 0.48445,
+    "angle_quantile": 0.02
+   },
+   "rff_control": {
+    "gamma": 0.4827568,
+    "median_squared_distance": 2.07143637,
+    "n_features": 16,
+    "seed": 42
+   },
+   "aer_validation": {
+    "max_abs_deviation": 1.1102230246251565e-15,
+    "tolerance": 1e-10,
+    "passed": true,
+    "n_samples_checked": 24,
+    "n_observables": 16
+   },
+   "representations": {
+    "quantum": {
+     "representation": "quantum",
+     "label": "fixed 8-qubit angle-encoded reservoir, 16 local Z observables",
+     "is_quantum": true,
+     "input_dimension": 16,
+     "n_train": 1692,
+     "n_validation": 363,
+     "readout": {
+      "kind": "logistic",
+      "n_trainable_parameters": 17,
+      "regularisation_C": 100.0,
+      "selection": "L2 logistic; C chosen by 5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+      "n_excluded_below_variance_floor": 0
+     },
+     "portable_head_max_deviation_vs_sklearn": 4.440892098500626e-16,
+     "train_metrics": {
+      "n_samples": 1692,
+      "n_positive": 104,
+      "n_negative": 1588,
+      "prevalence": 0.061466,
+      "threshold": 0.5,
+      "accuracy": 0.757683,
+      "precision": 0.183884,
+      "recall": 0.855769,
+      "sensitivity": 0.855769,
+      "specificity": 0.751259,
+      "f1": 0.302721,
+      "balanced_accuracy": 0.803514,
+      "roc_auc": 0.872239,
+      "pr_auc": 0.268786,
+      "brier": 0.158506,
+      "log_loss": 0.46577,
+      "ece": 0.247711,
+      "mean_predicted": 0.309177,
+      "confusion_matrix": {
+       "true_positive": 89,
+       "false_positive": 395,
+       "true_negative": 1193,
+       "false_negative": 15,
+       "threshold": 0.5
+      }
+     },
+     "validation_metrics": {
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.752066,
+      "precision": 0.171429,
+      "recall": 0.857143,
+      "sensitivity": 0.857143,
+      "specificity": 0.745614,
+      "f1": 0.285714,
+      "balanced_accuracy": 0.801378,
+      "roc_auc": 0.90518,
+      "pr_auc": 0.409983,
+      "brier": 0.155847,
+      "log_loss": 0.4544,
+      "ece": 0.253642,
+      "mean_predicted": 0.311493,
+      "confusion_matrix": {
+       "true_positive": 18,
+       "false_positive": 87,
+       "true_negative": 255,
+       "false_negative": 3,
+       "threshold": 0.5
+      }
+     },
+     "validation_pr_auc": 0.409983,
+     "degeneracy": {
+      "n_features": 16,
+      "n_constant_observables": 0,
+      "variance_floor": 1e-09,
+      "min_feature_variance": 0.0765448964187339,
+      "max_feature_variance": 0.21820466336418776,
+      "effective_rank_centred": 16,
+      "non_degenerate": true
+     },
+     "column_permutation_null": {
+      "n_requested": 50,
+      "n_usable": 50,
+      "blocking": "every feature column shuffled in whole patient blocks, TRAIN and VALIDATION independently; labels untouched; head refit per draw",
+      "pr_auc": {
+       "n": 50,
+       "mean": 0.072351,
+       "sd": 0.023331,
+       "p50": 0.067074,
+       "p95": 0.1164,
+       "p99": 0.147593,
+       "max": 0.172016
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.019608,
+       "exceeds_null_p95": true,
+       "z_vs_null": 14.4712
+      },
+      "gates_the_claim": true
+     },
+     "survives_gating_null": true,
+     "label_permutation_null": {
+      "n_requested": 50,
+      "n_usable": 50,
+      "blocking": "patient-level TRAIN label permutation; head refit per draw",
+      "pr_auc": {
+       "n": 50,
+       "mean": 0.08234,
+       "sd": 0.056491,
+       "p50": 0.059653,
+       "p95": 0.216704,
+       "p99": 0.239418,
+       "max": 0.245792
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.019608,
+       "exceeds_null_p95": true,
+       "z_vs_null": 5.8
+      },
+      "gates_the_claim": false,
+      "power_note": "reported, not gated. Refitting on permuted labels while scoring against real labels randomises the head and floors the empirical p near the base rate, so it is a weaker instrument than the column-permutation null for this decision."
+     }
+    },
+    "rff": {
+     "representation": "rff",
+     "label": "random Fourier features (RBF) of the same PCA-8 input, 16-d",
+     "is_quantum": false,
+     "input_dimension": 16,
+     "n_train": 1692,
+     "n_validation": 363,
+     "readout": {
+      "kind": "logistic",
+      "n_trainable_parameters": 17,
+      "regularisation_C": 1.0,
+      "selection": "L2 logistic; C chosen by 5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+      "n_excluded_below_variance_floor": 0
+     },
+     "portable_head_max_deviation_vs_sklearn": 3.885780586188048e-16,
+     "train_metrics": {
+      "n_samples": 1692,
+      "n_positive": 104,
+      "n_negative": 1588,
+      "prevalence": 0.061466,
+      "threshold": 0.5,
+      "accuracy": 0.773641,
+      "precision": 0.18931,
+      "recall": 0.817308,
+      "sensitivity": 0.817308,
+      "specificity": 0.770781,
+      "f1": 0.307414,
+      "balanced_accuracy": 0.794044,
+      "roc_auc": 0.864658,
+      "pr_auc": 0.27074,
+      "brier": 0.157067,
+      "log_loss": 0.478031,
+      "ece": 0.260765,
+      "mean_predicted": 0.322231,
+      "confusion_matrix": {
+       "true_positive": 85,
+       "false_positive": 364,
+       "true_negative": 1224,
+       "false_negative": 19,
+       "threshold": 0.5
+      }
+     },
+     "validation_metrics": {
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.76584,
+      "precision": 0.186275,
+      "recall": 0.904762,
+      "sensitivity": 0.904762,
+      "specificity": 0.75731,
+      "f1": 0.308943,
+      "balanced_accuracy": 0.831036,
+      "roc_auc": 0.906572,
+      "pr_auc": 0.505494,
+      "brier": 0.156157,
+      "log_loss": 0.470377,
+      "ece": 0.27278,
+      "mean_predicted": 0.330631,
+      "confusion_matrix": {
+       "true_positive": 19,
+       "false_positive": 83,
+       "true_negative": 259,
+       "false_negative": 2,
+       "threshold": 0.5
+      }
+     },
+     "validation_pr_auc": 0.505494,
+     "degeneracy": {
+      "n_features": 16,
+      "n_constant_observables": 0,
+      "variance_floor": 1e-09,
+      "min_feature_variance": 0.004436212840452797,
+      "max_feature_variance": 0.04285102570244939,
+      "effective_rank_centred": 16,
+      "non_degenerate": true
+     },
+     "column_permutation_null": {
+      "n_requested": 50,
+      "n_usable": 50,
+      "blocking": "every feature column shuffled in whole patient blocks, TRAIN and VALIDATION independently; labels untouched; head refit per draw",
+      "pr_auc": {
+       "n": 50,
+       "mean": 0.074966,
+       "sd": 0.027473,
+       "p50": 0.064605,
+       "p95": 0.122945,
+       "p99": 0.145024,
+       "max": 0.15143
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.019608,
+       "exceeds_null_p95": true,
+       "z_vs_null": 15.6707
+      },
+      "gates_the_claim": true
+     },
+     "survives_gating_null": true
+    },
+    "pca": {
+     "representation": "pca",
+     "label": "raw PCA-8 scores handed straight to the head",
+     "is_quantum": false,
+     "input_dimension": 8,
+     "n_train": 1692,
+     "n_validation": 363,
+     "readout": {
+      "kind": "logistic",
+      "n_trainable_parameters": 9,
+      "regularisation_C": 100.0,
+      "selection": "L2 logistic; C chosen by 5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+      "n_excluded_below_variance_floor": 0
+     },
+     "portable_head_max_deviation_vs_sklearn": 2.220446049250313e-16,
+     "train_metrics": {
+      "n_samples": 1692,
+      "n_positive": 104,
+      "n_negative": 1588,
+      "prevalence": 0.061466,
+      "threshold": 0.5,
+      "accuracy": 0.757092,
+      "precision": 0.179541,
+      "recall": 0.826923,
+      "sensitivity": 0.826923,
+      "specificity": 0.752519,
+      "f1": 0.295026,
+      "balanced_accuracy": 0.789721,
+      "roc_auc": 0.867813,
+      "pr_auc": 0.261445,
+      "brier": 0.160117,
+      "log_loss": 0.475432,
+      "ece": 0.253635,
+      "mean_predicted": 0.3151,
+      "confusion_matrix": {
+       "true_positive": 86,
+       "false_positive": 393,
+       "true_negative": 1195,
+       "false_negative": 18,
+       "threshold": 0.5
+      }
+     },
+     "validation_metrics": {
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "threshold": 0.5,
+      "accuracy": 0.757576,
+      "precision": 0.174757,
+      "recall": 0.857143,
+      "sensitivity": 0.857143,
+      "specificity": 0.751462,
+      "f1": 0.290323,
+      "balanced_accuracy": 0.804302,
+      "roc_auc": 0.905458,
+      "pr_auc": 0.394272,
+      "brier": 0.16089,
+      "log_loss": 0.471891,
+      "ece": 0.263636,
+      "mean_predicted": 0.321487,
+      "confusion_matrix": {
+       "true_positive": 18,
+       "false_positive": 85,
+       "true_negative": 257,
+       "false_negative": 3,
+       "threshold": 0.5
+      }
+     },
+     "validation_pr_auc": 0.394272,
+     "degeneracy": {
+      "n_features": 8,
+      "n_constant_observables": 0,
+      "variance_floor": 1e-09,
+      "min_feature_variance": 1.674612952294105,
+      "max_feature_variance": 8.62572689533502,
+      "effective_rank_centred": 8,
+      "non_degenerate": true
+     },
+     "column_permutation_null": {
+      "n_requested": 50,
+      "n_usable": 50,
+      "blocking": "every feature column shuffled in whole patient blocks, TRAIN and VALIDATION independently; labels untouched; head refit per draw",
+      "pr_auc": {
+       "n": 50,
+       "mean": 0.069075,
+       "sd": 0.016583,
+       "p50": 0.065552,
+       "p95": 0.103697,
+       "p99": 0.107515,
+       "max": 0.108225
+      },
+      "observed_vs_null": {
+       "n_null_at_or_above_observed": 0,
+       "empirical_p": 0.019608,
+       "exceeds_null_p95": true,
+       "z_vs_null": 19.6105
+      },
+      "gates_the_claim": true
+     },
+     "survives_gating_null": true
+    }
+   },
+   "matched_controls_vs_quantum": {
+    "quantum_validation_pr_auc": 0.409983,
+    "controls": {
+     "rff": {
+      "validation_pr_auc": 0.505494,
+      "survives_gating_null": true
+     },
+     "pca": {
+      "validation_pr_auc": 0.394272,
+      "survives_gating_null": true
+     }
+    },
+    "note": "the quantum PR-AUC is reported here beside its equal-dimension RFF control and the raw PCA-8 control on identical rows and the identical head; it is never reported alone."
+   },
+   "connected_correlation_telemetry": {
+    "note": "connected correlations C_i = <Z_iZ_{i+1}> - <Z_i><Z_{i+1}> per NN ring edge, averaged over TRAIN rows. Nonzero values are direct evidence the CZ ring produced correlations a separable angle encoding could not. Entanglement witness only -- NOT an advantage metric.",
+    "mean_abs_connected_correlation_per_edge": [
+     0.19517351,
+     0.12526723,
+     0.14716289,
+     0.20839667,
+     0.20991317,
+     0.20280737,
+     0.19216123,
+     0.25225968
+    ],
+    "max_abs_connected_correlation": 0.68832825
+   },
+   "latency": {
+    "budget_ms_per_image": 500.0,
+    "cold_ms_first_image": 1.958,
+    "sustained_ms_per_image_mean": 1.545,
+    "sustained_ms_per_image_p95": 1.743,
+    "batch_ms_per_image": 0.711,
+    "n_sustained_samples": 32,
+    "passes": true
+   },
+   "keep_kill": {
+    "K1_latency": {
+     "passes": true,
+     "budget_ms_per_image": 500.0,
+     "cold_ms_first_image": 1.958,
+     "sustained_ms_per_image_mean": 1.545
+    },
+    "K2_non_degenerate": {
+     "passes": true,
+     "effective_rank_centred": 16,
+     "n_constant_observables": 0
+    },
+    "K3_exceeds_own_null_p95": {
+     "passes": true,
+     "observed_vs_null": {
+      "n_null_at_or_above_observed": 0,
+      "empirical_p": 0.019608,
+      "exceeds_null_p95": true,
+      "z_vs_null": 14.4712
+     },
+     "null_p95": 0.1164
+    },
+    "decision": "KEEP",
+    "decision_note": "KEEP: the quantum stage runs within budget, its features are non-degenerate, and its validation PR-AUC exceeds its own patient-blocked null p95 (p<=0.05)."
+   },
+   "duration_seconds": 12.208,
+   "null_budget_note": "reduced from 200 to 50 draws: 1692 train rows exceeds the 400-row threshold and each draw refits the whole head including its inner grouped CV. Finest resolvable empirical p is 0.0196."
+  }
+ },
+ "primary_keep_kill_decision": "KEEP",
+ "persistence": {
+  "path": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\models\\e2_quantum_visual\\e2_quantum_visual.json",
+  "preprocessor_artifact_hash": "30fd12d9ad1c28226c329462de4dfad93167ca71362c2fa3fd3c1bdf5750bfa7"
+ },
+ "environment": {
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "1.26.4",
+  "seed": 42,
+  "fixed_threshold": 0.5
+ },
+ "duration_seconds": 49.96
+}

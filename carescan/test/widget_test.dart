@@ -1,15 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:carescan/app.dart';
-
+import 'package:carescan/features/auth/prototype_session.dart';
 void main() {
-  testWidgets('App renders Home Dashboard initially', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('App opens honest prototype onboarding before session entry', (tester) async {
+    appSession.logout();
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
-
-    expect(find.text('Good morning, Alex'), findsOneWidget);
-    expect(find.text('Take a Photo'), findsOneWidget);
+    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('Create account'), findsOneWidget);
+    expect(find.text('Continue as guest'), findsOneWidget);
+    expect(find.text('Alex Johnson'), findsNothing);
   });
 }

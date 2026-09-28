@@ -6,12 +6,15 @@ import 'package:carescan/data/repositories/api_assessment_repository.dart';
 import 'package:carescan/features/assessment/models/assessment.dart';
 import 'package:carescan/features/assessment/models/assessment_result.dart';
 import 'package:carescan/features/assessment/models/history_entry.dart';
+import 'package:carescan/features/assessment/models/localization_result.dart';
 
 class FakeAssessmentRemoteDataSource implements AssessmentRemoteDataSource {
   AssessmentResult? submitResult;
   Exception? submitException;
   List<HistoryEntry>? historyResult;
   Exception? historyException;
+  LocalizationResult? localizeResult;
+  Exception? localizeException;
 
   @override
   Future<AssessmentResult> submitAssessment(
@@ -37,6 +40,14 @@ class FakeAssessmentRemoteDataSource implements AssessmentRemoteDataSource {
       throw historyException!;
     }
     return historyResult ?? [];
+  }
+
+  @override
+  Future<LocalizationResult> localizeImage(String imagePath) async {
+    if (localizeException != null) {
+      throw localizeException!;
+    }
+    return localizeResult ?? const LocalizationResult.none();
   }
 }
 

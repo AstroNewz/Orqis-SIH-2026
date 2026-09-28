@@ -67,9 +67,12 @@ void main() {
 
       expect(find.text('Error'), findsOneWidget);
       expect(find.text('Something went wrong'), findsOneWidget);
-      expect(find.text('Retry'), findsOneWidget);
+      // The retry label is localised now, so it reads the same as every other
+      // retry affordance in the app rather than being the one English word
+      // under a translated title and message.
+      expect(find.text('Try Again'), findsOneWidget);
 
-      await tester.tap(find.text('Retry'));
+      await tester.tap(find.text('Try Again'));
       expect(retried, isTrue);
     });
 

@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import 'package:carescan/core/di/service_locator.dart';
 import 'package:carescan/core/errors/async_state.dart';
 import 'package:carescan/core/errors/failures.dart';
 import 'package:carescan/core/errors/result.dart';
 import 'package:carescan/core/theme/app_spacing.dart';
 import 'package:carescan/features/assessment/models/history_entry.dart';
 import 'package:carescan/features/assessment/repositories/assessment_repository.dart';
-import 'package:carescan/features/assessment/repositories/mock_assessment_repository.dart';
+import 'package:carescan/l10n/l10n.dart';
+import 'package:carescan/shared/widgets/product_components.dart';
+import 'package:carescan/shared/widgets/screening_record.dart';
 
+/// The full list of past screenings.
+///
+/// Home and History render the same records, so they render them through the
+/// same [ScreeningRecord] widget: a row that opens its result, carries the band
+/// as an icon as well as a colour, and speaks whichever language the app is set
+/// to. Two separate row implementations had drifted apart — the one here was
+/// inert, monochrome and English-only — and any difference between the two is a
+/// difference in what the same screening appears to say.
 class HistoryScreen extends StatefulWidget {
   final AssessmentRepository? repository;
 
@@ -25,8 +37,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   void initState() {
     super.initState();
-    _repository = widget.repository ?? MockAssessmentRepository();
+    _repository = widget.repository ?? appAssessmentRepository;
+    // A screening finished elsewhere in the app belongs in this list without a
+    // pull-to-refresh: the tab is an indexed-stack branch, so it stays mounted
+    // and would otherwise keep showing the list as it was when first opened.
+    screeningRevision.addListener(_loadHistory);
     _loadHistory();
+  }
+
+  @override
+  void dispose() {
+    screeningRevision.removeListener(_loadHistory);
+    super.dispose();
   }
 
   Future<void> _loadHistory() async {
@@ -38,44 +60,35 @@ class _HistoryScreenState extends State<HistoryScreen> {
     if (!mounted) return;
 
     setState(() {
-      _state = result.fold(
-        (failure) => AsyncError(failure),
-        (entries) =>
-            entries.isEmpty ? const AsyncEmpty() : AsyncSuccess(entries),
-      );
+      _state = result.fold((failure) => AsyncError(failure), (entries) {
+        // Newest first, matching the Home summary. Server order is not
+        // guaranteed, and the two lists disagreeing about which screening is
+        // the most recent one is worse than either order on its own.
+        final sorted = [...entries]
+          ..sort(
+            (a, b) => b.assessment.timestamp.compareTo(a.assessment.timestamp),
+          );
+        return sorted.isEmpty ? const AsyncEmpty() : AsyncSuccess(sorted);
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Assessment History'),
-        centerTitle: false,
-      ),
+      appBar: AppBar(title: Text(l.history)),
       body: _state.when(
         initial: () => const SizedBox.shrink(),
-        loading: () => const _LoadingView(),
+        loading: () => Center(
+          child: CircularProgressIndicator(semanticsLabel: l.loadingHistory),
+        ),
         success: (entries) =>
             _HistoryListView(entries: entries, onRefresh: _loadHistory),
-        empty: () => const _EmptyView(),
+        empty: () => _EmptyView(onStart: () => context.push('/camera')),
         error: (failure) => _ErrorView(failure: failure, onRetry: _loadHistory),
       ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Loading State
-// ---------------------------------------------------------------------------
-
-class _LoadingView extends StatelessWidget {
-  const _LoadingView();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(semanticsLabel: 'Loading history'),
     );
   }
 }
@@ -85,10 +98,13 @@ class _LoadingView extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 class _EmptyView extends StatelessWidget {
-  const _EmptyView();
+  const _EmptyView({required this.onStart});
+
+  final VoidCallback onStart;
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -105,18 +121,28 @@ class _EmptyView extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'No Assessments Yet',
+              l.noScreenings,
+              textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium?.copyWith(
                 color: colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Your past scan results will appear here once you complete your first assessment.',
+              l.noScreeningsBody,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            // An empty list is the one place in the app where the next step is
+            // unambiguous, so it is offered here rather than left to the user
+            // to find the capture button again.
+            FilledButton.icon(
+              onPressed: onStart,
+              icon: const Icon(Icons.center_focus_strong),
+              label: Text(l.firstScreening),
             ),
           ],
         ),
@@ -137,6 +163,7 @@ class _ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -153,14 +180,18 @@ class _ErrorView extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             Text(
-              'Could Not Load History',
+              l.historyError,
+              textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium?.copyWith(
                 color: colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
+            // The failure's own message is deliberately not shown: it carries
+            // transport detail ("Connection failed", a status code) that reads
+            // as noise to a patient. What to *do* is the useful part.
             Text(
-              'There was a problem fetching your assessment history. Please try again.',
+              l.connectionHelp,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
@@ -170,7 +201,7 @@ class _ErrorView extends StatelessWidget {
             FilledButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Retry'),
+              label: Text(l.retry),
             ),
           ],
         ),
@@ -194,154 +225,16 @@ class _HistoryListView extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: ListView.separated(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         ),
         itemCount: entries.length,
         separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
-        itemBuilder: (context, index) {
-          return _HistoryEntryCard(entry: entries[index]);
-        },
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// History Entry Card
-// ---------------------------------------------------------------------------
-
-class _HistoryEntryCard extends StatelessWidget {
-  final HistoryEntry entry;
-
-  const _HistoryEntryCard({required this.entry});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final assessment = entry.assessment;
-    final result = entry.result;
-
-    final formattedDate = _formatDate(assessment.timestamp);
-
-    return Semantics(
-      label: 'Assessment on $formattedDate: ${result.riskLevel}',
-      child: Container(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerLowest,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 20,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Thumbnail
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHigh,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.image_rounded,
-                color: colorScheme.secondary,
-                semanticLabel: 'Scan image',
-              ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            // Content
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    formattedDate,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    assessment.type,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: AppSpacing.xs),
-                  _RiskChip(riskLevel: result.riskLevel),
-                ],
-              ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: colorScheme.outlineVariant,
-              semanticLabel: 'View details',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _formatDate(DateTime dt) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${months[dt.month - 1]} ${dt.day}, ${dt.year}';
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Risk Chip
-// ---------------------------------------------------------------------------
-
-class _RiskChip extends StatelessWidget {
-  final String riskLevel;
-
-  const _RiskChip({required this.riskLevel});
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: colorScheme.primary.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        riskLevel.toUpperCase(),
-        style: TextStyle(
-          color: colorScheme.primary,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 0.5,
+        itemBuilder: (context, index) => ContentPane(
+          padding: EdgeInsets.zero,
+          child: ScreeningRecord(entry: entries[index]),
         ),
       ),
     );

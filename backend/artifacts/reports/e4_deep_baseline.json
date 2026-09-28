@@ -1,0 +1,1028 @@
+{
+  "architecture_selection": [
+    {
+      "architecture": "resnet_small",
+      "best_epoch": 17,
+      "best_inner_roc_auc": 0.946739,
+      "epochs": [
+        {
+          "epoch": 1,
+          "inner_roc_auc": 0.92584,
+          "learning_rate": 0.00099726,
+          "train_loss": 0.413866
+        },
+        {
+          "epoch": 2,
+          "inner_roc_auc": 0.93097,
+          "learning_rate": 0.00098907,
+          "train_loss": 0.337187
+        },
+        {
+          "epoch": 3,
+          "inner_roc_auc": 0.935352,
+          "learning_rate": 0.00097553,
+          "train_loss": 0.31757
+        },
+        {
+          "epoch": 4,
+          "inner_roc_auc": 0.93995,
+          "learning_rate": 0.00095677,
+          "train_loss": 0.308657
+        },
+        {
+          "epoch": 5,
+          "inner_roc_auc": 0.939322,
+          "learning_rate": 0.00093301,
+          "train_loss": 0.290546
+        },
+        {
+          "epoch": 6,
+          "inner_roc_auc": 0.944293,
+          "learning_rate": 0.00090451,
+          "train_loss": 0.289586
+        },
+        {
+          "epoch": 7,
+          "inner_roc_auc": 0.943567,
+          "learning_rate": 0.00087157,
+          "train_loss": 0.28381
+        },
+        {
+          "epoch": 8,
+          "inner_roc_auc": 0.944918,
+          "learning_rate": 0.00083457,
+          "train_loss": 0.27839
+        },
+        {
+          "epoch": 9,
+          "inner_roc_auc": 0.943231,
+          "learning_rate": 0.00079389,
+          "train_loss": 0.268878
+        },
+        {
+          "epoch": 10,
+          "inner_roc_auc": 0.944876,
+          "learning_rate": 0.00075,
+          "train_loss": 0.264779
+        },
+        {
+          "epoch": 11,
+          "inner_roc_auc": 0.945697,
+          "learning_rate": 0.00070337,
+          "train_loss": 0.256803
+        },
+        {
+          "epoch": 12,
+          "inner_roc_auc": 0.945411,
+          "learning_rate": 0.00065451,
+          "train_loss": 0.255581
+        },
+        {
+          "epoch": 13,
+          "inner_roc_auc": 0.944929,
+          "learning_rate": 0.00060396,
+          "train_loss": 0.24949
+        },
+        {
+          "epoch": 14,
+          "inner_roc_auc": 0.944267,
+          "learning_rate": 0.00055226,
+          "train_loss": 0.245389
+        },
+        {
+          "epoch": 15,
+          "inner_roc_auc": 0.94425,
+          "learning_rate": 0.0005,
+          "train_loss": 0.240692
+        },
+        {
+          "epoch": 16,
+          "inner_roc_auc": 0.945041,
+          "learning_rate": 0.00044774,
+          "train_loss": 0.235415
+        },
+        {
+          "epoch": 17,
+          "inner_roc_auc": 0.946739,
+          "learning_rate": 0.00039604,
+          "train_loss": 0.23174
+        },
+        {
+          "epoch": 18,
+          "inner_roc_auc": 0.944967,
+          "learning_rate": 0.00034549,
+          "train_loss": 0.224414
+        },
+        {
+          "epoch": 19,
+          "inner_roc_auc": 0.94511,
+          "learning_rate": 0.00029663,
+          "train_loss": 0.215866
+        },
+        {
+          "epoch": 20,
+          "inner_roc_auc": 0.943696,
+          "learning_rate": 0.00025,
+          "train_loss": 0.210449
+        },
+        {
+          "epoch": 21,
+          "inner_roc_auc": 0.945099,
+          "learning_rate": 0.00020611,
+          "train_loss": 0.20262
+        },
+        {
+          "epoch": 22,
+          "inner_roc_auc": 0.942619,
+          "learning_rate": 0.00016543,
+          "train_loss": 0.199832
+        },
+        {
+          "epoch": 23,
+          "inner_roc_auc": 0.942806,
+          "learning_rate": 0.00012843,
+          "train_loss": 0.19462
+        },
+        {
+          "epoch": 24,
+          "inner_roc_auc": 0.942773,
+          "learning_rate": 9.549e-05,
+          "train_loss": 0.191463
+        },
+        {
+          "epoch": 25,
+          "inner_roc_auc": 0.942746,
+          "learning_rate": 6.699e-05,
+          "train_loss": 0.187505
+        }
+      ],
+      "learning_rate": 0.001,
+      "n_parameters": 126649,
+      "seconds": 1659.2
+    },
+    {
+      "architecture": "resnet_wide",
+      "best_epoch": 8,
+      "best_inner_roc_auc": 0.945696,
+      "epochs": [
+        {
+          "epoch": 1,
+          "inner_roc_auc": 0.930252,
+          "learning_rate": 0.00099726,
+          "train_loss": 0.401885
+        },
+        {
+          "epoch": 2,
+          "inner_roc_auc": 0.933379,
+          "learning_rate": 0.00098907,
+          "train_loss": 0.32917
+        },
+        {
+          "epoch": 3,
+          "inner_roc_auc": 0.937799,
+          "learning_rate": 0.00097553,
+          "train_loss": 0.313299
+        },
+        {
+          "epoch": 4,
+          "inner_roc_auc": 0.943069,
+          "learning_rate": 0.00095677,
+          "train_loss": 0.305249
+        },
+        {
+          "epoch": 5,
+          "inner_roc_auc": 0.940923,
+          "learning_rate": 0.00093301,
+          "train_loss": 0.284996
+        },
+        {
+          "epoch": 6,
+          "inner_roc_auc": 0.943418,
+          "learning_rate": 0.00090451,
+          "train_loss": 0.281406
+        },
+        {
+          "epoch": 7,
+          "inner_roc_auc": 0.944641,
+          "learning_rate": 0.00087157,
+          "train_loss": 0.280175
+        },
+        {
+          "epoch": 8,
+          "inner_roc_auc": 0.945696,
+          "learning_rate": 0.00083457,
+          "train_loss": 0.264802
+        },
+        {
+          "epoch": 9,
+          "inner_roc_auc": 0.940609,
+          "learning_rate": 0.00079389,
+          "train_loss": 0.259141
+        },
+        {
+          "epoch": 10,
+          "inner_roc_auc": 0.9447,
+          "learning_rate": 0.00075,
+          "train_loss": 0.249523
+        },
+        {
+          "epoch": 11,
+          "inner_roc_auc": 0.943427,
+          "learning_rate": 0.00070337,
+          "train_loss": 0.240652
+        },
+        {
+          "epoch": 12,
+          "inner_roc_auc": 0.940143,
+          "learning_rate": 0.00065451,
+          "train_loss": 0.236002
+        },
+        {
+          "epoch": 13,
+          "inner_roc_auc": 0.94364,
+          "learning_rate": 0.00060396,
+          "train_loss": 0.22935
+        },
+        {
+          "epoch": 14,
+          "inner_roc_auc": 0.939935,
+          "learning_rate": 0.00055226,
+          "train_loss": 0.217863
+        },
+        {
+          "epoch": 15,
+          "inner_roc_auc": 0.94212,
+          "learning_rate": 0.0005,
+          "train_loss": 0.213735
+        },
+        {
+          "epoch": 16,
+          "inner_roc_auc": 0.941701,
+          "learning_rate": 0.00044774,
+          "train_loss": 0.202799
+        }
+      ],
+      "learning_rate": 0.001,
+      "n_parameters": 251785,
+      "seconds": 10235.1
+    },
+    {
+      "architecture": "resnet_long_kernel",
+      "best_epoch": 6,
+      "best_inner_roc_auc": 0.946422,
+      "epochs": [
+        {
+          "epoch": 1,
+          "inner_roc_auc": 0.929444,
+          "learning_rate": 0.00099726,
+          "train_loss": 0.403324
+        },
+        {
+          "epoch": 2,
+          "inner_roc_auc": 0.931673,
+          "learning_rate": 0.00098907,
+          "train_loss": 0.334142
+        },
+        {
+          "epoch": 3,
+          "inner_roc_auc": 0.938228,
+          "learning_rate": 0.00097553,
+          "train_loss": 0.314554
+        },
+        {
+          "epoch": 4,
+          "inner_roc_auc": 0.943155,
+          "learning_rate": 0.00095677,
+          "train_loss": 0.305185
+        },
+        {
+          "epoch": 5,
+          "inner_roc_auc": 0.941052,
+          "learning_rate": 0.00093301,
+          "train_loss": 0.288547
+        },
+        {
+          "epoch": 6,
+          "inner_roc_auc": 0.946422,
+          "learning_rate": 0.00090451,
+          "train_loss": 0.286859
+        },
+        {
+          "epoch": 7,
+          "inner_roc_auc": 0.945461,
+          "learning_rate": 0.00087157,
+          "train_loss": 0.280019
+        },
+        {
+          "epoch": 8,
+          "inner_roc_auc": 0.944514,
+          "learning_rate": 0.00083457,
+          "train_loss": 0.270309
+        },
+        {
+          "epoch": 9,
+          "inner_roc_auc": 0.936759,
+          "learning_rate": 0.00079389,
+          "train_loss": 0.261198
+        },
+        {
+          "epoch": 10,
+          "inner_roc_auc": 0.946308,
+          "learning_rate": 0.00075,
+          "train_loss": 0.255255
+        },
+        {
+          "epoch": 11,
+          "inner_roc_auc": 0.942918,
+          "learning_rate": 0.00070337,
+          "train_loss": 0.243647
+        },
+        {
+          "epoch": 12,
+          "inner_roc_auc": 0.943786,
+          "learning_rate": 0.00065451,
+          "train_loss": 0.242797
+        },
+        {
+          "epoch": 13,
+          "inner_roc_auc": 0.939427,
+          "learning_rate": 0.00060396,
+          "train_loss": 0.232335
+        },
+        {
+          "epoch": 14,
+          "inner_roc_auc": 0.941298,
+          "learning_rate": 0.00055226,
+          "train_loss": 0.227167
+        }
+      ],
+      "learning_rate": 0.001,
+      "n_parameters": 218809,
+      "seconds": 1155.9
+    }
+  ],
+  "arms": [
+    {
+      "architecture": "resnet_small",
+      "arm": "cnn@resnet_small",
+      "input": "raw 12-lead waveform, 0.5-40 Hz record-local band-pass, millivolts",
+      "input_dimension": 12000,
+      "kind": "deep",
+      "n_parameters": 126649,
+      "selected_epoch": 17,
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.8393,
+        "target_specificity": 0.9,
+        "threshold": 0.3342361714798225
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, predicted by a model fitted on folds 1-7",
+        "threshold": 0.395417,
+        "train_out_of_fold_balanced_accuracy": 0.872917
+      },
+      "validation": {
+        "accuracy": 0.864399,
+        "balanced_accuracy": 0.871874,
+        "brier": 0.111797,
+        "confusion_matrix": {
+          "false_negative": 220,
+          "false_positive": 71,
+          "threshold": 0.395417,
+          "true_negative": 843,
+          "true_positive": 1012
+        },
+        "ece": 0.086674,
+        "f1": 0.874298,
+        "log_loss": 0.382242,
+        "mean_predicted": 0.488472,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.958528,
+        "precision": 0.934441,
+        "prevalence": 0.574091,
+        "recall": 0.821429,
+        "roc_auc": 0.940476,
+        "sensitivity": 0.821429,
+        "specificity": 0.922319,
+        "threshold": 0.395417
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.940355,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.929673,
+        "p97_5": 0.950056,
+        "standard_error": 0.005048,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9404758944556537
+    },
+    {
+      "arm": "gbm@f97",
+      "input": "97 ecg-v1 features",
+      "input_dimension": 97,
+      "kind": "tabular_reference",
+      "note": "Refitted here on the cell recorded in the classical report, because that report deliberately strips raw score vectors and the fusion needs them. The hyperparameters are read back, not re-selected.",
+      "recorded_in": "backend\\artifacts\\reports\\e4_classical_baseline.json",
+      "recorded_roc_auc": 0.9402343416976896,
+      "reproduces_recorded_roc_auc": true,
+      "selected_params": {
+        "learning_rate": 0.05,
+        "max_iter": 400,
+        "max_leaf_nodes": 31
+      },
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.8255,
+        "target_specificity": 0.9,
+        "threshold": 0.5731491423773024
+      },
+      "threshold": {
+        "selected_on": "TRAIN folds 1-8, out-of-fold predictions",
+        "threshold": 0.58655,
+        "train_out_of_fold_balanced_accuracy": 0.878906
+      },
+      "validation": {
+        "accuracy": 0.857875,
+        "balanced_accuracy": 0.864357,
+        "brier": 0.098855,
+        "confusion_matrix": {
+          "false_negative": 221,
+          "false_positive": 84,
+          "threshold": 0.58655,
+          "true_negative": 830,
+          "true_positive": 1011
+        },
+        "ece": 0.040146,
+        "f1": 0.86893,
+        "log_loss": 0.31194,
+        "mean_predicted": 0.558042,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.958978,
+        "precision": 0.923288,
+        "prevalence": 0.574091,
+        "recall": 0.820617,
+        "roc_auc": 0.940234,
+        "sensitivity": 0.820617,
+        "specificity": 0.908096,
+        "threshold": 0.58655
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.940177,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.929748,
+        "p97_5": 0.949353,
+        "standard_error": 0.004988,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9402343416976896
+    },
+    {
+      "arm": "fusion@cnn+gbm",
+      "blender": "logistic regression on the two members' log-odds",
+      "blender_coefficients": {
+        "deep": 0.286475,
+        "intercept": 0.254759,
+        "tabular": 0.5637
+      },
+      "fitted_on": "TRAIN fold 8 only, with both members out-of-sample on it",
+      "inner_roc_auc": 0.9560107405929098,
+      "kind": "fusion",
+      "members": [
+        "cnn@resnet_small",
+        "gbm@f97"
+      ],
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.8409,
+        "target_specificity": 0.9,
+        "threshold": 0.5209723135983797
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, both members out-of-sample",
+        "threshold": 0.544001,
+        "train_out_of_fold_balanced_accuracy": 0.888717
+      },
+      "validation": {
+        "accuracy": 0.864399,
+        "balanced_accuracy": 0.870038,
+        "brier": 0.092465,
+        "confusion_matrix": {
+          "false_negative": 207,
+          "false_positive": 84,
+          "threshold": 0.544001,
+          "true_negative": 830,
+          "true_positive": 1025
+        },
+        "ece": 0.018987,
+        "f1": 0.875694,
+        "log_loss": 0.292359,
+        "mean_predicted": 0.557455,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.962628,
+        "precision": 0.924256,
+        "prevalence": 0.574091,
+        "recall": 0.831981,
+        "roc_auc": 0.946293,
+        "sensitivity": 0.831981,
+        "specificity": 0.908096,
+        "threshold": 0.544001
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.94622,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.936436,
+        "p97_5": 0.954967,
+        "standard_error": 0.004675,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9462926980022166
+    }
+  ],
+  "batch_size": 128,
+  "bootstrap_draws": 2000,
+  "cache_version": "ptbxl-ecg-1",
+  "cohort": {
+    "guards": {
+      "ecg_id_overlap": 0,
+      "patient_overlap": 0,
+      "test_partition_used": false,
+      "train_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "validation_folds": [
+        9
+      ]
+    },
+    "signal_cache": {
+      "fitted_statistics": "none -- this cache stores decoded physical units only",
+      "lead_names": [
+        "I",
+        "II",
+        "III",
+        "AVR",
+        "AVL",
+        "AVF",
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "n_failures": 0,
+      "n_rows": 19601,
+      "n_samples": 1000,
+      "sampling_frequency": 100.0,
+      "units": "mV"
+    },
+    "train": {
+      "n_negative": 7243,
+      "n_patients": 14823,
+      "n_positive": 9841,
+      "n_records": 17084,
+      "partition": "TRAIN",
+      "prevalence": 0.576036,
+      "strat_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "validation": {
+      "n_negative": 914,
+      "n_patients": 1917,
+      "n_positive": 1232,
+      "n_records": 2146,
+      "partition": "VALIDATION",
+      "prevalence": 0.574091,
+      "strat_folds": [
+        9
+      ]
+    }
+  },
+  "deep_version": "v1-e4-deep-1",
+  "deep_vs_tabular": {
+    "a": "cnn@resnet_small",
+    "b": "gbm@f97",
+    "excludes_zero": false,
+    "mean_delta": 0.000178,
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "observed_delta": 0.000242,
+    "p2_5": -0.006101,
+    "p97_5": 0.006374,
+    "standard_error": 0.003144,
+    "unit": "patient (paired, same resamples for both models)"
+  },
+  "failure_map": {
+    "arm": "fusion@cnn+gbm",
+    "by_single_superclass": [
+      {
+        "error_rate": 0.2446,
+        "group": "only:MI",
+        "measured": true,
+        "n_positive": 233,
+        "n_records": 233,
+        "prevalence": 1.0,
+        "sensitivity": 0.7554,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.1622,
+        "group": "only:STTC",
+        "measured": true,
+        "n_positive": 259,
+        "n_records": 259,
+        "prevalence": 1.0,
+        "sensitivity": 0.8378,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.2476,
+        "group": "only:CD",
+        "measured": true,
+        "n_positive": 206,
+        "n_records": 206,
+        "prevalence": 1.0,
+        "sensitivity": 0.7524,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.6308,
+        "group": "only:HYP",
+        "measured": true,
+        "n_positive": 65,
+        "n_records": 65,
+        "prevalence": 1.0,
+        "sensitivity": 0.3692,
+        "specificity": null
+      }
+    ],
+    "by_subgroup": [
+      {
+        "error_rate": 0.1307,
+        "group": "age:<40",
+        "measured": true,
+        "n_positive": 62,
+        "n_records": 283,
+        "prevalence": 0.2191,
+        "sensitivity": 0.5645,
+        "specificity": 0.9548
+      },
+      {
+        "error_rate": 0.1735,
+        "group": "age:40-59",
+        "measured": true,
+        "n_positive": 261,
+        "n_records": 663,
+        "prevalence": 0.3937,
+        "sensitivity": 0.6667,
+        "specificity": 0.9303
+      },
+      {
+        "error_rate": 0.1401,
+        "group": "age:60-74",
+        "measured": true,
+        "n_positive": 493,
+        "n_records": 721,
+        "prevalence": 0.6838,
+        "sensitivity": 0.858,
+        "specificity": 0.864
+      },
+      {
+        "error_rate": 0.0793,
+        "group": "age:75+",
+        "measured": true,
+        "n_positive": 416,
+        "n_records": 479,
+        "prevalence": 0.8685,
+        "sensitivity": 0.9447,
+        "specificity": 0.7619
+      },
+      {
+        "group": "age:missing",
+        "measured": false,
+        "n_records": 0
+      },
+      {
+        "error_rate": 0.1329,
+        "group": "sex:0",
+        "measured": true,
+        "n_positive": 650,
+        "n_records": 1114,
+        "prevalence": 0.5835,
+        "sensitivity": 0.8415,
+        "specificity": 0.903
+      },
+      {
+        "error_rate": 0.1386,
+        "group": "sex:1",
+        "measured": true,
+        "n_positive": 582,
+        "n_records": 1032,
+        "prevalence": 0.564,
+        "sensitivity": 0.8213,
+        "specificity": 0.9133
+      },
+      {
+        "error_rate": 0.0,
+        "group": "quality:flagged",
+        "measured": true,
+        "n_positive": 3,
+        "n_records": 3,
+        "prevalence": 1.0,
+        "sensitivity": 1.0,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.1358,
+        "group": "quality:clean",
+        "measured": true,
+        "n_positive": 1229,
+        "n_records": 2143,
+        "prevalence": 0.5735,
+        "sensitivity": 0.8316,
+        "specificity": 0.9081
+      },
+      {
+        "error_rate": 0.0667,
+        "group": "beats:<8",
+        "measured": true,
+        "n_positive": 25,
+        "n_records": 30,
+        "prevalence": 0.8333,
+        "sensitivity": 0.92,
+        "specificity": 1.0
+      },
+      {
+        "error_rate": 0.1366,
+        "group": "beats:>=8",
+        "measured": true,
+        "n_positive": 1207,
+        "n_records": 2116,
+        "prevalence": 0.5704,
+        "sensitivity": 0.8302,
+        "specificity": 0.9076
+      }
+    ],
+    "by_superclass": [
+      {
+        "error_rate": 0.1141,
+        "group": "superclass:NORM",
+        "measured": true,
+        "n_positive": 41,
+        "n_records": 955,
+        "note": "NORM records that are positive also carry an abnormal superclass",
+        "prevalence": 0.0429,
+        "sensitivity": 0.3902,
+        "specificity": 0.9081
+      },
+      {
+        "error_rate": 0.1167,
+        "group": "superclass:MI",
+        "measured": true,
+        "n_positive": 540,
+        "n_records": 540,
+        "note": "overlapping group: a record can carry several superclasses",
+        "prevalence": 1.0,
+        "sensitivity": 0.8833,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.0871,
+        "group": "superclass:STTC",
+        "measured": true,
+        "n_positive": 528,
+        "n_records": 528,
+        "note": "overlapping group: a record can carry several superclasses",
+        "prevalence": 1.0,
+        "sensitivity": 0.9129,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.1333,
+        "group": "superclass:CD",
+        "measured": true,
+        "n_positive": 495,
+        "n_records": 495,
+        "note": "overlapping group: a record can carry several superclasses",
+        "prevalence": 1.0,
+        "sensitivity": 0.8667,
+        "specificity": null
+      },
+      {
+        "error_rate": 0.1791,
+        "group": "superclass:HYP",
+        "measured": true,
+        "n_positive": 268,
+        "n_records": 268,
+        "note": "overlapping group: a record can carry several superclasses",
+        "prevalence": 1.0,
+        "sensitivity": 0.8209,
+        "specificity": null
+      }
+    ],
+    "false_alarms": 84,
+    "missed_positives": 207,
+    "overall": {
+      "confusion_matrix": {
+        "false_negative": 207,
+        "false_positive": 84,
+        "threshold": 0.544001,
+        "true_negative": 830,
+        "true_positive": 1025
+      },
+      "error_rate": 0.1356,
+      "n_patients": 1917,
+      "n_records": 2146
+    },
+    "threshold": 0.544001,
+    "unknown_label_records": {
+      "n_records": 37,
+      "note": "no diagnostic superclass: the label is unknown, never negative (\u00a77.4)",
+      "scored": false
+    }
+  },
+  "feature_set_version": "ecg-v1",
+  "max_epochs": 30,
+  "paired_vs_strongest": [
+    {
+      "arm": "cnn@resnet_small",
+      "excludes_zero": true,
+      "mean_delta": 0.005865,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": 0.005817,
+      "p2_5": 0.002034,
+      "p97_5": 0.009751,
+      "standard_error": 0.001992,
+      "unit": "patient (paired, same resamples for both models)",
+      "versus": "fusion@cnn+gbm"
+    },
+    {
+      "arm": "gbm@f97",
+      "excludes_zero": true,
+      "mean_delta": 0.006043,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": 0.006058,
+      "p2_5": 0.003693,
+      "p97_5": 0.008641,
+      "standard_error": 0.001269,
+      "unit": "patient (paired, same resamples for both models)",
+      "versus": "fusion@cnn+gbm"
+    }
+  ],
+  "protocol": {
+    "conditioning": "record-local 0.5-40.0 Hz zero-phase band-pass, order 3; no amplitude normalisation",
+    "fit_folds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "inner_validation_fold": 8,
+    "scored_folds": [
+      9
+    ],
+    "selection_criterion": "ROC-AUC on TRAIN fold 8",
+    "test_folds_read": []
+  },
+  "refit_history": {
+    "architecture": "resnet_small",
+    "best_epoch": 17,
+    "best_inner_roc_auc": null,
+    "epochs": [
+      {
+        "epoch": 1,
+        "learning_rate": 0.00099726,
+        "train_loss": 0.408767
+      },
+      {
+        "epoch": 2,
+        "learning_rate": 0.00098907,
+        "train_loss": 0.333976
+      },
+      {
+        "epoch": 3,
+        "learning_rate": 0.00097553,
+        "train_loss": 0.318177
+      },
+      {
+        "epoch": 4,
+        "learning_rate": 0.00095677,
+        "train_loss": 0.305179
+      },
+      {
+        "epoch": 5,
+        "learning_rate": 0.00093301,
+        "train_loss": 0.301743
+      },
+      {
+        "epoch": 6,
+        "learning_rate": 0.00090451,
+        "train_loss": 0.287147
+      },
+      {
+        "epoch": 7,
+        "learning_rate": 0.00087157,
+        "train_loss": 0.283354
+      },
+      {
+        "epoch": 8,
+        "learning_rate": 0.00083457,
+        "train_loss": 0.279439
+      },
+      {
+        "epoch": 9,
+        "learning_rate": 0.00079389,
+        "train_loss": 0.27314
+      },
+      {
+        "epoch": 10,
+        "learning_rate": 0.00075,
+        "train_loss": 0.268381
+      },
+      {
+        "epoch": 11,
+        "learning_rate": 0.00070337,
+        "train_loss": 0.263411
+      },
+      {
+        "epoch": 12,
+        "learning_rate": 0.00065451,
+        "train_loss": 0.262042
+      },
+      {
+        "epoch": 13,
+        "learning_rate": 0.00060396,
+        "train_loss": 0.253162
+      },
+      {
+        "epoch": 14,
+        "learning_rate": 0.00055226,
+        "train_loss": 0.246473
+      },
+      {
+        "epoch": 15,
+        "learning_rate": 0.0005,
+        "train_loss": 0.244084
+      },
+      {
+        "epoch": 16,
+        "learning_rate": 0.00044774,
+        "train_loss": 0.239848
+      },
+      {
+        "epoch": 17,
+        "learning_rate": 0.00039604,
+        "train_loss": 0.236002
+      }
+    ],
+    "learning_rate": 0.001,
+    "n_parameters": 126649,
+    "seconds": 836.3
+  },
+  "seed": 42,
+  "selected": {
+    "architecture": "resnet_small",
+    "epoch": 17,
+    "inner_roc_auc": 0.946739
+  },
+  "signal_cache_version": "ptbxl-signal-1",
+  "strongest_arm": "fusion@cnn+gbm",
+  "test_partition_used": false,
+  "threshold_source": "the winning selection fit itself (folds 1-7), reused rather than refitted; its retained fold-8 ROC-AUC is asserted to match the selection record",
+  "total_seconds": 14061.0
+}

@@ -1,0 +1,868 @@
+{
+  "pixel_vqc_version": "v1-pixel-vqc-1",
+  "created_at_utc": "2026-09-04T14:43:20.300299+00:00",
+  "test_partition_used": false,
+  "test_partition_note": "This module never loads the test partition. Final evaluation is a separate entry point that runs after this artifact is frozen.",
+  "roi_mode": "predicted",
+  "condition": "B_localized",
+  "condition_description": "Condition B: the frozen localiser produced a box that passed its acceptance checks. The deployable path.",
+  "quantum": {
+    "n_qubits": 16,
+    "amplitudes_per_state": 65536,
+    "encoding": "amplitude encoding: 256x256 grayscale / 255, L2-normalised",
+    "observable": "Z on qubit 0",
+    "score_map": "(1 - <Z0>)/2",
+    "loss": "class-weighted binary cross-entropy",
+    "execution_mode": "ideal_simulation",
+    "shots": null,
+    "shots_note": "Exact statevector evaluation. No shot sampling, so there is no shot noise to report.",
+    "ansatz": "per layer: ry(theta) and rz(psi) on every qubit, then a linear nearest-neighbour CNOT cascade with circular closure"
+  },
+  "preprocessing": {
+    "preprocessing_version": "carescan-v1-pixel-1",
+    "roi_edge_px": 256,
+    "resample_filter": "lanczos",
+    "cache_metadata": {
+      "cache_version": "v1-pixels-1",
+      "preprocessing_version": "carescan-v1-pixel-1",
+      "roi_mode": "predicted",
+      "localizer_version": "carescan-localizer-1",
+      "qubit_count": "16",
+      "roi_edge_px": "256",
+      "resample_filter": "lanczos"
+    }
+  },
+  "dataset": {
+    "split_manifest": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\dataset\\split_manifest.json",
+    "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+    "split_seed": 42,
+    "positive_classes": [
+      "opmd",
+      "oral_cancer"
+    ],
+    "train": {
+      "n_samples": 1620,
+      "n_positive": 96,
+      "n_negative": 1524,
+      "prevalence": 0.059259,
+      "n_patients": 229
+    },
+    "validation": {
+      "n_samples": 353,
+      "n_positive": 21,
+      "n_negative": 332,
+      "prevalence": 0.05949,
+      "n_patients": 50
+    },
+    "partition_summary": {
+      "qubit_count": 16,
+      "pixels_per_image": 65536,
+      "roi_mode": "predicted",
+      "localizer_version": "carescan-localizer-1",
+      "preprocessing_version": "carescan-v1-pixel-1",
+      "cache_version": "v1-pixels-1",
+      "seed": 42,
+      "partitions": {
+        "train": {
+          "name": "train",
+          "roi_mode": "predicted",
+          "n_images": 1692,
+          "n_patients": 230,
+          "n_positive": 104,
+          "n_negative": 1588,
+          "positive_rate": 0.0615,
+          "roi_source_counts": {
+            "predicted": 1620,
+            "predicted_rejected": 72
+          },
+          "localization_status_counts": {
+            "fallback_used": 72,
+            "localized": 1620
+          },
+          "condition_counts": {
+            "B_localized": {
+              "n_images": 1620,
+              "n_positive": 96,
+              "n_negative": 1524,
+              "n_patients": 229
+            },
+            "C_fallback": {
+              "n_images": 72,
+              "n_positive": 8,
+              "n_negative": 64,
+              "n_patients": 55
+            },
+            "B_and_C_all": {
+              "n_images": 1692,
+              "n_positive": 104,
+              "n_negative": 1588,
+              "n_patients": 230
+            }
+          },
+          "roi_area_fraction_mean": 0.4658
+        },
+        "validation": {
+          "name": "validation",
+          "roi_mode": "predicted",
+          "n_images": 363,
+          "n_patients": 50,
+          "n_positive": 21,
+          "n_negative": 342,
+          "positive_rate": 0.0579,
+          "roi_source_counts": {
+            "predicted": 353,
+            "predicted_rejected": 10
+          },
+          "localization_status_counts": {
+            "fallback_used": 10,
+            "localized": 353
+          },
+          "condition_counts": {
+            "B_localized": {
+              "n_images": 353,
+              "n_positive": 21,
+              "n_negative": 332,
+              "n_patients": 50
+            },
+            "C_fallback": {
+              "n_images": 10,
+              "n_positive": 0,
+              "n_negative": 10,
+              "n_patients": 9
+            },
+            "B_and_C_all": {
+              "n_images": 363,
+              "n_positive": 21,
+              "n_negative": 342,
+              "n_patients": 50
+            }
+          },
+          "roi_area_fraction_mean": 0.458
+        },
+        "test": {
+          "name": "test",
+          "roi_mode": "predicted",
+          "n_images": 381,
+          "n_patients": 48,
+          "n_positive": 18,
+          "n_negative": 363,
+          "positive_rate": 0.0472,
+          "roi_source_counts": {
+            "predicted": 374,
+            "predicted_rejected": 7
+          },
+          "localization_status_counts": {
+            "fallback_used": 7,
+            "localized": 374
+          },
+          "condition_counts": {
+            "B_localized": {
+              "n_images": 374,
+              "n_positive": 16,
+              "n_negative": 358,
+              "n_patients": 48
+            },
+            "C_fallback": {
+              "n_images": 7,
+              "n_positive": 2,
+              "n_negative": 5,
+              "n_patients": 6
+            },
+            "B_and_C_all": {
+              "n_images": 381,
+              "n_positive": 18,
+              "n_negative": 363,
+              "n_patients": 48
+            }
+          },
+          "roi_area_fraction_mean": 0.4518
+        }
+      }
+    }
+  },
+  "seeds": {
+    "random_seed": 42,
+    "split_seed": 42,
+    "note": "seed_everything() seeds numpy and qiskit_algorithms.algorithm_globals inside OptimizerSpec.minimize; weight initialisation uses its own Generator(seed) so it cannot depend on optimiser call order."
+  },
+  "class_imbalance_handling": {
+    "method": "inverse-frequency class weights normalised to mean 1",
+    "applied_in": "the training loss only; no resampling, no synthetic samples",
+    "weights_negative_positive": [
+      0.531496,
+      8.4375
+    ],
+    "computed_by": "VariationalQuantumClassifier._class_weights"
+  },
+  "validation_selection": {
+    "selection_metric": "PR-AUC on the validation partition",
+    "selection_metric_rationale": "The positive class is small, so PR-AUC discriminates between candidates where accuracy and ROC-AUC do not.",
+    "compute_budget": {
+      "maxiter_per_candidate": [
+        50
+      ],
+      "n_candidates": 1,
+      "seconds_per_objective_evaluation_measured": 9.706,
+      "note": "Ansatz depth is transferred from A_lesion_polygon (215 rows), where a full layers 1/2/3 sweep was affordable and depth 1 won on validation PR-AUC (0.526 vs 0.329 for L2 and 0.357 for L3). A three-depth sweep was attempted here and abandoned on measured grounds: SPSA iteration time on this 1692-row condition is not stable, measuring 19.3 s on an idle machine, 38.5 s under concurrent load, and 96.0 s after roughly 40 minutes of sustained load as the machine thermally throttles (process memory was steady at 802 MB, so this is CPU clock, not accumulation). At the throttled rate three candidates cost over 4 h per condition and the artifact is only written after the last candidate, so an interrupted sweep would have produced nothing. One candidate at maxiter 50 is run instead, which writes an artifact per condition. maxiter is 50 rather than 100 because on the cheap condition the training objective moved only 0.0025 from its ln(2) starting point over 100 iterations across all three depths, so iterations 50-100 demonstrably do not change it. The per-condition measured cost is recorded in the artifact at validation_selection.compute_budget.seconds_per_objective_evaluation_measured; the figures quoted here are the ones the decision was actually made on."
+    },
+    "selected_label": "predicted/B_localized/spsa/L1/it50/s42",
+    "selected_config": {
+      "roi_mode": "predicted",
+      "condition": "B_localized",
+      "n_layers": 1,
+      "optimizer": "spsa",
+      "maxiter": 50,
+      "learning_rate": null,
+      "perturbation": null,
+      "seed": 42,
+      "class_weighting": true,
+      "n_qubits": 16,
+      "n_parameters": 32,
+      "amplitudes_per_state": 65536
+    },
+    "selected_validation_pr_auc": 0.084154,
+    "early_stopping": {
+      "used": false,
+      "reason": "SPSA's trajectory is stochastic; stopping on a noisy validation reading selects for the noise. Every candidate ran its full iteration budget and selection happened across candidates."
+    },
+    "threshold": {
+      "basis": "validation partition only",
+      "target_sensitivity": 0.85,
+      "target_sensitivity_source": "Settings.SCREENING_TARGET_SENSITIVITY",
+      "selected": {
+        "target_sensitivity": 0.85,
+        "threshold": 0.4998809393290397,
+        "sensitivity": 0.8571,
+        "specificity": 0.3886,
+        "precision": 0.0814,
+        "n_flagged": 221,
+        "false_negative": 3
+      },
+      "at_specificity_0_90": {
+        "target_specificity": 0.9,
+        "sensitivity": 0.1429,
+        "achieved_specificity": 0.9006,
+        "threshold": 0.5024338658778986
+      },
+      "sweep": [
+        {
+          "threshold": 0.05,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.1,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.15,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.2,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.25,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.3,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.35,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.4,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.45,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0595,
+          "n_flagged": 353,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.5,
+          "sensitivity": 0.8095,
+          "specificity": 0.4247,
+          "precision": 0.0817,
+          "n_flagged": 208,
+          "true_positive": 17,
+          "false_negative": 4
+        },
+        {
+          "threshold": 0.55,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.6,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.65,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.7,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.75,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.8,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.85,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.9,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.95,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        }
+      ],
+      "score_distribution": {
+        "min": 0.49627051,
+        "max": 0.50658432,
+        "mean": 0.50036699,
+        "sd": 0.00161197
+      },
+      "note": "Chosen on the uncalibrated score (1 - <Z0>)/2. Calibration is a separate stage and is also fitted without the test partition.",
+      "validation_metrics_at_selected_threshold": {
+        "n_samples": 353,
+        "n_positive": 21,
+        "n_negative": 332,
+        "prevalence": 0.05949,
+        "threshold": 0.4998809393290397,
+        "accuracy": 0.416431,
+        "precision": 0.081448,
+        "recall": 0.857143,
+        "sensitivity": 0.857143,
+        "specificity": 0.388554,
+        "f1": 0.14876,
+        "balanced_accuracy": 0.622849,
+        "roc_auc": 0.619693,
+        "pr_auc": 0.084154,
+        "brier": 0.250273,
+        "log_loss": 0.693692,
+        "ece": 0.440877,
+        "mean_predicted": 0.500367,
+        "confusion_matrix": {
+          "true_positive": 18,
+          "false_positive": 203,
+          "true_negative": 129,
+          "false_negative": 3,
+          "threshold": 0.4998809393290397
+        }
+      }
+    },
+    "ranking": [
+      {
+        "label": "predicted/B_localized/spsa/L1/it50/s42",
+        "validation_pr_auc": 0.084154,
+        "validation_roc_auc": 0.619693,
+        "final_train_loss": 0.69253467
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "config": {
+        "roi_mode": "predicted",
+        "condition": "B_localized",
+        "n_layers": 1,
+        "optimizer": "spsa",
+        "maxiter": 50,
+        "learning_rate": null,
+        "perturbation": null,
+        "seed": 42,
+        "class_weighting": true,
+        "n_qubits": 16,
+        "n_parameters": 32,
+        "amplitudes_per_state": 65536
+      },
+      "label": "predicted/B_localized/spsa/L1/it50/s42",
+      "weights": [
+        1.3501042639471492,
+        -2.2495728465678604,
+        4.448844395188533,
+        1.4399079565290391,
+        -2.0768780357875567,
+        0.608550749420149,
+        -0.1986449106514287,
+        3.6209636605250766,
+        -3.9202017000239304,
+        0.9143511720137099,
+        -4.446383630285209,
+        3.7304287056157954,
+        1.6694569093609444,
+        -1.4087660968743394,
+        1.3483578756288777,
+        -0.5751054536618689,
+        2.129471704171473,
+        -0.5528242922184834,
+        0.41819388250559436,
+        -0.6574927717506833,
+        -1.5696895413821836,
+        1.291487210332521,
+        1.2991621072484698,
+        2.8801507531728388,
+        1.645927681232459,
+        1.4748113350310013,
+        -2.792273381788182,
+        -5.648130249985225,
+        -5.425203424504106,
+        -1.2357628461020298,
+        3.172180866981274,
+        0.03514219756107001
+      ],
+      "training": {
+        "initial_objective": 0.69322932,
+        "final_objective": 0.69253467,
+        "best_objective": 0.69253467,
+        "objective_improvement": 0.00069465,
+        "n_iterations": 50,
+        "n_objective_evaluations": 152,
+        "n_circuit_evaluations": 246240,
+        "duration_seconds": 1475.3,
+        "converged": true,
+        "objective_history": [
+          0.69322932,
+          0.6931637,
+          0.69321593,
+          0.69315244,
+          0.6931748,
+          0.69314918,
+          0.69314618,
+          0.69322801,
+          0.69329119,
+          0.69315915,
+          0.69317882,
+          0.69322194,
+          0.69319831,
+          0.6933358,
+          0.6931934,
+          0.69322755,
+          0.69324374,
+          0.69320245,
+          0.69316513,
+          0.69319278,
+          0.69332578,
+          0.69324824,
+          0.69319595,
+          0.69320995,
+          0.69330383,
+          0.69323542,
+          0.69315319,
+          0.69317663,
+          0.69329779,
+          0.69318416,
+          0.69337825,
+          0.69291956,
+          0.6931653,
+          0.69316486,
+          0.69347875,
+          0.69318991,
+          0.69314383,
+          0.69336651,
+          0.6931806,
+          0.69316071,
+          0.69317552,
+          0.69318329,
+          0.69312549,
+          0.69323261,
+          0.6932615,
+          0.69319993,
+          0.6932707,
+          0.69321301,
+          0.69324623,
+          0.69319802,
+          0.69336783,
+          0.69315194,
+          0.69313948,
+          0.69321505,
+          0.69322067,
+          0.69321094,
+          0.69319283,
+          0.69319834,
+          0.69309011,
+          0.69280822,
+          0.69331529,
+          0.69308974,
+          0.69308135,
+          0.69310033,
+          0.69312408,
+          0.6931168,
+          0.69309884,
+          0.6930855,
+          0.69305985,
+          0.69303541,
+          0.69311345,
+          0.69310092,
+          0.69305664,
+          0.69303251,
+          0.69300523,
+          0.69298863,
+          0.69325595,
+          0.69315403,
+          0.69315806,
+          0.69325242,
+          0.69308471,
+          0.69312444,
+          0.69299537,
+          0.6929795,
+          0.69302393,
+          0.6930654,
+          0.69290786,
+          0.69299651,
+          0.69290338,
+          0.69286866,
+          0.69308206,
+          0.69301697,
+          0.69301233,
+          0.6930086,
+          0.69303324,
+          0.69304569,
+          0.69289915,
+          0.69293876,
+          0.69281757,
+          0.69288017,
+          0.6928493,
+          0.69294908,
+          0.69278033,
+          0.69308162,
+          0.69266478,
+          0.69266667,
+          0.6929297,
+          0.69310588,
+          0.69253467,
+          0.69347894,
+          0.69316998,
+          0.6930788,
+          0.69312711,
+          0.69315567,
+          0.69313572,
+          0.69315089,
+          0.69312379,
+          0.69310144,
+          0.69312501,
+          0.69306319,
+          0.69315533,
+          0.6931058,
+          0.6930976,
+          0.69308523,
+          0.69310964,
+          0.69310212,
+          0.6931037,
+          0.69312065,
+          0.6930534,
+          0.69309839,
+          0.69305094,
+          0.69305453,
+          0.69309701,
+          0.69311823,
+          0.69295902,
+          0.69288785,
+          0.69306153,
+          0.69298786,
+          0.69296784,
+          0.69286316,
+          0.69304487,
+          0.69297526,
+          0.69303354,
+          0.69308616,
+          0.69274928,
+          0.69281453,
+          0.69298251,
+          0.69266084,
+          0.69303489,
+          0.69290351,
+          0.69296182,
+          0.69280518
+        ],
+        "validation_trace": [
+          {
+            "objective_evaluation": 50,
+            "train_loss": 0.69319802,
+            "validation_loss": 0.69315392
+          },
+          {
+            "objective_evaluation": 100,
+            "train_loss": 0.69288017,
+            "validation_loss": 0.69315392
+          },
+          {
+            "objective_evaluation": 150,
+            "train_loss": 0.69290351,
+            "validation_loss": 0.69315392
+          }
+        ]
+      },
+      "train_metrics_uncalibrated": {
+        "n_samples": 1620,
+        "n_positive": 96,
+        "n_negative": 1524,
+        "prevalence": 0.059259,
+        "threshold": 0.5,
+        "accuracy": 0.441975,
+        "precision": 0.069296,
+        "recall": 0.677083,
+        "sensitivity": 0.677083,
+        "specificity": 0.427165,
+        "f1": 0.125725,
+        "balanced_accuracy": 0.552124,
+        "roc_auc": 0.605137,
+        "pr_auc": 0.085661,
+        "brier": 0.250304,
+        "log_loss": 0.693755,
+        "ece": 0.441161,
+        "mean_predicted": 0.50042,
+        "confusion_matrix": {
+          "true_positive": 65,
+          "false_positive": 873,
+          "true_negative": 651,
+          "false_negative": 31,
+          "threshold": 0.5
+        }
+      },
+      "validation_metrics_uncalibrated": {
+        "n_samples": 353,
+        "n_positive": 21,
+        "n_negative": 332,
+        "prevalence": 0.05949,
+        "threshold": 0.5,
+        "accuracy": 0.447592,
+        "precision": 0.081731,
+        "recall": 0.809524,
+        "sensitivity": 0.809524,
+        "specificity": 0.424699,
+        "f1": 0.148472,
+        "balanced_accuracy": 0.617111,
+        "roc_auc": 0.619693,
+        "pr_auc": 0.084154,
+        "brier": 0.250273,
+        "log_loss": 0.693692,
+        "ece": 0.440877,
+        "mean_predicted": 0.500367,
+        "confusion_matrix": {
+          "true_positive": 17,
+          "false_positive": 191,
+          "true_negative": 141,
+          "false_negative": 4,
+          "threshold": 0.5
+        }
+      },
+      "selection_score_validation_pr_auc": 0.084154,
+      "notes": [
+        "Scores are (1 - <Z0>)/2, bounded and monotone but not calibrated probabilities. Metrics at threshold 0.50 are reported for comparability, not as an operating point.",
+        "Validation loss recorded every 50 objective evaluations for reporting only; the run was not stopped on it."
+      ]
+    }
+  ],
+  "selected_weights": [
+    1.3501042639471492,
+    -2.2495728465678604,
+    4.448844395188533,
+    1.4399079565290391,
+    -2.0768780357875567,
+    0.608550749420149,
+    -0.1986449106514287,
+    3.6209636605250766,
+    -3.9202017000239304,
+    0.9143511720137099,
+    -4.446383630285209,
+    3.7304287056157954,
+    1.6694569093609444,
+    -1.4087660968743394,
+    1.3483578756288777,
+    -0.5751054536618689,
+    2.129471704171473,
+    -0.5528242922184834,
+    0.41819388250559436,
+    -0.6574927717506833,
+    -1.5696895413821836,
+    1.291487210332521,
+    1.2991621072484698,
+    2.8801507531728388,
+    1.645927681232459,
+    1.4748113350310013,
+    -2.792273381788182,
+    -5.648130249985225,
+    -5.425203424504106,
+    -1.2357628461020298,
+    3.172180866981274,
+    0.03514219756107001
+  ],
+  "hardware_feasibility": {
+    "note": "Reported separately from every simulator result. No simulator number in this artifact should be read as a hardware feasibility claim.",
+    "simulator_shortcut": {
+      "instruction": "qiskit_aer set_statevector",
+      "is_a_circuit": false,
+      "statement": "Training loads the 65,536 amplitudes with Aer's set_statevector, which writes them into simulator memory. It is not state preparation on hardware and implies nothing about hardware feasibility."
+    },
+    "ansatz": {
+      "n_qubits": 16,
+      "logical_depth": 18,
+      "logical_gate_counts": {
+        "ry": 16,
+        "rz": 16,
+        "cx": 16
+      },
+      "transpiled_depth": 20,
+      "transpiled_gate_counts": {
+        "sx": 32,
+        "rz": 32,
+        "cx": 16
+      },
+      "transpiled_cx": 16,
+      "basis_gates": [
+        "rz",
+        "sx",
+        "x",
+        "cx"
+      ],
+      "optimization_level": 1,
+      "coupling_map": "none (all-to-all assumed; a real device adds SWAP overhead)"
+    },
+    "state_preparation_measured": [
+      {
+        "n_qubits": 6,
+        "state_dimension": 64,
+        "transpiled_depth": 209,
+        "transpiled_cx": 57
+      },
+      {
+        "n_qubits": 8,
+        "state_dimension": 256,
+        "transpiled_depth": 896,
+        "transpiled_cx": 247
+      },
+      {
+        "n_qubits": 10,
+        "state_dimension": 1024,
+        "transpiled_depth": 4895,
+        "transpiled_cx": 1013
+      },
+      {
+        "n_qubits": 12,
+        "state_dimension": 4096,
+        "transpiled_depth": 21073,
+        "transpiled_cx": 4083
+      }
+    ],
+    "state_preparation_at_16_qubits": {
+      "measured": false,
+      "reason": "Transpiling an arbitrary 65,536-amplitude StatePreparation is itself 2**16-scale work; the smaller widths above are measured instead and the extrapolation is shown rather than asserted.",
+      "cx_per_state_dimension_measured": [
+        0.8906,
+        0.9648,
+        0.9893,
+        0.9968
+      ],
+      "extrapolated_cx": 62940,
+      "shende_bullock_markov_upper_bound_cx": 131038,
+      "interpretation": "Preparing one arbitrary 16-qubit state costs on the order of 62,940 CX gates, against an upper bound of 131,038. The ansatz itself needs 16 CX. State preparation therefore dominates the circuit by roughly 3,934x, and against current hardware coherence times this circuit is not runnable. That is a property of amplitude-encoding 65,536 values, not of the ansatz."
+    }
+  },
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "1.26.4"
+  }
+}

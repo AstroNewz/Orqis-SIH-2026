@@ -1,0 +1,383 @@
+{
+  "comparison_version": "v1-pixel-comparison-1",
+  "roi_mode": "predicted",
+  "partition": "validation",
+  "test_partition_used": false,
+  "amplitudes_per_state": 65536,
+  "n_qubits": 16,
+  "alignment_note": "Classical and quantum metrics on each row are computed over the same image ids, so prevalence is identical and PR-AUC is comparable. Numbers across different conditions are not comparable to each other, because their prevalences differ.",
+  "classical_reference": {
+    "model_version": "v1-handcrafted",
+    "input": "181 fused descriptor + clinical features, PCA-reduced",
+    "rebuilt_from": "baselines.json"
+  },
+  "conditions": [
+    {
+      "condition": "B_and_C_all",
+      "description": "Conditions B and C together: what an end-to-end run actually sees. Reported alongside B and C, never instead of them.",
+      "partition": "validation",
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_patients": 50,
+      "prevalence": 0.057851,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 363,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 363,
+            "n_positive": 21,
+            "n_negative": 342,
+            "prevalence": 0.057851,
+            "threshold": 0.5,
+            "accuracy": 0.92562,
+            "precision": 0.4375,
+            "recall": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 0.921053,
+            "f1": 0.608696,
+            "balanced_accuracy": 0.960526,
+            "roc_auc": 0.965608,
+            "pr_auc": 0.587325,
+            "brier": 0.070742,
+            "log_loss": 0.243064,
+            "ece": 0.132113,
+            "mean_predicted": 0.189964,
+            "confusion_matrix": {
+              "true_positive": 21,
+              "false_positive": 27,
+              "true_negative": 315,
+              "false_negative": 0,
+              "threshold": 0.5
+            }
+          }
+        },
+        "random_forest": {
+          "n_scored": 363,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 363,
+            "n_positive": 21,
+            "n_negative": 342,
+            "prevalence": 0.057851,
+            "threshold": 0.5,
+            "accuracy": 0.947658,
+            "precision": 0.5625,
+            "recall": 0.428571,
+            "sensitivity": 0.428571,
+            "specificity": 0.979532,
+            "f1": 0.486486,
+            "balanced_accuracy": 0.704052,
+            "roc_auc": 0.963659,
+            "pr_auc": 0.636768,
+            "brier": 0.04559,
+            "log_loss": 0.186744,
+            "ece": 0.100395,
+            "mean_predicted": 0.153131,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 7,
+              "true_negative": 335,
+              "false_negative": 12,
+              "threshold": 0.5
+            }
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 363,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 363,
+            "n_positive": 21,
+            "n_negative": 342,
+            "prevalence": 0.057851,
+            "threshold": 0.5,
+            "accuracy": 0.947658,
+            "precision": 0.545455,
+            "recall": 0.571429,
+            "sensitivity": 0.571429,
+            "specificity": 0.97076,
+            "f1": 0.55814,
+            "balanced_accuracy": 0.771094,
+            "roc_auc": 0.965052,
+            "pr_auc": 0.598644,
+            "brier": 0.034755,
+            "log_loss": 0.113085,
+            "ece": 0.026389,
+            "mean_predicted": 0.065588,
+            "confusion_matrix": {
+              "true_positive": 12,
+              "false_positive": 10,
+              "true_negative": 332,
+              "false_negative": 9,
+              "threshold": 0.5
+            }
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "predicted_B_localized_pixel_vqc.json",
+        "selected_label": "predicted/B_localized/spsa/L1/it50/s42",
+        "weights_trained_on_condition": "B_localized",
+        "own_condition_artifact": false,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": {
+          "n_samples": 363,
+          "n_positive": 21,
+          "n_negative": 342,
+          "prevalence": 0.057851,
+          "threshold": 0.5,
+          "accuracy": 0.449036,
+          "precision": 0.079812,
+          "recall": 0.809524,
+          "sensitivity": 0.809524,
+          "specificity": 0.426901,
+          "f1": 0.145299,
+          "balanced_accuracy": 0.618212,
+          "roc_auc": 0.619396,
+          "pr_auc": 0.081769,
+          "brier": 0.250273,
+          "log_loss": 0.693692,
+          "ece": 0.442513,
+          "mean_predicted": 0.500364,
+          "confusion_matrix": {
+            "true_positive": 17,
+            "false_positive": 196,
+            "true_negative": 146,
+            "false_negative": 4,
+            "threshold": 0.5
+          }
+        },
+        "reported_pr_auc_at_training_time": null,
+        "rescoring_matches_training_artifact": null,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      },
+      "quantum_note": "No pixel VQC was trained on B_and_C_all; the model trained on B_localized was applied to these rows. This is the deployed behaviour for a condition that cannot be selected on, and the rows stay separately identifiable rather than being merged into the B_localized statistic."
+    },
+    {
+      "condition": "B_localized",
+      "description": "Condition B: the frozen localiser produced a box that passed its acceptance checks. The deployable path.",
+      "partition": "validation",
+      "n_samples": 353,
+      "n_positive": 21,
+      "n_patients": 50,
+      "prevalence": 0.05949,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 353,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 353,
+            "n_positive": 21,
+            "n_negative": 332,
+            "prevalence": 0.05949,
+            "threshold": 0.5,
+            "accuracy": 0.923513,
+            "precision": 0.4375,
+            "recall": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 0.918675,
+            "f1": 0.608696,
+            "balanced_accuracy": 0.959337,
+            "roc_auc": 0.964573,
+            "pr_auc": 0.587325,
+            "brier": 0.072405,
+            "log_loss": 0.2474,
+            "ece": 0.133499,
+            "mean_predicted": 0.192989,
+            "confusion_matrix": {
+              "true_positive": 21,
+              "false_positive": 27,
+              "true_negative": 305,
+              "false_negative": 0,
+              "threshold": 0.5
+            }
+          }
+        },
+        "random_forest": {
+          "n_scored": 353,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 353,
+            "n_positive": 21,
+            "n_negative": 332,
+            "prevalence": 0.05949,
+            "threshold": 0.5,
+            "accuracy": 0.946176,
+            "precision": 0.5625,
+            "recall": 0.428571,
+            "sensitivity": 0.428571,
+            "specificity": 0.978916,
+            "f1": 0.486486,
+            "balanced_accuracy": 0.703744,
+            "roc_auc": 0.962565,
+            "pr_auc": 0.636768,
+            "brier": 0.046725,
+            "log_loss": 0.190077,
+            "ece": 0.101365,
+            "mean_predicted": 0.155595,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 7,
+              "true_negative": 325,
+              "false_negative": 12,
+              "threshold": 0.5
+            }
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 353,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 353,
+            "n_positive": 21,
+            "n_negative": 332,
+            "prevalence": 0.05949,
+            "threshold": 0.5,
+            "accuracy": 0.946176,
+            "precision": 0.545455,
+            "recall": 0.571429,
+            "sensitivity": 0.571429,
+            "specificity": 0.96988,
+            "f1": 0.55814,
+            "balanced_accuracy": 0.770654,
+            "roc_auc": 0.963999,
+            "pr_auc": 0.598644,
+            "brier": 0.035739,
+            "log_loss": 0.116211,
+            "ece": 0.027213,
+            "mean_predicted": 0.067369,
+            "confusion_matrix": {
+              "true_positive": 12,
+              "false_positive": 10,
+              "true_negative": 322,
+              "false_negative": 9,
+              "threshold": 0.5
+            }
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "predicted_B_localized_pixel_vqc.json",
+        "selected_label": "predicted/B_localized/spsa/L1/it50/s42",
+        "weights_trained_on_condition": "B_localized",
+        "own_condition_artifact": true,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": {
+          "n_samples": 353,
+          "n_positive": 21,
+          "n_negative": 332,
+          "prevalence": 0.05949,
+          "threshold": 0.5,
+          "accuracy": 0.447592,
+          "precision": 0.081731,
+          "recall": 0.809524,
+          "sensitivity": 0.809524,
+          "specificity": 0.424699,
+          "f1": 0.148472,
+          "balanced_accuracy": 0.617111,
+          "roc_auc": 0.619693,
+          "pr_auc": 0.084154,
+          "brier": 0.250273,
+          "log_loss": 0.693692,
+          "ece": 0.440877,
+          "mean_predicted": 0.500367,
+          "confusion_matrix": {
+            "true_positive": 17,
+            "false_positive": 191,
+            "true_negative": 141,
+            "false_negative": 4,
+            "threshold": 0.5
+          }
+        },
+        "reported_pr_auc_at_training_time": 0.084154,
+        "rescoring_matches_training_artifact": true,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      }
+    },
+    {
+      "condition": "C_fallback",
+      "description": "Condition C: localisation ran and was rejected, so the documented fallback crop was used. Kept identifiable, never merged into B.",
+      "partition": "validation",
+      "n_samples": 10,
+      "n_positive": 0,
+      "n_patients": 9,
+      "prevalence": 0.0,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 10,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        },
+        "random_forest": {
+          "n_scored": 10,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        },
+        "gradient_boosting": {
+          "n_scored": 10,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        }
+      },
+      "quantum": {
+        "artifact": "predicted_B_localized_pixel_vqc.json",
+        "selected_label": "predicted/B_localized/spsa/L1/it50/s42",
+        "weights_trained_on_condition": "B_localized",
+        "own_condition_artifact": false,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": null,
+        "reported_pr_auc_at_training_time": null,
+        "rescoring_matches_training_artifact": null,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      },
+      "quantum_note": "No pixel VQC was trained on C_fallback; the model trained on B_localized was applied to these rows. This is the deployed behaviour for a condition that cannot be selected on, and the rows stay separately identifiable rather than being merged into the B_localized statistic."
+    }
+  ],
+  "verdict": {
+    "per_condition": [
+      {
+        "condition": "B_and_C_all",
+        "n_samples": 363,
+        "n_positive": 21,
+        "prevalence": 0.057851,
+        "best_classical": "random_forest",
+        "best_classical_pr_auc": 0.636768,
+        "quantum_pr_auc": 0.081769,
+        "quantum_weights_trained_on": "B_localized",
+        "quantum_weights_borrowed": true,
+        "quantum_beats_classical": false,
+        "margin": -0.554999
+      },
+      {
+        "condition": "B_localized",
+        "n_samples": 353,
+        "n_positive": 21,
+        "prevalence": 0.05949,
+        "best_classical": "random_forest",
+        "best_classical_pr_auc": 0.636768,
+        "quantum_pr_auc": 0.084154,
+        "quantum_weights_trained_on": "B_localized",
+        "quantum_weights_borrowed": false,
+        "quantum_beats_classical": false,
+        "margin": -0.552614
+      },
+      {
+        "condition": "C_fallback",
+        "n_samples": 10,
+        "n_positive": 0,
+        "prevalence": 0.0,
+        "best_classical": null,
+        "best_classical_pr_auc": null,
+        "quantum_pr_auc": null,
+        "quantum_weights_trained_on": "B_localized",
+        "quantum_weights_borrowed": true,
+        "quantum_beats_classical": null,
+        "margin": null
+      }
+    ]
+  }
+}

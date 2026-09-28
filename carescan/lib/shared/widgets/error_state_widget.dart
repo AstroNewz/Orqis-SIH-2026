@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carescan/core/theme/app_spacing.dart';
+import 'package:carescan/l10n/l10n.dart';
 
 import 'app_button.dart';
 
@@ -43,7 +44,10 @@ class ErrorStateWidget extends StatelessWidget {
             if (onRetry != null) ...[
               const SizedBox(height: AppSpacing.lg),
               AppButton(
-                label: 'Retry',
+                // The caller passes a localised title and message, so an
+                // English button underneath them was the one word on this
+                // widget that a Hindi reader could not read.
+                label: context.l10n.retry,
                 onPressed: onRetry,
                 variant: AppButtonVariant.primary,
               ),

@@ -1,0 +1,447 @@
+{
+  "localizer_version": "carescan-localizer-1",
+  "training_config": {
+    "localizer_version": "carescan-localizer-1",
+    "target": "lesion_bounding_box_normalised",
+    "target_decision": "DEC-020",
+    "architecture": "mobilenet_v3_small",
+    "pretrained_weights": "IMAGENET1K_V1",
+    "head": "Linear(576,256)->Hardswish->Dropout(0.2)->Linear(256,5)",
+    "output_activation": "sigmoid",
+    "outputs": "4 normalised box coordinates + 1 confidence",
+    "input_size": [
+      224,
+      224
+    ],
+    "input_normalisation": "imagenet_mean_std",
+    "resample_filter": "bilinear",
+    "augmentation": [
+      "horizontal_flip_p0.5",
+      "brightness_jitter_0.85_1.15"
+    ],
+    "loss": "smooth_l1(beta=0.05) + 0.5 * bce(confidence, detached_iou)",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "lr_schedule": "cosine_annealing",
+    "grad_clip_norm": 5.0,
+    "epochs": 30,
+    "batch_size": 16,
+    "seed": 42,
+    "torch_version": "2.13.0+cpu",
+    "device": "cpu",
+    "python_version": "3.12.10",
+    "min_confidence": 0.3,
+    "min_box_edge_fraction": 0.05,
+    "max_box_area_fraction": 0.98,
+    "default_min_confidence_constant": 0.35,
+    "split_manifest_seed": 42,
+    "index_fingerprint": "793cc12397ce3789",
+    "partitions_used": [
+      "train",
+      "validation"
+    ],
+    "test_partition_touched": false
+  },
+  "dataset": {
+    "train": {
+      "n_images": 214,
+      "n_patients": 112,
+      "classes": {
+        "opmd": 89,
+        "oral_cancer": 13,
+        "variation_from_normal": 112
+      }
+    },
+    "validation": {
+      "n_images": 50,
+      "n_patients": 24,
+      "classes": {
+        "opmd": 18,
+        "oral_cancer": 3,
+        "variation_from_normal": 29
+      }
+    },
+    "unannotated_by_partition": {
+      "test": 332,
+      "train": 1477,
+      "validation": 311
+    },
+    "excluded_unusable_annotations": {
+      "oral_cancer/right_buccal_mucosa/Ca 4": "annotation_outside_frame:box=(35, 4, 1082, 582) image=548x469 overshoot=0.974",
+      "variation_from_normal/left_buccal_mucosa/SMITA00116_R_LB": "annotation_outside_frame:box=(8, 168, 267, 760) image=415x519 overshoot=0.464",
+      "variation_from_normal/right_buccal_mucosa/SMITA00116_R_RB": "annotation_outside_frame:box=(12, 537, 927, 977) image=565x519 overshoot=0.882"
+    }
+  },
+  "best_epoch": 17,
+  "best_val_mean_iou": 0.5285,
+  "final_validation": {
+    "n": 50,
+    "mean_iou": 0.5285,
+    "median_iou": 0.5652,
+    "iou_at_least_0.25": 0.96,
+    "iou_at_least_0.5": 0.58,
+    "mean_confidence": 0.6028,
+    "confidence_iou_correlation": 0.608
+  },
+  "threshold_selection": {
+    "min_iou_for_good": 0.25,
+    "grid": [
+      {
+        "threshold": 0.2,
+        "accept_rate": 1.0,
+        "precision": 0.96,
+        "recall": 1.0,
+        "f1": 0.9796,
+        "mean_iou_of_accepted": 0.5285
+      },
+      {
+        "threshold": 0.25,
+        "accept_rate": 1.0,
+        "precision": 0.96,
+        "recall": 1.0,
+        "f1": 0.9796,
+        "mean_iou_of_accepted": 0.5285
+      },
+      {
+        "threshold": 0.3,
+        "accept_rate": 1.0,
+        "precision": 0.96,
+        "recall": 1.0,
+        "f1": 0.9796,
+        "mean_iou_of_accepted": 0.5285
+      },
+      {
+        "threshold": 0.35,
+        "accept_rate": 0.92,
+        "precision": 0.9565,
+        "recall": 0.9167,
+        "f1": 0.9362,
+        "mean_iou_of_accepted": 0.5483
+      },
+      {
+        "threshold": 0.4,
+        "accept_rate": 0.86,
+        "precision": 0.9535,
+        "recall": 0.8542,
+        "f1": 0.9011,
+        "mean_iou_of_accepted": 0.558
+      },
+      {
+        "threshold": 0.45,
+        "accept_rate": 0.8,
+        "precision": 0.95,
+        "recall": 0.7917,
+        "f1": 0.8636,
+        "mean_iou_of_accepted": 0.5604
+      },
+      {
+        "threshold": 0.5,
+        "accept_rate": 0.74,
+        "precision": 0.9459,
+        "recall": 0.7292,
+        "f1": 0.8235,
+        "mean_iou_of_accepted": 0.5639
+      },
+      {
+        "threshold": 0.6,
+        "accept_rate": 0.54,
+        "precision": 0.963,
+        "recall": 0.5417,
+        "f1": 0.6933,
+        "mean_iou_of_accepted": 0.631
+      },
+      {
+        "threshold": 0.7,
+        "accept_rate": 0.28,
+        "precision": 0.9286,
+        "recall": 0.2708,
+        "f1": 0.4194,
+        "mean_iou_of_accepted": 0.6809
+      }
+    ],
+    "selected_threshold": 0.3,
+    "selected": {
+      "threshold": 0.3,
+      "accept_rate": 1.0,
+      "precision": 0.96,
+      "recall": 1.0,
+      "f1": 0.9796,
+      "mean_iou_of_accepted": 0.5285
+    },
+    "n_good": 48
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.489263,
+      "val_mean_iou": 0.348,
+      "val_iou_at_least_0.25": 0.78,
+      "val_iou_at_least_0.5": 0.12,
+      "val_confidence_iou_correlation": -0.3422,
+      "learning_rate": 0.00029918
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.553482,
+      "val_mean_iou": 0.4517,
+      "val_iou_at_least_0.25": 0.96,
+      "val_iou_at_least_0.5": 0.42,
+      "val_confidence_iou_correlation": 0.2768,
+      "learning_rate": 0.00029672
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.444212,
+      "val_mean_iou": 0.4542,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.34,
+      "val_confidence_iou_correlation": 0.6761,
+      "learning_rate": 0.00029266
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.408899,
+      "val_mean_iou": 0.4552,
+      "val_iou_at_least_0.25": 0.84,
+      "val_iou_at_least_0.5": 0.32,
+      "val_confidence_iou_correlation": 0.7287,
+      "learning_rate": 0.00028703
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.39977,
+      "val_mean_iou": 0.4495,
+      "val_iou_at_least_0.25": 0.88,
+      "val_iou_at_least_0.5": 0.36,
+      "val_confidence_iou_correlation": 0.7303,
+      "learning_rate": 0.0002799
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.385741,
+      "val_mean_iou": 0.4519,
+      "val_iou_at_least_0.25": 0.88,
+      "val_iou_at_least_0.5": 0.38,
+      "val_confidence_iou_correlation": 0.7255,
+      "learning_rate": 0.00027135
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.378758,
+      "val_mean_iou": 0.4613,
+      "val_iou_at_least_0.25": 0.88,
+      "val_iou_at_least_0.5": 0.38,
+      "val_confidence_iou_correlation": 0.717,
+      "learning_rate": 0.00026147
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.373601,
+      "val_mean_iou": 0.4453,
+      "val_iou_at_least_0.25": 0.88,
+      "val_iou_at_least_0.5": 0.36,
+      "val_confidence_iou_correlation": 0.7696,
+      "learning_rate": 0.00025037
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.366976,
+      "val_mean_iou": 0.4647,
+      "val_iou_at_least_0.25": 0.88,
+      "val_iou_at_least_0.5": 0.42,
+      "val_confidence_iou_correlation": 0.7865,
+      "learning_rate": 0.00023817
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.365229,
+      "val_mean_iou": 0.4666,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.38,
+      "val_confidence_iou_correlation": 0.7941,
+      "learning_rate": 0.000225
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.359967,
+      "val_mean_iou": 0.494,
+      "val_iou_at_least_0.25": 0.92,
+      "val_iou_at_least_0.5": 0.48,
+      "val_confidence_iou_correlation": 0.742,
+      "learning_rate": 0.00021101
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.365784,
+      "val_mean_iou": 0.5084,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.54,
+      "val_confidence_iou_correlation": 0.7287,
+      "learning_rate": 0.00019635
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.356844,
+      "val_mean_iou": 0.5248,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.6752,
+      "learning_rate": 0.00018119
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.352457,
+      "val_mean_iou": 0.519,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.54,
+      "val_confidence_iou_correlation": 0.6747,
+      "learning_rate": 0.00016568
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.345846,
+      "val_mean_iou": 0.52,
+      "val_iou_at_least_0.25": 0.92,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.6623,
+      "learning_rate": 0.00015
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.354148,
+      "val_mean_iou": 0.5111,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.54,
+      "val_confidence_iou_correlation": 0.6406,
+      "learning_rate": 0.00013432
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.343822,
+      "val_mean_iou": 0.5285,
+      "val_iou_at_least_0.25": 0.96,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.608,
+      "learning_rate": 0.00011881
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.341729,
+      "val_mean_iou": 0.5246,
+      "val_iou_at_least_0.25": 0.96,
+      "val_iou_at_least_0.5": 0.54,
+      "val_confidence_iou_correlation": 0.5751,
+      "learning_rate": 0.00010365
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.343148,
+      "val_mean_iou": 0.5238,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.552,
+      "learning_rate": 8.899e-05
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.336251,
+      "val_mean_iou": 0.5139,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.592,
+      "learning_rate": 7.5e-05
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.340392,
+      "val_mean_iou": 0.515,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.5846,
+      "learning_rate": 6.183e-05
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.342493,
+      "val_mean_iou": 0.5181,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.5759,
+      "learning_rate": 4.963e-05
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.3328,
+      "val_mean_iou": 0.5175,
+      "val_iou_at_least_0.25": 0.9,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.5734,
+      "learning_rate": 3.853e-05
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.340423,
+      "val_mean_iou": 0.5229,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.5387,
+      "learning_rate": 2.865e-05
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.330139,
+      "val_mean_iou": 0.5211,
+      "val_iou_at_least_0.25": 0.92,
+      "val_iou_at_least_0.5": 0.58,
+      "val_confidence_iou_correlation": 0.5424,
+      "learning_rate": 2.01e-05
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.32992,
+      "val_mean_iou": 0.523,
+      "val_iou_at_least_0.25": 0.92,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.5346,
+      "learning_rate": 1.297e-05
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.324061,
+      "val_mean_iou": 0.5246,
+      "val_iou_at_least_0.25": 0.92,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.5251,
+      "learning_rate": 7.34e-06
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.330877,
+      "val_mean_iou": 0.5263,
+      "val_iou_at_least_0.25": 0.92,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.5182,
+      "learning_rate": 3.28e-06
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.332889,
+      "val_mean_iou": 0.5264,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.516,
+      "learning_rate": 8.2e-07
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.333129,
+      "val_mean_iou": 0.5271,
+      "val_iou_at_least_0.25": 0.94,
+      "val_iou_at_least_0.5": 0.56,
+      "val_confidence_iou_correlation": 0.5133,
+      "learning_rate": 0.0
+    }
+  ],
+  "duration_seconds": 397.8
+}

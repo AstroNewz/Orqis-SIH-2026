@@ -67,9 +67,10 @@ from backend.schemas.inference import (
     InferenceResult,
     QualitySummary,
     QuantumSummary,
+    QuantumVisualSummary,
 )
 from quantum_ml.backends import build_backend
-from quantum_ml.calibration import ProbabilityCalibrator, ScoreCalibrator
+from quantum_ml.calibration import ProbabilityCalibrator, RiskLevel, ScoreCalibrator
 from quantum_ml.results import ExecutionMode
 from quantum_ml.vqc_classifier import VariationalQuantumClassifier
 
@@ -132,6 +133,7 @@ class InferenceService:
         self._calibration_payload: Dict[str, Any] = {}
         self._classical: Optional[LogisticBaseline] = None
         self._classical_name: str = ""
+        self._classical_threshold: Optional[float] = None
 
     # ------------------------------------------------------------ artifacts
     def _load(self) -> None:
@@ -190,6 +192,11 @@ class InferenceService:
                 calibration_payload, config=self._cfg
             )
             classical, classical_name = _load_classical_reference(store, version)
+            classical_threshold = (
+                _load_classical_operating_point(store, version, classical_name)
+                if classical is not None
+                else None
+            )
             scored_in = calibration_payload.get("scored_in_mode")
             if scored_in and scored_in != backend.effective_mode.value:
                 # Not fatal, but the calibrated numbers are then fitted to a
@@ -212,6 +219,7 @@ class InferenceService:
             self._calibration_payload = calibration_payload
             self._classical = classical
             self._classical_name = classical_name
+            self._classical_threshold = classical_threshold
             self._load_error = None
             self._loaded = True
             logger.info(
@@ -225,6 +233,14 @@ class InferenceService:
                 bands.high_risk_threshold,
                 bands.bands_source,
             )
+            if classical is not None and classical_threshold is not None:
+                logger.info(
+                    "Headline verdict served by classical baseline %s at "
+                    "validation-selected threshold %.4f; quantum VQC calibrated score "
+                    "retained as a secondary experimental readout (DEC-034).",
+                    classical_name,
+                    classical_threshold,
+                )
 
     @property
     def ready(self) -> bool:
@@ -393,12 +409,53 @@ class InferenceService:
                 if outcome.quality
                 else "The image could not be analysed. Please capture it again."
             )
+
+        # Additive, experimental E2 secondary signal (DEC-035). Best-effort and fully
+        # isolated: any failure returns None and the classical primary path below is
+        # served unchanged. Uses this request's own ROI, so no test data is involved.
+        quantum_visual = self._quantum_visual_summary(image, outcome.roi)
+
         return self._infer_from_reduced(
             np.asarray(outcome.fused.values, dtype=np.float64),
             clinical_supplied=clinical_row is not None,
             quality=_quality_summary(outcome.quality),
             preprocessing_ms=preprocessing_ms,
+            quantum_visual=quantum_visual,
         )
+
+    def _quantum_visual_summary(self, image, roi) -> Optional[QuantumVisualSummary]:
+        """Best-effort E2 quantum-visual secondary signal for one image. Never raises.
+
+        Additive and experimental (DEC-035): on ANY failure -- torch or the E2 artifact
+        absent, a dimension mismatch, a circuit error -- this returns ``None`` and the
+        caller serves the classical primary result unchanged. Nothing here touches
+        ``probability`` / ``final_probability`` / the risk band / FHIR values.
+
+        The MobileNet ROI embedding is recomputed from the *same* normalised crop the
+        classical pipeline used for this image (identical ROI box and target size), so the
+        runtime embedding matches the representation E2 was fitted on. Imports are local so
+        even a broken E2 dependency cannot affect module load or the classical path.
+        """
+        try:
+            from backend.ml.features_image import extract_mobilenet
+            from backend.ml.preprocessing import normalise_crop
+            from backend.ml.roi import crop_to_roi
+            from backend.services.quantum_visual_service import (
+                get_quantum_visual_service,
+            )
+
+            service = get_quantum_visual_service(self._cfg)
+            if not service.ready:
+                return None
+            assert self._pipeline is not None
+            normalised = normalise_crop(
+                crop_to_roi(image, roi), target_size=self._pipeline.target_size
+            )
+            embedding = extract_mobilenet(normalised)
+            return service.analyze_embedding(embedding)
+        except Exception as exc:  # noqa: BLE001 - E2 is optional; never break inference
+            logger.info("E2 quantum-visual secondary signal skipped: %s", exc)
+            return None
 
     def _infer_from_reduced(
         self,
@@ -407,8 +464,14 @@ class InferenceService:
         clinical_supplied: bool,
         quality: Optional[QualitySummary],
         preprocessing_ms: float,
+        quantum_visual: Optional[QuantumVisualSummary] = None,
     ) -> InferenceResult:
-        """Shared tail: circuit, calibration, band, assembly."""
+        """Shared tail: circuit, calibration, band, assembly.
+
+        ``quantum_visual`` is the optional, additive E2 secondary signal supplied only by
+        the image path; it is ``None`` for the descriptor path (which has no image) and on
+        any E2 failure. It never affects any primary value assembled below.
+        """
         assert self._pipeline and self._model and self._calibrator and self._bands
 
         quantum_started = time.perf_counter()
@@ -422,9 +485,6 @@ class InferenceService:
         quantum_ms = (time.perf_counter() - quantum_started) * 1000.0
 
         calibrated = float(self._calibrator.transform_one(raw_score))
-        risk_level, classification, details = self._bands.categorize_risk(
-            probability=calibrated, calibrated=self._calibrator.is_calibrated
-        )
 
         classical_probability: Optional[float] = None
         if self._classical is not None:
@@ -435,6 +495,38 @@ class InferenceService:
                 # different feature space than the one being served. Report nothing
                 # rather than a number from the wrong model.
                 logger.warning("Classical reference unavailable: %s", exc)
+
+        # The coherent, calibrated headline number stays the quantum result: it is the
+        # only calibrated probability available, it is safe to persist and to export as
+        # a FHIR probability, and the risk band it produces is self-consistent with it.
+        risk_level, classification, details = self._bands.categorize_risk(
+            probability=calibrated, calibrated=self._calibrator.is_calibrated
+        )
+
+        # The *displayed* verdict, however, headlines the strongest validated model's
+        # band. On this dataset that is the classical baseline -- the quantum VQC ranks
+        # last of four (ISS-008 / DEC-034) -- so when the baseline and its
+        # validation-selected operating point are both available, the client headlines
+        # its two-band ranking verdict. Only the band is promoted: the classical score
+        # is uncalibrated and must not be shown as a percentage, so the calibrated
+        # number above is left untouched. With no classical baseline the headline falls
+        # back to the quantum band, exactly as before.
+        if classical_probability is not None and self._classical_threshold is not None:
+            primary_model = self._classical_name or "logistic_regression"
+            primary_probability: Optional[float] = classical_probability
+            primary_threshold: Optional[float] = self._classical_threshold
+            primary_calibrated = False
+            primary_risk_level = (
+                RiskLevel.MODERATE.value
+                if classical_probability >= self._classical_threshold
+                else RiskLevel.LOW.value
+            )
+        else:
+            primary_model = "quantum_vqc_calibrated"
+            primary_probability = calibrated
+            primary_threshold = self._bands.threshold
+            primary_calibrated = self._calibrator.is_calibrated
+            primary_risk_level = risk_level
 
         pipeline = self._pipeline
         return InferenceResult(
@@ -450,6 +542,11 @@ class InferenceService:
             details=details,
             classical_probability=classical_probability,
             classical_model=self._classical_name or None,
+            primary_model=primary_model,
+            primary_risk_level=primary_risk_level,
+            primary_probability=primary_probability,
+            primary_threshold=primary_threshold,
+            primary_calibrated=primary_calibrated,
             calibration=CalibrationSummary(
                 method=self._calibrator.method.value,
                 is_calibrated=self._calibrator.is_calibrated,
@@ -484,6 +581,7 @@ class InferenceService:
                 clinical_features_supplied=clinical_supplied,
             ),
             quality=quality,
+            quantum_visual=quantum_visual,
             execution_time_ms=preprocessing_ms + quantum_ms,
             quantum_time_ms=quantum_ms,
             preprocessing_time_ms=preprocessing_ms,
@@ -510,6 +608,35 @@ def _load_classical_reference(
     except (BaselineError, KeyError, TypeError, ValueError) as exc:
         logger.warning("Could not restore the classical reference for %s: %s", version, exc)
         return None, ""
+
+
+def _load_classical_operating_point(
+    store: ArtifactStore, version: str, classical_name: str
+) -> Optional[float]:
+    """Validation-selected screening threshold for the classical baseline, or ``None``.
+
+    Read from this model version's ``evaluation.json`` ``operating_points`` -- but
+    only when that entry is explicitly ``chosen_on == "validation"``. The held-out
+    test partition must never influence a served threshold, so a test-derived
+    operating point, a missing provenance marker, or a missing/unreadable artifact all
+    yield ``None`` and the caller falls back to the quantum band. Read-only: the
+    frozen evaluation artifact is never modified.
+    """
+    if not classical_name:
+        return None
+    try:
+        payload = store.read_component(version, "evaluation.json", required=False)
+    except (ArtifactError, OSError, ValueError, TypeError):
+        return None
+    point = ((payload or {}).get("operating_points") or {}).get(classical_name)
+    if not isinstance(point, dict) or point.get("chosen_on") != "validation":
+        return None
+    threshold = point.get("threshold")
+    try:
+        value = float(threshold)
+    except (TypeError, ValueError):
+        return None
+    return value if 0.0 <= value <= 1.0 else None
 
 
 def _quality_summary(report) -> Optional[QualitySummary]:

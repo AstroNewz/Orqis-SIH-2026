@@ -128,7 +128,16 @@ class ScreeningService:
             ),
         )
 
-        return AssessmentResultResponse.model_validate(result)
+        response = AssessmentResultResponse.model_validate(result)
+        # E2 (DEC-035) is an additive, EXPERIMENTAL secondary quantum-visual signal computed
+        # live during this inference. It is intentionally NOT persisted (no clinical column,
+        # no schema migration on an existing DB) and is surfaced on the fresh response only;
+        # a result re-read from history carries ``None``. It never affects any
+        # primary/verdict/persisted/FHIR value -- ``result`` above is the sole source of all
+        # of those, and this line only decorates the response with the demonstrator's
+        # telemetry. ``None`` (E2 unavailable or failed at runtime) is passed through as-is.
+        response.quantumVisual = inference.quantum_visual
+        return response
 
     # -------------------------------------------------------------- inference
     def _run_inference(self, screening_in: ScreeningCreate) -> InferenceResult:

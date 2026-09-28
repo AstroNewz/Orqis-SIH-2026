@@ -4,11 +4,18 @@ pydantic>=2.8.0
 pydantic-settings>=2.4.0
 sqlalchemy>=2.0.30
 scikit-learn>=1.5.0
+scikit-image==0.25.2
 numpy>=2.0.0
 pytest>=8.3.0
 httpx>=0.27.0
 python-multipart>=0.0.9
 python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.4
+# passlib 1.7.4 is unmaintained and its bcrypt backend probe hashes a >72-byte string
+# to detect a legacy wrap bug. bcrypt 5.0 turned that into a hard ValueError instead of
+# truncating, so passlib cannot load its backend at all. Pinned below 5 until passlib
+# releases a fix. (bcrypt >=4.1 also drops __about__, which only makes passlib log
+# "error reading bcrypt version" -- harmless, hashing and verification are unaffected.)
+bcrypt>=4.0.1,<5.0.0
 qiskit>=1.2.0
 qiskit-aer>=0.15.0

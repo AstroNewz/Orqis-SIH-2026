@@ -1,324 +1,246 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:carescan/core/di/service_locator.dart';
 import 'package:carescan/core/errors/async_state.dart';
-import 'package:carescan/core/errors/result.dart';
-import 'package:carescan/core/theme/app_spacing.dart';
 import 'package:carescan/features/assessment/models/history_entry.dart';
 import 'package:carescan/features/assessment/repositories/assessment_repository.dart';
-import 'package:carescan/features/assessment/repositories/mock_assessment_repository.dart';
+import 'package:carescan/features/auth/prototype_session.dart';
+import 'package:carescan/l10n/l10n.dart';
+import 'package:carescan/shared/widgets/product_components.dart';
+import 'package:carescan/shared/widgets/screening_record.dart';
+import 'package:carescan/core/theme/app_shapes.dart';
 
 class HomeScreen extends StatefulWidget {
-  final AssessmentRepository? repository;
-
   const HomeScreen({super.key, this.repository});
-
+  final AssessmentRepository? repository;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final AssessmentRepository _repository;
   AsyncState<List<HistoryEntry>> _state = const AsyncLoading();
-
+  AssessmentRepository get _repository =>
+      widget.repository ?? appAssessmentRepository;
   @override
   void initState() {
     super.initState();
-    _repository = widget.repository ?? MockAssessmentRepository();
-    _loadRecentAssessments();
+    screeningRevision.addListener(_load);
+    _load();
   }
 
-  Future<void> _loadRecentAssessments() async {
+  @override
+  void dispose() {
+    screeningRevision.removeListener(_load);
+    super.dispose();
+  }
+
+  Future<void> _load() async {
     setState(() => _state = const AsyncLoading());
-
-    final Result<List<HistoryEntry>> result = await _repository
-        .getAssessmentHistory();
-
+    final result = await _repository.getAssessmentHistory();
     if (!mounted) return;
-
-    setState(() {
-      _state = result.fold(
-        (failure) => AsyncError(failure),
-        (entries) =>
-            entries.isEmpty ? const AsyncEmpty() : AsyncSuccess(entries),
-      );
-    });
+    setState(
+      () => _state = result.fold((failure) => AsyncError(failure), (entries) {
+        final sorted = [...entries]
+          ..sort(
+            (a, b) => b.assessment.timestamp.compareTo(a.assessment.timestamp),
+          );
+        return sorted.isEmpty ? const AsyncEmpty() : AsyncSuccess(sorted);
+      }),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
+    final t = Theme.of(context);
+    final identity = appSession.identity;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Good morning, Alex'),
+        title: const CareScanBrand(),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              context.go('/settings');
-            },
+            tooltip: l.tracks,
+            icon: const Icon(Icons.science_outlined),
+            onPressed: () => context.push('/tracks'),
           ),
+          IconButton(
+            tooltip: l.profile,
+            icon: const Icon(Icons.person_outline),
+            onPressed: () => context.go('/profile'),
+          ),
+          const SizedBox(width: 8),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          left: AppSpacing.md,
-          right: AppSpacing.md,
-          top: AppSpacing.sm,
-          bottom: 100, // Safe padding for bottom nav
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const _HeroCard(),
-            const SizedBox(height: AppSpacing.lg),
-            _buildRecentAssessmentsSection(context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRecentAssessmentsSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Recent Assessments',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            TextButton(
-              onPressed: () {
-                context.go('/history');
-              },
-              child: const Text('View All'),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        _state.when(
-          initial: () => const SizedBox.shrink(),
-          loading: () => const Center(
-            child: Padding(
-              padding: EdgeInsets.all(AppSpacing.md),
-              child: CircularProgressIndicator(),
-            ),
-          ),
-          success: (entries) {
-            final recent = entries.take(3).toList();
-            return Column(
-              children: recent.map((entry) {
-                final assessment = entry.assessment;
-                final result = entry.result;
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                  child: _AssessmentItem(
-                    date: _formatDate(assessment.timestamp),
-                    title: assessment.type,
-                    riskLevel: result.riskLevel,
-                  ),
-                );
-              }).toList(),
-            );
-          },
-          empty: () => Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-            child: Text(
-              'No recent assessments. Take a photo to get started.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          error: (failure) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: RefreshIndicator(
+        onRefresh: _load,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: ContentPane(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Could not load recent assessments.',
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                  identity == null || identity.isGuest
+                      ? l.welcome
+                      : identity.name,
+                  style: t.textTheme.bodyMedium?.copyWith(
+                    color: t.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 28),
+                Text(
+                  l.prototype,
+                  style: t.textTheme.labelMedium?.copyWith(
+                    color: t.colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(l.heroTitle, style: t.textTheme.displaySmall),
+                const SizedBox(height: 16),
+                Text(
+                  l.heroSubtitle,
+                  style: t.textTheme.bodyLarge?.copyWith(
+                    color: t.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 28),
+                FilledButton.icon(
+                  onPressed: () => context.push('/camera'),
+                  icon: const Icon(Icons.center_focus_strong),
+                  label: Text(l.startScreening),
                 ),
                 TextButton(
-                  onPressed: _loadRecentAssessments,
-                  child: const Text('Retry'),
+                  onPressed: () => context.go('/history'),
+                  child: Text(l.viewHistory),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  String _formatDate(DateTime dt) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${months[dt.month - 1]} ${dt.day.toString().padLeft(2, '0')}, ${dt.year}';
-  }
-}
-
-class _HeroCard extends StatelessWidget {
-  const _HeroCard();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Container(
-      constraints: const BoxConstraints(minHeight: 220),
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: colorScheme.primary,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Start a New Assessment',
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: colorScheme.onPrimary,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Quickly scan and analyze with precision.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onPrimary.withValues(alpha: 0.9),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          ElevatedButton.icon(
-            onPressed: () => context.push('/camera'),
-            icon: const Icon(Icons.photo_camera),
-            label: const Text('Take a Photo'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: colorScheme.primary,
-              minimumSize: const Size.fromHeight(52),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(26),
-              ),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          OutlinedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.upload_file),
-            label: const Text('Upload Image'),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.white,
-              side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
-              minimumSize: const Size.fromHeight(52),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(26),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _AssessmentItem extends StatelessWidget {
-  final String date;
-  final String title;
-  final String riskLevel;
-
-  const _AssessmentItem({
-    required this.date,
-    required this.title,
-    required this.riskLevel,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.3),
-        ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: colorScheme.secondaryContainer,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(Icons.image, color: colorScheme.secondary),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  date,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
+                const SizedBox(height: 16),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Wrap(
+                    spacing: 20,
+                    runSpacing: 12,
+                    children: [
+                      _step(Icons.camera_alt_outlined, l.captureStep),
+                      _step(Icons.fact_check_outlined, l.qualityStep),
+                      _step(Icons.description_outlined, l.resultStep),
+                    ],
                   ),
                 ),
+                const Divider(),
+                SectionHeading(
+                  title: l.recentScreening,
+                  action: l.viewAll,
+                  onAction: () => context.go('/history'),
+                ),
+                _state.when(
+                  initial: () => const SizedBox.shrink(),
+                  loading: () => Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        semanticsLabel: l.loadingHistory,
+                      ),
+                    ),
+                  ),
+                  success: (entries) => Column(
+                    children: [
+                      for (final entry in entries.take(2))
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: ScreeningRecord(entry: entry),
+                        ),
+                    ],
+                  ),
+                  empty: () => Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: t.colorScheme.surface,
+                      borderRadius: AppShapes.radiusMd,
+                      border: Border.all(color: t.colorScheme.outlineVariant),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.history,
+                          color: t.colorScheme.primary,
+                          size: 28,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(l.noScreenings, style: t.textTheme.titleMedium),
+                        const SizedBox(height: 8),
+                        Text(l.noScreeningsBody, style: t.textTheme.bodyMedium),
+                        const SizedBox(height: 12),
+                        TextButton(
+                          onPressed: () => context.push('/camera'),
+                          child: Text(l.firstScreening),
+                        ),
+                      ],
+                    ),
+                  ),
+                  error: (_) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InfoNote(text: l.historyError, warning: true),
+                      TextButton.icon(
+                        onPressed: _load,
+                        icon: const Icon(Icons.refresh),
+                        label: Text(l.retry),
+                      ),
+                    ],
+                  ),
+                ),
+                SectionHeading(title: l.healthEducation),
+                Text(l.educationIntro, style: t.textTheme.bodyLarge),
+                const SizedBox(height: 12),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.menu_book_outlined,
+                    color: t.colorScheme.primary,
+                  ),
+                  title: Text(l.editorialIntro),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () => context.go('/blogs'),
+                ),
+                // The catalogue is reachable from the app bar too, but an icon
+                // is easy to miss and "which conditions can this screen for,
+                // and on what evidence" is the question the platform most
+                // needs to be able to answer out loud.
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.science_outlined,
+                    color: t.colorScheme.primary,
+                  ),
+                  title: Text(l.tracks),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () => context.push('/tracks'),
+                ),
+                const SizedBox(height: 24),
                 Text(
-                  title,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+                  l.disclaimer,
+                  style: t.textTheme.bodySmall?.copyWith(
+                    color: t.colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: colorScheme.primary.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              riskLevel.toUpperCase(),
-              style: TextStyle(
-                color: colorScheme.primary,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
+
+  Widget _step(IconData icon, String label) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon, size: 18, color: Theme.of(context).colorScheme.primary),
+      const SizedBox(width: 8),
+      Flexible(
+        child: Text(label, style: Theme.of(context).textTheme.labelMedium),
+      ),
+    ],
+  );
 }

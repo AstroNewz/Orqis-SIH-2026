@@ -29,3 +29,10 @@ htmlcov/
 backend/artifacts/dataset/
 uploads/
 
+# Build tools & temporary logs
+tools/
+*.exe
+*.log
+.claude/
+
+

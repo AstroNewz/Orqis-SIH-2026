@@ -15,6 +15,19 @@ void main() {
       'assessmentId': 'test-id',
       'riskLevel': 'Low Risk',
       'details': 'Analysis complete.',
+      // Design-A verdict fields (DEC-034): serialized as null when the backend
+      // supplied no primary/quantum readout, so toJson round-trips exactly.
+      'primaryModel': null,
+      'primaryRiskLevel': null,
+      'primaryProbability': null,
+      'primaryThreshold': null,
+      'primaryCalibrated': null,
+      'finalProbability': null,
+      'quantumProbability': null,
+      'classicalProbability': null,
+      'classification': null,
+      'modelVersion': null,
+      'isMock': false,
     };
 
     test('fromJson should return a valid model', () {

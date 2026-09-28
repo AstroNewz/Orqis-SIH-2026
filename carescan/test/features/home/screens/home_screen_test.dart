@@ -4,6 +4,7 @@ import 'package:carescan/core/theme/app_theme.dart';
 import 'package:carescan/features/assessment/models/assessment.dart';
 import 'package:carescan/features/assessment/models/assessment_result.dart';
 import 'package:carescan/features/assessment/models/history_entry.dart';
+import 'package:carescan/features/assessment/models/localization_result.dart';
 import 'package:carescan/features/assessment/repositories/assessment_repository.dart';
 import 'package:carescan/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,10 @@ class _FakeAssessmentRepository implements AssessmentRepository {
           details: 'Normal',
         ),
       );
+
+  @override
+  Future<Result<LocalizationResult>> localize(String imagePath) async =>
+      const Success(LocalizationResult.none());
 }
 
 void main() {
@@ -48,12 +53,13 @@ void main() {
             id: 'asm-1',
             timestamp: DateTime(2023, 10, 12),
             imagePath: 'path1',
-            type: 'Skin Scan • Full Body',
+            type: 'Oral health screening',
           ),
           result: const AssessmentResult(
             id: 'res-1',
             assessmentId: 'asm-1',
             riskLevel: 'Low Risk',
+            primaryRiskLevel: 'High Risk',
             details: 'All clear',
           ),
         ),
@@ -63,10 +69,10 @@ void main() {
       await tester.pumpWidget(buildTestWidget(repository: repo));
       await tester.pumpAndSettle();
 
-      expect(find.text('Start a New Assessment'), findsOneWidget);
-      expect(find.text('Take a Photo'), findsOneWidget);
-      expect(find.text('Skin Scan • Full Body'), findsOneWidget);
-      expect(find.text('LOW RISK'), findsOneWidget);
+      expect(find.text('Screen early.\nUnderstand sooner.'), findsOneWidget);
+      expect(find.text('Start Screening'), findsOneWidget);
+      expect(find.text('Oral health screening'), findsOneWidget);
+      expect(find.text('HIGH RISK'), findsOneWidget);
     });
 
     testWidgets('renders empty state when no recent assessments', (
@@ -77,7 +83,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.text('No recent assessments. Take a photo to get started.'),
+        find.text('No screenings yet'),
         findsOneWidget,
       );
     });
@@ -91,8 +97,8 @@ void main() {
       await tester.pumpWidget(buildTestWidget(repository: repo));
       await tester.pumpAndSettle();
 
-      expect(find.text('Could not load recent assessments.'), findsOneWidget);
-      expect(find.text('Retry'), findsOneWidget);
+      expect(find.text('Screening history is unavailable'), findsOneWidget);
+      expect(find.text('Try Again'), findsOneWidget);
     });
   });
 }

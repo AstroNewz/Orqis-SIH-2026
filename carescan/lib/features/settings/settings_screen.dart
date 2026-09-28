@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carescan/core/errors/async_state.dart';
 import 'package:carescan/core/errors/failures.dart';
 import 'package:carescan/core/errors/result.dart';
+import 'package:carescan/core/theme/app_shapes.dart';
 import 'package:carescan/core/theme/app_spacing.dart';
 import 'package:carescan/features/settings/models/user_settings.dart';
 import 'package:carescan/features/settings/repositories/mock_settings_repository.dart';
@@ -449,7 +450,7 @@ class _AbhaConnectedChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: colorScheme.primary.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: AppShapes.radiusMd,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

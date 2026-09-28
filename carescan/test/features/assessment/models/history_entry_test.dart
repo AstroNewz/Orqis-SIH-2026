@@ -38,6 +38,18 @@ void main() {
         'assessmentId': 'test-id',
         'riskLevel': 'Low Risk',
         'details': 'Analysis complete.',
+        // Design-A verdict fields (DEC-034), null when absent so toJson round-trips.
+        'primaryModel': null,
+        'primaryRiskLevel': null,
+        'primaryProbability': null,
+        'primaryThreshold': null,
+        'primaryCalibrated': null,
+        'finalProbability': null,
+        'quantumProbability': null,
+        'classicalProbability': null,
+        'classification': null,
+        'modelVersion': null,
+        'isMock': false,
       },
     };
 

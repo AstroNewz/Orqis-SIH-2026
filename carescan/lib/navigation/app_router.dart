@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:carescan/features/auth/prototype_session.dart';
+import 'package:carescan/features/auth/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:carescan/navigation/scaffold_with_nav.dart';
@@ -10,29 +12,31 @@ import 'package:carescan/features/preview/screens/image_preview_screen.dart';
 import 'package:carescan/features/analyzing/screens/analyzing_screen.dart';
 import 'package:carescan/features/assessment/models/assessment_result.dart';
 import 'package:carescan/features/result/screens/assessment_result_screen.dart';
-
-// Placeholder screens for T-NAV-01 & T-NAV-02
-
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text(title)),
-    );
-  }
-}
+import 'package:carescan/features/tracks/screens/tracks_screen.dart';
+import 'package:carescan/features/education/screens/education_screen.dart';
+import 'package:carescan/features/education/screens/article_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/',
+    refreshListenable: appSession,
+    redirect: (context, state) {
+      if (appSession.identity == null && state.uri.path != '/welcome') {
+        return '/welcome';
+      }
+      if (appSession.identity != null && state.uri.path == '/welcome') {
+        return '/';
+      }
+      return null;
+    },
     navigatorKey: _rootNavigatorKey,
     routes: [
+      GoRoute(
+        path: '/welcome',
+        builder: (context, state) => const WelcomeScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNav(navigationShell: navigationShell);
@@ -50,8 +54,19 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/blogs',
-                builder: (context, state) =>
-                    const PlaceholderScreen(title: 'Blogs'),
+                builder: (context, state) => const EducationScreen(),
+                // Nested rather than pushed on the root navigator, so the
+                // bottom bar stays visible while reading. Browsing an editorial
+                // section is moving around inside a tab, not leaving for a
+                // one-way flow the way /camera and /result are.
+                routes: [
+                  GoRoute(
+                    path: ':articleId',
+                    builder: (context, state) => ArticleScreen(
+                      articleId: state.pathParameters['articleId'],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -79,6 +94,15 @@ class AppRouter {
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const CameraScanScreen(),
       ),
+      // Pushed rather than made a fifth shell branch: the bottom bar's four
+      // indices are load-bearing (see `scaffold_with_nav.dart` and the
+      // navigation test that asserts them), and the track catalogue is
+      // something you consult, not a place you live.
+      GoRoute(
+        path: '/tracks',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const TracksScreen(),
+      ),
       GoRoute(
         path: '/preview',
         parentNavigatorKey: _rootNavigatorKey,
@@ -99,8 +123,17 @@ class AppRouter {
         path: '/result',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) {
-          final result = state.extra as AssessmentResult?;
-          return AssessmentResultScreen(result: result);
+          final extra = state.extra;
+          // Preferred: the analyzing screen hands over the verdict plus the local
+          // capture path so the analyzed image can be shown.
+          if (extra is ({AssessmentResult result, String? imagePath})) {
+            return AssessmentResultScreen(
+              result: extra.result,
+              imagePath: extra.imagePath,
+            );
+          }
+          // Back-compat: a bare result (or nothing) still renders.
+          return AssessmentResultScreen(result: extra as AssessmentResult?);
         },
       ),
     ],

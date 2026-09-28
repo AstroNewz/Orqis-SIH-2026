@@ -1,0 +1,3912 @@
+{
+  "baseline_version": "v1-e4-classical-1",
+  "feature_set_version": "ecg-v1",
+  "cache_version": "ptbxl-ecg-1",
+  "seed": 42,
+  "bootstrap_draws": 2000,
+  "permutation_draws": 0,
+  "fixed_specificity": 0.9,
+  "protocol": {
+    "train_folds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "validation_folds": [
+      9
+    ],
+    "test_folds": [
+      10
+    ],
+    "test_partition_used": false,
+    "primary_metric": "ROC-AUC (\u00a77.4, frozen before any model)",
+    "bootstrap_unit": "patient",
+    "selection": "leave-one-strat-fold-out CV inside TRAIN folds 1-8"
+  },
+  "cohort": {
+    "n_records": 19601,
+    "n_patients": 16965,
+    "dimension": 97,
+    "folds_present": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "representations": [
+    {
+      "name": "f97",
+      "reduction": "identity",
+      "output_dimension": 97,
+      "total_explained_variance_ratio": null,
+      "fitted_on_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_train_patients": 15023
+    },
+    {
+      "name": "pca32",
+      "reduction": "pca",
+      "output_dimension": 32,
+      "total_explained_variance_ratio": 0.92745,
+      "fitted_on_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_train_patients": 15023
+    },
+    {
+      "name": "pca16",
+      "reduction": "pca",
+      "output_dimension": 16,
+      "total_explained_variance_ratio": 0.774452,
+      "fitted_on_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_train_patients": 15023
+    },
+    {
+      "name": "pca08",
+      "reduction": "pca",
+      "output_dimension": 8,
+      "total_explained_variance_ratio": 0.600332,
+      "fitted_on_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_train_patients": 15023
+    }
+  ],
+  "tasks": {
+    "primary_norm_vs_abnormal": {
+      "task": "primary_norm_vs_abnormal",
+      "used_for_selection": true,
+      "n_unknown_label": 371,
+      "arms": [
+        {
+          "model": "prevalence",
+          "representation": "f97",
+          "arm": "prevalence@f97",
+          "input_dimension": 0,
+          "selected_params": {
+            "train_prevalence": 0.576036
+          },
+          "probability_source": "train prevalence, constant",
+          "threshold": {
+            "threshold": 0.5,
+            "selected_on": "fixed; nothing to select"
+          },
+          "fit_seconds": 0.0,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.5,
+            "accuracy": 0.574091,
+            "precision": 0.574091,
+            "recall": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 0.0,
+            "f1": 0.729426,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.574091,
+            "brier": 0.244514,
+            "log_loss": 0.682135,
+            "ece": 0.001945,
+            "mean_predicted": 0.576036,
+            "confusion_matrix": {
+              "true_positive": 1232,
+              "false_positive": 914,
+              "true_negative": 0,
+              "false_negative": 0,
+              "threshold": 0.5
+            }
+          },
+          "validation_roc_auc": 0.5,
+          "validation_bootstrap_roc_auc": {
+            "measured": false,
+            "reason": "a constant score has no rank information; ROC-AUC is 0.5 by construction and an interval around it would be meaningless",
+            "n_draws_requested": 2000
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": null,
+            "achieved_specificity": null,
+            "threshold": null,
+            "note": "No threshold reaches specificity 0.9; the model does not separate the classes well enough at this operating point."
+          },
+          "selection": {}
+        },
+        {
+          "model": "logistic",
+          "representation": "f97",
+          "arm": "logistic@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.912147,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.912228,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.900387,
+                  0.919097,
+                  0.910127,
+                  0.906674,
+                  0.913172,
+                  0.914744,
+                  0.923899,
+                  0.909726
+                ],
+                "seconds": 1.12
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.912525,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.912616,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.900308,
+                  0.918247,
+                  0.909786,
+                  0.908041,
+                  0.91305,
+                  0.915085,
+                  0.926102,
+                  0.910309
+                ],
+                "seconds": 2.01
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.912117,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.912249,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.899866,
+                  0.917287,
+                  0.909135,
+                  0.908033,
+                  0.912463,
+                  0.914827,
+                  0.926314,
+                  0.910063
+                ],
+                "seconds": 3.04
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.912003,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.912126,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.899714,
+                  0.91703,
+                  0.908926,
+                  0.907993,
+                  0.912151,
+                  0.914735,
+                  0.926398,
+                  0.910065
+                ],
+                "seconds": 3.23
+              }
+            ],
+            "selected_params": {
+              "C": 0.1
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.912616
+          },
+          "selected_params": {
+            "C": 0.1
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.56005,
+            "train_out_of_fold_balanced_accuracy": 0.839153,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.28,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.56005,
+            "accuracy": 0.820596,
+            "precision": 0.890323,
+            "recall": 0.784091,
+            "sensitivity": 0.784091,
+            "specificity": 0.869803,
+            "f1": 0.833837,
+            "balanced_accuracy": 0.826947,
+            "roc_auc": 0.90027,
+            "pr_auc": 0.933377,
+            "brier": 0.125892,
+            "log_loss": 0.394429,
+            "ece": 0.025428,
+            "mean_predicted": 0.556853,
+            "confusion_matrix": {
+              "true_positive": 966,
+              "false_positive": 119,
+              "true_negative": 795,
+              "false_negative": 266,
+              "threshold": 0.56005
+            }
+          },
+          "validation_roc_auc": 0.9002697931171673,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.900219,
+            "standard_error": 0.006796,
+            "p2_5": 0.886634,
+            "p97_5": 0.913072
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.7443,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.6253004895988733
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "f97",
+          "arm": "gbm@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.949586,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.949646,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.944978,
+                  0.955273,
+                  0.944951,
+                  0.946291,
+                  0.951085,
+                  0.945868,
+                  0.956461,
+                  0.952262
+                ],
+                "seconds": 56.04
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.948116,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.948128,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.941785,
+                  0.95412,
+                  0.942916,
+                  0.943005,
+                  0.9519,
+                  0.944558,
+                  0.955015,
+                  0.951727
+                ],
+                "seconds": 27.04
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.948666,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.948659,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.943948,
+                  0.954907,
+                  0.942703,
+                  0.944431,
+                  0.950933,
+                  0.944359,
+                  0.955929,
+                  0.952064
+                ],
+                "seconds": 40.84
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 31
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.949646
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 31
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.58655,
+            "train_out_of_fold_balanced_accuracy": 0.878906,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 3.31,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.58655,
+            "accuracy": 0.857875,
+            "precision": 0.923288,
+            "recall": 0.820617,
+            "sensitivity": 0.820617,
+            "specificity": 0.908096,
+            "f1": 0.86893,
+            "balanced_accuracy": 0.864357,
+            "roc_auc": 0.940234,
+            "pr_auc": 0.958978,
+            "brier": 0.098855,
+            "log_loss": 0.31194,
+            "ece": 0.040146,
+            "mean_predicted": 0.558042,
+            "confusion_matrix": {
+              "true_positive": 1011,
+              "false_positive": 84,
+              "true_negative": 830,
+              "false_negative": 221,
+              "threshold": 0.58655
+            }
+          },
+          "validation_roc_auc": 0.9402343416976896,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.940177,
+            "standard_error": 0.004988,
+            "p2_5": 0.929748,
+            "p97_5": 0.949353
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8255,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.5731491423773024
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "f97",
+          "arm": "rbf_svm@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.940539,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.940512,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.933526,
+                  0.946693,
+                  0.939357,
+                  0.935983,
+                  0.942692,
+                  0.939518,
+                  0.946412,
+                  0.939917
+                ],
+                "seconds": 61.84
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.938151,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.938183,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.928836,
+                  0.940795,
+                  0.939623,
+                  0.934269,
+                  0.939439,
+                  0.937801,
+                  0.943925,
+                  0.940778
+                ],
+                "seconds": 70.42
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.940512
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.568314,
+            "train_out_of_fold_balanced_accuracy": 0.869523,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 9.4,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.568314,
+            "accuracy": 0.854147,
+            "precision": 0.918107,
+            "recall": 0.818994,
+            "sensitivity": 0.818994,
+            "specificity": 0.901532,
+            "f1": 0.865723,
+            "balanced_accuracy": 0.860263,
+            "roc_auc": 0.933624,
+            "pr_auc": 0.955008,
+            "brier": 0.102781,
+            "log_loss": 0.323946,
+            "ece": 0.021949,
+            "mean_predicted": 0.558054,
+            "confusion_matrix": {
+              "true_positive": 1009,
+              "false_positive": 90,
+              "true_negative": 824,
+              "false_negative": 223,
+              "threshold": 0.568314
+            }
+          },
+          "validation_roc_auc": 0.9336244991332519,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.933542,
+            "standard_error": 0.005276,
+            "p2_5": 0.922767,
+            "p97_5": 0.943521
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8206,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.564593129717238
+          }
+        },
+        {
+          "model": "logistic",
+          "representation": "pca32",
+          "arm": "logistic@pca32",
+          "input_dimension": 32,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906529,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906583,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.89599,
+                  0.912719,
+                  0.903302,
+                  0.90063,
+                  0.908092,
+                  0.911975,
+                  0.91686,
+                  0.9031
+                ],
+                "seconds": 0.16
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906531,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.90659,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895832,
+                  0.912214,
+                  0.902854,
+                  0.901237,
+                  0.90819,
+                  0.912028,
+                  0.9168,
+                  0.903563
+                ],
+                "seconds": 0.2
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906519,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906579,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895958,
+                  0.912109,
+                  0.902749,
+                  0.901267,
+                  0.908151,
+                  0.912024,
+                  0.916759,
+                  0.903616
+                ],
+                "seconds": 0.21
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906517,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906578,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895976,
+                  0.91209,
+                  0.902734,
+                  0.901277,
+                  0.908141,
+                  0.912019,
+                  0.916767,
+                  0.903618
+                ],
+                "seconds": 0.21
+              }
+            ],
+            "selected_params": {
+              "C": 0.1
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.90659
+          },
+          "selected_params": {
+            "C": 0.1
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.567696,
+            "train_out_of_fold_balanced_accuracy": 0.837045,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.02,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.567696,
+            "accuracy": 0.813141,
+            "precision": 0.891612,
+            "recall": 0.767857,
+            "sensitivity": 0.767857,
+            "specificity": 0.874179,
+            "f1": 0.82512,
+            "balanced_accuracy": 0.821018,
+            "roc_auc": 0.895591,
+            "pr_auc": 0.930459,
+            "brier": 0.128679,
+            "log_loss": 0.403059,
+            "ece": 0.027897,
+            "mean_predicted": 0.555586,
+            "confusion_matrix": {
+              "true_positive": 946,
+              "false_positive": 115,
+              "true_negative": 799,
+              "false_negative": 286,
+              "threshold": 0.567696
+            }
+          },
+          "validation_roc_auc": 0.8955905964932224,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.895555,
+            "standard_error": 0.006987,
+            "p2_5": 0.881893,
+            "p97_5": 0.908797
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.7362,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.6162041320335193
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "pca32",
+          "arm": "gbm@pca32",
+          "input_dimension": 32,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.93393,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.933909,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.926597,
+                  0.938649,
+                  0.934146,
+                  0.931595,
+                  0.936244,
+                  0.936173,
+                  0.935516,
+                  0.932354
+                ],
+                "seconds": 12.39
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.93382,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.933859,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.927341,
+                  0.939331,
+                  0.932585,
+                  0.933764,
+                  0.932859,
+                  0.936288,
+                  0.936097,
+                  0.932606
+                ],
+                "seconds": 6.37
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.933067,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.933115,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.925738,
+                  0.939123,
+                  0.933193,
+                  0.931652,
+                  0.935102,
+                  0.933948,
+                  0.936469,
+                  0.929698
+                ],
+                "seconds": 7.62
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 31
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.933909
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 31
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.620521,
+            "train_out_of_fold_balanced_accuracy": 0.861323,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 1.59,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.620521,
+            "accuracy": 0.836906,
+            "precision": 0.919202,
+            "recall": 0.784903,
+            "sensitivity": 0.784903,
+            "specificity": 0.907002,
+            "f1": 0.84676,
+            "balanced_accuracy": 0.845952,
+            "roc_auc": 0.922905,
+            "pr_auc": 0.947963,
+            "brier": 0.110557,
+            "log_loss": 0.348666,
+            "ece": 0.032939,
+            "mean_predicted": 0.55588,
+            "confusion_matrix": {
+              "true_positive": 967,
+              "false_positive": 85,
+              "true_negative": 829,
+              "false_negative": 265,
+              "threshold": 0.620521
+            }
+          },
+          "validation_roc_auc": 0.9229047074369832,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.922784,
+            "standard_error": 0.005669,
+            "p2_5": 0.911249,
+            "p97_5": 0.933483
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.7963,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.5956970977889928
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "pca32",
+          "arm": "rbf_svm@pca32",
+          "input_dimension": 32,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.939169,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.939197,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.933252,
+                  0.945442,
+                  0.936549,
+                  0.933847,
+                  0.941846,
+                  0.939825,
+                  0.944988,
+                  0.93783
+                ],
+                "seconds": 22.99
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.937415,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.937382,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.929006,
+                  0.940636,
+                  0.937775,
+                  0.932698,
+                  0.939273,
+                  0.938396,
+                  0.942651,
+                  0.938622
+                ],
+                "seconds": 33.01
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.939197
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.598316,
+            "train_out_of_fold_balanced_accuracy": 0.867392,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 3.29,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.598316,
+            "accuracy": 0.847158,
+            "precision": 0.923221,
+            "recall": 0.800325,
+            "sensitivity": 0.800325,
+            "specificity": 0.910284,
+            "f1": 0.857391,
+            "balanced_accuracy": 0.855305,
+            "roc_auc": 0.931961,
+            "pr_auc": 0.954028,
+            "brier": 0.104029,
+            "log_loss": 0.327246,
+            "ece": 0.020921,
+            "mean_predicted": 0.558467,
+            "confusion_matrix": {
+              "true_positive": 986,
+              "false_positive": 82,
+              "true_negative": 832,
+              "false_negative": 246,
+              "threshold": 0.598316
+            }
+          },
+          "validation_roc_auc": 0.931961159737418,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.931877,
+            "standard_error": 0.005371,
+            "p2_5": 0.92092,
+            "p97_5": 0.941924
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8084,
+            "achieved_specificity": 0.9059,
+            "threshold": 0.5890386023911152
+          }
+        },
+        {
+          "model": "logistic",
+          "representation": "pca16",
+          "arm": "logistic@pca16",
+          "input_dimension": 16,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.884519,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.884687,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.871939,
+                  0.896223,
+                  0.882473,
+                  0.87313,
+                  0.888428,
+                  0.888759,
+                  0.894706,
+                  0.881837
+                ],
+                "seconds": 0.11
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.884461,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.88463,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.871974,
+                  0.896239,
+                  0.882118,
+                  0.873096,
+                  0.888308,
+                  0.888728,
+                  0.894569,
+                  0.882005
+                ],
+                "seconds": 0.11
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.884451,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.884622,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.871997,
+                  0.896238,
+                  0.882081,
+                  0.873121,
+                  0.888272,
+                  0.888724,
+                  0.894539,
+                  0.882006
+                ],
+                "seconds": 0.12
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.884451,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.884621,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.872002,
+                  0.896233,
+                  0.882075,
+                  0.873119,
+                  0.888272,
+                  0.888722,
+                  0.894536,
+                  0.88201
+                ],
+                "seconds": 0.12
+              }
+            ],
+            "selected_params": {
+              "C": 0.01
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.884687
+          },
+          "selected_params": {
+            "C": 0.01
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.587042,
+            "train_out_of_fold_balanced_accuracy": 0.812926,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.01,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.587042,
+            "accuracy": 0.794967,
+            "precision": 0.888235,
+            "recall": 0.73539,
+            "sensitivity": 0.73539,
+            "specificity": 0.875274,
+            "f1": 0.804618,
+            "balanced_accuracy": 0.805332,
+            "roc_auc": 0.879296,
+            "pr_auc": 0.921372,
+            "brier": 0.138228,
+            "log_loss": 0.429104,
+            "ece": 0.035457,
+            "mean_predicted": 0.560163,
+            "confusion_matrix": {
+              "true_positive": 906,
+              "false_positive": 114,
+              "true_negative": 800,
+              "false_negative": 326,
+              "threshold": 0.587042
+            }
+          },
+          "validation_roc_auc": 0.8792964420699652,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.879165,
+            "standard_error": 0.007699,
+            "p2_5": 0.863581,
+            "p97_5": 0.89374
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.711,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.6248093961211054
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "pca16",
+          "arm": "gbm@pca16",
+          "input_dimension": 16,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.923124,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.923184,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.913544,
+                  0.931624,
+                  0.920471,
+                  0.921507,
+                  0.926659,
+                  0.923116,
+                  0.924669,
+                  0.923884
+                ],
+                "seconds": 9.62
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.923355,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.9234,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.912951,
+                  0.930675,
+                  0.921264,
+                  0.922704,
+                  0.927888,
+                  0.922838,
+                  0.924796,
+                  0.924087
+                ],
+                "seconds": 4.91
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.923493,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.923523,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.91291,
+                  0.932455,
+                  0.920225,
+                  0.921851,
+                  0.928015,
+                  0.921994,
+                  0.927189,
+                  0.923548
+                ],
+                "seconds": 6.2
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 15
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.923523
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 15
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.546319,
+            "train_out_of_fold_balanced_accuracy": 0.850352,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.73,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.546319,
+            "accuracy": 0.832246,
+            "precision": 0.9,
+            "recall": 0.796266,
+            "sensitivity": 0.796266,
+            "specificity": 0.880744,
+            "f1": 0.844961,
+            "balanced_accuracy": 0.838505,
+            "roc_auc": 0.916917,
+            "pr_auc": 0.943389,
+            "brier": 0.115344,
+            "log_loss": 0.357871,
+            "ece": 0.023378,
+            "mean_predicted": 0.560928,
+            "confusion_matrix": {
+              "true_positive": 981,
+              "false_positive": 109,
+              "true_negative": 805,
+              "false_negative": 251,
+              "threshold": 0.546319
+            }
+          },
+          "validation_roc_auc": 0.9169173960612692,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.916794,
+            "standard_error": 0.006029,
+            "p2_5": 0.905126,
+            "p97_5": 0.928115
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.7679,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.609784847334332
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "pca16",
+          "arm": "rbf_svm@pca16",
+          "input_dimension": 16,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.929287,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.929269,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.920729,
+                  0.936825,
+                  0.925367,
+                  0.923344,
+                  0.933864,
+                  0.927284,
+                  0.935108,
+                  0.931634
+                ],
+                "seconds": 22.09
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.926318,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.926263,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.917624,
+                  0.932302,
+                  0.923998,
+                  0.920599,
+                  0.929016,
+                  0.925345,
+                  0.930935,
+                  0.930284
+                ],
+                "seconds": 31.08
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.929269
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.62923,
+            "train_out_of_fold_balanced_accuracy": 0.854789,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 3.05,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.62923,
+            "accuracy": 0.841566,
+            "precision": 0.927203,
+            "recall": 0.785714,
+            "sensitivity": 0.785714,
+            "specificity": 0.916849,
+            "f1": 0.850615,
+            "balanced_accuracy": 0.851282,
+            "roc_auc": 0.927408,
+            "pr_auc": 0.951165,
+            "brier": 0.107728,
+            "log_loss": 0.336669,
+            "ece": 0.02064,
+            "mean_predicted": 0.560226,
+            "confusion_matrix": {
+              "true_positive": 968,
+              "false_positive": 76,
+              "true_negative": 838,
+              "false_negative": 264,
+              "threshold": 0.62923
+            }
+          },
+          "validation_roc_auc": 0.927408067862116,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.927236,
+            "standard_error": 0.005609,
+            "p2_5": 0.915927,
+            "p97_5": 0.937646
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8052,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.5735826374450251
+          }
+        },
+        {
+          "model": "logistic",
+          "representation": "pca08",
+          "arm": "logistic@pca08",
+          "input_dimension": 8,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.872664,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.872776,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.860186,
+                  0.881037,
+                  0.872665,
+                  0.864389,
+                  0.875346,
+                  0.878878,
+                  0.882826,
+                  0.86688
+                ],
+                "seconds": 0.11
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.87262,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.872747,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.860182,
+                  0.881037,
+                  0.872568,
+                  0.86429,
+                  0.875336,
+                  0.878946,
+                  0.882733,
+                  0.866889
+                ],
+                "seconds": 0.11
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.872616,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.872743,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.860186,
+                  0.881027,
+                  0.872559,
+                  0.864273,
+                  0.875329,
+                  0.878948,
+                  0.882734,
+                  0.86689
+                ],
+                "seconds": 0.11
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.872615,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.872743,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.860187,
+                  0.881021,
+                  0.87256,
+                  0.864275,
+                  0.875327,
+                  0.87895,
+                  0.882735,
+                  0.866887
+                ],
+                "seconds": 0.11
+              }
+            ],
+            "selected_params": {
+              "C": 0.01
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.872776
+          },
+          "selected_params": {
+            "C": 0.01
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.556192,
+            "train_out_of_fold_balanced_accuracy": 0.800428,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.01,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.556192,
+            "accuracy": 0.783318,
+            "precision": 0.866986,
+            "recall": 0.73539,
+            "sensitivity": 0.73539,
+            "specificity": 0.847921,
+            "f1": 0.795784,
+            "balanced_accuracy": 0.791655,
+            "roc_auc": 0.869805,
+            "pr_auc": 0.912996,
+            "brier": 0.144543,
+            "log_loss": 0.44796,
+            "ece": 0.037473,
+            "mean_predicted": 0.556019,
+            "confusion_matrix": {
+              "true_positive": 906,
+              "false_positive": 139,
+              "true_negative": 775,
+              "false_negative": 326,
+              "threshold": 0.556192
+            }
+          },
+          "validation_roc_auc": 0.8698048395805508,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.86973,
+            "standard_error": 0.008038,
+            "p2_5": 0.853559,
+            "p97_5": 0.885301
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.6891,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.630321770232131
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "pca08",
+          "arm": "gbm@pca08",
+          "input_dimension": 8,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.905957,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906053,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.891786,
+                  0.911117,
+                  0.905552,
+                  0.903108,
+                  0.91244,
+                  0.907266,
+                  0.914905,
+                  0.902249
+                ],
+                "seconds": 8.15
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.904812,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.904933,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.892054,
+                  0.909687,
+                  0.905494,
+                  0.902041,
+                  0.908325,
+                  0.906392,
+                  0.914765,
+                  0.900708
+                ],
+                "seconds": 4.01
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.907196,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.907298,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895024,
+                  0.913164,
+                  0.907391,
+                  0.903977,
+                  0.912191,
+                  0.908206,
+                  0.916727,
+                  0.901705
+                ],
+                "seconds": 4.74
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 15
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.907298
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 15
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.568506,
+            "train_out_of_fold_balanced_accuracy": 0.833687,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.61,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.568506,
+            "accuracy": 0.82479,
+            "precision": 0.907619,
+            "recall": 0.773539,
+            "sensitivity": 0.773539,
+            "specificity": 0.893873,
+            "f1": 0.835232,
+            "balanced_accuracy": 0.833706,
+            "roc_auc": 0.907049,
+            "pr_auc": 0.938036,
+            "brier": 0.121134,
+            "log_loss": 0.375583,
+            "ece": 0.019106,
+            "mean_predicted": 0.560555,
+            "confusion_matrix": {
+              "true_positive": 953,
+              "false_positive": 97,
+              "true_negative": 817,
+              "false_negative": 279,
+              "threshold": 0.568506
+            }
+          },
+          "validation_roc_auc": 0.907049255449146,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.906972,
+            "standard_error": 0.006623,
+            "p2_5": 0.894182,
+            "p97_5": 0.919224
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.7565,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.606263161149951
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "pca08",
+          "arm": "rbf_svm@pca08",
+          "input_dimension": 8,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.908993,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.909063,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.899008,
+                  0.915369,
+                  0.909021,
+                  0.901232,
+                  0.912962,
+                  0.910052,
+                  0.918926,
+                  0.905936
+                ],
+                "seconds": 22.55
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906628,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906637,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.894523,
+                  0.914382,
+                  0.906832,
+                  0.897516,
+                  0.910129,
+                  0.908227,
+                  0.915918,
+                  0.905571
+                ],
+                "seconds": 31.07
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.909063
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.591894,
+            "train_out_of_fold_balanced_accuracy": 0.836548,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 3.09,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.591894,
+            "accuracy": 0.828984,
+            "precision": 0.911513,
+            "recall": 0.777597,
+            "sensitivity": 0.777597,
+            "specificity": 0.898249,
+            "f1": 0.839247,
+            "balanced_accuracy": 0.837923,
+            "roc_auc": 0.915006,
+            "pr_auc": 0.94251,
+            "brier": 0.115582,
+            "log_loss": 0.3637,
+            "ece": 0.029755,
+            "mean_predicted": 0.557768,
+            "confusion_matrix": {
+              "true_positive": 958,
+              "false_positive": 93,
+              "true_negative": 821,
+              "false_negative": 274,
+              "threshold": 0.591894
+            }
+          },
+          "validation_roc_auc": 0.9150062874761999,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.91493,
+            "standard_error": 0.006265,
+            "p2_5": 0.902425,
+            "p97_5": 0.926494
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.7719,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.6055175317889381
+          }
+        }
+      ],
+      "partitions": [
+        {
+          "partition": "TRAIN",
+          "strat_folds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "n_records": 17084,
+          "n_patients": 14823,
+          "n_positive": 9841,
+          "n_negative": 7243,
+          "prevalence": 0.576036
+        },
+        {
+          "partition": "VALIDATION",
+          "strat_folds": [
+            9
+          ],
+          "n_records": 2146,
+          "n_patients": 1917,
+          "n_positive": 1232,
+          "n_negative": 914,
+          "prevalence": 0.574091
+        }
+      ],
+      "guards": {
+        "patient_overlap": 0,
+        "ecg_id_overlap": 0,
+        "train_folds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "validation_folds": [
+          9
+        ],
+        "test_partition_used": false
+      },
+      "strongest_arm": {
+        "arm": "gbm@f97",
+        "model": "gbm",
+        "representation": "f97",
+        "input_dimension": 97,
+        "selected_params": {
+          "learning_rate": 0.05,
+          "max_iter": 400,
+          "max_leaf_nodes": 31
+        },
+        "validation_roc_auc": 0.9402343416976896,
+        "bootstrap": {
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (resampled with replacement)",
+          "mean": 0.940177,
+          "standard_error": 0.004988,
+          "p2_5": 0.929748,
+          "p97_5": 0.949353
+        },
+        "note": "This is the number \u00a77.4 condition 1 requires a quantum model to exceed."
+      },
+      "paired_vs_strongest": [
+        {
+          "arm": "logistic@f97",
+          "input_dimension": 97,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.039965,
+          "mean_delta": 0.039958,
+          "standard_error": 0.004716,
+          "p2_5": 0.030975,
+          "p97_5": 0.049397,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@f97",
+          "input_dimension": 97,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.00661,
+          "mean_delta": 0.006635,
+          "standard_error": 0.002623,
+          "p2_5": 0.001594,
+          "p97_5": 0.011574,
+          "excludes_zero": true
+        },
+        {
+          "arm": "logistic@pca32",
+          "input_dimension": 32,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.044644,
+          "mean_delta": 0.044622,
+          "standard_error": 0.004955,
+          "p2_5": 0.034905,
+          "p97_5": 0.054536,
+          "excludes_zero": true
+        },
+        {
+          "arm": "gbm@pca32",
+          "input_dimension": 32,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.01733,
+          "mean_delta": 0.017393,
+          "standard_error": 0.00306,
+          "p2_5": 0.011563,
+          "p97_5": 0.023536,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@pca32",
+          "input_dimension": 32,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.008273,
+          "mean_delta": 0.0083,
+          "standard_error": 0.002687,
+          "p2_5": 0.003061,
+          "p97_5": 0.013589,
+          "excludes_zero": true
+        },
+        {
+          "arm": "logistic@pca16",
+          "input_dimension": 16,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.060938,
+          "mean_delta": 0.061012,
+          "standard_error": 0.006041,
+          "p2_5": 0.048893,
+          "p97_5": 0.072891,
+          "excludes_zero": true
+        },
+        {
+          "arm": "gbm@pca16",
+          "input_dimension": 16,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.023317,
+          "mean_delta": 0.023383,
+          "standard_error": 0.003652,
+          "p2_5": 0.016234,
+          "p97_5": 0.030671,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@pca16",
+          "input_dimension": 16,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.012826,
+          "mean_delta": 0.012941,
+          "standard_error": 0.003379,
+          "p2_5": 0.006521,
+          "p97_5": 0.019609,
+          "excludes_zero": true
+        },
+        {
+          "arm": "logistic@pca08",
+          "input_dimension": 8,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.07043,
+          "mean_delta": 0.070447,
+          "standard_error": 0.006474,
+          "p2_5": 0.057886,
+          "p97_5": 0.083292,
+          "excludes_zero": true
+        },
+        {
+          "arm": "gbm@pca08",
+          "input_dimension": 8,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.033185,
+          "mean_delta": 0.033205,
+          "standard_error": 0.004529,
+          "p2_5": 0.024605,
+          "p97_5": 0.042181,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@pca08",
+          "input_dimension": 8,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.025228,
+          "mean_delta": 0.025247,
+          "standard_error": 0.004324,
+          "p2_5": 0.017327,
+          "p97_5": 0.034025,
+          "excludes_zero": true
+        }
+      ],
+      "failure_map": {
+        "arm": "gbm@f97",
+        "threshold": 0.58655,
+        "overall": {
+          "n_records": 2146,
+          "n_patients": 1917,
+          "error_rate": 0.1421,
+          "confusion_matrix": {
+            "true_positive": 1011,
+            "false_positive": 84,
+            "true_negative": 830,
+            "false_negative": 221,
+            "threshold": 0.58655
+          }
+        },
+        "missed_positives": 221,
+        "false_alarms": 84,
+        "by_superclass": [
+          {
+            "group": "superclass:NORM",
+            "n_records": 955,
+            "n_positive": 41,
+            "prevalence": 0.0429,
+            "error_rate": 0.1173,
+            "sensitivity": 0.3171,
+            "specificity": 0.9081,
+            "measured": true,
+            "note": "NORM records that are positive also carry an abnormal superclass"
+          },
+          {
+            "group": "superclass:MI",
+            "n_records": 540,
+            "n_positive": 540,
+            "prevalence": 1.0,
+            "error_rate": 0.1241,
+            "sensitivity": 0.8759,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          },
+          {
+            "group": "superclass:STTC",
+            "n_records": 528,
+            "n_positive": 528,
+            "prevalence": 1.0,
+            "error_rate": 0.1004,
+            "sensitivity": 0.8996,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          },
+          {
+            "group": "superclass:CD",
+            "n_records": 495,
+            "n_positive": 495,
+            "prevalence": 1.0,
+            "error_rate": 0.1475,
+            "sensitivity": 0.8525,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          },
+          {
+            "group": "superclass:HYP",
+            "n_records": 268,
+            "n_positive": 268,
+            "prevalence": 1.0,
+            "error_rate": 0.1866,
+            "sensitivity": 0.8134,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          }
+        ],
+        "by_single_superclass": [
+          {
+            "group": "only:MI",
+            "n_records": 233,
+            "n_positive": 233,
+            "prevalence": 1.0,
+            "error_rate": 0.2532,
+            "sensitivity": 0.7468,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "only:STTC",
+            "n_records": 259,
+            "n_positive": 259,
+            "prevalence": 1.0,
+            "error_rate": 0.1853,
+            "sensitivity": 0.8147,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "only:CD",
+            "n_records": 206,
+            "n_positive": 206,
+            "prevalence": 1.0,
+            "error_rate": 0.2621,
+            "sensitivity": 0.7379,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "only:HYP",
+            "n_records": 65,
+            "n_positive": 65,
+            "prevalence": 1.0,
+            "error_rate": 0.6,
+            "sensitivity": 0.4,
+            "specificity": null,
+            "measured": true
+          }
+        ],
+        "by_subgroup": [
+          {
+            "group": "age:<40",
+            "n_records": 283,
+            "n_positive": 62,
+            "prevalence": 0.2191,
+            "error_rate": 0.1272,
+            "sensitivity": 0.5645,
+            "specificity": 0.9593,
+            "measured": true
+          },
+          {
+            "group": "age:40-59",
+            "n_records": 663,
+            "n_positive": 261,
+            "prevalence": 0.3937,
+            "error_rate": 0.1735,
+            "sensitivity": 0.6513,
+            "specificity": 0.9403,
+            "measured": true
+          },
+          {
+            "group": "age:60-74",
+            "n_records": 721,
+            "n_positive": 493,
+            "prevalence": 0.6838,
+            "error_rate": 0.1498,
+            "sensitivity": 0.8479,
+            "specificity": 0.8553,
+            "measured": true
+          },
+          {
+            "group": "age:75+",
+            "n_records": 479,
+            "n_positive": 416,
+            "prevalence": 0.8685,
+            "error_rate": 0.096,
+            "sensitivity": 0.9327,
+            "specificity": 0.7143,
+            "measured": true
+          },
+          {
+            "group": "age:missing",
+            "n_records": 0,
+            "measured": false
+          },
+          {
+            "group": "sex:0",
+            "n_records": 1114,
+            "n_positive": 650,
+            "prevalence": 0.5835,
+            "error_rate": 0.1409,
+            "sensitivity": 0.8308,
+            "specificity": 0.8987,
+            "measured": true
+          },
+          {
+            "group": "sex:1",
+            "n_records": 1032,
+            "n_positive": 582,
+            "prevalence": 0.564,
+            "error_rate": 0.1434,
+            "sensitivity": 0.8093,
+            "specificity": 0.9178,
+            "measured": true
+          },
+          {
+            "group": "quality:flagged",
+            "n_records": 3,
+            "n_positive": 3,
+            "prevalence": 1.0,
+            "error_rate": 0.0,
+            "sensitivity": 1.0,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "quality:clean",
+            "n_records": 2143,
+            "n_positive": 1229,
+            "prevalence": 0.5735,
+            "error_rate": 0.1423,
+            "sensitivity": 0.8202,
+            "specificity": 0.9081,
+            "measured": true
+          },
+          {
+            "group": "beats:<8",
+            "n_records": 30,
+            "n_positive": 25,
+            "prevalence": 0.8333,
+            "error_rate": 0.0667,
+            "sensitivity": 0.92,
+            "specificity": 1.0,
+            "measured": true
+          },
+          {
+            "group": "beats:>=8",
+            "n_records": 2116,
+            "n_positive": 1207,
+            "prevalence": 0.5704,
+            "error_rate": 0.1432,
+            "sensitivity": 0.8186,
+            "specificity": 0.9076,
+            "measured": true
+          }
+        ],
+        "unknown_label_records": {
+          "n_records": 37,
+          "scored": false,
+          "note": "no diagnostic superclass: the label is unknown, never negative (\u00a77.4)"
+        }
+      },
+      "permutation_null": {
+        "measured": false,
+        "reason": "permutation draws set to zero"
+      }
+    },
+    "secondary_mi_vs_norm": {
+      "task": "secondary_mi_vs_norm",
+      "used_for_selection": false,
+      "n_unknown_label": 6525,
+      "arms": [
+        {
+          "model": "logistic",
+          "representation": "f97",
+          "arm": "logistic@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.941526,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.941831,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.929307,
+                  0.94425,
+                  0.95943,
+                  0.926658,
+                  0.943979,
+                  0.938658,
+                  0.948178,
+                  0.944186
+                ],
+                "seconds": 0.24
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.942984,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.943215,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.931374,
+                  0.944045,
+                  0.959358,
+                  0.930144,
+                  0.944252,
+                  0.939966,
+                  0.95058,
+                  0.945998
+                ],
+                "seconds": 0.42
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.942976,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.943194,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.931165,
+                  0.943356,
+                  0.959052,
+                  0.930784,
+                  0.943299,
+                  0.940495,
+                  0.951382,
+                  0.946017
+                ],
+                "seconds": 0.71
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.942783,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.94301,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.930982,
+                  0.943026,
+                  0.958935,
+                  0.930534,
+                  0.942913,
+                  0.940401,
+                  0.951398,
+                  0.945888
+                ],
+                "seconds": 1.11
+              }
+            ],
+            "selected_params": {
+              "C": 0.1
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.943215
+          },
+          "selected_params": {
+            "C": 0.1
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.426804,
+            "train_out_of_fold_balanced_accuracy": 0.876121,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.06,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.426804,
+            "accuracy": 0.879642,
+            "precision": 0.865731,
+            "recall": 0.8,
+            "sensitivity": 0.8,
+            "specificity": 0.926696,
+            "f1": 0.831569,
+            "balanced_accuracy": 0.863348,
+            "roc_auc": 0.941146,
+            "pr_auc": 0.924056,
+            "brier": 0.084978,
+            "log_loss": 0.282656,
+            "ece": 0.018852,
+            "mean_predicted": 0.364901,
+            "confusion_matrix": {
+              "true_positive": 432,
+              "false_positive": 67,
+              "true_negative": 847,
+              "false_negative": 108,
+              "threshold": 0.426804
+            }
+          },
+          "validation_roc_auc": 0.9411459599643408,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.941076,
+            "standard_error": 0.006417,
+            "p2_5": 0.927918,
+            "p97_5": 0.953042
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8296,
+            "achieved_specificity": 0.9037,
+            "threshold": 0.3523160592501382
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "f97",
+          "arm": "gbm@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.97713,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.977148,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.970564,
+                  0.979166,
+                  0.981024,
+                  0.970716,
+                  0.979465,
+                  0.974089,
+                  0.980461,
+                  0.981701
+                ],
+                "seconds": 22.75
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.976658,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.976723,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.969665,
+                  0.977555,
+                  0.981371,
+                  0.9713,
+                  0.979666,
+                  0.973342,
+                  0.980369,
+                  0.980514
+                ],
+                "seconds": 11.56
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.976181,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.976191,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.969185,
+                  0.977723,
+                  0.980016,
+                  0.970094,
+                  0.979628,
+                  0.973526,
+                  0.979641,
+                  0.979715
+                ],
+                "seconds": 12.78
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 31
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.977148
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 31
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.346403,
+            "train_out_of_fold_balanced_accuracy": 0.921903,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 2.84,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.346403,
+            "accuracy": 0.920908,
+            "precision": 0.897196,
+            "recall": 0.888889,
+            "sensitivity": 0.888889,
+            "specificity": 0.939825,
+            "f1": 0.893023,
+            "balanced_accuracy": 0.914357,
+            "roc_auc": 0.973262,
+            "pr_auc": 0.961801,
+            "brier": 0.060561,
+            "log_loss": 0.214472,
+            "ece": 0.03323,
+            "mean_predicted": 0.352147,
+            "confusion_matrix": {
+              "true_positive": 480,
+              "false_positive": 55,
+              "true_negative": 859,
+              "false_negative": 60,
+              "threshold": 0.346403
+            }
+          },
+          "validation_roc_auc": 0.973261609530756,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.973248,
+            "standard_error": 0.003675,
+            "p2_5": 0.965993,
+            "p97_5": 0.980078
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.9204,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.16288089100063424
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "f97",
+          "arm": "rbf_svm@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.966539,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.966625,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.958278,
+                  0.96604,
+                  0.977856,
+                  0.960288,
+                  0.967191,
+                  0.963013,
+                  0.970266,
+                  0.970068
+                ],
+                "seconds": 16.45
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.966047,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.966163,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.956167,
+                  0.967742,
+                  0.97434,
+                  0.96152,
+                  0.964828,
+                  0.963699,
+                  0.970755,
+                  0.970254
+                ],
+                "seconds": 18.47
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.966625
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.407264,
+            "train_out_of_fold_balanced_accuracy": 0.905844,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 2.53,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.407264,
+            "accuracy": 0.906465,
+            "precision": 0.892996,
+            "recall": 0.85,
+            "sensitivity": 0.85,
+            "specificity": 0.939825,
+            "f1": 0.870968,
+            "balanced_accuracy": 0.894912,
+            "roc_auc": 0.962762,
+            "pr_auc": 0.951569,
+            "brier": 0.067884,
+            "log_loss": 0.228743,
+            "ece": 0.024261,
+            "mean_predicted": 0.354047,
+            "confusion_matrix": {
+              "true_positive": 459,
+              "false_positive": 55,
+              "true_negative": 859,
+              "false_negative": 81,
+              "threshold": 0.407264
+            }
+          },
+          "validation_roc_auc": 0.962762379447281,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.962732,
+            "standard_error": 0.004874,
+            "p2_5": 0.952615,
+            "p97_5": 0.971956
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8981,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.24253533611471279
+          }
+        },
+        {
+          "model": "logistic",
+          "representation": "pca32",
+          "arm": "logistic@pca32",
+          "input_dimension": 32,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.934598,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.934734,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.92295,
+                  0.938447,
+                  0.950884,
+                  0.918697,
+                  0.935335,
+                  0.934448,
+                  0.940006,
+                  0.937108
+                ],
+                "seconds": 0.11
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.934862,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.93497,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.924333,
+                  0.938822,
+                  0.950045,
+                  0.9196,
+                  0.935659,
+                  0.934708,
+                  0.939278,
+                  0.937311
+                ],
+                "seconds": 0.12
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.934709,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.934843,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.923692,
+                  0.938772,
+                  0.949765,
+                  0.919741,
+                  0.935649,
+                  0.93468,
+                  0.939168,
+                  0.937273
+                ],
+                "seconds": 0.13
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.934653,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.934794,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.923353,
+                  0.938776,
+                  0.949737,
+                  0.919762,
+                  0.935627,
+                  0.934684,
+                  0.93915,
+                  0.937265
+                ],
+                "seconds": 0.13
+              }
+            ],
+            "selected_params": {
+              "C": 0.1
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.93497
+          },
+          "selected_params": {
+            "C": 0.1
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.383609,
+            "train_out_of_fold_balanced_accuracy": 0.868793,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.01,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.383609,
+            "accuracy": 0.882393,
+            "precision": 0.855491,
+            "recall": 0.822222,
+            "sensitivity": 0.822222,
+            "specificity": 0.917943,
+            "f1": 0.838527,
+            "balanced_accuracy": 0.870083,
+            "roc_auc": 0.934464,
+            "pr_auc": 0.918827,
+            "brier": 0.088184,
+            "log_loss": 0.294358,
+            "ece": 0.032824,
+            "mean_predicted": 0.363389,
+            "confusion_matrix": {
+              "true_positive": 444,
+              "false_positive": 75,
+              "true_negative": 839,
+              "false_negative": 96,
+              "threshold": 0.383609
+            }
+          },
+          "validation_roc_auc": 0.9344638949671773,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.934342,
+            "standard_error": 0.007034,
+            "p2_5": 0.920577,
+            "p97_5": 0.947538
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.837,
+            "achieved_specificity": 0.9015,
+            "threshold": 0.3359255709670079
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "pca32",
+          "arm": "gbm@pca32",
+          "input_dimension": 32,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.960574,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.960885,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.950883,
+                  0.962482,
+                  0.972609,
+                  0.954851,
+                  0.96053,
+                  0.959331,
+                  0.963512,
+                  0.962884
+                ],
+                "seconds": 11.62
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.95923,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.959446,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.947522,
+                  0.961469,
+                  0.971029,
+                  0.953102,
+                  0.96057,
+                  0.959633,
+                  0.960769,
+                  0.961475
+                ],
+                "seconds": 6.07
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.958599,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.958896,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.947852,
+                  0.960707,
+                  0.970905,
+                  0.952532,
+                  0.958411,
+                  0.957327,
+                  0.963461,
+                  0.959975
+                ],
+                "seconds": 6.54
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 31
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.960885
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 31
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.419066,
+            "train_out_of_fold_balanced_accuracy": 0.896855,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 1.41,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.419066,
+            "accuracy": 0.900963,
+            "precision": 0.914226,
+            "recall": 0.809259,
+            "sensitivity": 0.809259,
+            "specificity": 0.955142,
+            "f1": 0.858546,
+            "balanced_accuracy": 0.882201,
+            "roc_auc": 0.955681,
+            "pr_auc": 0.943284,
+            "brier": 0.075427,
+            "log_loss": 0.256559,
+            "ece": 0.032829,
+            "mean_predicted": 0.343691,
+            "confusion_matrix": {
+              "true_positive": 437,
+              "false_positive": 41,
+              "true_negative": 873,
+              "false_negative": 103,
+              "threshold": 0.419066
+            }
+          },
+          "validation_roc_auc": 0.9556811735148715,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.955649,
+            "standard_error": 0.005474,
+            "p2_5": 0.944894,
+            "p97_5": 0.96603
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8722,
+            "achieved_specificity": 0.9037,
+            "threshold": 0.2318203281871107
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "pca32",
+          "arm": "rbf_svm@pca32",
+          "input_dimension": 32,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.964866,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.964937,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.95725,
+                  0.964073,
+                  0.976115,
+                  0.957556,
+                  0.96482,
+                  0.962967,
+                  0.96818,
+                  0.968537
+                ],
+                "seconds": 7.52
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.963877,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.964001,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.955343,
+                  0.963334,
+                  0.973477,
+                  0.957419,
+                  0.961238,
+                  0.964389,
+                  0.967762,
+                  0.969045
+                ],
+                "seconds": 9.55
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.964937
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.435751,
+            "train_out_of_fold_balanced_accuracy": 0.904853,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.92,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.435751,
+            "accuracy": 0.907153,
+            "precision": 0.904192,
+            "recall": 0.838889,
+            "sensitivity": 0.838889,
+            "specificity": 0.947484,
+            "f1": 0.870317,
+            "balanced_accuracy": 0.893186,
+            "roc_auc": 0.962951,
+            "pr_auc": 0.951968,
+            "brier": 0.068052,
+            "log_loss": 0.229026,
+            "ece": 0.021892,
+            "mean_predicted": 0.355465,
+            "confusion_matrix": {
+              "true_positive": 453,
+              "false_positive": 48,
+              "true_negative": 866,
+              "false_negative": 87,
+              "threshold": 0.435751
+            }
+          },
+          "validation_roc_auc": 0.962950806386255,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.962909,
+            "standard_error": 0.004868,
+            "p2_5": 0.953214,
+            "p97_5": 0.972335
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.9019,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.2505794718671888
+          }
+        },
+        {
+          "model": "logistic",
+          "representation": "pca16",
+          "arm": "logistic@pca16",
+          "input_dimension": 16,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.922138,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.922277,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.9101,
+                  0.925962,
+                  0.937611,
+                  0.902726,
+                  0.925131,
+                  0.92301,
+                  0.929529,
+                  0.924147
+                ],
+                "seconds": 0.08
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.922223,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.922379,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.910475,
+                  0.926573,
+                  0.936961,
+                  0.902468,
+                  0.925447,
+                  0.923114,
+                  0.929602,
+                  0.924396
+                ],
+                "seconds": 0.08
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.922228,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.922377,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.910493,
+                  0.926555,
+                  0.9369,
+                  0.902396,
+                  0.925491,
+                  0.923152,
+                  0.929629,
+                  0.9244
+                ],
+                "seconds": 0.09
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.922229,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.922381,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.910493,
+                  0.926561,
+                  0.936896,
+                  0.902386,
+                  0.925493,
+                  0.923162,
+                  0.929647,
+                  0.924407
+                ],
+                "seconds": 0.09
+              }
+            ],
+            "selected_params": {
+              "C": 10.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.922381
+          },
+          "selected_params": {
+            "C": 10.0
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.384853,
+            "train_out_of_fold_balanced_accuracy": 0.850817,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.01,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.384853,
+            "accuracy": 0.879642,
+            "precision": 0.8463,
+            "recall": 0.825926,
+            "sensitivity": 0.825926,
+            "specificity": 0.911379,
+            "f1": 0.835989,
+            "balanced_accuracy": 0.868652,
+            "roc_auc": 0.929253,
+            "pr_auc": 0.913659,
+            "brier": 0.090202,
+            "log_loss": 0.307378,
+            "ece": 0.030305,
+            "mean_predicted": 0.369534,
+            "confusion_matrix": {
+              "true_positive": 446,
+              "false_positive": 81,
+              "true_negative": 833,
+              "false_negative": 94,
+              "threshold": 0.384853
+            }
+          },
+          "validation_roc_auc": 0.9292527757516817,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.9292,
+            "standard_error": 0.007844,
+            "p2_5": 0.91316,
+            "p97_5": 0.943987
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8333,
+            "achieved_specificity": 0.9026,
+            "threshold": 0.3694209091550254
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "pca16",
+          "arm": "gbm@pca16",
+          "input_dimension": 16,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.952053,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.952165,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.941023,
+                  0.956389,
+                  0.96187,
+                  0.943862,
+                  0.948439,
+                  0.953263,
+                  0.956908,
+                  0.955564
+                ],
+                "seconds": 8.65
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.950921,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.951174,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.938664,
+                  0.954641,
+                  0.960545,
+                  0.940638,
+                  0.952281,
+                  0.951575,
+                  0.956456,
+                  0.95459
+                ],
+                "seconds": 4.57
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.952058,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.952305,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.941917,
+                  0.955629,
+                  0.961845,
+                  0.944957,
+                  0.951955,
+                  0.95081,
+                  0.958091,
+                  0.953233
+                ],
+                "seconds": 5.09
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 15
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.952305
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 15
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.358163,
+            "train_out_of_fold_balanced_accuracy": 0.885548,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.64,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.358163,
+            "accuracy": 0.88652,
+            "precision": 0.858509,
+            "recall": 0.831481,
+            "sensitivity": 0.831481,
+            "specificity": 0.919037,
+            "f1": 0.844779,
+            "balanced_accuracy": 0.875259,
+            "roc_auc": 0.947923,
+            "pr_auc": 0.93398,
+            "brier": 0.078632,
+            "log_loss": 0.265024,
+            "ece": 0.020383,
+            "mean_predicted": 0.358892,
+            "confusion_matrix": {
+              "true_positive": 449,
+              "false_positive": 74,
+              "true_negative": 840,
+              "false_negative": 91,
+              "threshold": 0.358163
+            }
+          },
+          "validation_roc_auc": 0.9479232514790502,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.94786,
+            "standard_error": 0.00656,
+            "p2_5": 0.93469,
+            "p97_5": 0.960186
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8611,
+            "achieved_specificity": 0.9015,
+            "threshold": 0.30258981498826193
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "pca16",
+          "arm": "rbf_svm@pca16",
+          "input_dimension": 16,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.956698,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.95664,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.947154,
+                  0.958272,
+                  0.966082,
+                  0.949403,
+                  0.958077,
+                  0.955006,
+                  0.959444,
+                  0.959679
+                ],
+                "seconds": 6.92
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.953398,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.953483,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.944041,
+                  0.957193,
+                  0.961916,
+                  0.947637,
+                  0.950434,
+                  0.954622,
+                  0.954447,
+                  0.957571
+                ],
+                "seconds": 9.42
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.95664
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.376412,
+            "train_out_of_fold_balanced_accuracy": 0.892953,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.84,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.376412,
+            "accuracy": 0.901651,
+            "precision": 0.882466,
+            "recall": 0.848148,
+            "sensitivity": 0.848148,
+            "specificity": 0.93326,
+            "f1": 0.864967,
+            "balanced_accuracy": 0.890704,
+            "roc_auc": 0.957898,
+            "pr_auc": 0.946641,
+            "brier": 0.07162,
+            "log_loss": 0.240869,
+            "ece": 0.019545,
+            "mean_predicted": 0.359532,
+            "confusion_matrix": {
+              "true_positive": 458,
+              "false_positive": 61,
+              "true_negative": 853,
+              "false_negative": 82,
+              "threshold": 0.376412
+            }
+          },
+          "validation_roc_auc": 0.9578977226679634,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.957885,
+            "standard_error": 0.005432,
+            "p2_5": 0.946959,
+            "p97_5": 0.96775
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8778,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.2878195158017041
+          }
+        },
+        {
+          "model": "logistic",
+          "representation": "pca08",
+          "arm": "logistic@pca08",
+          "input_dimension": 8,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 0.01
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906264,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.90635,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895625,
+                  0.905259,
+                  0.924792,
+                  0.893057,
+                  0.907343,
+                  0.906438,
+                  0.911871,
+                  0.906415
+                ],
+                "seconds": 0.06
+              },
+              {
+                "params": {
+                  "C": 0.1
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.906234,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906336,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895706,
+                  0.905192,
+                  0.924593,
+                  0.892979,
+                  0.907361,
+                  0.906568,
+                  0.911925,
+                  0.906363
+                ],
+                "seconds": 0.06
+              },
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.90623,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906332,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895708,
+                  0.905166,
+                  0.924585,
+                  0.892979,
+                  0.907379,
+                  0.90657,
+                  0.911923,
+                  0.906344
+                ],
+                "seconds": 0.07
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.90623,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.906331,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.895708,
+                  0.905162,
+                  0.92457,
+                  0.892983,
+                  0.907373,
+                  0.906576,
+                  0.911923,
+                  0.906348
+                ],
+                "seconds": 0.07
+              }
+            ],
+            "selected_params": {
+              "C": 0.01
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.90635
+          },
+          "selected_params": {
+            "C": 0.01
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.355042,
+            "train_out_of_fold_balanced_accuracy": 0.829852,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.01,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.355042,
+            "accuracy": 0.847318,
+            "precision": 0.77993,
+            "recall": 0.82037,
+            "sensitivity": 0.82037,
+            "specificity": 0.863239,
+            "f1": 0.799639,
+            "balanced_accuracy": 0.841804,
+            "roc_auc": 0.915149,
+            "pr_auc": 0.894079,
+            "brier": 0.102534,
+            "log_loss": 0.340397,
+            "ece": 0.035328,
+            "mean_predicted": 0.366323,
+            "confusion_matrix": {
+              "true_positive": 443,
+              "false_positive": 125,
+              "true_negative": 789,
+              "false_negative": 97,
+              "threshold": 0.355042
+            }
+          },
+          "validation_roc_auc": 0.9151491206742848,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.91519,
+            "standard_error": 0.008443,
+            "p2_5": 0.898868,
+            "p97_5": 0.931229
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.787,
+            "achieved_specificity": 0.9015,
+            "threshold": 0.417517856627825
+          }
+        },
+        {
+          "model": "gbm",
+          "representation": "pca08",
+          "arm": "gbm@pca08",
+          "input_dimension": 8,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.927773,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.928139,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.91368,
+                  0.932746,
+                  0.941248,
+                  0.923512,
+                  0.922522,
+                  0.927822,
+                  0.937105,
+                  0.926481
+                ],
+                "seconds": 8.04
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.926292,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.926575,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.91384,
+                  0.929645,
+                  0.939835,
+                  0.920063,
+                  0.920363,
+                  0.928282,
+                  0.936285,
+                  0.924285
+                ],
+                "seconds": 3.79
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.92925,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.929514,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.913073,
+                  0.933714,
+                  0.942373,
+                  0.922702,
+                  0.926587,
+                  0.930373,
+                  0.938856,
+                  0.928431
+                ],
+                "seconds": 4.64
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 15
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.929514
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 15
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.338579,
+            "train_out_of_fold_balanced_accuracy": 0.854357,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 0.55,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.338579,
+            "accuracy": 0.86795,
+            "precision": 0.819853,
+            "recall": 0.825926,
+            "sensitivity": 0.825926,
+            "specificity": 0.892779,
+            "f1": 0.822878,
+            "balanced_accuracy": 0.859352,
+            "roc_auc": 0.933637,
+            "pr_auc": 0.918127,
+            "brier": 0.087936,
+            "log_loss": 0.295555,
+            "ece": 0.017153,
+            "mean_predicted": 0.367169,
+            "confusion_matrix": {
+              "true_positive": 446,
+              "false_positive": 98,
+              "true_negative": 816,
+              "false_negative": 94,
+              "threshold": 0.338579
+            }
+          },
+          "validation_roc_auc": 0.9336372477510332,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.933738,
+            "standard_error": 0.007259,
+            "p2_5": 0.918968,
+            "p97_5": 0.947283
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8241,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.35340261459765543
+          }
+        },
+        {
+          "model": "rbf_svm",
+          "representation": "pca08",
+          "arm": "rbf_svm@pca08",
+          "input_dimension": 8,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "C": 1.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.925463,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.925527,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.912209,
+                  0.929053,
+                  0.93884,
+                  0.918896,
+                  0.924147,
+                  0.930077,
+                  0.931686,
+                  0.919307
+                ],
+                "seconds": 7.72
+              },
+              {
+                "params": {
+                  "C": 10.0
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.917005,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.917254,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.899142,
+                  0.918021,
+                  0.931695,
+                  0.912348,
+                  0.913879,
+                  0.923568,
+                  0.924445,
+                  0.914931
+                ],
+                "seconds": 10.6
+              }
+            ],
+            "selected_params": {
+              "C": 1.0
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.925527
+          },
+          "selected_params": {
+            "C": 1.0
+          },
+          "probability_source": "train_out_of_fold_platt",
+          "threshold": {
+            "threshold": 0.287435,
+            "train_out_of_fold_balanced_accuracy": 0.853653,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 1.02,
+          "validation": {
+            "n_samples": 1454,
+            "n_positive": 540,
+            "n_negative": 914,
+            "prevalence": 0.371389,
+            "threshold": 0.287435,
+            "accuracy": 0.878267,
+            "precision": 0.83181,
+            "recall": 0.842593,
+            "sensitivity": 0.842593,
+            "specificity": 0.899344,
+            "f1": 0.837167,
+            "balanced_accuracy": 0.870968,
+            "roc_auc": 0.937039,
+            "pr_auc": 0.925829,
+            "brier": 0.084639,
+            "log_loss": 0.286175,
+            "ece": 0.023495,
+            "mean_predicted": 0.368168,
+            "confusion_matrix": {
+              "true_positive": 455,
+              "false_positive": 92,
+              "true_negative": 822,
+              "false_negative": 85,
+              "threshold": 0.287435
+            }
+          },
+          "validation_roc_auc": 0.937039063133155,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.937248,
+            "standard_error": 0.007141,
+            "p2_5": 0.923063,
+            "p97_5": 0.951111
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8426,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.29372055214333115
+          }
+        }
+      ],
+      "partitions": [
+        {
+          "partition": "TRAIN",
+          "strat_folds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "n_records": 11622,
+          "n_patients": 10396,
+          "n_positive": 4379,
+          "n_negative": 7243,
+          "prevalence": 0.376785
+        },
+        {
+          "partition": "VALIDATION",
+          "strat_folds": [
+            9
+          ],
+          "n_records": 1454,
+          "n_patients": 1338,
+          "n_positive": 540,
+          "n_negative": 914,
+          "prevalence": 0.371389
+        }
+      ],
+      "guards": {
+        "patient_overlap": 0,
+        "ecg_id_overlap": 0,
+        "train_folds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "validation_folds": [
+          9
+        ],
+        "test_partition_used": false
+      },
+      "strongest_arm": {
+        "arm": "gbm@f97",
+        "model": "gbm",
+        "representation": "f97",
+        "input_dimension": 97,
+        "selected_params": {
+          "learning_rate": 0.05,
+          "max_iter": 400,
+          "max_leaf_nodes": 31
+        },
+        "validation_roc_auc": 0.973261609530756,
+        "bootstrap": {
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (resampled with replacement)",
+          "mean": 0.973248,
+          "standard_error": 0.003675,
+          "p2_5": 0.965993,
+          "p97_5": 0.980078
+        },
+        "note": "Secondary task: never a selection target and never a quantum bar."
+      },
+      "paired_vs_strongest": [
+        {
+          "arm": "logistic@f97",
+          "input_dimension": 97,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.032116,
+          "mean_delta": 0.032172,
+          "standard_error": 0.004647,
+          "p2_5": 0.023453,
+          "p97_5": 0.041796,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@f97",
+          "input_dimension": 97,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.010499,
+          "mean_delta": 0.010515,
+          "standard_error": 0.002785,
+          "p2_5": 0.005489,
+          "p97_5": 0.016337,
+          "excludes_zero": true
+        },
+        {
+          "arm": "logistic@pca32",
+          "input_dimension": 32,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.038798,
+          "mean_delta": 0.038905,
+          "standard_error": 0.00534,
+          "p2_5": 0.029204,
+          "p97_5": 0.04968,
+          "excludes_zero": true
+        },
+        {
+          "arm": "gbm@pca32",
+          "input_dimension": 32,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.01758,
+          "mean_delta": 0.017599,
+          "standard_error": 0.003354,
+          "p2_5": 0.01118,
+          "p97_5": 0.024152,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@pca32",
+          "input_dimension": 32,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.010311,
+          "mean_delta": 0.010338,
+          "standard_error": 0.0028,
+          "p2_5": 0.00515,
+          "p97_5": 0.016121,
+          "excludes_zero": true
+        },
+        {
+          "arm": "logistic@pca16",
+          "input_dimension": 16,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.044009,
+          "mean_delta": 0.044047,
+          "standard_error": 0.006353,
+          "p2_5": 0.031793,
+          "p97_5": 0.056525,
+          "excludes_zero": true
+        },
+        {
+          "arm": "gbm@pca16",
+          "input_dimension": 16,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.025338,
+          "mean_delta": 0.025387,
+          "standard_error": 0.004606,
+          "p2_5": 0.016959,
+          "p97_5": 0.035015,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@pca16",
+          "input_dimension": 16,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.015364,
+          "mean_delta": 0.015362,
+          "standard_error": 0.003759,
+          "p2_5": 0.008477,
+          "p97_5": 0.023203,
+          "excludes_zero": true
+        },
+        {
+          "arm": "logistic@pca08",
+          "input_dimension": 8,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.058112,
+          "mean_delta": 0.058058,
+          "standard_error": 0.006755,
+          "p2_5": 0.045496,
+          "p97_5": 0.071493,
+          "excludes_zero": true
+        },
+        {
+          "arm": "gbm@pca08",
+          "input_dimension": 8,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.039624,
+          "mean_delta": 0.03951,
+          "standard_error": 0.005408,
+          "p2_5": 0.029165,
+          "p97_5": 0.050324,
+          "excludes_zero": true
+        },
+        {
+          "arm": "rbf_svm@pca08",
+          "input_dimension": 8,
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (paired, same resamples for both models)",
+          "observed_delta": 0.036223,
+          "mean_delta": 0.035999,
+          "standard_error": 0.005569,
+          "p2_5": 0.025421,
+          "p97_5": 0.047336,
+          "excludes_zero": true
+        }
+      ]
+    }
+  },
+  "total_seconds": 800.8,
+  "test_partition_used": false
+}

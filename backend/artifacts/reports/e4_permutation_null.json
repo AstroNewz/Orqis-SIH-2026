@@ -1,0 +1,583 @@
+{
+  "baseline_version": "v1-e4-classical-1",
+  "feature_set_version": "ecg-v1",
+  "cache_version": "ptbxl-ecg-1",
+  "seed": 42,
+  "bootstrap_draws": 2000,
+  "permutation_draws": 200,
+  "fixed_specificity": 0.9,
+  "protocol": {
+    "train_folds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "validation_folds": [
+      9
+    ],
+    "test_folds": [
+      10
+    ],
+    "test_partition_used": false,
+    "primary_metric": "ROC-AUC (\u00a77.4, frozen before any model)",
+    "bootstrap_unit": "patient",
+    "selection": "leave-one-strat-fold-out CV inside TRAIN folds 1-8"
+  },
+  "cohort": {
+    "n_records": 19601,
+    "n_patients": 16965,
+    "dimension": 97,
+    "folds_present": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "representations": [
+    {
+      "name": "f97",
+      "reduction": "identity",
+      "output_dimension": 97,
+      "total_explained_variance_ratio": null,
+      "fitted_on_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_train_patients": 15023
+    }
+  ],
+  "tasks": {
+    "primary_norm_vs_abnormal": {
+      "task": "primary_norm_vs_abnormal",
+      "used_for_selection": true,
+      "n_unknown_label": 371,
+      "arms": [
+        {
+          "model": "prevalence",
+          "representation": "f97",
+          "arm": "prevalence@f97",
+          "input_dimension": 0,
+          "selected_params": {
+            "train_prevalence": 0.576036
+          },
+          "probability_source": "train prevalence, constant",
+          "threshold": {
+            "threshold": 0.5,
+            "selected_on": "fixed; nothing to select"
+          },
+          "fit_seconds": 0.0,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.5,
+            "accuracy": 0.574091,
+            "precision": 0.574091,
+            "recall": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 0.0,
+            "f1": 0.729426,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 0.5,
+            "pr_auc": 0.574091,
+            "brier": 0.244514,
+            "log_loss": 0.682135,
+            "ece": 0.001945,
+            "mean_predicted": 0.576036,
+            "confusion_matrix": {
+              "true_positive": 1232,
+              "false_positive": 914,
+              "true_negative": 0,
+              "false_negative": 0,
+              "threshold": 0.5
+            }
+          },
+          "validation_roc_auc": 0.5,
+          "validation_bootstrap_roc_auc": {
+            "measured": false,
+            "reason": "a constant score has no rank information; ROC-AUC is 0.5 by construction and an interval around it would be meaningless",
+            "n_draws_requested": 2000
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": null,
+            "achieved_specificity": null,
+            "threshold": null,
+            "note": "No threshold reaches specificity 0.9; the model does not separate the classes well enough at this operating point."
+          },
+          "selection": {}
+        },
+        {
+          "model": "gbm",
+          "representation": "f97",
+          "arm": "gbm@f97",
+          "input_dimension": 97,
+          "selection": {
+            "candidates": [
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.949586,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.949646,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.944978,
+                  0.955273,
+                  0.944951,
+                  0.946291,
+                  0.951085,
+                  0.945868,
+                  0.956461,
+                  0.952262
+                ],
+                "seconds": 24.78
+              },
+              {
+                "params": {
+                  "learning_rate": 0.1,
+                  "max_iter": 200,
+                  "max_leaf_nodes": 31
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.948116,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.948128,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.941785,
+                  0.95412,
+                  0.942916,
+                  0.943005,
+                  0.9519,
+                  0.944558,
+                  0.955015,
+                  0.951727
+                ],
+                "seconds": 10.39
+              },
+              {
+                "params": {
+                  "learning_rate": 0.05,
+                  "max_iter": 400,
+                  "max_leaf_nodes": 15
+                },
+                "train_out_of_fold_roc_auc_pooled": 0.948666,
+                "train_out_of_fold_roc_auc_mean_over_folds": 0.948659,
+                "train_out_of_fold_roc_auc_per_fold": [
+                  0.943948,
+                  0.954907,
+                  0.942703,
+                  0.944431,
+                  0.950933,
+                  0.944359,
+                  0.955929,
+                  0.952064
+                ],
+                "seconds": 13.03
+              }
+            ],
+            "selected_params": {
+              "learning_rate": 0.05,
+              "max_iter": 400,
+              "max_leaf_nodes": 31
+            },
+            "selection_criterion": "mean out-of-fold ROC-AUC over TRAIN folds 1-8",
+            "selected_criterion_value": 0.949646
+          },
+          "selected_params": {
+            "learning_rate": 0.05,
+            "max_iter": 400,
+            "max_leaf_nodes": 31
+          },
+          "probability_source": "native",
+          "threshold": {
+            "threshold": 0.58655,
+            "train_out_of_fold_balanced_accuracy": 0.878906,
+            "selected_on": "TRAIN folds 1-8, out-of-fold predictions"
+          },
+          "fit_seconds": 3.31,
+          "validation": {
+            "n_samples": 2146,
+            "n_positive": 1232,
+            "n_negative": 914,
+            "prevalence": 0.574091,
+            "threshold": 0.58655,
+            "accuracy": 0.857875,
+            "precision": 0.923288,
+            "recall": 0.820617,
+            "sensitivity": 0.820617,
+            "specificity": 0.908096,
+            "f1": 0.86893,
+            "balanced_accuracy": 0.864357,
+            "roc_auc": 0.940234,
+            "pr_auc": 0.958978,
+            "brier": 0.098855,
+            "log_loss": 0.31194,
+            "ece": 0.040146,
+            "mean_predicted": 0.558042,
+            "confusion_matrix": {
+              "true_positive": 1011,
+              "false_positive": 84,
+              "true_negative": 830,
+              "false_negative": 221,
+              "threshold": 0.58655
+            }
+          },
+          "validation_roc_auc": 0.9402343416976896,
+          "validation_bootstrap_roc_auc": {
+            "measured": true,
+            "n_draws_requested": 2000,
+            "n_draws_usable": 2000,
+            "unit": "patient (resampled with replacement)",
+            "mean": 0.940177,
+            "standard_error": 0.004988,
+            "p2_5": 0.929748,
+            "p97_5": 0.949353
+          },
+          "sensitivity_at_fixed_specificity": {
+            "target_specificity": 0.9,
+            "sensitivity": 0.8255,
+            "achieved_specificity": 0.9004,
+            "threshold": 0.5731491423773024
+          }
+        }
+      ],
+      "partitions": [
+        {
+          "partition": "TRAIN",
+          "strat_folds": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "n_records": 17084,
+          "n_patients": 14823,
+          "n_positive": 9841,
+          "n_negative": 7243,
+          "prevalence": 0.576036
+        },
+        {
+          "partition": "VALIDATION",
+          "strat_folds": [
+            9
+          ],
+          "n_records": 2146,
+          "n_patients": 1917,
+          "n_positive": 1232,
+          "n_negative": 914,
+          "prevalence": 0.574091
+        }
+      ],
+      "guards": {
+        "patient_overlap": 0,
+        "ecg_id_overlap": 0,
+        "train_folds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "validation_folds": [
+          9
+        ],
+        "test_partition_used": false
+      },
+      "strongest_arm": {
+        "arm": "gbm@f97",
+        "model": "gbm",
+        "representation": "f97",
+        "input_dimension": 97,
+        "selected_params": {
+          "learning_rate": 0.05,
+          "max_iter": 400,
+          "max_leaf_nodes": 31
+        },
+        "validation_roc_auc": 0.9402343416976896,
+        "bootstrap": {
+          "measured": true,
+          "n_draws_requested": 2000,
+          "n_draws_usable": 2000,
+          "unit": "patient (resampled with replacement)",
+          "mean": 0.940177,
+          "standard_error": 0.004988,
+          "p2_5": 0.929748,
+          "p97_5": 0.949353
+        },
+        "note": "This is the number \u00a77.4 condition 1 requires a quantum model to exceed."
+      },
+      "paired_vs_strongest": [],
+      "failure_map": {
+        "arm": "gbm@f97",
+        "threshold": 0.58655,
+        "overall": {
+          "n_records": 2146,
+          "n_patients": 1917,
+          "error_rate": 0.1421,
+          "confusion_matrix": {
+            "true_positive": 1011,
+            "false_positive": 84,
+            "true_negative": 830,
+            "false_negative": 221,
+            "threshold": 0.58655
+          }
+        },
+        "missed_positives": 221,
+        "false_alarms": 84,
+        "by_superclass": [
+          {
+            "group": "superclass:NORM",
+            "n_records": 955,
+            "n_positive": 41,
+            "prevalence": 0.0429,
+            "error_rate": 0.1173,
+            "sensitivity": 0.3171,
+            "specificity": 0.9081,
+            "measured": true,
+            "note": "NORM records that are positive also carry an abnormal superclass"
+          },
+          {
+            "group": "superclass:MI",
+            "n_records": 540,
+            "n_positive": 540,
+            "prevalence": 1.0,
+            "error_rate": 0.1241,
+            "sensitivity": 0.8759,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          },
+          {
+            "group": "superclass:STTC",
+            "n_records": 528,
+            "n_positive": 528,
+            "prevalence": 1.0,
+            "error_rate": 0.1004,
+            "sensitivity": 0.8996,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          },
+          {
+            "group": "superclass:CD",
+            "n_records": 495,
+            "n_positive": 495,
+            "prevalence": 1.0,
+            "error_rate": 0.1475,
+            "sensitivity": 0.8525,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          },
+          {
+            "group": "superclass:HYP",
+            "n_records": 268,
+            "n_positive": 268,
+            "prevalence": 1.0,
+            "error_rate": 0.1866,
+            "sensitivity": 0.8134,
+            "specificity": null,
+            "measured": true,
+            "note": "overlapping group: a record can carry several superclasses"
+          }
+        ],
+        "by_single_superclass": [
+          {
+            "group": "only:MI",
+            "n_records": 233,
+            "n_positive": 233,
+            "prevalence": 1.0,
+            "error_rate": 0.2532,
+            "sensitivity": 0.7468,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "only:STTC",
+            "n_records": 259,
+            "n_positive": 259,
+            "prevalence": 1.0,
+            "error_rate": 0.1853,
+            "sensitivity": 0.8147,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "only:CD",
+            "n_records": 206,
+            "n_positive": 206,
+            "prevalence": 1.0,
+            "error_rate": 0.2621,
+            "sensitivity": 0.7379,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "only:HYP",
+            "n_records": 65,
+            "n_positive": 65,
+            "prevalence": 1.0,
+            "error_rate": 0.6,
+            "sensitivity": 0.4,
+            "specificity": null,
+            "measured": true
+          }
+        ],
+        "by_subgroup": [
+          {
+            "group": "age:<40",
+            "n_records": 283,
+            "n_positive": 62,
+            "prevalence": 0.2191,
+            "error_rate": 0.1272,
+            "sensitivity": 0.5645,
+            "specificity": 0.9593,
+            "measured": true
+          },
+          {
+            "group": "age:40-59",
+            "n_records": 663,
+            "n_positive": 261,
+            "prevalence": 0.3937,
+            "error_rate": 0.1735,
+            "sensitivity": 0.6513,
+            "specificity": 0.9403,
+            "measured": true
+          },
+          {
+            "group": "age:60-74",
+            "n_records": 721,
+            "n_positive": 493,
+            "prevalence": 0.6838,
+            "error_rate": 0.1498,
+            "sensitivity": 0.8479,
+            "specificity": 0.8553,
+            "measured": true
+          },
+          {
+            "group": "age:75+",
+            "n_records": 479,
+            "n_positive": 416,
+            "prevalence": 0.8685,
+            "error_rate": 0.096,
+            "sensitivity": 0.9327,
+            "specificity": 0.7143,
+            "measured": true
+          },
+          {
+            "group": "age:missing",
+            "n_records": 0,
+            "measured": false
+          },
+          {
+            "group": "sex:0",
+            "n_records": 1114,
+            "n_positive": 650,
+            "prevalence": 0.5835,
+            "error_rate": 0.1409,
+            "sensitivity": 0.8308,
+            "specificity": 0.8987,
+            "measured": true
+          },
+          {
+            "group": "sex:1",
+            "n_records": 1032,
+            "n_positive": 582,
+            "prevalence": 0.564,
+            "error_rate": 0.1434,
+            "sensitivity": 0.8093,
+            "specificity": 0.9178,
+            "measured": true
+          },
+          {
+            "group": "quality:flagged",
+            "n_records": 3,
+            "n_positive": 3,
+            "prevalence": 1.0,
+            "error_rate": 0.0,
+            "sensitivity": 1.0,
+            "specificity": null,
+            "measured": true
+          },
+          {
+            "group": "quality:clean",
+            "n_records": 2143,
+            "n_positive": 1229,
+            "prevalence": 0.5735,
+            "error_rate": 0.1423,
+            "sensitivity": 0.8202,
+            "specificity": 0.9081,
+            "measured": true
+          },
+          {
+            "group": "beats:<8",
+            "n_records": 30,
+            "n_positive": 25,
+            "prevalence": 0.8333,
+            "error_rate": 0.0667,
+            "sensitivity": 0.92,
+            "specificity": 1.0,
+            "measured": true
+          },
+          {
+            "group": "beats:>=8",
+            "n_records": 2116,
+            "n_positive": 1207,
+            "prevalence": 0.5704,
+            "error_rate": 0.1432,
+            "sensitivity": 0.8186,
+            "specificity": 0.9076,
+            "measured": true
+          }
+        ],
+        "unknown_label_records": {
+          "n_records": 37,
+          "scored": false,
+          "note": "no diagnostic superclass: the label is unknown, never negative (\u00a77.4)"
+        }
+      },
+      "permutation_null": {
+        "measured": true,
+        "unit": "patient-blocked label permutation inside TRAIN, model refitted each draw",
+        "n_draws_requested": 200,
+        "n_draws_usable": 200,
+        "within_patient_labels_consistent": false,
+        "observed_roc_auc": 0.940234,
+        "null_mean": 0.507865,
+        "null_standard_deviation": 0.023552,
+        "null_p97_5": 0.554956,
+        "null_max": 0.567394,
+        "n_null_at_or_above_observed": 0,
+        "p_value": 0.004975,
+        "seconds": 867.3
+      }
+    }
+  },
+  "total_seconds": 920.7,
+  "test_partition_used": false
+}

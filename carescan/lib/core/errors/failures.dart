@@ -45,4 +45,3 @@ class NetworkFailure extends Failure {
 class UnknownFailure extends Failure {
   const UnknownFailure([super.message = 'Unknown Error']);
 }
-

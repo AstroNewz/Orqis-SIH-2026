@@ -1,0 +1,369 @@
+{
+ "e3_trainable_vqc_version": "v1-e3-trainable-vqc-1",
+ "question": "Does a trainable shallow VQC on the 8-qubit E2 states add information beyond C7 (validation PR-AUC 0.913038), under identical patient-grouped folds, train-only encoding + depth selection, sqrt(T/N)-bounded trainable parameters, a barren-plateau witness, and matched classical MLP + no-entangler controls?",
+ "test_partition_used": false,
+ "test_partition_note": "Reads TRAIN and VALIDATION only via e1_failure_map.build_inputs, which iterates only ('train', 'validation'). No code path selects the test partition.",
+ "primary_condition": "A_lesion_polygon",
+ "cv_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+ "rows": {
+  "n_train": 215,
+  "n_validation": 52,
+  "n_train_positive": 103,
+  "n_validation_positive": 21,
+  "train_prevalence": 0.47907,
+  "validation_prevalence": 0.403846,
+  "n_train_patients": 112,
+  "n_validation_patients": 25,
+  "patient_overlap_train_validation": 0
+ },
+ "c7_anchor": {
+  "target_pr_auc": 0.913038,
+  "reproduced_pr_auc": 0.913038,
+  "selected_c": 0.01,
+  "tolerance": 1e-06,
+  "reproduced": true
+ },
+ "quantum_feature_map_aer_check": {
+  "max_abs_deviation": 8.881784197001252e-16,
+  "tolerance": 1e-10,
+  "passed": true,
+  "n_samples_checked": 24,
+  "n_observables": 16
+ },
+ "trainable_ansatz_qiskit_check": {
+  "max_abs_deviation": 4.3021142204224816e-16,
+  "tolerance": 1e-10,
+  "passed": true,
+  "n_checks": 24,
+  "reference": "qiskit Statevector.evolve (ry/cz), arithmetic-independent of the torch forward"
+ },
+ "arms": {
+  "trainable_vqc": {
+   "arm": "trainable_vqc",
+   "model": "trainable_vqc",
+   "representation_dim": 8,
+   "train_cv_pr_auc": 0.718104,
+   "validation_pr_auc": 0.77066,
+   "validation_roc_auc": 0.8187403993855606,
+   "n_trainable_parameters": 17,
+   "score_note": "head logits (uncalibrated margin); PR/ROC-AUC are rank-based",
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.770388,
+    "standard_error": 0.109402,
+    "p2_5": 0.516004,
+    "p97_5": 0.939962
+   },
+   "selected_depth": 1,
+   "train_cv_pr_auc_by_depth": {
+    "1": 0.718104,
+    "2": 0.713016
+   },
+   "n_quantum_trainable_parameters": 8,
+   "sqrt_t_over_n": 0.2812,
+   "barren_plateau_witness": {
+    "n_inits": 48,
+    "n_probe_states": 8,
+    "n_circuit_parameters": 8,
+    "observable": "single local <Z_0>, per-state gradients pooled (head-independent, Cerezo-2021 local cost)",
+    "gradient_variance": 0.013734052116064809,
+    "gradient_abs_mean": 0.031614167612852545,
+    "vanishing": false
+   },
+   "entangle": true,
+   "train_note": {
+    "mean_fold_final_loss": 0.5309504267408109,
+    "all_train_final_loss": 0.5193040456819893,
+    "all_train_initial_loss": 0.6884110650654242
+   }
+  },
+  "trainable_vqc_no_entangler": {
+   "arm": "trainable_vqc_no_entangler",
+   "model": "trainable_vqc_no_entangler",
+   "representation_dim": 8,
+   "train_cv_pr_auc": 0.723102,
+   "validation_pr_auc": 0.778527,
+   "validation_roc_auc": 0.8233486943164362,
+   "n_trainable_parameters": 25,
+   "score_note": "head logits (uncalibrated margin); PR/ROC-AUC are rank-based",
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.777578,
+    "standard_error": 0.110639,
+    "p2_5": 0.515951,
+    "p97_5": 0.942445
+   },
+   "selected_depth": 2,
+   "train_cv_pr_auc_by_depth": {
+    "1": 0.718104,
+    "2": 0.723102
+   },
+   "n_quantum_trainable_parameters": 16,
+   "sqrt_t_over_n": 0.341,
+   "barren_plateau_witness": {
+    "n_inits": 48,
+    "n_probe_states": 8,
+    "n_circuit_parameters": 16,
+    "observable": "single local <Z_0>, per-state gradients pooled (head-independent, Cerezo-2021 local cost)",
+    "gradient_variance": 0.014908828886663903,
+    "gradient_abs_mean": 0.032277738526425556,
+    "vanishing": false
+   },
+   "entangle": false,
+   "train_note": {
+    "mean_fold_final_loss": 0.5297113270672226,
+    "all_train_final_loss": 0.5164043967285216,
+    "all_train_initial_loss": 0.690562663456086
+   }
+  },
+  "classical_mlp": {
+   "arm": "classical_mlp",
+   "model": "classical_mlp",
+   "representation_dim": 8,
+   "train_cv_pr_auc": 0.675469,
+   "validation_pr_auc": 0.76845,
+   "validation_roc_auc": 0.8218125960061443,
+   "n_trainable_parameters": 21,
+   "score_note": "head logits (uncalibrated margin); PR/ROC-AUC are rank-based",
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.772185,
+    "standard_error": 0.105832,
+    "p2_5": 0.524188,
+    "p97_5": 0.936822
+   },
+   "hidden_units": 2,
+   "train_note": {
+    "mean_fold_final_loss": 0.4849313976626453,
+    "all_train_final_loss": 0.5076952743915236,
+    "all_train_initial_loss": 0.748577636305743
+   }
+  },
+  "c7": {
+   "arm": "c7",
+   "model": "linear_logistic",
+   "representation_dim": 1195,
+   "train_cv_pr_auc": 0.766915,
+   "validation_pr_auc": 0.913038,
+   "validation_roc_auc": 0.93394777265745,
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.911712,
+    "standard_error": 0.059572,
+    "p2_5": 0.760998,
+    "p97_5": 0.988785
+   }
+  }
+ },
+ "increment_vs_c7": {
+  "trainable_vqc": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.863104,
+   "increment": -0.049934,
+   "score_correlation_pearson": 0.688685,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.004871,
+     "sd": 0.020937,
+     "p50": -0.000338,
+     "p95": 0.023184,
+     "p99": 0.025982,
+     "max": 0.03151
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 191,
+     "empirical_p": 0.955224,
+     "exceeds_null_p95": false,
+     "z_vs_null": -2.1523
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.07482,
+     "sd": 0.169786,
+     "p50": 0.001189,
+     "p95": 0.104681,
+     "p99": 0.145746,
+     "max": 0.171846
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 134,
+     "empirical_p": 0.671642,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.1466
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  },
+  "classical_mlp": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.912826,
+   "increment": -0.000212,
+   "score_correlation_pearson": 0.631152,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.00287,
+     "sd": 0.01649,
+     "p50": 0.0,
+     "p95": 0.017148,
+     "p99": 0.028772,
+     "max": 0.030871
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 111,
+     "empirical_p": 0.557214,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.1612
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.058815,
+     "sd": 0.145976,
+     "p50": -1.3e-05,
+     "p95": 0.10917,
+     "p99": 0.158698,
+     "max": 0.184897
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 109,
+     "empirical_p": 0.547264,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.4015
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  }
+ },
+ "summary": {
+  "primary_condition": "A_lesion_polygon",
+  "c7_validation_pr_auc": 0.913038,
+  "trainable_vqc_validation_pr_auc": 0.77066,
+  "trainable_vqc_no_entangler_validation_pr_auc": 0.778527,
+  "classical_mlp_validation_pr_auc": 0.76845,
+  "trainable_vqc_beats_c7": false,
+  "trainable_vqc_beats_mlp_control": true,
+  "trainable_vqc_beats_no_entangler": false,
+  "trainable_vqc_barren_plateau": false,
+  "trainable_vqc_increment_survives_gating_null": false,
+  "classical_mlp_increment_survives_gating_null": false,
+  "defensible_quantum_advantage_over_c7": false,
+  "quantum_specific_advantage": false,
+  "selected_vqc_depth": 1,
+  "leaderboard": [
+   {
+    "arm": "c7",
+    "validation_pr_auc": 0.913038,
+    "validation_roc_auc": 0.93394777265745,
+    "train_cv_pr_auc": 0.766915
+   },
+   {
+    "arm": "trainable_vqc_no_entangler",
+    "validation_pr_auc": 0.778527,
+    "validation_roc_auc": 0.8233486943164362,
+    "train_cv_pr_auc": 0.723102
+   },
+   {
+    "arm": "trainable_vqc",
+    "validation_pr_auc": 0.77066,
+    "validation_roc_auc": 0.8187403993855606,
+    "train_cv_pr_auc": 0.718104
+   },
+   {
+    "arm": "classical_mlp",
+    "validation_pr_auc": 0.76845,
+    "validation_roc_auc": 0.8218125960061443,
+    "train_cv_pr_auc": 0.675469
+   }
+  ],
+  "conclusion": "The C7 -> trainable-VQC increment does NOT survive the patient-blocked column-permutation null: on this evidence a trainable shallow VQC adds no information beyond C7. A null result (\u00a729B), reported as measured."
+ },
+ "provenance": {
+  "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+  "descriptor_cache": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\dataset\\features_handcrafted_lab.npz",
+  "descriptor_dimension": 163,
+  "pixel_cache_version": "v1-pixels-1",
+  "e1_cache_version": "v1-e1-features-1",
+  "e1_cache_dimensions": {
+   "hog": 1764,
+   "texture": 156,
+   "multiscale": 456,
+   "mobilenet": 576
+  },
+  "e1_cache_rows": 2436,
+  "rows_dropped_for_cache_misalignment": {
+   "A_lesion_polygon": {
+    "train": 0,
+    "validation": 0
+   }
+  },
+  "join": "by image id across all three caches; rows missing anywhere are dropped from every candidate, never from one",
+  "descriptor_note": "raw cached 163-dim image descriptor + no reduction (transform=False). The PCA-reduced 8-dim vector is NOT used: comparing candidates against a compressed control would understate C1."
+ },
+ "protocol": {
+  "reference_baseline": "C7 = hstack([C6 mobilenet(576), C5 descriptor+multiscale(619)]) = 1195, logistic",
+  "trainable_vqc": "fixed E2 encoding -> L trainable {Ry ring; CZ ring} layers -> 8 local <Z_i> -> logistic head; Adam on class-weighted BCE; depth in {1,2} selected on TRAIN OOF",
+  "matched_control": "capacity-matched tanh MLP on the same L2-normalised PCA-8 input",
+  "ablation_control": "identical VQC with the CZ ring removed (product-state circuit)",
+  "folds": "5-fold patient-grouped StratifiedGroupKFold on TRAIN, seed 42",
+  "preprocessing": "train-only; PCA/angle encoding refit inside each fold-train",
+  "generalisation_bound": "sqrt(T/N), Caro et al. 2022; T = 8L + 9, N = train size",
+  "barren_plateau_guard": "shallow depth + local single-qubit observables (Cerezo 2021), witnessed by init gradient variance",
+  "scores": "head logits (rank-based PR/ROC-AUC; increment stack standardises)",
+  "gating_test": "e1_failure_map._increment_null with C7 as reference",
+  "honesty_gate": "torch <Z_i> vs qiskit Statevector.evolve <=1e-10 before any VQC number"
+ },
+ "environment": {
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "1.26.4",
+  "torch": "2.13.0+cpu",
+  "seed": 42,
+  "n_folds": 5,
+  "bootstrap_draws": 2000,
+  "increment_permutations": 200,
+  "pca_components": 8,
+  "train_steps": 400,
+  "learning_rate": 0.05,
+  "weight_decay": 0.001
+ },
+ "duration_seconds": 271.678
+}

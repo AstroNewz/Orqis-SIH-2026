@@ -1,0 +1,267 @@
+{
+  "selection_metric": "PR-AUC on the validation partition",
+  "selection_metric_rationale": "The positive class is small, so PR-AUC discriminates between candidates where accuracy and ROC-AUC do not.",
+  "compute_budget": {
+    "maxiter_per_candidate": [
+      50
+    ],
+    "n_candidates": 1,
+    "seconds_per_objective_evaluation_measured": 9.706,
+    "note": "Ansatz depth is transferred from A_lesion_polygon (215 rows), where a full layers 1/2/3 sweep was affordable and depth 1 won on validation PR-AUC (0.526 vs 0.329 for L2 and 0.357 for L3). A three-depth sweep was attempted here and abandoned on measured grounds: SPSA iteration time on this 1692-row condition is not stable, measuring 19.3 s on an idle machine, 38.5 s under concurrent load, and 96.0 s after roughly 40 minutes of sustained load as the machine thermally throttles (process memory was steady at 802 MB, so this is CPU clock, not accumulation). At the throttled rate three candidates cost over 4 h per condition and the artifact is only written after the last candidate, so an interrupted sweep would have produced nothing. One candidate at maxiter 50 is run instead, which writes an artifact per condition. maxiter is 50 rather than 100 because on the cheap condition the training objective moved only 0.0025 from its ln(2) starting point over 100 iterations across all three depths, so iterations 50-100 demonstrably do not change it. The per-condition measured cost is recorded in the artifact at validation_selection.compute_budget.seconds_per_objective_evaluation_measured; the figures quoted here are the ones the decision was actually made on."
+  },
+  "selected_label": "predicted/B_localized/spsa/L1/it50/s42",
+  "selected_config": {
+    "roi_mode": "predicted",
+    "condition": "B_localized",
+    "n_layers": 1,
+    "optimizer": "spsa",
+    "maxiter": 50,
+    "learning_rate": null,
+    "perturbation": null,
+    "seed": 42,
+    "class_weighting": true,
+    "n_qubits": 16,
+    "n_parameters": 32,
+    "amplitudes_per_state": 65536
+  },
+  "selected_validation_pr_auc": 0.084154,
+  "early_stopping": {
+    "used": false,
+    "reason": "SPSA's trajectory is stochastic; stopping on a noisy validation reading selects for the noise. Every candidate ran its full iteration budget and selection happened across candidates."
+  },
+  "threshold": {
+    "basis": "validation partition only",
+    "target_sensitivity": 0.85,
+    "target_sensitivity_source": "Settings.SCREENING_TARGET_SENSITIVITY",
+    "selected": {
+      "target_sensitivity": 0.85,
+      "threshold": 0.4998809393290397,
+      "sensitivity": 0.8571,
+      "specificity": 0.3886,
+      "precision": 0.0814,
+      "n_flagged": 221,
+      "false_negative": 3
+    },
+    "at_specificity_0_90": {
+      "target_specificity": 0.9,
+      "sensitivity": 0.1429,
+      "achieved_specificity": 0.9006,
+      "threshold": 0.5024338658778986
+    },
+    "sweep": [
+      {
+        "threshold": 0.05,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.1,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.15,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.2,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.25,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.3,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.35,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.4,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.45,
+        "sensitivity": 1.0,
+        "specificity": 0.0,
+        "precision": 0.0595,
+        "n_flagged": 353,
+        "true_positive": 21,
+        "false_negative": 0
+      },
+      {
+        "threshold": 0.5,
+        "sensitivity": 0.8095,
+        "specificity": 0.4247,
+        "precision": 0.0817,
+        "n_flagged": 208,
+        "true_positive": 17,
+        "false_negative": 4
+      },
+      {
+        "threshold": 0.55,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.6,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.65,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.7,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.75,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.8,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.85,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.9,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      },
+      {
+        "threshold": 0.95,
+        "sensitivity": 0.0,
+        "specificity": 1.0,
+        "precision": null,
+        "n_flagged": 0,
+        "true_positive": 0,
+        "false_negative": 21
+      }
+    ],
+    "score_distribution": {
+      "min": 0.49627051,
+      "max": 0.50658432,
+      "mean": 0.50036699,
+      "sd": 0.00161197
+    },
+    "note": "Chosen on the uncalibrated score (1 - <Z0>)/2. Calibration is a separate stage and is also fitted without the test partition.",
+    "validation_metrics_at_selected_threshold": {
+      "n_samples": 353,
+      "n_positive": 21,
+      "n_negative": 332,
+      "prevalence": 0.05949,
+      "threshold": 0.4998809393290397,
+      "accuracy": 0.416431,
+      "precision": 0.081448,
+      "recall": 0.857143,
+      "sensitivity": 0.857143,
+      "specificity": 0.388554,
+      "f1": 0.14876,
+      "balanced_accuracy": 0.622849,
+      "roc_auc": 0.619693,
+      "pr_auc": 0.084154,
+      "brier": 0.250273,
+      "log_loss": 0.693692,
+      "ece": 0.440877,
+      "mean_predicted": 0.500367,
+      "confusion_matrix": {
+        "true_positive": 18,
+        "false_positive": 203,
+        "true_negative": 129,
+        "false_negative": 3,
+        "threshold": 0.4998809393290397
+      }
+    }
+  },
+  "ranking": [
+    {
+      "label": "predicted/B_localized/spsa/L1/it50/s42",
+      "validation_pr_auc": 0.084154,
+      "validation_roc_auc": 0.619693,
+      "final_train_loss": 0.69253467
+    }
+  ]
+}

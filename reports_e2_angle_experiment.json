@@ -1,0 +1,181 @@
+{
+ "experiment": "e2-angle-range-selection",
+ "version": "v1-e2-angle-experiment-1",
+ "created_at": "2026-09-12T01:31:17.375435+00:00",
+ "partition_used": "train",
+ "test_partition_used": false,
+ "validation_used_for_selection": false,
+ "selection_rule": "argmax mean outer-fold PR-AUC under nested patient-grouped CV on TRAIN, restricted to genuinely-entangled (>=2 block, nonzero connected correlation) configurations. Validation is scored once by the driver only for the winner.",
+ "primary_condition": "A_lesion_polygon",
+ "seed": 42,
+ "n_outer_folds": 5,
+ "provenance": {
+  "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+  "mobilenet_source": "E1 feature cache matrix_mobilenet (MobileNetV3-Small, 576-d)",
+  "mobilenet_dimension": 576,
+  "e1_cache_version": "v1-e1-features-1",
+  "e1_cache_rows": 2436,
+  "pixel_cache_version": "v1-pixels-1",
+  "rows_dropped_for_cache_misalignment": {
+   "A_lesion_polygon": {
+    "train": 0,
+    "validation": 0
+   }
+  },
+  "join": "MobileNet descriptor by image id from the E1 cache; labels/patients from the oracle pixel partition; the two label derivations cross-checked. Rows missing from either cache are dropped and counted.",
+  "label_cross_check": "pixel-cache labels asserted equal to the handcrafted-descriptor cache labels on the joined rows; a mismatch raises rather than picks one silently"
+ },
+ "candidates": [
+  {
+   "n_blocks": 1,
+   "max_angle": 3.14159265,
+   "max_angle_over_pi": 1.0,
+   "description": "1 block, [0, pi] -- CZ ring invisible to Z observables (control)",
+   "eligible_quantum_demonstrator": false,
+   "fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+   "n_folds_used": 5,
+   "cv_pr_auc_mean": 0.640551,
+   "cv_pr_auc_std": 0.084988,
+   "cv_pr_auc_min": 0.516577,
+   "cv_pr_auc_folds": [
+    0.516577,
+    0.592542,
+    0.77304,
+    0.667627,
+    0.652968
+   ],
+   "entanglement": {
+    "mean_abs_connected_correlation": 0.0,
+    "max_abs_connected_correlation": 0.0,
+    "is_genuinely_entangled": false
+   }
+  },
+  {
+   "n_blocks": 2,
+   "max_angle": 0.78539816,
+   "max_angle_over_pi": 0.25,
+   "description": "2 blocks, [0, pi/4]",
+   "eligible_quantum_demonstrator": true,
+   "fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+   "n_folds_used": 5,
+   "cv_pr_auc_mean": 0.673983,
+   "cv_pr_auc_std": 0.085586,
+   "cv_pr_auc_min": 0.592109,
+   "cv_pr_auc_folds": [
+    0.593194,
+    0.592109,
+    0.81699,
+    0.720893,
+    0.646731
+   ],
+   "entanglement": {
+    "mean_abs_connected_correlation": 0.064106,
+    "max_abs_connected_correlation": 0.43936291,
+    "is_genuinely_entangled": true
+   }
+  },
+  {
+   "n_blocks": 2,
+   "max_angle": 1.57079633,
+   "max_angle_over_pi": 0.5,
+   "description": "2 blocks, [0, pi/2]",
+   "eligible_quantum_demonstrator": true,
+   "fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+   "n_folds_used": 5,
+   "cv_pr_auc_mean": 0.706475,
+   "cv_pr_auc_std": 0.056268,
+   "cv_pr_auc_min": 0.648747,
+   "cv_pr_auc_folds": [
+    0.648747,
+    0.697172,
+    0.805585,
+    0.722641,
+    0.658232
+   ],
+   "entanglement": {
+    "mean_abs_connected_correlation": 0.18379205,
+    "max_abs_connected_correlation": 0.67188126,
+    "is_genuinely_entangled": true
+   }
+  },
+  {
+   "n_blocks": 2,
+   "max_angle": 2.0943951,
+   "max_angle_over_pi": 0.666667,
+   "description": "2 blocks, [0, 2pi/3]",
+   "eligible_quantum_demonstrator": true,
+   "fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+   "n_folds_used": 5,
+   "cv_pr_auc_mean": 0.668175,
+   "cv_pr_auc_std": 0.06545,
+   "cv_pr_auc_min": 0.5705,
+   "cv_pr_auc_folds": [
+    0.62168,
+    0.5705,
+    0.676144,
+    0.750013,
+    0.722537
+   ],
+   "entanglement": {
+    "mean_abs_connected_correlation": 0.1328878,
+    "max_abs_connected_correlation": 0.57607351,
+    "is_genuinely_entangled": true
+   }
+  },
+  {
+   "n_blocks": 2,
+   "max_angle": 2.35619449,
+   "max_angle_over_pi": 0.75,
+   "description": "2 blocks, [0, 3pi/4]",
+   "eligible_quantum_demonstrator": true,
+   "fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+   "n_folds_used": 5,
+   "cv_pr_auc_mean": 0.63587,
+   "cv_pr_auc_std": 0.050669,
+   "cv_pr_auc_min": 0.556915,
+   "cv_pr_auc_folds": [
+    0.633017,
+    0.556915,
+    0.614081,
+    0.668256,
+    0.707082
+   ],
+   "entanglement": {
+    "mean_abs_connected_correlation": 0.12355426,
+    "max_abs_connected_correlation": 0.65054989,
+    "is_genuinely_entangled": true
+   }
+  },
+  {
+   "n_blocks": 2,
+   "max_angle": 3.14159265,
+   "max_angle_over_pi": 1.0,
+   "description": "2 blocks, [0, pi] -- original spec, folds cos(2 theta)",
+   "eligible_quantum_demonstrator": true,
+   "fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+   "n_folds_used": 5,
+   "cv_pr_auc_mean": 0.533626,
+   "cv_pr_auc_std": 0.047859,
+   "cv_pr_auc_min": 0.456269,
+   "cv_pr_auc_folds": [
+    0.456269,
+    0.54426,
+    0.518097,
+    0.54533,
+    0.604174
+   ],
+   "entanglement": {
+    "mean_abs_connected_correlation": 0.11573984,
+    "max_abs_connected_correlation": 0.61637186,
+    "is_genuinely_entangled": true
+   }
+  }
+ ],
+ "selected": {
+  "n_blocks": 2,
+  "max_angle": 1.57079633,
+  "max_angle_over_pi": 0.5,
+  "cv_pr_auc_mean": 0.706475,
+  "mean_abs_connected_correlation": 0.18379205
+ }
+}

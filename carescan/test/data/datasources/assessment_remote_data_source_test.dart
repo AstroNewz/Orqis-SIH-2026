@@ -6,10 +6,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:carescan/core/constants/api_constants.dart';
 import 'package:carescan/core/errors/failures.dart';
 import 'package:carescan/data/datasources/assessment_remote_data_source.dart';
+import '../../support/image_fixtures.dart';
 
 class MockHttpHeaders implements HttpHeaders {
   @override
   ContentType? contentType;
+
+  @override
+  int contentLength = 0;
+
+  // The multipart upload leg sets these; a mock header bag just accepts them.
+  @override
+  void set(String name, Object value, {bool preserveHeaderCase = false}) {}
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
@@ -53,6 +61,10 @@ class MockHttpClientRequest implements HttpClientRequest {
   @override
   void write(Object? obj) {}
 
+  // The upload leg streams the multipart body through add(); the mock ignores it.
+  @override
+  void add(List<int> data) {}
+
   @override
   Future<HttpClientResponse> close() async {
     return MockHttpClientResponse(_statusCode, _responseBody);
@@ -67,12 +79,21 @@ class MockHttpClient implements HttpClient {
   String responseBody = '{}';
   Exception? throwException;
 
+  // The production flow uploads the capture first, then analyzes the server-side
+  // copy. The upload leg is answered here so tests can focus on the analyze
+  // response via [responseStatusCode] / [responseBody].
+  int uploadStatusCode = 201;
+  String uploadResponseBody = '{"image_path": "/server/uploads/scan.jpg"}';
+
   @override
   Duration? connectionTimeout;
 
   @override
   Future<HttpClientRequest> postUrl(Uri url) async {
     if (throwException != null) throw throwException!;
+    if (url.path.contains('/upload')) {
+      return MockHttpClientRequest(uploadStatusCode, uploadResponseBody);
+    }
     return MockHttpClientRequest(responseStatusCode, responseBody);
   }
 
@@ -90,15 +111,23 @@ void main() {
   group('AssessmentRemoteDataSourceImpl', () {
     late MockHttpClient mockHttpClient;
     late AssessmentRemoteDataSourceImpl dataSource;
+    late Directory tempDir;
+    late String tempImagePath;
 
     setUp(() {
       mockHttpClient = MockHttpClient();
       dataSource = AssessmentRemoteDataSourceImpl(httpClient: mockHttpClient);
       ApiConstants.setBaseUrl('http://localhost:8000');
+      // A real file on disk: submitAssessment uploads the capture before it
+      // analyzes, and the upload reads these bytes.
+      tempDir = Directory.systemTemp.createTempSync('carescan_ds_test');
+      tempImagePath = '${tempDir.path}/scan.jpg';
+      File(tempImagePath).writeAsBytesSync(qualityFixture());
     });
 
     tearDown(() {
       ApiConstants.resetBaseUrl();
+      if (tempDir.existsSync()) tempDir.deleteSync(recursive: true);
     });
 
     group('submitAssessment', () {
@@ -116,7 +145,7 @@ void main() {
         mockHttpClient.responseStatusCode = 200;
         mockHttpClient.responseBody = mockJsonResponse;
 
-        final result = await dataSource.submitAssessment('/path/to/scan.jpg');
+        final result = await dataSource.submitAssessment(tempImagePath);
 
         expect(result.id, 'res-101');
         expect(result.assessmentId, 'assess-101');
@@ -133,7 +162,7 @@ void main() {
         mockHttpClient.responseBody = errorResponse;
 
         expect(
-          () => dataSource.submitAssessment('/bad/image.txt'),
+          () => dataSource.submitAssessment(tempImagePath),
           throwsA(
             isA<ServerFailure>().having(
               (f) => f.message,
@@ -148,7 +177,7 @@ void main() {
         mockHttpClient.throwException = const SocketException('Connection refused');
 
         expect(
-          () => dataSource.submitAssessment('/path/to/scan.jpg'),
+          () => dataSource.submitAssessment(tempImagePath),
           throwsA(
             isA<NetworkFailure>().having(
               (f) => f.message,
@@ -163,7 +192,7 @@ void main() {
         mockHttpClient.throwException = TimeoutException('Timeout');
 
         expect(
-          () => dataSource.submitAssessment('/path/to/scan.jpg'),
+          () => dataSource.submitAssessment(tempImagePath),
           throwsA(
             isA<NetworkFailure>().having(
               (f) => f.message,

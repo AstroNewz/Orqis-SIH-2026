@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:carescan/core/di/service_locator.dart';
 import 'package:carescan/core/errors/result.dart';
 import 'package:carescan/core/theme/app_spacing.dart';
 import 'package:carescan/features/assessment/models/assessment_result.dart';
 import 'package:carescan/features/assessment/repositories/assessment_repository.dart';
-import 'package:carescan/features/assessment/repositories/mock_assessment_repository.dart';
 import 'package:carescan/shared/widgets/error_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +33,7 @@ class _AnalyzingScreenState extends State<AnalyzingScreen>
   @override
   void initState() {
     super.initState();
-    _repository = widget.repository ?? MockAssessmentRepository();
+    _repository = widget.repository ?? appAssessmentRepository;
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
@@ -69,7 +69,12 @@ class _AnalyzingScreenState extends State<AnalyzingScreen>
           });
         },
         (assessmentResult) {
-          context.push('/result', extra: assessmentResult);
+          // Carry the on-device capture forward so the result screen can show the
+          // exact image that was analyzed, alongside the persisted verdict.
+          context.push(
+            '/result',
+            extra: (result: assessmentResult, imagePath: widget.imagePath),
+          );
         },
       );
     });

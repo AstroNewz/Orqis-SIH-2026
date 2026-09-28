@@ -1,0 +1,714 @@
+{
+  "arms": [
+    {
+      "arm": "q@zz",
+      "input": "8-dim ecg-fit-1 PCA scores",
+      "input_dimension": 8,
+      "kind": "quantum_map",
+      "map_telemetry": {
+        "angle_scaler": {
+          "fitted_on": "fold-train rows only",
+          "max_angle": 3.141592653589793,
+          "quantile": 0.02
+        },
+        "circuit_depth": 67,
+        "entanglement": "full",
+        "map": "havlicek_zz",
+        "n_encoding_parameters": 8,
+        "n_observables": 36,
+        "n_qubits": 8,
+        "n_trainable_parameters": 0,
+        "reps": 2,
+        "seed": 42,
+        "state_dimension": 256,
+        "two_qubit_gate_count": 112
+      },
+      "n_grid_cells": 4,
+      "output_dimension": 36,
+      "seconds": 1416.3,
+      "selected": {
+        "C": 0.01,
+        "reps": 2
+      },
+      "selected_inner_roc_auc": 0.7453753764650386,
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.483,
+        "target_specificity": 0.9,
+        "threshold": 0.6564786050499719
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, predicted by a map+head fitted on folds 1-7",
+        "threshold": 0.622512,
+        "train_out_of_fold_balanced_accuracy": 0.689054
+      },
+      "validation": {
+        "accuracy": 0.671016,
+        "balanced_accuracy": 0.694412,
+        "brier": 0.196696,
+        "confusion_matrix": {
+          "false_negative": 571,
+          "false_positive": 135,
+          "threshold": 0.622512,
+          "true_negative": 779,
+          "true_positive": 661
+        },
+        "ece": 0.052138,
+        "f1": 0.651874,
+        "log_loss": 0.573752,
+        "mean_predicted": 0.568398,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.825924,
+        "precision": 0.830402,
+        "prevalence": 0.574091,
+        "recall": 0.536526,
+        "roc_auc": 0.760505,
+        "sensitivity": 0.536526,
+        "specificity": 0.852298,
+        "threshold": 0.622512
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.760217,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.740144,
+        "p97_5": 0.779565,
+        "standard_error": 0.010035,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.7605048807866094
+    },
+    {
+      "arm": "c@poly2",
+      "input": "8-dim ecg-fit-1 PCA scores",
+      "input_dimension": 8,
+      "kind": "classical_control_map",
+      "map_telemetry": {
+        "index_set": "8 singletons + 28 pairs, identical to the ZZ observable set",
+        "map": "degree_2_polynomial",
+        "n_encoding_parameters": 8,
+        "n_observables": 36,
+        "n_qubits": null,
+        "n_trainable_parameters": 0
+      },
+      "n_grid_cells": 4,
+      "output_dimension": 36,
+      "seconds": 0.4,
+      "selected": {
+        "C": 10.0,
+        "reps": null
+      },
+      "selected_inner_roc_auc": 0.8793996516564462,
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9026,
+        "sensitivity": 0.7175,
+        "target_specificity": 0.9,
+        "threshold": 0.6390960029511682
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, predicted by a map+head fitted on folds 1-7",
+        "threshold": 0.646382,
+        "train_out_of_fold_balanced_accuracy": 0.811923
+      },
+      "validation": {
+        "accuracy": 0.794501,
+        "balanced_accuracy": 0.808879,
+        "brier": 0.135459,
+        "confusion_matrix": {
+          "false_negative": 355,
+          "false_positive": 86,
+          "threshold": 0.646382,
+          "true_negative": 828,
+          "true_positive": 877
+        },
+        "ece": 0.032009,
+        "f1": 0.799089,
+        "log_loss": 0.424597,
+        "mean_predicted": 0.557888,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.924767,
+        "precision": 0.910696,
+        "prevalence": 0.574091,
+        "recall": 0.711851,
+        "roc_auc": 0.884961,
+        "sensitivity": 0.711851,
+        "specificity": 0.905908,
+        "threshold": 0.646382
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.884855,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.869663,
+        "p97_5": 0.899044,
+        "standard_error": 0.007511,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.8849613870811902
+    },
+    {
+      "arm": "c@rff36",
+      "input": "8-dim ecg-fit-1 PCA scores",
+      "input_dimension": 8,
+      "kind": "classical_control_map",
+      "map_telemetry": {
+        "bandwidth": "median pairwise distance on a TRAIN subsample",
+        "gamma": 0.041102,
+        "map": "random_fourier_features",
+        "n_encoding_parameters": 8,
+        "n_observables": 36,
+        "n_qubits": null,
+        "n_trainable_parameters": 0
+      },
+      "n_grid_cells": 4,
+      "output_dimension": 36,
+      "seconds": 1.3,
+      "selected": {
+        "C": 0.1,
+        "reps": null
+      },
+      "selected_inner_roc_auc": 0.8950460829493088,
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.7443,
+        "target_specificity": 0.9,
+        "threshold": 0.6144854708541096
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, predicted by a map+head fitted on folds 1-7",
+        "threshold": 0.67533,
+        "train_out_of_fold_balanced_accuracy": 0.819299
+      },
+      "validation": {
+        "accuracy": 0.803355,
+        "balanced_accuracy": 0.819273,
+        "brier": 0.127585,
+        "confusion_matrix": {
+          "false_negative": 355,
+          "false_positive": 67,
+          "threshold": 0.67533,
+          "true_negative": 847,
+          "true_positive": 877
+        },
+        "ece": 0.022378,
+        "f1": 0.806066,
+        "log_loss": 0.396846,
+        "mean_predicted": 0.558502,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.928524,
+        "precision": 0.929025,
+        "prevalence": 0.574091,
+        "recall": 0.711851,
+        "roc_auc": 0.897873,
+        "sensitivity": 0.711851,
+        "specificity": 0.926696,
+        "threshold": 0.67533
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.897756,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.883913,
+        "p97_5": 0.911042,
+        "standard_error": 0.006956,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.8978729148313394
+    },
+    {
+      "arm": "fusion@cnn+gbm",
+      "blender": "logistic regression on the members' log-odds",
+      "blender_coefficients": {
+        "deep": 0.286475,
+        "tabular": 0.5637
+      },
+      "blender_intercept": 0.254759,
+      "inner_roc_auc": 0.9560107405929098,
+      "kind": "classical_fusion",
+      "members": [
+        "deep",
+        "tabular"
+      ],
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.8409,
+        "target_specificity": 0.9,
+        "threshold": 0.5209723135983797
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, blended from members that never saw it",
+        "threshold": 0.544001,
+        "train_out_of_fold_balanced_accuracy": 0.888717
+      },
+      "validation": {
+        "accuracy": 0.864399,
+        "balanced_accuracy": 0.870038,
+        "brier": 0.092465,
+        "confusion_matrix": {
+          "false_negative": 207,
+          "false_positive": 84,
+          "threshold": 0.544001,
+          "true_negative": 830,
+          "true_positive": 1025
+        },
+        "ece": 0.018987,
+        "f1": 0.875694,
+        "log_loss": 0.292359,
+        "mean_predicted": 0.557455,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.962628,
+        "precision": 0.924256,
+        "prevalence": 0.574091,
+        "recall": 0.831981,
+        "roc_auc": 0.946293,
+        "sensitivity": 0.831981,
+        "specificity": 0.908096,
+        "threshold": 0.544001
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.94622,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.936436,
+        "p97_5": 0.954967,
+        "standard_error": 0.004675,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9462926980022166
+    },
+    {
+      "arm": "fusion@cnn+gbm+zz",
+      "blender": "logistic regression on the members' log-odds",
+      "blender_coefficients": {
+        "deep": 0.285936,
+        "tabular": 0.56172,
+        "zz": 0.017743
+      },
+      "blender_intercept": 0.250883,
+      "inner_roc_auc": 0.9559771762400667,
+      "kind": "quantum_fusion",
+      "members": [
+        "deep",
+        "tabular",
+        "zz"
+      ],
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.8409,
+        "target_specificity": 0.9,
+        "threshold": 0.5210063755520439
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, blended from members that never saw it",
+        "threshold": 0.542758,
+        "train_out_of_fold_balanced_accuracy": 0.889121
+      },
+      "validation": {
+        "accuracy": 0.864399,
+        "balanced_accuracy": 0.870038,
+        "brier": 0.092455,
+        "confusion_matrix": {
+          "false_negative": 207,
+          "false_positive": 84,
+          "threshold": 0.542758,
+          "true_negative": 830,
+          "true_positive": 1025
+        },
+        "ece": 0.020052,
+        "f1": 0.875694,
+        "log_loss": 0.292259,
+        "mean_predicted": 0.557379,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.962689,
+        "precision": 0.924256,
+        "prevalence": 0.574091,
+        "recall": 0.831981,
+        "roc_auc": 0.946329,
+        "sensitivity": 0.831981,
+        "specificity": 0.908096,
+        "threshold": 0.542758
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.946255,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.936476,
+        "p97_5": 0.955074,
+        "standard_error": 0.004668,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9463291085282333
+    },
+    {
+      "arm": "fusion@cnn+gbm+poly2",
+      "blender": "logistic regression on the members' log-odds",
+      "blender_coefficients": {
+        "deep": 0.306162,
+        "poly2": -0.174041,
+        "tabular": 0.623856
+      },
+      "blender_intercept": 0.27748,
+      "inner_roc_auc": 0.9567790921296129,
+      "kind": "classical_fusion",
+      "members": [
+        "deep",
+        "tabular",
+        "poly2"
+      ],
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9004,
+        "sensitivity": 0.8458,
+        "target_specificity": 0.9,
+        "threshold": 0.5121623377282839
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, blended from members that never saw it",
+        "threshold": 0.627989,
+        "train_out_of_fold_balanced_accuracy": 0.887795
+      },
+      "validation": {
+        "accuracy": 0.859739,
+        "balanced_accuracy": 0.868945,
+        "brier": 0.09247,
+        "confusion_matrix": {
+          "false_negative": 238,
+          "false_positive": 63,
+          "threshold": 0.627989,
+          "true_negative": 851,
+          "true_positive": 994
+        },
+        "ece": 0.022882,
+        "f1": 0.868502,
+        "log_loss": 0.293483,
+        "mean_predicted": 0.559825,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.962306,
+        "precision": 0.940397,
+        "prevalence": 0.574091,
+        "recall": 0.806818,
+        "roc_auc": 0.945688,
+        "sensitivity": 0.806818,
+        "specificity": 0.931072,
+        "threshold": 0.627989
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.945614,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.935794,
+        "p97_5": 0.954626,
+        "standard_error": 0.00473,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9456879280456961
+    },
+    {
+      "arm": "fusion@cnn+gbm+rff36",
+      "blender": "logistic regression on the members' log-odds",
+      "blender_coefficients": {
+        "deep": 0.300538,
+        "rff36": -0.123605,
+        "tabular": 0.611858
+      },
+      "blender_intercept": 0.275966,
+      "inner_roc_auc": 0.9564452628905258,
+      "kind": "classical_fusion",
+      "members": [
+        "deep",
+        "tabular",
+        "rff36"
+      ],
+      "sensitivity_at_fixed_specificity": {
+        "achieved_specificity": 0.9026,
+        "sensitivity": 0.8425,
+        "target_specificity": 0.9,
+        "threshold": 0.5228711957718469
+      },
+      "threshold": {
+        "selected_on": "TRAIN fold 8, blended from members that never saw it",
+        "threshold": 0.523383,
+        "train_out_of_fold_balanced_accuracy": 0.888165
+      },
+      "validation": {
+        "accuracy": 0.867661,
+        "balanced_accuracy": 0.872173,
+        "brier": 0.092692,
+        "confusion_matrix": {
+          "false_negative": 195,
+          "false_positive": 89,
+          "threshold": 0.523383,
+          "true_negative": 825,
+          "true_positive": 1037
+        },
+        "ece": 0.018212,
+        "f1": 0.879559,
+        "log_loss": 0.29341,
+        "mean_predicted": 0.558675,
+        "n_negative": 914,
+        "n_positive": 1232,
+        "n_samples": 2146,
+        "pr_auc": 0.962617,
+        "precision": 0.920959,
+        "prevalence": 0.574091,
+        "recall": 0.841721,
+        "roc_auc": 0.945662,
+        "sensitivity": 0.841721,
+        "specificity": 0.902626,
+        "threshold": 0.523383
+      },
+      "validation_bootstrap_roc_auc": {
+        "mean": 0.945593,
+        "measured": true,
+        "n_draws_requested": 2000,
+        "n_draws_usable": 2000,
+        "p2_5": 0.935692,
+        "p97_5": 0.954599,
+        "standard_error": 0.004711,
+        "unit": "patient (resampled with replacement)"
+      },
+      "validation_roc_auc": 0.9456621742590015
+    }
+  ],
+  "bootstrap_draws": 2000,
+  "cache_version": "ptbxl-ecg-1",
+  "cohort": {
+    "inner_validation_records": 2129,
+    "train": {
+      "n_negative": 7243,
+      "n_patients": 14823,
+      "n_positive": 9841,
+      "n_records": 17084,
+      "partition": "TRAIN",
+      "prevalence": 0.576036,
+      "strat_folds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "validation": {
+      "n_negative": 914,
+      "n_patients": 1917,
+      "n_positive": 1232,
+      "n_records": 2146,
+      "partition": "VALIDATION",
+      "prevalence": 0.574091,
+      "strat_folds": [
+        9
+      ]
+    }
+  },
+  "comparisons": {
+    "HEADLINE_quantum_fusion_vs_same_shape_classical_fusion": {
+      "excludes_zero": false,
+      "mean_delta": 0.000641,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": 0.000641,
+      "p2_5": -0.000486,
+      "p97_5": 0.001747,
+      "standard_error": 0.000563,
+      "unit": "patient (paired, same resamples for both models)"
+    },
+    "fusion_with_poly2_vs_bar": {
+      "excludes_zero": false,
+      "mean_delta": -0.000606,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": -0.000605,
+      "p2_5": -0.001678,
+      "p97_5": 0.00051,
+      "standard_error": 0.00056,
+      "unit": "patient (paired, same resamples for both models)"
+    },
+    "fusion_with_rff36_vs_bar": {
+      "excludes_zero": false,
+      "mean_delta": -0.000626,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": -0.000631,
+      "p2_5": -0.001341,
+      "p97_5": 8.6e-05,
+      "standard_error": 0.000371,
+      "unit": "patient (paired, same resamples for both models)"
+    },
+    "fusion_with_zz_vs_bar": {
+      "excludes_zero": false,
+      "mean_delta": 3.5e-05,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": 3.6e-05,
+      "p2_5": -7e-05,
+      "p97_5": 0.000143,
+      "standard_error": 5.4e-05,
+      "unit": "patient (paired, same resamples for both models)"
+    },
+    "single_arm_zz_vs_poly2": {
+      "excludes_zero": true,
+      "mean_delta": -0.124638,
+      "measured": true,
+      "n_draws_requested": 2000,
+      "n_draws_usable": 2000,
+      "observed_delta": -0.124457,
+      "p2_5": -0.145524,
+      "p97_5": -0.105109,
+      "standard_error": 0.010211,
+      "unit": "patient (paired, same resamples for both models)"
+    }
+  },
+  "entangling_witness": {
+    "1": {
+      "floor": 0.001,
+      "is_entangling": false,
+      "max_abs_connected_correlation": 0.0,
+      "mean_abs_connected_correlation": 0.0,
+      "n_samples": 256,
+      "reps": 1
+    },
+    "2": {
+      "floor": 0.001,
+      "is_entangling": true,
+      "max_abs_connected_correlation": 0.71480617,
+      "mean_abs_connected_correlation": 0.07320875,
+      "n_samples": 256,
+      "reps": 2
+    }
+  },
+  "feature_set_version": "ecg-v1",
+  "map_validation": {
+    "1": {
+      "circuit_vs_qiskit_zzmap": {
+        "checked": true,
+        "max_infidelity": 6.661338147750939e-16,
+        "n_samples_checked": 8,
+        "passed": true,
+        "reps": 1,
+        "tolerance": 1e-10
+      },
+      "readout_vs_aer": {
+        "max_abs_deviation": 1.8041124150158794e-16,
+        "n_observables": 36,
+        "n_samples_checked": 8,
+        "passed": true,
+        "reps": 1,
+        "tolerance": 1e-10
+      }
+    },
+    "2": {
+      "circuit_vs_qiskit_zzmap": {
+        "checked": true,
+        "max_infidelity": 9.992007221626409e-16,
+        "n_samples_checked": 8,
+        "passed": true,
+        "reps": 2,
+        "tolerance": 1e-10
+      },
+      "readout_vs_aer": {
+        "max_abs_deviation": 1.1102230246251565e-15,
+        "n_observables": 36,
+        "n_samples_checked": 8,
+        "passed": true,
+        "reps": 2,
+        "tolerance": 1e-10
+      }
+    }
+  },
+  "members": {
+    "deep_architecture": "resnet_small",
+    "deep_epoch": 17,
+    "deep_inner_roc_auc": 0.946739,
+    "deep_validation_roc_auc": 0.9404758944556537,
+    "reproduced_from_cache": false,
+    "tabular_selected_params": {
+      "learning_rate": 0.05,
+      "max_iter": 400,
+      "max_leaf_nodes": 31
+    },
+    "tabular_validation_roc_auc": 0.9402343416976896
+  },
+  "protocol": {
+    "ecg_id_overlap": 0,
+    "inner_validation_fold": 8,
+    "patient_overlap": 0,
+    "pca_sees_fold_8": true,
+    "pca_sees_fold_9": false,
+    "representation": "ecg-fit-1 PCA-8, fitted on folds 1-8 only",
+    "same_shape_contract": "every map is R^8 -> R^36 with zero trainable parameters, followed by an identical logistic head and an identical C grid",
+    "search_budget_cells_per_family": {
+      "poly2": 4,
+      "rff36": 4,
+      "zz": 4
+    },
+    "test_partition_used": false,
+    "train_folds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "validation_folds": [
+      9
+    ],
+    "zz_reps_excluded_structurally": [
+      1
+    ],
+    "zz_reps_exclusion_reason": "After the single Hadamard layer a Havlicek block is entirely diagonal, so |psi|^2 stays uniform and all 36 Z-observables are identically zero at reps=1. Excluded on that proof before any arm was scored, not on a measured ROC-AUC; the entangling_witness block records the measurement.",
+    "zz_reps_scored": [
+      2
+    ]
+  },
+  "quantum_version": "v1-e4-quantum-1",
+  "recorded_bar": {
+    "arm": "fusion@cnn+gbm",
+    "recomputed_roc_auc": 0.9462926980022166,
+    "recorded_roc_auc": 0.9462926980022166,
+    "reproduces": true
+  },
+  "seed": 42,
+  "signal_cache_version": null,
+  "test_partition_used": false,
+  "total_seconds": 7127.9,
+  "verdict": {
+    "ci": [
+      -0.000486,
+      0.001747
+    ],
+    "clears_absolute_bar": true,
+    "conclusion": "NULL: the paired interval spans zero, so the quantum map contributed nothing a same-shape classical map did not. Per Section 7.10 this is the conclusion regardless of how either arm scores against the absolute bar.",
+    "headline_comparison": "fusion@cnn+gbm+zz minus fusion@cnn+gbm+poly2",
+    "observed_delta": 0.000641,
+    "pre_registered_in": "docs/PHASE_E4_DATA_EXPANSION.md Section 7.10",
+    "quantum_beats_same_shape_classical_fusion": false
+  }
+}

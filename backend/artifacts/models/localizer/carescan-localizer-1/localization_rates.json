@@ -1,0 +1,178 @@
+{
+  "localizer_version": "carescan-localizer-1",
+  "min_confidence": 0.3,
+  "partitions": {
+    "train": {
+      "all_images": {
+        "n_images": 1692,
+        "localized": 1620,
+        "fallback_used": 72,
+        "rejected": 0,
+        "localization_rate": 0.9574,
+        "fallback_rate": 0.0426,
+        "rejection_rate": 0.0,
+        "failure_reasons": {
+          "low_confidence": 72
+        },
+        "confidence": {
+          "mean": 0.5846,
+          "min": 0.1428,
+          "max": 0.9398,
+          "median": 0.5831
+        },
+        "iou": {
+          "mean": 0.6886,
+          "median": 0.7375,
+          "at_least_0.25": 0.974,
+          "at_least_0.5": 0.8385,
+          "at_least_0.75": 0.4531
+        }
+      },
+      "lesion_annotated": {
+        "n_images": 214,
+        "localized": 192,
+        "fallback_used": 22,
+        "rejected": 0,
+        "localization_rate": 0.8972,
+        "fallback_rate": 0.1028,
+        "rejection_rate": 0.0,
+        "failure_reasons": {
+          "low_confidence": 22
+        },
+        "confidence": {
+          "mean": 0.6322,
+          "min": 0.1428,
+          "max": 0.9398,
+          "median": 0.6864
+        },
+        "iou": {
+          "mean": 0.6886,
+          "median": 0.7375,
+          "at_least_0.25": 0.974,
+          "at_least_0.5": 0.8385,
+          "at_least_0.75": 0.4531
+        }
+      },
+      "not_annotated": {
+        "n_images": 1477,
+        "localized": 1427,
+        "fallback_used": 50,
+        "rejected": 0,
+        "localization_rate": 0.9661,
+        "fallback_rate": 0.0339,
+        "rejection_rate": 0.0,
+        "failure_reasons": {
+          "low_confidence": 50
+        },
+        "confidence": {
+          "mean": 0.5775,
+          "min": 0.1808,
+          "max": 0.9135,
+          "median": 0.572
+        }
+      },
+      "unusable_annotation": {
+        "n_images": 1,
+        "localized": 1,
+        "fallback_used": 0,
+        "rejected": 0,
+        "localization_rate": 1.0,
+        "fallback_rate": 0.0,
+        "rejection_rate": 0.0,
+        "failure_reasons": {},
+        "confidence": {
+          "mean": 0.8317,
+          "min": 0.8317,
+          "max": 0.8317,
+          "median": 0.8317
+        }
+      },
+      "unreadable_images": {}
+    },
+    "validation": {
+      "all_images": {
+        "n_images": 363,
+        "localized": 353,
+        "fallback_used": 10,
+        "rejected": 0,
+        "localization_rate": 0.9725,
+        "fallback_rate": 0.0275,
+        "rejection_rate": 0.0,
+        "failure_reasons": {
+          "low_confidence": 10
+        },
+        "confidence": {
+          "mean": 0.5829,
+          "min": 0.2029,
+          "max": 0.9234,
+          "median": 0.5686
+        },
+        "iou": {
+          "mean": 0.5285,
+          "median": 0.5656,
+          "at_least_0.25": 0.96,
+          "at_least_0.5": 0.58,
+          "at_least_0.75": 0.16
+        }
+      },
+      "lesion_annotated": {
+        "n_images": 50,
+        "localized": 50,
+        "fallback_used": 0,
+        "rejected": 0,
+        "localization_rate": 1.0,
+        "fallback_rate": 0.0,
+        "rejection_rate": 0.0,
+        "failure_reasons": {},
+        "confidence": {
+          "mean": 0.6028,
+          "min": 0.3152,
+          "max": 0.8844,
+          "median": 0.6128
+        },
+        "iou": {
+          "mean": 0.5285,
+          "median": 0.5656,
+          "at_least_0.25": 0.96,
+          "at_least_0.5": 0.58,
+          "at_least_0.75": 0.16
+        }
+      },
+      "not_annotated": {
+        "n_images": 311,
+        "localized": 301,
+        "fallback_used": 10,
+        "rejected": 0,
+        "localization_rate": 0.9678,
+        "fallback_rate": 0.0322,
+        "rejection_rate": 0.0,
+        "failure_reasons": {
+          "low_confidence": 10
+        },
+        "confidence": {
+          "mean": 0.5798,
+          "min": 0.2029,
+          "max": 0.9234,
+          "median": 0.5588
+        }
+      },
+      "unusable_annotation": {
+        "n_images": 2,
+        "localized": 2,
+        "fallback_used": 0,
+        "rejected": 0,
+        "localization_rate": 1.0,
+        "fallback_rate": 0.0,
+        "rejection_rate": 0.0,
+        "failure_reasons": {},
+        "confidence": {
+          "mean": 0.5741,
+          "min": 0.5175,
+          "max": 0.6307,
+          "median": 0.5741
+        }
+      },
+      "unreadable_images": {}
+    }
+  }
+}

@@ -67,6 +67,19 @@ class RoiSource(str, Enum):
     REGION_POLYGON = "region_polygon"
     CENTER_CROP = "center_crop"
     FULL_IMAGE = "full_image"
+    PREDICTED = "predicted"
+    """Output of the trained MobileNet localiser, accepted at its confidence."""
+    PREDICTED_REJECTED = "predicted_rejected"
+    """The localiser ran and its output was **not** usable.
+
+    A distinct value from :attr:`CENTER_CROP` on purpose. Both end up cropping the
+    centre, but they mean different things: ``CENTER_CROP`` is the documented
+    fallback for an image that was never localised, whereas this records that
+    localisation was attempted and failed its acceptance checks. Collapsing the two
+    would make a localisation failure indistinguishable from a normal fallback in
+    the statistics, which is the specific thing evaluation condition C has to
+    isolate.
+    """
 
 
 class RoiResult(BaseModel):

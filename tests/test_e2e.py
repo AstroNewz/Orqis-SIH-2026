@@ -246,6 +246,50 @@ def test_e2e_clinical_flags_change_the_result(model_info):
     assert not_collected != no_factors
 
 
+def test_e2e_primary_verdict_headlines_the_validated_classical_band(model_info):
+    """The displayed verdict is the strongest validated model's band (DEC-034).
+
+    On this dataset the classical baseline ranks above the quantum VQC, so its two-band
+    ranking verdict is what the client headlines. That score is not calibrated, so the
+    reported probability stays the quantum calibrated one: nothing uncalibrated is
+    presented as a percentage, and the persisted number remains coherent with the band
+    it was derived from.
+    """
+    dimension = model_info["expected_descriptor_dimension"]
+    descriptor = np.random.RandomState(7).uniform(0.0, 1.0, size=dimension).tolist()
+    response = client.post(
+        "/api/screening/analyze",
+        json={
+            "patient_id": "patient-e2e-primary",
+            "image_path": "on-device",
+            "features": descriptor,
+        },
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    # The calibrated quantum number and its band are still internally coherent.
+    _assert_coherent_probability(body)
+
+    if body.get("primaryModel") in (None, "quantum_vqc_calibrated"):
+        pytest.skip("This model version is served without a classical baseline.")
+
+    # A classical baseline is headlining, honestly labelled as an uncalibrated ranking.
+    assert body["primaryModel"] == "logistic_regression"
+    assert body["primaryCalibrated"] is False
+    assert body["classicalProbability"] is not None
+    assert 0.0 <= body["primaryProbability"] <= 1.0
+    assert 0.0 < body["primaryThreshold"] < 1.0
+    # Two bands only: a pure function of the ranking score against its operating point.
+    expected = (
+        "MODERATE RISK"
+        if body["primaryProbability"] >= body["primaryThreshold"]
+        else "LOW RISK"
+    )
+    assert body["primaryRiskLevel"] == expected
+    # The calibrated probability reported is the quantum one, not the classical score.
+    assert body["finalProbability"] == pytest.approx(body["quantumProbability"])
+
+
 # --------------------------------------------------------------- history + FHIR
 def test_e2e_history_and_fhir(model_info):
     """Two screenings for one patient, then history and FHIR export."""

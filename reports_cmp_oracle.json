@@ -1,0 +1,434 @@
+{
+  "comparison_version": "v1-pixel-comparison-1",
+  "roi_mode": "oracle",
+  "partition": "validation",
+  "test_partition_used": false,
+  "amplitudes_per_state": 65536,
+  "n_qubits": 16,
+  "alignment_note": "Classical and quantum metrics on each row are computed over the same image ids, so prevalence is identical and PR-AUC is comparable. Numbers across different conditions are not comparable to each other, because their prevalences differ.",
+  "classical_reference": {
+    "model_version": "v1-handcrafted",
+    "input": "181 fused descriptor + clinical features, PCA-reduced",
+    "rebuilt_from": "baselines.json"
+  },
+  "conditions": [
+    {
+      "condition": "A_all",
+      "description": "Condition A: every row of the oracle cache, whichever annotation supplied the ROI. Confounded by annotation practice -- see the subdivisions.",
+      "partition": "validation",
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_patients": 50,
+      "prevalence": 0.057851,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 363,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 363,
+            "n_positive": 21,
+            "n_negative": 342,
+            "prevalence": 0.057851,
+            "threshold": 0.5,
+            "accuracy": 0.92562,
+            "precision": 0.4375,
+            "recall": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 0.921053,
+            "f1": 0.608696,
+            "balanced_accuracy": 0.960526,
+            "roc_auc": 0.965608,
+            "pr_auc": 0.587325,
+            "brier": 0.070742,
+            "log_loss": 0.243064,
+            "ece": 0.132113,
+            "mean_predicted": 0.189964,
+            "confusion_matrix": {
+              "true_positive": 21,
+              "false_positive": 27,
+              "true_negative": 315,
+              "false_negative": 0,
+              "threshold": 0.5
+            }
+          }
+        },
+        "random_forest": {
+          "n_scored": 363,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 363,
+            "n_positive": 21,
+            "n_negative": 342,
+            "prevalence": 0.057851,
+            "threshold": 0.5,
+            "accuracy": 0.947658,
+            "precision": 0.5625,
+            "recall": 0.428571,
+            "sensitivity": 0.428571,
+            "specificity": 0.979532,
+            "f1": 0.486486,
+            "balanced_accuracy": 0.704052,
+            "roc_auc": 0.963659,
+            "pr_auc": 0.636768,
+            "brier": 0.04559,
+            "log_loss": 0.186744,
+            "ece": 0.100395,
+            "mean_predicted": 0.153131,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 7,
+              "true_negative": 335,
+              "false_negative": 12,
+              "threshold": 0.5
+            }
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 363,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 363,
+            "n_positive": 21,
+            "n_negative": 342,
+            "prevalence": 0.057851,
+            "threshold": 0.5,
+            "accuracy": 0.947658,
+            "precision": 0.545455,
+            "recall": 0.571429,
+            "sensitivity": 0.571429,
+            "specificity": 0.97076,
+            "f1": 0.55814,
+            "balanced_accuracy": 0.771094,
+            "roc_auc": 0.965052,
+            "pr_auc": 0.598644,
+            "brier": 0.034755,
+            "log_loss": 0.113085,
+            "ece": 0.026389,
+            "mean_predicted": 0.065588,
+            "confusion_matrix": {
+              "true_positive": 12,
+              "false_positive": 10,
+              "true_negative": 332,
+              "false_negative": 9,
+              "threshold": 0.5
+            }
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "oracle_A_all_pixel_vqc.json",
+        "selected_label": "oracle/A_all/spsa/L1/it50/s42",
+        "weights_trained_on_condition": "A_all",
+        "own_condition_artifact": true,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": {
+          "n_samples": 363,
+          "n_positive": 21,
+          "n_negative": 342,
+          "prevalence": 0.057851,
+          "threshold": 0.5,
+          "accuracy": 0.837466,
+          "precision": 0.104167,
+          "recall": 0.238095,
+          "sensitivity": 0.238095,
+          "specificity": 0.874269,
+          "f1": 0.144928,
+          "balanced_accuracy": 0.556182,
+          "roc_auc": 0.583681,
+          "pr_auc": 0.087802,
+          "brier": 0.248602,
+          "log_loss": 0.690351,
+          "ece": 0.440611,
+          "mean_predicted": 0.498462,
+          "confusion_matrix": {
+            "true_positive": 5,
+            "false_positive": 43,
+            "true_negative": 299,
+            "false_negative": 16,
+            "threshold": 0.5
+          }
+        },
+        "reported_pr_auc_at_training_time": 0.087802,
+        "rescoring_matches_training_artifact": true,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      }
+    },
+    {
+      "condition": "A_center_crop",
+      "description": "Condition A rows with no annotation at all, cropped by the documented centre-crop fallback. Not an oracle ROI in any meaningful sense.",
+      "partition": "validation",
+      "n_samples": 126,
+      "n_positive": 0,
+      "n_patients": 20,
+      "prevalence": 0.0,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 126,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        },
+        "random_forest": {
+          "n_scored": 126,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        },
+        "gradient_boosting": {
+          "n_scored": 126,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        }
+      },
+      "quantum": {
+        "artifact": "oracle_A_lesion_polygon_pixel_vqc.json",
+        "selected_label": "oracle/A_lesion_polygon/spsa/L1/it100/s42",
+        "weights_trained_on_condition": "A_lesion_polygon",
+        "own_condition_artifact": false,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": null,
+        "reported_pr_auc_at_training_time": null,
+        "rescoring_matches_training_artifact": null,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      },
+      "quantum_note": "No pixel VQC was trained on A_center_crop; the model trained on A_lesion_polygon was applied to these rows. This is the deployed behaviour for a condition that cannot be selected on, and the rows stay separately identifiable rather than being merged into the A_lesion_polygon statistic."
+    },
+    {
+      "condition": "A_lesion_polygon",
+      "description": "Condition A restricted to annotator lesion boxes: the tightest oracle ROI and the only one that isolates the lesion.",
+      "partition": "validation",
+      "n_samples": 52,
+      "n_positive": 21,
+      "n_patients": 25,
+      "prevalence": 0.403846,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 52,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.788462,
+            "precision": 0.65625,
+            "recall": 1.0,
+            "sensitivity": 1.0,
+            "specificity": 0.645161,
+            "f1": 0.792453,
+            "balanced_accuracy": 0.822581,
+            "roc_auc": 0.83871,
+            "pr_auc": 0.742846,
+            "brier": 0.192154,
+            "log_loss": 0.610103,
+            "ece": 0.200857,
+            "mean_predicted": 0.592592,
+            "confusion_matrix": {
+              "true_positive": 21,
+              "false_positive": 11,
+              "true_negative": 20,
+              "false_negative": 0,
+              "threshold": 0.5
+            }
+          }
+        },
+        "random_forest": {
+          "n_scored": 52,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.692308,
+            "precision": 0.692308,
+            "recall": 0.428571,
+            "sensitivity": 0.428571,
+            "specificity": 0.870968,
+            "f1": 0.529412,
+            "balanced_accuracy": 0.64977,
+            "roc_auc": 0.847926,
+            "pr_auc": 0.790313,
+            "brier": 0.166377,
+            "log_loss": 0.497254,
+            "ece": 0.128588,
+            "mean_predicted": 0.362816,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 4,
+              "true_negative": 27,
+              "false_negative": 12,
+              "threshold": 0.5
+            }
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 52,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.75,
+            "precision": 0.75,
+            "recall": 0.571429,
+            "sensitivity": 0.571429,
+            "specificity": 0.870968,
+            "f1": 0.648649,
+            "balanced_accuracy": 0.721198,
+            "roc_auc": 0.863287,
+            "pr_auc": 0.768026,
+            "brier": 0.176798,
+            "log_loss": 0.559059,
+            "ece": 0.169746,
+            "mean_predicted": 0.305298,
+            "confusion_matrix": {
+              "true_positive": 12,
+              "false_positive": 4,
+              "true_negative": 27,
+              "false_negative": 9,
+              "threshold": 0.5
+            }
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "oracle_A_lesion_polygon_pixel_vqc.json",
+        "selected_label": "oracle/A_lesion_polygon/spsa/L1/it100/s42",
+        "weights_trained_on_condition": "A_lesion_polygon",
+        "own_condition_artifact": true,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": {
+          "n_samples": 52,
+          "n_positive": 21,
+          "n_negative": 31,
+          "prevalence": 0.403846,
+          "threshold": 0.5,
+          "accuracy": 0.576923,
+          "precision": 0.482759,
+          "recall": 0.666667,
+          "sensitivity": 0.666667,
+          "specificity": 0.516129,
+          "f1": 0.56,
+          "balanced_accuracy": 0.591398,
+          "roc_auc": 0.56682,
+          "pr_auc": 0.526376,
+          "brier": 0.249324,
+          "log_loss": 0.691794,
+          "ece": 0.096342,
+          "mean_predicted": 0.500188,
+          "confusion_matrix": {
+            "true_positive": 14,
+            "false_positive": 15,
+            "true_negative": 16,
+            "false_negative": 7,
+            "threshold": 0.5
+          }
+        },
+        "reported_pr_auc_at_training_time": 0.526376,
+        "rescoring_matches_training_artifact": true,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      }
+    },
+    {
+      "condition": "A_region_polygon",
+      "description": "Condition A restricted to annotator region boxes, which cover ~97% of the frame and are almost entirely normal mucosa.",
+      "partition": "validation",
+      "n_samples": 185,
+      "n_positive": 0,
+      "n_patients": 28,
+      "prevalence": 0.0,
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 185,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        },
+        "random_forest": {
+          "n_scored": 185,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        },
+        "gradient_boosting": {
+          "n_scored": 185,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": null
+        }
+      },
+      "quantum": {
+        "artifact": "oracle_A_lesion_polygon_pixel_vqc.json",
+        "selected_label": "oracle/A_lesion_polygon/spsa/L1/it100/s42",
+        "weights_trained_on_condition": "A_lesion_polygon",
+        "own_condition_artifact": false,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "metrics": null,
+        "reported_pr_auc_at_training_time": null,
+        "rescoring_matches_training_artifact": null,
+        "score_map": "(1 - <Z0>)/2, uncalibrated"
+      },
+      "quantum_note": "No pixel VQC was trained on A_region_polygon; the model trained on A_lesion_polygon was applied to these rows. This is the deployed behaviour for a condition that cannot be selected on, and the rows stay separately identifiable rather than being merged into the A_lesion_polygon statistic."
+    }
+  ],
+  "verdict": {
+    "per_condition": [
+      {
+        "condition": "A_all",
+        "n_samples": 363,
+        "n_positive": 21,
+        "prevalence": 0.057851,
+        "best_classical": "random_forest",
+        "best_classical_pr_auc": 0.636768,
+        "quantum_pr_auc": 0.087802,
+        "quantum_weights_trained_on": "A_all",
+        "quantum_weights_borrowed": false,
+        "quantum_beats_classical": false,
+        "margin": -0.548966
+      },
+      {
+        "condition": "A_center_crop",
+        "n_samples": 126,
+        "n_positive": 0,
+        "prevalence": 0.0,
+        "best_classical": null,
+        "best_classical_pr_auc": null,
+        "quantum_pr_auc": null,
+        "quantum_weights_trained_on": "A_lesion_polygon",
+        "quantum_weights_borrowed": true,
+        "quantum_beats_classical": null,
+        "margin": null
+      },
+      {
+        "condition": "A_lesion_polygon",
+        "n_samples": 52,
+        "n_positive": 21,
+        "prevalence": 0.403846,
+        "best_classical": "random_forest",
+        "best_classical_pr_auc": 0.790313,
+        "quantum_pr_auc": 0.526376,
+        "quantum_weights_trained_on": "A_lesion_polygon",
+        "quantum_weights_borrowed": false,
+        "quantum_beats_classical": false,
+        "margin": -0.263937
+      },
+      {
+        "condition": "A_region_polygon",
+        "n_samples": 185,
+        "n_positive": 0,
+        "prevalence": 0.0,
+        "best_classical": null,
+        "best_classical_pr_auc": null,
+        "quantum_pr_auc": null,
+        "quantum_weights_trained_on": "A_lesion_polygon",
+        "quantum_weights_borrowed": true,
+        "quantum_beats_classical": null,
+        "margin": null
+      }
+    ]
+  }
+}

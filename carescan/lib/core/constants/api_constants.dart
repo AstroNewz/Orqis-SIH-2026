@@ -47,7 +47,15 @@ class ApiConstants {
   // API Endpoints
   static const String analyzePath = '/api/screening/analyze';
   static const String uploadPath = '/api/screening/upload';
+  static const String localizePath = '/api/localize';
   static const String healthPath = '/health';
+
+  /// The platform track catalogue. Lists every screening track the backend knows
+  /// about, including the ones that are not ready, each with the validation
+  /// provenance behind its headline number.
+  static const String tracksPath = '/api/tracks';
+
+  static String trackDetailPath(String trackId) => '/api/tracks/$trackId';
 
   static String patientHistoryPath(String patientId) =>
       '/api/patients/$patientId/history';

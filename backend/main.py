@@ -8,7 +8,11 @@ from fastapi.responses import JSONResponse
 
 from backend.core.config import settings
 from backend.db.crud import init_db
+from backend.ml.tracks import install_default_tracks
+from backend.routes.auth_routes import router as auth_router, seed_clinic_admin
+from backend.routes.clinic_routes import router as clinic_router
 from backend.routes.screening_routes import router as screening_router
+from backend.routes.track_routes import router as track_router
 from backend.services.inference_service import get_inference_service
 
 logger = logging.getLogger(__name__)
@@ -19,6 +23,9 @@ async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown events."""
     # Initialize database tables on startup
     init_db()
+    # Create the portal account from env vars if one is configured. No-op otherwise,
+    # and never overwrites an existing account -- see seed_clinic_admin.
+    seed_clinic_admin()
     yield
 
 
@@ -59,6 +66,15 @@ async def audit_logging_middleware(request: Request, call_next):
 
 # Mount API routers
 app.include_router(screening_router)
+app.include_router(auth_router)
+app.include_router(clinic_router)
+
+# The multi-condition platform surface, mounted alongside the single-condition routes
+# above rather than in place of them. Registration is additive and idempotent; a track
+# whose artifacts are missing registers anyway and reports itself as unready, so a
+# partial deployment starts and serves whatever it does have.
+app.include_router(track_router)
+install_default_tracks()
 
 
 @app.get("/health", tags=["System"])

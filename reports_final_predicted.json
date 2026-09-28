@@ -1,0 +1,769 @@
+{
+  "final_test_version": "v1-pixel-final-test-1",
+  "created_at_utc": "2026-09-04T14:48:52.399924+00:00",
+  "roi_mode": "predicted",
+  "partition": "test",
+  "n_qubits": 16,
+  "amplitudes_per_state": 65536,
+  "nothing_selected_here": {
+    "quantum_threshold_source": "each artifact's validation-selected threshold",
+    "classical_threshold_source": "baselines.json:screening_threshold (selected on validation)",
+    "statement": "No threshold, depth, seed or calibration parameter was chosen using test rows. This module computes metrics from frozen artifacts."
+  },
+  "classical_reference": {
+    "model_version": "v1-handcrafted",
+    "input": "fused descriptor + clinical features, PCA-reduced",
+    "threshold": 0.5,
+    "records": {
+      "logistic_regression": {
+        "hyperparameters": {
+          "C": 0.01
+        },
+        "random_seed": 42,
+        "n_train_samples": 1692,
+        "n_train_positive": 104
+      },
+      "random_forest": {
+        "hyperparameters": {
+          "n_estimators": 600,
+          "max_depth": 12,
+          "min_samples_leaf": 4
+        },
+        "random_seed": 42,
+        "n_train_samples": 1692,
+        "n_train_positive": 104
+      },
+      "gradient_boosting": {
+        "hyperparameters": {
+          "n_estimators": 200,
+          "learning_rate": 0.1,
+          "max_depth": 3
+        },
+        "random_seed": 42,
+        "n_train_samples": 1692,
+        "n_train_positive": 104
+      }
+    },
+    "rebuilt_from": "baselines.json"
+  },
+  "alignment_note": "Within a condition, both paths are scored on the same image ids, so prevalence is identical and PR-AUC is comparable. Across conditions the prevalences differ and the numbers are not comparable to each other.",
+  "conditions": [
+    {
+      "condition": "B_and_C_all",
+      "description": "Conditions B and C together: what an end-to-end run actually sees. Reported alongside B and C, never instead of them.",
+      "partition": "test",
+      "n_samples": 381,
+      "n_positive": 18,
+      "n_negative": 363,
+      "n_patients": 48,
+      "prevalence": 0.047244,
+      "roi_geometry_leak": {
+        "roi_area_fraction_all": {
+          "n": 381,
+          "mean": 0.451772,
+          "sd": 0.150257,
+          "min": 0.142542,
+          "p05": 0.211195,
+          "median": 0.437988,
+          "p95": 0.700833,
+          "max": 0.850913
+        },
+        "roi_area_fraction_positive": {
+          "n": 18,
+          "mean": 0.455656,
+          "sd": 0.132486,
+          "min": 0.180701,
+          "p05": 0.225653,
+          "median": 0.447392,
+          "p95": 0.640538,
+          "max": 0.641422
+        },
+        "roi_area_fraction_negative": {
+          "n": 363,
+          "mean": 0.451579,
+          "sd": 0.151244,
+          "min": 0.142542,
+          "p05": 0.211339,
+          "median": 0.435139,
+          "p95": 0.707013,
+          "max": 0.850913
+        },
+        "roi_source_label_counts": {
+          "predicted": {
+            "n": 374,
+            "n_positive": 16
+          },
+          "predicted_rejected": {
+            "n": 7,
+            "n_positive": 2
+          }
+        },
+        "area_only_roc_auc": 0.4745944291398837,
+        "area_only_pr_auc": 0.04986518274813487,
+        "interpretation": "A high area-only ROC-AUC means the ROI selection rule already encodes the label, so any classifier reading these crops can score above chance without learning anything about tissue. Compare a model's ROC-AUC against this number, not against 0.5."
+      },
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 381,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 381,
+            "n_positive": 18,
+            "n_negative": 363,
+            "prevalence": 0.047244,
+            "threshold": 0.5,
+            "accuracy": 0.871391,
+            "precision": 0.22807,
+            "recall": 0.722222,
+            "sensitivity": 0.722222,
+            "specificity": 0.878788,
+            "f1": 0.346667,
+            "balanced_accuracy": 0.800505,
+            "roc_auc": 0.92562,
+            "pr_auc": 0.51253,
+            "brier": 0.090308,
+            "log_loss": 0.288913,
+            "ece": 0.14722,
+            "mean_predicted": 0.194464,
+            "confusion_matrix": {
+              "true_positive": 13,
+              "false_positive": 44,
+              "true_negative": 319,
+              "false_negative": 5,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        },
+        "random_forest": {
+          "n_scored": 381,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 381,
+            "n_positive": 18,
+            "n_negative": 363,
+            "prevalence": 0.047244,
+            "threshold": 0.5,
+            "accuracy": 0.96063,
+            "precision": 0.615385,
+            "recall": 0.444444,
+            "sensitivity": 0.444444,
+            "specificity": 0.986226,
+            "f1": 0.516129,
+            "balanced_accuracy": 0.715335,
+            "roc_auc": 0.941077,
+            "pr_auc": 0.575009,
+            "brier": 0.041724,
+            "log_loss": 0.172782,
+            "ece": 0.093169,
+            "mean_predicted": 0.136939,
+            "confusion_matrix": {
+              "true_positive": 8,
+              "false_positive": 5,
+              "true_negative": 358,
+              "false_negative": 10,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 381,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 381,
+            "n_positive": 18,
+            "n_negative": 363,
+            "prevalence": 0.047244,
+            "threshold": 0.5,
+            "accuracy": 0.955381,
+            "precision": 0.529412,
+            "recall": 0.5,
+            "sensitivity": 0.5,
+            "specificity": 0.977961,
+            "f1": 0.514286,
+            "balanced_accuracy": 0.738981,
+            "roc_auc": 0.93266,
+            "pr_auc": 0.562539,
+            "brier": 0.030477,
+            "log_loss": 0.110955,
+            "ece": 0.016755,
+            "mean_predicted": 0.054827,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 8,
+              "true_negative": 355,
+              "false_negative": 9,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "predicted_B_localized_pixel_vqc.json",
+        "artifact_sha256": "b34d79b4170c5fda912e354da9d16c14e7b3f6f089721636b2d085b1fc110576",
+        "weights_trained_on_condition": "B_localized",
+        "own_condition_artifact": false,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "n_qubits": 16,
+        "amplitudes_per_state": 65536,
+        "threshold": 0.4998809393290397,
+        "threshold_source": "predicted_B_localized_pixel_vqc.json:validation_selection.threshold.selected.threshold (validation partition only)",
+        "validation_operating_point": {
+          "target_sensitivity": 0.85,
+          "threshold": 0.4998809393290397,
+          "sensitivity": 0.8571,
+          "specificity": 0.3886,
+          "precision": 0.0814,
+          "n_flagged": 221,
+          "false_negative": 3
+        },
+        "score_map": "(1 - <Z0>)/2, uncalibrated",
+        "metrics": {
+          "n_samples": 381,
+          "n_positive": 18,
+          "n_negative": 363,
+          "prevalence": 0.047244,
+          "threshold": 0.4998809393290397,
+          "accuracy": 0.406824,
+          "precision": 0.051724,
+          "recall": 0.666667,
+          "sensitivity": 0.666667,
+          "specificity": 0.393939,
+          "f1": 0.096,
+          "balanced_accuracy": 0.530303,
+          "roc_auc": 0.524717,
+          "pr_auc": 0.052155,
+          "brier": 0.250401,
+          "log_loss": 0.69395,
+          "ece": 0.453209,
+          "mean_predicted": 0.500454,
+          "confusion_matrix": {
+            "true_positive": 12,
+            "false_positive": 220,
+            "true_negative": 143,
+            "false_negative": 6,
+            "threshold": 0.4998809393290397
+          },
+          "notes": [
+            "Only 18 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+          ]
+        },
+        "score_distribution": {
+          "min": 0.495622,
+          "max": 0.5084,
+          "mean": 0.500454,
+          "std": 0.001888
+        }
+      },
+      "quantum_note": "No pixel VQC was trained on B_and_C_all; the model trained on B_localized was applied to these rows, which is what the deployed pipeline does. The rows remain a separate entry and are not merged into the B_localized statistic."
+    },
+    {
+      "condition": "B_localized",
+      "description": "Condition B: the frozen localiser produced a box that passed its acceptance checks. The deployable path.",
+      "partition": "test",
+      "n_samples": 374,
+      "n_positive": 16,
+      "n_negative": 358,
+      "n_patients": 48,
+      "prevalence": 0.042781,
+      "roi_geometry_leak": {
+        "roi_area_fraction_all": {
+          "n": 374,
+          "mean": 0.448248,
+          "sd": 0.14941,
+          "min": 0.142542,
+          "p05": 0.210549,
+          "median": 0.432201,
+          "p95": 0.703237,
+          "max": 0.850913
+        },
+        "roi_area_fraction_positive": {
+          "n": 16,
+          "mean": 0.432595,
+          "sd": 0.121604,
+          "min": 0.180701,
+          "p05": 0.220364,
+          "median": 0.444617,
+          "p95": 0.596598,
+          "max": 0.641422
+        },
+        "roi_area_fraction_negative": {
+          "n": 358,
+          "mean": 0.448948,
+          "sd": 0.150635,
+          "min": 0.142542,
+          "p05": 0.210918,
+          "median": 0.430857,
+          "p95": 0.707745,
+          "max": 0.850913
+        },
+        "roi_source_label_counts": {
+          "predicted": {
+            "n": 374,
+            "n_positive": 16
+          }
+        },
+        "area_only_roc_auc": 0.5129189944134078,
+        "area_only_pr_auc": 0.04964496374648053,
+        "interpretation": "A high area-only ROC-AUC means the ROI selection rule already encodes the label, so any classifier reading these crops can score above chance without learning anything about tissue. Compare a model's ROC-AUC against this number, not against 0.5."
+      },
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 374,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 374,
+            "n_positive": 16,
+            "n_negative": 358,
+            "prevalence": 0.042781,
+            "threshold": 0.5,
+            "accuracy": 0.871658,
+            "precision": 0.214286,
+            "recall": 0.75,
+            "sensitivity": 0.75,
+            "specificity": 0.877095,
+            "f1": 0.333333,
+            "balanced_accuracy": 0.813547,
+            "roc_auc": 0.930517,
+            "pr_auc": 0.539598,
+            "brier": 0.09063,
+            "log_loss": 0.290088,
+            "ece": 0.151836,
+            "mean_predicted": 0.194617,
+            "confusion_matrix": {
+              "true_positive": 12,
+              "false_positive": 44,
+              "true_negative": 314,
+              "false_negative": 4,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 16 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        },
+        "random_forest": {
+          "n_scored": 374,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 374,
+            "n_positive": 16,
+            "n_negative": 358,
+            "prevalence": 0.042781,
+            "threshold": 0.5,
+            "accuracy": 0.965241,
+            "precision": 0.615385,
+            "recall": 0.5,
+            "sensitivity": 0.5,
+            "specificity": 0.986034,
+            "f1": 0.551724,
+            "balanced_accuracy": 0.743017,
+            "roc_auc": 0.940468,
+            "pr_auc": 0.592556,
+            "brier": 0.040221,
+            "log_loss": 0.169612,
+            "ece": 0.097447,
+            "mean_predicted": 0.136689,
+            "confusion_matrix": {
+              "true_positive": 8,
+              "false_positive": 5,
+              "true_negative": 353,
+              "false_negative": 8,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 16 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 374,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 374,
+            "n_positive": 16,
+            "n_negative": 358,
+            "prevalence": 0.042781,
+            "threshold": 0.5,
+            "accuracy": 0.959893,
+            "precision": 0.529412,
+            "recall": 0.5625,
+            "sensitivity": 0.5625,
+            "specificity": 0.977654,
+            "f1": 0.545455,
+            "balanced_accuracy": 0.770077,
+            "roc_auc": 0.929993,
+            "pr_auc": 0.573461,
+            "brier": 0.027259,
+            "log_loss": 0.103081,
+            "ece": 0.0158,
+            "mean_predicted": 0.054971,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 8,
+              "true_negative": 350,
+              "false_negative": 7,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 16 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "predicted_B_localized_pixel_vqc.json",
+        "artifact_sha256": "b34d79b4170c5fda912e354da9d16c14e7b3f6f089721636b2d085b1fc110576",
+        "weights_trained_on_condition": "B_localized",
+        "own_condition_artifact": true,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "n_qubits": 16,
+        "amplitudes_per_state": 65536,
+        "threshold": 0.4998809393290397,
+        "threshold_source": "predicted_B_localized_pixel_vqc.json:validation_selection.threshold.selected.threshold (validation partition only)",
+        "validation_operating_point": {
+          "target_sensitivity": 0.85,
+          "threshold": 0.4998809393290397,
+          "sensitivity": 0.8571,
+          "specificity": 0.3886,
+          "precision": 0.0814,
+          "n_flagged": 221,
+          "false_negative": 3
+        },
+        "score_map": "(1 - <Z0>)/2, uncalibrated",
+        "metrics": {
+          "n_samples": 374,
+          "n_positive": 16,
+          "n_negative": 358,
+          "prevalence": 0.042781,
+          "threshold": 0.4998809393290397,
+          "accuracy": 0.403743,
+          "precision": 0.044053,
+          "recall": 0.625,
+          "sensitivity": 0.625,
+          "specificity": 0.393855,
+          "f1": 0.082305,
+          "balanced_accuracy": 0.509427,
+          "roc_auc": 0.50096,
+          "pr_auc": 0.043516,
+          "brier": 0.250417,
+          "log_loss": 0.693982,
+          "ece": 0.45767,
+          "mean_predicted": 0.500451,
+          "confusion_matrix": {
+            "true_positive": 10,
+            "false_positive": 217,
+            "true_negative": 141,
+            "false_negative": 6,
+            "threshold": 0.4998809393290397
+          },
+          "notes": [
+            "Only 16 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+          ]
+        },
+        "score_distribution": {
+          "min": 0.495622,
+          "max": 0.5084,
+          "mean": 0.500451,
+          "std": 0.001895
+        }
+      }
+    },
+    {
+      "condition": "C_fallback",
+      "description": "Condition C: localisation ran and was rejected, so the documented fallback crop was used. Kept identifiable, never merged into B.",
+      "partition": "test",
+      "n_samples": 7,
+      "n_positive": 2,
+      "n_negative": 5,
+      "n_patients": 6,
+      "prevalence": 0.285714,
+      "roi_geometry_leak": {
+        "roi_area_fraction_all": {
+          "n": 7,
+          "mean": 0.640032,
+          "sd": 0.00035,
+          "min": 0.639519,
+          "p05": 0.63958,
+          "median": 0.64,
+          "p95": 0.640444,
+          "max": 0.640471
+        },
+        "roi_area_fraction_positive": {
+          "n": 2,
+          "mean": 0.640139,
+          "sd": 0.000343,
+          "min": 0.639897,
+          "p05": 0.639921,
+          "median": 0.640139,
+          "p95": 0.640358,
+          "max": 0.640382
+        },
+        "roi_area_fraction_negative": {
+          "n": 5,
+          "mean": 0.639989,
+          "sd": 0.000382,
+          "min": 0.639519,
+          "p05": 0.63956,
+          "median": 0.64,
+          "p95": 0.640423,
+          "max": 0.640471
+        },
+        "roi_source_label_counts": {
+          "predicted_rejected": {
+            "n": 7,
+            "n_positive": 2
+          }
+        },
+        "area_only_roc_auc": 0.39999999999999997,
+        "area_only_pr_auc": 0.3333333333333333,
+        "interpretation": "A high area-only ROC-AUC means the ROI selection rule already encodes the label, so any classifier reading these crops can score above chance without learning anything about tissue. Compare a model's ROC-AUC against this number, not against 0.5."
+      },
+      "classical": {
+        "logistic_regression": {
+          "n_scored": 7,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 7,
+            "n_positive": 2,
+            "n_negative": 5,
+            "prevalence": 0.285714,
+            "threshold": 0.5,
+            "accuracy": 0.857143,
+            "precision": 1.0,
+            "recall": 0.5,
+            "sensitivity": 0.5,
+            "specificity": 1.0,
+            "f1": 0.666667,
+            "balanced_accuracy": 0.75,
+            "roc_auc": 1.0,
+            "pr_auc": 1.0,
+            "brier": 0.073102,
+            "log_loss": 0.226148,
+            "ece": 0.164366,
+            "mean_predicted": 0.186295,
+            "confusion_matrix": {
+              "true_positive": 1,
+              "false_positive": 0,
+              "true_negative": 5,
+              "false_negative": 1,
+              "threshold": 0.5
+            },
+            "notes": [
+              "Only 2 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        },
+        "random_forest": {
+          "n_scored": 7,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 7,
+            "n_positive": 2,
+            "n_negative": 5,
+            "prevalence": 0.285714,
+            "threshold": 0.5,
+            "accuracy": 0.714286,
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "f1": 0.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 1.0,
+            "pr_auc": 1.0,
+            "brier": 0.122023,
+            "log_loss": 0.34213,
+            "ece": 0.23032,
+            "mean_predicted": 0.150319,
+            "confusion_matrix": {
+              "true_positive": 0,
+              "false_positive": 0,
+              "true_negative": 5,
+              "false_negative": 2,
+              "threshold": 0.5
+            },
+            "notes": [
+              "No sample scored >= 0.5; precision is undefined, reported as 0.",
+              "Only 2 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        },
+        "gradient_boosting": {
+          "n_scored": 7,
+          "n_not_in_descriptor_cache": 0,
+          "threshold": 0.5,
+          "metrics": {
+            "n_samples": 7,
+            "n_positive": 2,
+            "n_negative": 5,
+            "prevalence": 0.285714,
+            "threshold": 0.5,
+            "accuracy": 0.714286,
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "f1": 0.0,
+            "balanced_accuracy": 0.5,
+            "roc_auc": 1.0,
+            "pr_auc": 1.0,
+            "brier": 0.202397,
+            "log_loss": 0.531651,
+            "ece": 0.242092,
+            "mean_predicted": 0.047111,
+            "confusion_matrix": {
+              "true_positive": 0,
+              "false_positive": 0,
+              "true_negative": 5,
+              "false_negative": 2,
+              "threshold": 0.5
+            },
+            "notes": [
+              "No sample scored >= 0.5; precision is undefined, reported as 0.",
+              "Only 2 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+            ]
+          }
+        }
+      },
+      "quantum": {
+        "artifact": "predicted_B_localized_pixel_vqc.json",
+        "artifact_sha256": "b34d79b4170c5fda912e354da9d16c14e7b3f6f089721636b2d085b1fc110576",
+        "weights_trained_on_condition": "B_localized",
+        "own_condition_artifact": false,
+        "n_parameters": 32,
+        "n_layers": 1,
+        "n_qubits": 16,
+        "amplitudes_per_state": 65536,
+        "threshold": 0.4998809393290397,
+        "threshold_source": "predicted_B_localized_pixel_vqc.json:validation_selection.threshold.selected.threshold (validation partition only)",
+        "validation_operating_point": {
+          "target_sensitivity": 0.85,
+          "threshold": 0.4998809393290397,
+          "sensitivity": 0.8571,
+          "specificity": 0.3886,
+          "precision": 0.0814,
+          "n_flagged": 221,
+          "false_negative": 3
+        },
+        "score_map": "(1 - <Z0>)/2, uncalibrated",
+        "metrics": {
+          "n_samples": 7,
+          "n_positive": 2,
+          "n_negative": 5,
+          "prevalence": 0.285714,
+          "threshold": 0.4998809393290397,
+          "accuracy": 0.571429,
+          "precision": 0.4,
+          "recall": 1.0,
+          "sensitivity": 1.0,
+          "specificity": 0.4,
+          "f1": 0.571429,
+          "balanced_accuracy": 0.7,
+          "roc_auc": 0.7,
+          "pr_auc": 0.7,
+          "brier": 0.249555,
+          "log_loss": 0.692258,
+          "ece": 0.214899,
+          "mean_predicted": 0.500613,
+          "confusion_matrix": {
+            "true_positive": 2,
+            "false_positive": 3,
+            "true_negative": 2,
+            "false_negative": 0,
+            "threshold": 0.4998809393290397
+          },
+          "notes": [
+            "Only 2 positive samples: every metric here has a wide confidence interval and small differences between models are not meaningful."
+          ]
+        },
+        "score_distribution": {
+          "min": 0.498639,
+          "max": 0.503426,
+          "mean": 0.500613,
+          "std": 0.001467
+        }
+      },
+      "quantum_note": "No pixel VQC was trained on C_fallback; the model trained on B_localized was applied to these rows, which is what the deployed pipeline does. The rows remain a separate entry and are not merged into the B_localized statistic."
+    }
+  ],
+  "summary": {
+    "per_condition": [
+      {
+        "condition": "B_and_C_all",
+        "n_samples": 381,
+        "n_positive": 18,
+        "prevalence": 0.047244,
+        "roi_geometry_leak_roc_auc": 0.4745944291398837,
+        "roi_geometry_leak_pr_auc": 0.04986518274813487,
+        "best_classical": "random_forest",
+        "best_classical_pr_auc": 0.575009,
+        "quantum_pr_auc": 0.052155,
+        "quantum_roc_auc": 0.524717,
+        "quantum_sensitivity": 0.666667,
+        "quantum_specificity": 0.393939,
+        "quantum_brier": 0.250401,
+        "quantum_weights_trained_on": "B_localized",
+        "quantum_weights_borrowed": true,
+        "quantum_beats_classical": false,
+        "margin": -0.522854
+      },
+      {
+        "condition": "B_localized",
+        "n_samples": 374,
+        "n_positive": 16,
+        "prevalence": 0.042781,
+        "roi_geometry_leak_roc_auc": 0.5129189944134078,
+        "roi_geometry_leak_pr_auc": 0.04964496374648053,
+        "best_classical": "random_forest",
+        "best_classical_pr_auc": 0.592556,
+        "quantum_pr_auc": 0.043516,
+        "quantum_roc_auc": 0.50096,
+        "quantum_sensitivity": 0.625,
+        "quantum_specificity": 0.393855,
+        "quantum_brier": 0.250417,
+        "quantum_weights_trained_on": "B_localized",
+        "quantum_weights_borrowed": false,
+        "quantum_beats_classical": false,
+        "margin": -0.54904
+      },
+      {
+        "condition": "C_fallback",
+        "n_samples": 7,
+        "n_positive": 2,
+        "prevalence": 0.285714,
+        "roi_geometry_leak_roc_auc": 0.39999999999999997,
+        "roi_geometry_leak_pr_auc": 0.3333333333333333,
+        "best_classical": "logistic_regression",
+        "best_classical_pr_auc": 1.0,
+        "quantum_pr_auc": 0.7,
+        "quantum_roc_auc": 0.7,
+        "quantum_sensitivity": 1.0,
+        "quantum_specificity": 0.4,
+        "quantum_brier": 0.249555,
+        "quantum_weights_trained_on": "B_localized",
+        "quantum_weights_borrowed": true,
+        "quantum_beats_classical": false,
+        "margin": -0.3
+      }
+    ]
+  }
+}

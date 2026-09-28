@@ -31,6 +31,18 @@ class ScreeningResult(Base):
     classification: Mapped[str] = mapped_column(String(64), nullable=False)
     model_version: Mapped[str] = mapped_column(String(32), default="v1.0.0-qml", nullable=False)
 
+    # --- Displayed (headline) verdict: the strongest validated model's risk band ---
+    # Additive and nullable so rows written before this existed still load. The band
+    # shown to the user is the classical baseline's when one is served (it ranks above
+    # the quantum VQC -- ISS-008 / DEC-034). The calibrated ``final_probability`` above
+    # stays the quantum one, because the classical score is a ranking value that must
+    # not be shown as a percentage; ``primary_calibrated`` is then False.
+    primary_model: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    primary_risk_level: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    primary_probability: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    primary_threshold: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    primary_calibrated: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
+
     # --- Provenance (PART 20: calibration metadata, execution metadata, audit) ---
     # All nullable so rows written before this existed still load. Every field here
     # answers a question an auditor can legitimately ask about a stored result:

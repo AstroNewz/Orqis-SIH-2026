@@ -41,6 +41,19 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
+    # ------------------------------------------------- Clinic portal bootstrap
+    # The first portal account, created at startup only when both values are set.
+    # No default password exists: an unset CLINIC_ADMIN_PASSWORD means no account is
+    # seeded and the portal simply has nobody to sign in as, which is the correct
+    # failure mode. A committed default would be a published credential on every
+    # deployment that forgot to override it.
+    CLINIC_ADMIN_EMAIL: Optional[str] = None
+    CLINIC_ADMIN_PASSWORD: Optional[str] = None
+    CLINIC_ADMIN_CLINIC_ID: str = "default_clinic"
+    """Must match ``Patient.clinic_id`` for the seeded account to see any screening;
+    the existing default for new patients is also ``default_clinic``."""
+    CLINIC_ADMIN_FULL_NAME: Optional[str] = None
+
     # ------------------------------------------------------------- Database
     # SQLite by default so `pytest` and local dev need no server or credentials.
     # PostgreSQL is the deployment target: set DATABASE_URL to a postgresql+psycopg2 URL.

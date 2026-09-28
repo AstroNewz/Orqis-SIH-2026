@@ -1,0 +1,502 @@
+{
+ "e3_hybrid_fusion_version": "v1-e3-hybrid-fusion-1",
+ "question": "Does the E2 quantum-visual representation add information beyond the strongest classical baseline C7 (validation PR-AUC 0.913038) under identical patient-grouped folds, train-only fitting and matched controls?",
+ "test_partition_used": false,
+ "test_partition_note": "E3 reads TRAIN and VALIDATION only via e1_failure_map.build_inputs, which iterates only ('train', 'validation'). No code path selects the test partition.",
+ "primary_condition": "A_lesion_polygon",
+ "cv_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+ "rows": {
+  "n_train": 215,
+  "n_validation": 52,
+  "n_train_positive": 103,
+  "n_validation_positive": 21,
+  "train_prevalence": 0.47907,
+  "validation_prevalence": 0.403846,
+  "n_train_patients": 112,
+  "n_validation_patients": 25,
+  "patient_overlap_train_validation": 0
+ },
+ "c7_anchor": {
+  "target_pr_auc": 0.913038,
+  "reproduced_pr_auc": 0.913038,
+  "selected_c": 0.01,
+  "tolerance": 1e-06,
+  "reproduced": true,
+  "source": "reports_e1_failure_map.json :: A_lesion_polygon :: C7 :: logistic",
+  "path": "e1_failure_map._standardise + _logistic_arm on hstack([C6, C5])"
+ },
+ "quantum_feature_map_aer_check": {
+  "max_abs_deviation": 8.881784197001252e-16,
+  "tolerance": 1e-10,
+  "passed": true,
+  "n_samples_checked": 24,
+  "n_observables": 16
+ },
+ "arms": {
+  "c7": {
+   "arm": "c7",
+   "representation_dim": 1195,
+   "selected_c": 0.01,
+   "cv_average_precision_by_setting": {
+    "0.001": 0.750925,
+    "0.01": 0.766915,
+    "0.1": 0.763231,
+    "1.0": 0.746702,
+    "10.0": 0.735106,
+    "100.0": 0.726275
+   },
+   "train_cv_pr_auc": 0.766915,
+   "validation_pr_auc": 0.913038,
+   "validation_metrics": {
+    "n_samples": 52,
+    "n_positive": 21,
+    "n_negative": 31,
+    "prevalence": 0.403846,
+    "threshold": 0.5,
+    "accuracy": 0.846154,
+    "precision": 0.76,
+    "recall": 0.904762,
+    "sensitivity": 0.904762,
+    "specificity": 0.806452,
+    "f1": 0.826087,
+    "balanced_accuracy": 0.855607,
+    "roc_auc": 0.933948,
+    "pr_auc": 0.913038,
+    "brier": 0.11062,
+    "log_loss": 0.361332,
+    "ece": 0.119337,
+    "mean_predicted": 0.466155,
+    "confusion_matrix": {
+     "true_positive": 19,
+     "false_positive": 6,
+     "true_negative": 25,
+     "false_negative": 2,
+     "threshold": 0.5
+    }
+   },
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.911712,
+    "standard_error": 0.059572,
+    "p2_5": 0.760998,
+    "p97_5": 0.988785
+   }
+  },
+  "quantum": {
+   "arm": "quantum",
+   "representation_dim": 16,
+   "selected_c": 0.1,
+   "cv_average_precision_by_setting": {
+    "0.001": 0.679108,
+    "0.01": 0.695303,
+    "0.1": 0.697764,
+    "1.0": 0.67733,
+    "10.0": 0.650244,
+    "100.0": 0.640627
+   },
+   "train_cv_pr_auc": 0.697764,
+   "validation_pr_auc": 0.868335,
+   "validation_metrics": {
+    "n_samples": 52,
+    "n_positive": 21,
+    "n_negative": 31,
+    "prevalence": 0.403846,
+    "threshold": 0.5,
+    "accuracy": 0.75,
+    "precision": 0.633333,
+    "recall": 0.904762,
+    "sensitivity": 0.904762,
+    "specificity": 0.645161,
+    "f1": 0.745098,
+    "balanced_accuracy": 0.774962,
+    "roc_auc": 0.887865,
+    "pr_auc": 0.868335,
+    "brier": 0.154475,
+    "log_loss": 0.478107,
+    "ece": 0.162185,
+    "mean_predicted": 0.457515,
+    "confusion_matrix": {
+     "true_positive": 19,
+     "false_positive": 11,
+     "true_negative": 20,
+     "false_negative": 2,
+     "threshold": 0.5
+    }
+   },
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.861972,
+    "standard_error": 0.077522,
+    "p2_5": 0.675276,
+    "p97_5": 0.967692
+   }
+  },
+  "rff": {
+   "arm": "rff",
+   "representation_dim": 16,
+   "selected_c": 100.0,
+   "cv_average_precision_by_setting": {
+    "0.001": 0.600534,
+    "0.01": 0.611254,
+    "0.1": 0.61763,
+    "1.0": 0.622934,
+    "10.0": 0.630045,
+    "100.0": 0.630197
+   },
+   "train_cv_pr_auc": 0.630197,
+   "validation_pr_auc": 0.79536,
+   "validation_metrics": {
+    "n_samples": 52,
+    "n_positive": 21,
+    "n_negative": 31,
+    "prevalence": 0.403846,
+    "threshold": 0.5,
+    "accuracy": 0.826923,
+    "precision": 0.75,
+    "recall": 0.857143,
+    "sensitivity": 0.857143,
+    "specificity": 0.806452,
+    "f1": 0.8,
+    "balanced_accuracy": 0.831797,
+    "roc_auc": 0.887865,
+    "pr_auc": 0.79536,
+    "brier": 0.154808,
+    "log_loss": 0.488927,
+    "ece": 0.147112,
+    "mean_predicted": 0.496392,
+    "confusion_matrix": {
+     "true_positive": 18,
+     "false_positive": 6,
+     "true_negative": 25,
+     "false_negative": 3,
+     "threshold": 0.5
+    }
+   },
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.801999,
+    "standard_error": 0.123592,
+    "p2_5": 0.522436,
+    "p97_5": 0.980143
+   }
+  },
+  "pca": {
+   "arm": "pca",
+   "representation_dim": 8,
+   "selected_c": 0.01,
+   "cv_average_precision_by_setting": {
+    "0.001": 0.653567,
+    "0.01": 0.65377,
+    "0.1": 0.650888,
+    "1.0": 0.648183,
+    "10.0": 0.646769,
+    "100.0": 0.646737
+   },
+   "train_cv_pr_auc": 0.65377,
+   "validation_pr_auc": 0.838846,
+   "validation_metrics": {
+    "n_samples": 52,
+    "n_positive": 21,
+    "n_negative": 31,
+    "prevalence": 0.403846,
+    "threshold": 0.5,
+    "accuracy": 0.846154,
+    "precision": 0.740741,
+    "recall": 0.952381,
+    "sensitivity": 0.952381,
+    "specificity": 0.774194,
+    "f1": 0.833333,
+    "balanced_accuracy": 0.863287,
+    "roc_auc": 0.883257,
+    "pr_auc": 0.838846,
+    "brier": 0.20366,
+    "log_loss": 0.598349,
+    "ece": 0.280499,
+    "mean_predicted": 0.481119,
+    "confusion_matrix": {
+     "true_positive": 20,
+     "false_positive": 7,
+     "true_negative": 24,
+     "false_negative": 1,
+     "threshold": 0.5
+    }
+   },
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.835376,
+    "standard_error": 0.0893,
+    "p2_5": 0.615924,
+    "p97_5": 0.967397
+   }
+  }
+ },
+ "increment_vs_c7": {
+  "quantum": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.930154,
+   "increment": 0.017116,
+   "score_correlation_pearson": 0.778141,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.003733,
+     "sd": 0.019788,
+     "p50": 0.00029,
+     "p95": 0.018795,
+     "p99": 0.026277,
+     "max": 0.034539
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 18,
+     "empirical_p": 0.094527,
+     "exceeds_null_p95": false,
+     "z_vs_null": 1.0536
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.063141,
+     "sd": 0.172585,
+     "p50": -3e-06,
+     "p95": 0.115418,
+     "p99": 0.269217,
+     "max": 0.297179
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 46,
+     "empirical_p": 0.233831,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.465
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  },
+  "rff": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.931658,
+   "increment": 0.01862,
+   "score_correlation_pearson": 0.731427,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.003866,
+     "sd": 0.022093,
+     "p50": 0.0,
+     "p95": 0.019612,
+     "p99": 0.025285,
+     "max": 0.032592
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 13,
+     "empirical_p": 0.069652,
+     "exceeds_null_p95": false,
+     "z_vs_null": 1.0178
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.057957,
+     "sd": 0.16077,
+     "p50": 0.000198,
+     "p95": 0.09097,
+     "p99": 0.235072,
+     "max": 0.254847
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 50,
+     "empirical_p": 0.253731,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.4763
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  },
+  "pca": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.929254,
+   "increment": 0.016216,
+   "score_correlation_pearson": 0.759596,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.005781,
+     "sd": 0.020607,
+     "p50": 0.0,
+     "p95": 0.017627,
+     "p99": 0.026536,
+     "max": 0.034539
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 15,
+     "empirical_p": 0.079602,
+     "exceeds_null_p95": false,
+     "z_vs_null": 1.0675
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.078344,
+     "sd": 0.190912,
+     "p50": 4.4e-05,
+     "p95": 0.14838,
+     "p99": 0.235397,
+     "max": 0.295206
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 59,
+     "empirical_p": 0.298507,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.4953
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  }
+ },
+ "summary": {
+  "primary_condition": "A_lesion_polygon",
+  "c7_validation_pr_auc": 0.913038,
+  "quantum_validation_pr_auc": 0.868335,
+  "quantum_beats_c7_on_validation": false,
+  "quantum_beats_c7_on_train_oof": false,
+  "quantum_increment_survives_gating_null": false,
+  "rff_increment_survives_gating_null": false,
+  "pca_increment_survives_gating_null": false,
+  "defensible_quantum_advantage_over_c7": false,
+  "quantum_specific_advantage": false,
+  "leaderboard": [
+   {
+    "arm": "c7",
+    "validation_pr_auc": 0.913038,
+    "train_cv_pr_auc": 0.766915,
+    "validation_bootstrap_p2_5": 0.760998,
+    "validation_bootstrap_p97_5": 0.988785
+   },
+   {
+    "arm": "quantum",
+    "validation_pr_auc": 0.868335,
+    "train_cv_pr_auc": 0.697764,
+    "validation_bootstrap_p2_5": 0.675276,
+    "validation_bootstrap_p97_5": 0.967692
+   },
+   {
+    "arm": "pca",
+    "validation_pr_auc": 0.838846,
+    "train_cv_pr_auc": 0.65377,
+    "validation_bootstrap_p2_5": 0.615924,
+    "validation_bootstrap_p97_5": 0.967397
+   },
+   {
+    "arm": "rff",
+    "validation_pr_auc": 0.79536,
+    "train_cv_pr_auc": 0.630197,
+    "validation_bootstrap_p2_5": 0.522436,
+    "validation_bootstrap_p97_5": 0.980143
+   }
+  ],
+  "conclusion": "The C7 -> quantum increment does NOT survive the patient-blocked column-permutation null: on this evidence the quantum representation adds no information beyond C7. A null result (mission \u00a729B), reported as measured."
+ },
+ "provenance": {
+  "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+  "descriptor_cache": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\dataset\\features_handcrafted_lab.npz",
+  "descriptor_dimension": 163,
+  "pixel_cache_version": "v1-pixels-1",
+  "e1_cache_version": "v1-e1-features-1",
+  "e1_cache_dimensions": {
+   "hog": 1764,
+   "texture": 156,
+   "multiscale": 456,
+   "mobilenet": 576
+  },
+  "e1_cache_rows": 2436,
+  "rows_dropped_for_cache_misalignment": {
+   "A_lesion_polygon": {
+    "train": 0,
+    "validation": 0
+   }
+  },
+  "join": "by image id across all three caches; rows missing anywhere are dropped from every candidate, never from one",
+  "descriptor_note": "raw cached 163-dim image descriptor + no reduction (transform=False). The PCA-reduced 8-dim vector is NOT used: comparing candidates against a compressed control would understate C1."
+ },
+ "protocol": {
+  "reference_baseline": "C7 = hstack([C6 mobilenet(576), C5 descriptor+multiscale(619)]) = 1195, logistic",
+  "candidate_representations": {
+   "quantum": "MobileNet-576 -> fold-train PCA-8 + angle scaler -> fixed 8-qubit Ry/CZ map -> 16 local-Z observables",
+   "rff": "MobileNet-576 -> fold-train PCA-8 -> RFF-16 (matched control, DEC-033)",
+   "pca": "MobileNet-576 -> fold-train PCA-8 (raw linear control)"
+  },
+  "folds": "5-fold patient-grouped StratifiedGroupKFold on TRAIN, seed 42",
+  "preprocessing": "train-only; PCA/angle/RFF refit inside each fold-train for the out-of-fold column",
+  "gating_test": "e1_failure_map._increment_null with C7 as reference: two-column logistic stack on leakage-free out-of-fold TRAIN predictions, scored on VALIDATION, gated by a patient-blocked column-permutation null on the candidate column",
+  "reused_verbatim": [
+   "grouped_folds",
+   "_standardise",
+   "_logistic_arm",
+   "_cv_select",
+   "_metrics",
+   "bootstrap_pr_auc",
+   "_increment_null",
+   "build_inputs",
+   "candidate_matrices"
+  ]
+ },
+ "environment": {
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "1.26.4",
+  "seed": 42,
+  "n_folds": 5,
+  "bootstrap_draws": 2000,
+  "increment_permutations": 200,
+  "pca_components": 8,
+  "quantum_features": 16
+ },
+ "duration_seconds": 17.284
+}

@@ -2,6 +2,7 @@ import 'package:carescan/core/errors/result.dart';
 import 'package:carescan/features/assessment/models/assessment_result.dart';
 import 'package:carescan/features/assessment/models/history_entry.dart';
 import 'package:carescan/features/assessment/models/assessment.dart';
+import 'package:carescan/features/assessment/models/localization_result.dart';
 import 'package:carescan/features/assessment/repositories/assessment_repository.dart';
 
 class MockAssessmentRepository implements AssessmentRepository {
@@ -19,6 +20,14 @@ class MockAssessmentRepository implements AssessmentRepository {
             'TEST DATA: Analysis complete. No significant anomalies detected.',
       ),
     );
+  }
+
+  @override
+  Future<Result<LocalizationResult>> localize(String imagePath) async {
+    // Test data draws no overlay: the mock has no image to localise, and the box
+    // is a non-gating visual aid, so a clean "not localised" is the honest answer.
+    await Future.delayed(const Duration(milliseconds: 300));
+    return const Success(LocalizationResult.none());
   }
 
   @override

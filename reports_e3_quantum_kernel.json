@@ -1,0 +1,303 @@
+{
+ "e3_quantum_kernel_version": "v1-e3-quantum-kernel-1",
+ "question": "Does a fidelity quantum kernel over the 8-qubit E2 states add information beyond C7 (validation PR-AUC 0.913038), under identical patient-grouped folds, train-only encoding, and a matched classical RBF-SVM control?",
+ "test_partition_used": false,
+ "test_partition_note": "Reads TRAIN and VALIDATION only via e1_failure_map.build_inputs, which iterates only ('train', 'validation'). No code path selects the test partition.",
+ "primary_condition": "A_lesion_polygon",
+ "cv_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+ "rows": {
+  "n_train": 215,
+  "n_validation": 52,
+  "n_train_positive": 103,
+  "n_validation_positive": 21,
+  "train_prevalence": 0.47907,
+  "validation_prevalence": 0.403846,
+  "n_train_patients": 112,
+  "n_validation_patients": 25,
+  "patient_overlap_train_validation": 0
+ },
+ "c7_anchor": {
+  "target_pr_auc": 0.913038,
+  "reproduced_pr_auc": 0.913038,
+  "selected_c": 0.01,
+  "tolerance": 1e-06,
+  "reproduced": true
+ },
+ "quantum_feature_map_aer_check": {
+  "max_abs_deviation": 8.881784197001252e-16,
+  "tolerance": 1e-10,
+  "passed": true,
+  "n_samples_checked": 24,
+  "n_observables": 16
+ },
+ "arms": {
+  "quantum_kernel": {
+   "arm": "quantum_kernel",
+   "kernel": "fidelity_quantum",
+   "representation_dim": 256,
+   "selected_c": 1.0,
+   "cv_average_precision_by_setting": {
+    "0.001": 0.604159,
+    "0.01": 0.593561,
+    "0.1": 0.678822,
+    "1.0": 0.692485,
+    "10.0": 0.645571,
+    "100.0": 0.597892
+   },
+   "train_cv_pr_auc": 0.692485,
+   "validation_pr_auc": 0.772148,
+   "validation_roc_auc": 0.8294930875576036,
+   "n_support_vectors": 170,
+   "score_note": "SVM decision_function (uncalibrated margin); PR/ROC-AUC are rank-based",
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.776479,
+    "standard_error": 0.11644,
+    "p2_5": 0.507087,
+    "p97_5": 0.952187
+   },
+   "kernel_offdiagonal_train": {
+    "n_offdiagonal": 46010,
+    "mean": 0.23339808349214414,
+    "sd": 0.1850151225426192,
+    "min": 4.755969948586465e-09,
+    "max": 0.9689285145678905
+   }
+  },
+  "rbf_svm": {
+   "arm": "rbf_svm",
+   "kernel": "rbf",
+   "representation_dim": 8,
+   "selected_c": 0.1,
+   "cv_average_precision_by_setting": {
+    "0.001": 0.605752,
+    "0.01": 0.609175,
+    "0.1": 0.691096,
+    "1.0": 0.679107,
+    "10.0": 0.685037,
+    "100.0": 0.642091
+   },
+   "train_cv_pr_auc": 0.691096,
+   "validation_pr_auc": 0.803026,
+   "validation_roc_auc": 0.8648233486943164,
+   "n_support_vectors": 210,
+   "score_note": "SVM decision_function (uncalibrated margin); PR/ROC-AUC are rank-based",
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.809644,
+    "standard_error": 0.105215,
+    "p2_5": 0.566327,
+    "p97_5": 0.971402
+   },
+   "selected_gamma": 0.49171422058215625
+  },
+  "c7": {
+   "arm": "c7",
+   "kernel": "linear_logistic",
+   "representation_dim": 1195,
+   "selected_c": 0.01,
+   "train_cv_pr_auc": "[0.0058008  0.05775754 0.0678434  0.08818709 0.16639618 0.08455481\n 0.18137241 0.07940153 0.00842268 0.06552739 0.00373705 0.02802945\n 0.05895417 0.09614    0.09889535 0.00632033 0.06194446 0.047432\n 0.06092447 0.09884434 0.30621023 0.30378751 0.0832706  0.41180967\n 0.14613778 0.28574278 0.13090482 0.0760232  0.18386212 0.44317026\n 0.35616139 0.14847547 0.20905935 0.21057715 0.3614624  0.09070203\n 0.12155416 0.3143539  0.05485421 0.13708599 0.22663502 0.15403974\n 0.56174564 0.12083037 0.3702961  0.16170804 0.26528377 0.35030139\n 0.18079318 0.14018494 0.36825139 0.32892135 0.21203389 0.1964975\n 0.06387025 0.32476661 0.13033225 0.34865257 0.32675261 0.15948032\n 0.40141735 0.24224741 0.22004698 0.13192232 0.20439893 0.17642553\n 0.11146623 0.09976672 0.0198839  0.17543833 0.27575717 0.63598928\n 0.18021981 0.10756446 0.56191022 0.05441914 0.14885236 0.08395801\n 0.15329939 0.05227772 0.51973659 0.07776557 0.2239812  0.33705687\n 0.18383605 0.17683861 0.14567168 0.26633702 0.04486831 0.2473415\n 0.10006437 0.19826801 0.08484557 0.21131406 0.36813491 0.11194234\n 0.18327961 0.30294373 0.2307628  0.16348087 0.08459024 0.04136884\n 0.11486465 0.08175735 0.06602499 0.17717564 0.0617988  0.09823553\n 0.16253326 0.08313372 0.24624039 0.14249847 0.84812347 0.83428481\n 0.7625194  0.78912611 0.96403646 0.67071929 0.709365   0.82715255\n 0.69086675 0.89530047 0.75431675 0.95346263 0.858546   0.82950715\n 0.82777587 0.62526291 0.68225992 0.85747841 0.65567103 0.92408002\n 0.70264099 0.67328414 0.9029199  0.92622863 0.83808997 0.85510267\n 0.86364731 0.90442473 0.9431862  0.90854487 0.92424286 0.85321285\n 0.5419624  0.78761617 0.92671329 0.78812761 0.78046275 0.81333346\n 0.70307962 0.67089618 0.99109493 0.89325019 0.99312894 0.75952229\n 0.63589803 0.77959045 0.70641464 0.79658003 0.82687213 0.97331379\n 0.92529825 0.71872749 0.82021352 0.65038839 0.69507301 0.56260843\n 0.88362728 0.7456706  0.85274683 0.95496513 0.82017641 0.76434738\n 0.97509038 0.87889723 0.8741962  0.87215515 0.88626934 0.86567446\n 0.71719699 0.66539391 0.79750318 0.63544933 0.86309018 0.93075354\n 0.59237587 0.72323075 0.95671053 0.8794773  0.93160998 0.97220069\n 0.85560674 0.92454126 0.91761117 0.87608141 0.47349523 0.78186598\n 0.79134596 0.86636678 0.64008058 0.85906707 0.89927117 0.8916803\n 0.89666296 0.65867074 0.83204546 0.8849123  0.95625532 0.75264957\n 0.94406915 0.88886716 0.96277944 0.86596376 0.86912858]",
+   "validation_pr_auc": 0.913038,
+   "validation_roc_auc": 0.93394777265745,
+   "validation_bootstrap": {
+    "measured": true,
+    "n_draws_requested": 2000,
+    "n_draws_usable": 2000,
+    "unit": "patient (resampled with replacement)",
+    "mean": 0.911712,
+    "standard_error": 0.059572,
+    "p2_5": 0.760998,
+    "p97_5": 0.988785
+   }
+  }
+ },
+ "increment_vs_c7": {
+  "quantum_kernel": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.912375,
+   "increment": -0.000663,
+   "score_correlation_pearson": 0.791679,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.002979,
+     "sd": 0.020271,
+     "p50": 0.000124,
+     "p95": 0.01904,
+     "p99": 0.025982,
+     "max": 0.027016
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 118,
+     "empirical_p": 0.59204,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.1143
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.043396,
+     "sd": 0.142236,
+     "p50": 0.001106,
+     "p95": 0.137935,
+     "p99": 0.207112,
+     "max": 0.219431
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 117,
+     "empirical_p": 0.587065,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.3004
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  },
+  "rbf_svm": {
+   "measured": true,
+   "n_train_rows_used": 215,
+   "reference_only_pr_auc": 0.913038,
+   "stack_pr_auc": 0.926194,
+   "increment": 0.013156,
+   "score_correlation_pearson": 0.744341,
+   "column_permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "candidate column shuffled in whole patient blocks, TRAIN and VALIDATION; labels and the C1 column untouched",
+    "increment": {
+     "n": 200,
+     "mean": -0.003937,
+     "sd": 0.020687,
+     "p50": 0.0,
+     "p95": 0.017429,
+     "p99": 0.024977,
+     "max": 0.033778
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 25,
+     "empirical_p": 0.129353,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.8263
+    },
+    "gates_the_claim": true
+   },
+   "permutation_null": {
+    "n_requested": 200,
+    "n_usable": 200,
+    "blocking": "patient-level TRAIN label permutation",
+    "increment": {
+     "n": 200,
+     "mean": -0.0833,
+     "sd": 0.172528,
+     "p50": 0.0,
+     "p95": 0.091335,
+     "p99": 0.158674,
+     "max": 0.21367
+    },
+    "observed_vs_null": {
+     "n_null_at_or_above_observed": 58,
+     "empirical_p": 0.293532,
+     "exceeds_null_p95": false,
+     "z_vs_null": 0.5591
+    },
+    "gates_the_claim": false,
+    "power_note": "structurally low-powered for an increment: refitting on permuted labels randomises coefficient signs while scoring against real labels, so the empirical p floors near 0.25. E0 measured p = 0.11 for a genuine +0.163 increment. Not evidence against complementarity."
+   },
+   "survives_gating_null": false
+  }
+ },
+ "summary": {
+  "primary_condition": "A_lesion_polygon",
+  "c7_validation_pr_auc": 0.913038,
+  "quantum_kernel_validation_pr_auc": 0.772148,
+  "rbf_svm_validation_pr_auc": 0.803026,
+  "quantum_kernel_beats_c7": false,
+  "quantum_kernel_beats_rbf_control": false,
+  "quantum_kernel_concentrated": false,
+  "quantum_kernel_increment_survives_gating_null": false,
+  "rbf_svm_increment_survives_gating_null": false,
+  "defensible_quantum_advantage_over_c7": false,
+  "quantum_specific_advantage": false,
+  "leaderboard": [
+   {
+    "arm": "c7",
+    "validation_pr_auc": 0.913038,
+    "validation_roc_auc": 0.93394777265745,
+    "train_cv_pr_auc": "[0.0058008  0.05775754 0.0678434  0.08818709 0.16639618 0.08455481\n 0.18137241 0.07940153 0.00842268 0.06552739 0.00373705 0.02802945\n 0.05895417 0.09614    0.09889535 0.00632033 0.06194446 0.047432\n 0.06092447 0.09884434 0.30621023 0.30378751 0.0832706  0.41180967\n 0.14613778 0.28574278 0.13090482 0.0760232  0.18386212 0.44317026\n 0.35616139 0.14847547 0.20905935 0.21057715 0.3614624  0.09070203\n 0.12155416 0.3143539  0.05485421 0.13708599 0.22663502 0.15403974\n 0.56174564 0.12083037 0.3702961  0.16170804 0.26528377 0.35030139\n 0.18079318 0.14018494 0.36825139 0.32892135 0.21203389 0.1964975\n 0.06387025 0.32476661 0.13033225 0.34865257 0.32675261 0.15948032\n 0.40141735 0.24224741 0.22004698 0.13192232 0.20439893 0.17642553\n 0.11146623 0.09976672 0.0198839  0.17543833 0.27575717 0.63598928\n 0.18021981 0.10756446 0.56191022 0.05441914 0.14885236 0.08395801\n 0.15329939 0.05227772 0.51973659 0.07776557 0.2239812  0.33705687\n 0.18383605 0.17683861 0.14567168 0.26633702 0.04486831 0.2473415\n 0.10006437 0.19826801 0.08484557 0.21131406 0.36813491 0.11194234\n 0.18327961 0.30294373 0.2307628  0.16348087 0.08459024 0.04136884\n 0.11486465 0.08175735 0.06602499 0.17717564 0.0617988  0.09823553\n 0.16253326 0.08313372 0.24624039 0.14249847 0.84812347 0.83428481\n 0.7625194  0.78912611 0.96403646 0.67071929 0.709365   0.82715255\n 0.69086675 0.89530047 0.75431675 0.95346263 0.858546   0.82950715\n 0.82777587 0.62526291 0.68225992 0.85747841 0.65567103 0.92408002\n 0.70264099 0.67328414 0.9029199  0.92622863 0.83808997 0.85510267\n 0.86364731 0.90442473 0.9431862  0.90854487 0.92424286 0.85321285\n 0.5419624  0.78761617 0.92671329 0.78812761 0.78046275 0.81333346\n 0.70307962 0.67089618 0.99109493 0.89325019 0.99312894 0.75952229\n 0.63589803 0.77959045 0.70641464 0.79658003 0.82687213 0.97331379\n 0.92529825 0.71872749 0.82021352 0.65038839 0.69507301 0.56260843\n 0.88362728 0.7456706  0.85274683 0.95496513 0.82017641 0.76434738\n 0.97509038 0.87889723 0.8741962  0.87215515 0.88626934 0.86567446\n 0.71719699 0.66539391 0.79750318 0.63544933 0.86309018 0.93075354\n 0.59237587 0.72323075 0.95671053 0.8794773  0.93160998 0.97220069\n 0.85560674 0.92454126 0.91761117 0.87608141 0.47349523 0.78186598\n 0.79134596 0.86636678 0.64008058 0.85906707 0.89927117 0.8916803\n 0.89666296 0.65867074 0.83204546 0.8849123  0.95625532 0.75264957\n 0.94406915 0.88886716 0.96277944 0.86596376 0.86912858]"
+   },
+   {
+    "arm": "rbf_svm",
+    "validation_pr_auc": 0.803026,
+    "validation_roc_auc": 0.8648233486943164,
+    "train_cv_pr_auc": 0.691096
+   },
+   {
+    "arm": "quantum_kernel",
+    "validation_pr_auc": 0.772148,
+    "validation_roc_auc": 0.8294930875576036,
+    "train_cv_pr_auc": 0.692485
+   }
+  ],
+  "conclusion": "The C7 -> quantum-kernel increment does NOT survive the patient-blocked column-permutation null: on this evidence the fidelity quantum kernel adds no information beyond C7. A null result (\u00a729B), reported as measured."
+ },
+ "provenance": {
+  "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+  "descriptor_cache": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\dataset\\features_handcrafted_lab.npz",
+  "descriptor_dimension": 163,
+  "pixel_cache_version": "v1-pixels-1",
+  "e1_cache_version": "v1-e1-features-1",
+  "e1_cache_dimensions": {
+   "hog": 1764,
+   "texture": 156,
+   "multiscale": 456,
+   "mobilenet": 576
+  },
+  "e1_cache_rows": 2436,
+  "rows_dropped_for_cache_misalignment": {
+   "A_lesion_polygon": {
+    "train": 0,
+    "validation": 0
+   }
+  },
+  "join": "by image id across all three caches; rows missing anywhere are dropped from every candidate, never from one",
+  "descriptor_note": "raw cached 163-dim image descriptor + no reduction (transform=False). The PCA-reduced 8-dim vector is NOT used: comparing candidates against a compressed control would understate C1."
+ },
+ "protocol": {
+  "reference_baseline": "C7 = hstack([C6 mobilenet(576), C5 descriptor+multiscale(619)]) = 1195, logistic",
+  "quantum_kernel": "K(x,x')=|<psi(x)|psi(x')>|^2 over exact 8-qubit E2 statevectors; precomputed-kernel SVM",
+  "matched_control": "RBF-SVM on the same L2-normalised PCA-8 input, median-heuristic bandwidth (DEC-033 analogue)",
+  "folds": "5-fold patient-grouped StratifiedGroupKFold on TRAIN, seed 42",
+  "preprocessing": "train-only; PCA/angle encoding refit inside each fold-train for the OOF column",
+  "scores": "SVM decision_function (rank-based PR/ROC-AUC; increment stack standardises)",
+  "gating_test": "e1_failure_map._increment_null with C7 as reference",
+  "concentration_witness": "off-diagonal spread of the train fidelity Gram (sd->0 means degenerate)"
+ },
+ "environment": {
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "1.26.4",
+  "seed": 42,
+  "n_folds": 5,
+  "bootstrap_draws": 2000,
+  "increment_permutations": 200,
+  "pca_components": 8
+ },
+ "duration_seconds": 14.534
+}

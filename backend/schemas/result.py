@@ -2,6 +2,8 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, ConfigDict, Field, AliasChoices, computed_field
 
+from backend.schemas.inference import QuantumVisualSummary
+
 SCREENING_DISCLAIMER = (
     "AI-assisted oral-cancer screening risk estimate. This is not a diagnosis and "
     "does not replace professional clinical assessment or histopathological "
@@ -137,6 +139,65 @@ class AssessmentResultResponse(BaseModel):
         default=None,
         validation_alias=AliasChoices("quantum_time_ms", "quantumTimeMs"),
         serialization_alias="quantumTimeMs",
+    )
+
+    # ----------------------------------- Displayed (headline) verdict (DEC-034)
+    # The band the client shows as the verdict. When ``primaryModel`` is the classical
+    # baseline it is the strongest validated model on this dataset; ``primaryCalibrated``
+    # is then False and ``primaryProbability`` is a ranking score, never a percentage.
+    # ``finalProbability`` above remains the calibrated quantum probability.
+    primaryModel: Optional[str] = Field(
+        default=None,
+        validation_alias=AliasChoices("primary_model", "primaryModel"),
+        serialization_alias="primaryModel",
+    )
+    primaryRiskLevel: Optional[str] = Field(
+        default=None,
+        validation_alias=AliasChoices("primary_risk_level", "primaryRiskLevel"),
+        serialization_alias="primaryRiskLevel",
+    )
+    primaryProbability: Optional[float] = Field(
+        default=None,
+        validation_alias=AliasChoices("primary_probability", "primaryProbability"),
+        serialization_alias="primaryProbability",
+        description="Ranking score behind the headline band. Not a percentage when primaryCalibrated is false.",
+    )
+    primaryThreshold: Optional[float] = Field(
+        default=None,
+        validation_alias=AliasChoices("primary_threshold", "primaryThreshold"),
+        serialization_alias="primaryThreshold",
+    )
+    primaryCalibrated: Optional[bool] = Field(
+        default=None,
+        validation_alias=AliasChoices("primary_calibrated", "primaryCalibrated"),
+        serialization_alias="primaryCalibrated",
+    )
+
+    # -------------------------- EXPERIMENTAL secondary quantum-visual (E2/DEC-035) --
+    # A real, executed 8-qubit quantum-visual demonstrator (Candidate B). It is purely
+    # additive telemetry: it never headlines the verdict (``primaryRiskLevel`` does) and
+    # never feeds ``finalProbability``, ``threshold`` or any FHIR value -- see
+    # :class:`~backend.schemas.inference.QuantumVisualSummary` and DEC-033/DEC-034.
+    #
+    # It is attached to a *fresh* ``/screening/analyze`` response from the live inference
+    # (see ``ScreeningService.analyze_screening``); it is deliberately NOT persisted, so a
+    # result re-read from ``/results/{id}`` or ``/patients/{id}/history`` carries ``None``.
+    # Persisting it would require a schema migration on an existing DB for a non-clinical,
+    # experimental signal; keeping it live-only is both safer and honest about its role.
+    #
+    # The inner object keeps its native ``snake_case`` field names (the reused
+    # ``QuantumVisualSummary`` contract), unlike this envelope's camelCase -- a single
+    # source of truth for those fields rather than a duplicated projection that could drift.
+    quantumVisual: Optional[QuantumVisualSummary] = Field(
+        default=None,
+        validation_alias=AliasChoices("quantum_visual", "quantumVisual"),
+        serialization_alias="quantumVisual",
+        description=(
+            "EXPERIMENTAL secondary E2 quantum-visual demonstrator (DEC-035). Additive "
+            "telemetry only; never the headline verdict and never fed into any "
+            "probability/threshold/FHIR value. Present only on a fresh analyze response; "
+            "null when a result is re-read from history."
+        ),
     )
 
     @computed_field(  # type: ignore[prop-decorator]

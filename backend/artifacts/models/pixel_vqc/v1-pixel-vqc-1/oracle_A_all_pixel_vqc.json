@@ -1,0 +1,815 @@
+{
+  "pixel_vqc_version": "v1-pixel-vqc-1",
+  "created_at_utc": "2026-09-04T14:18:25.185444+00:00",
+  "test_partition_used": false,
+  "test_partition_note": "This module never loads the test partition. Final evaluation is a separate entry point that runs after this artifact is frozen.",
+  "roi_mode": "oracle",
+  "condition": "A_all",
+  "condition_description": "Condition A: every row of the oracle cache, whichever annotation supplied the ROI. Confounded by annotation practice -- see the subdivisions.",
+  "quantum": {
+    "n_qubits": 16,
+    "amplitudes_per_state": 65536,
+    "encoding": "amplitude encoding: 256x256 grayscale / 255, L2-normalised",
+    "observable": "Z on qubit 0",
+    "score_map": "(1 - <Z0>)/2",
+    "loss": "class-weighted binary cross-entropy",
+    "execution_mode": "ideal_simulation",
+    "shots": null,
+    "shots_note": "Exact statevector evaluation. No shot sampling, so there is no shot noise to report.",
+    "ansatz": "per layer: ry(theta) and rz(psi) on every qubit, then a linear nearest-neighbour CNOT cascade with circular closure"
+  },
+  "preprocessing": {
+    "preprocessing_version": "carescan-v1-pixel-1",
+    "roi_edge_px": 256,
+    "resample_filter": "lanczos",
+    "cache_metadata": {
+      "cache_version": "v1-pixels-1",
+      "preprocessing_version": "carescan-v1-pixel-1",
+      "roi_mode": "oracle",
+      "qubit_count": "16",
+      "roi_edge_px": "256",
+      "resample_filter": "lanczos"
+    }
+  },
+  "dataset": {
+    "split_manifest": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\dataset\\split_manifest.json",
+    "split_manifest_sha256": "fe45df6d890048756b709e9ddb5144903465930219d44ae7910dbaf3dd1ce629",
+    "split_seed": 42,
+    "positive_classes": [
+      "opmd",
+      "oral_cancer"
+    ],
+    "train": {
+      "n_samples": 1692,
+      "n_positive": 104,
+      "n_negative": 1588,
+      "prevalence": 0.061466,
+      "n_patients": 230
+    },
+    "validation": {
+      "n_samples": 363,
+      "n_positive": 21,
+      "n_negative": 342,
+      "prevalence": 0.057851,
+      "n_patients": 50
+    },
+    "partition_summary": {
+      "qubit_count": 16,
+      "pixels_per_image": 65536,
+      "roi_mode": "oracle",
+      "localizer_version": null,
+      "preprocessing_version": "carescan-v1-pixel-1",
+      "cache_version": "v1-pixels-1",
+      "seed": 42,
+      "partitions": {
+        "train": {
+          "name": "train",
+          "roi_mode": "oracle",
+          "n_images": 1692,
+          "n_patients": 230,
+          "n_positive": 104,
+          "n_negative": 1588,
+          "positive_rate": 0.0615,
+          "roi_source_counts": {
+            "center_crop": 418,
+            "lesion_polygon": 215,
+            "region_polygon": 1059
+          },
+          "localization_status_counts": {
+            "oracle": 1692
+          },
+          "condition_counts": {
+            "A_all": {
+              "n_images": 1692,
+              "n_positive": 104,
+              "n_negative": 1588,
+              "n_patients": 230
+            },
+            "A_lesion_polygon": {
+              "n_images": 215,
+              "n_positive": 103,
+              "n_negative": 112,
+              "n_patients": 112
+            },
+            "A_region_polygon": {
+              "n_images": 1059,
+              "n_positive": 1,
+              "n_negative": 1058,
+              "n_patients": 156
+            },
+            "A_center_crop": {
+              "n_images": 418,
+              "n_positive": 0,
+              "n_negative": 418,
+              "n_patients": 65
+            }
+          },
+          "roi_area_fraction_mean": 0.854
+        },
+        "validation": {
+          "name": "validation",
+          "roi_mode": "oracle",
+          "n_images": 363,
+          "n_patients": 50,
+          "n_positive": 21,
+          "n_negative": 342,
+          "positive_rate": 0.0579,
+          "roi_source_counts": {
+            "center_crop": 126,
+            "lesion_polygon": 52,
+            "region_polygon": 185
+          },
+          "localization_status_counts": {
+            "oracle": 363
+          },
+          "condition_counts": {
+            "A_all": {
+              "n_images": 363,
+              "n_positive": 21,
+              "n_negative": 342,
+              "n_patients": 50
+            },
+            "A_lesion_polygon": {
+              "n_images": 52,
+              "n_positive": 21,
+              "n_negative": 31,
+              "n_patients": 25
+            },
+            "A_region_polygon": {
+              "n_images": 185,
+              "n_positive": 0,
+              "n_negative": 185,
+              "n_patients": 28
+            },
+            "A_center_crop": {
+              "n_images": 126,
+              "n_positive": 0,
+              "n_negative": 126,
+              "n_patients": 20
+            }
+          },
+          "roi_area_fraction_mean": 0.8164
+        },
+        "test": {
+          "name": "test",
+          "roi_mode": "oracle",
+          "n_images": 381,
+          "n_patients": 48,
+          "n_positive": 18,
+          "n_negative": 363,
+          "positive_rate": 0.0472,
+          "roi_source_counts": {
+            "center_crop": 66,
+            "lesion_polygon": 49,
+            "region_polygon": 266
+          },
+          "localization_status_counts": {
+            "oracle": 381
+          },
+          "condition_counts": {
+            "A_all": {
+              "n_images": 381,
+              "n_positive": 18,
+              "n_negative": 363,
+              "n_patients": 48
+            },
+            "A_lesion_polygon": {
+              "n_images": 49,
+              "n_positive": 18,
+              "n_negative": 31,
+              "n_patients": 23
+            },
+            "A_region_polygon": {
+              "n_images": 266,
+              "n_positive": 0,
+              "n_negative": 266,
+              "n_patients": 40
+            },
+            "A_center_crop": {
+              "n_images": 66,
+              "n_positive": 0,
+              "n_negative": 66,
+              "n_patients": 9
+            }
+          },
+          "roi_area_fraction_mean": 0.8766
+        }
+      }
+    }
+  },
+  "seeds": {
+    "random_seed": 42,
+    "split_seed": 42,
+    "note": "seed_everything() seeds numpy and qiskit_algorithms.algorithm_globals inside OptimizerSpec.minimize; weight initialisation uses its own Generator(seed) so it cannot depend on optimiser call order."
+  },
+  "class_imbalance_handling": {
+    "method": "inverse-frequency class weights normalised to mean 1",
+    "applied_in": "the training loss only; no resampling, no synthetic samples",
+    "weights_negative_positive": [
+      0.532746,
+      8.134615
+    ],
+    "computed_by": "VariationalQuantumClassifier._class_weights"
+  },
+  "validation_selection": {
+    "selection_metric": "PR-AUC on the validation partition",
+    "selection_metric_rationale": "The positive class is small, so PR-AUC discriminates between candidates where accuracy and ROC-AUC do not.",
+    "compute_budget": {
+      "maxiter_per_candidate": [
+        50
+      ],
+      "n_candidates": 1,
+      "seconds_per_objective_evaluation_measured": 45.457,
+      "note": "Ansatz depth is transferred from A_lesion_polygon (215 rows), where a full layers 1/2/3 sweep was affordable and depth 1 won on validation PR-AUC (0.526 vs 0.329 for L2 and 0.357 for L3). A three-depth sweep was attempted here and abandoned on measured grounds: SPSA iteration time on this 1692-row condition is not stable, measuring 19.3 s on an idle machine, 38.5 s under concurrent load, and 96.0 s after roughly 40 minutes of sustained load as the machine thermally throttles (process memory was steady at 802 MB, so this is CPU clock, not accumulation). At the throttled rate three candidates cost over 4 h per condition and the artifact is only written after the last candidate, so an interrupted sweep would have produced nothing. One candidate at maxiter 50 is run instead, which writes an artifact per condition. maxiter is 50 rather than 100 because on the cheap condition the training objective moved only 0.0025 from its ln(2) starting point over 100 iterations across all three depths, so iterations 50-100 demonstrably do not change it. The per-condition measured cost is recorded in the artifact at validation_selection.compute_budget.seconds_per_objective_evaluation_measured; the figures quoted here are the ones the decision was actually made on."
+    },
+    "selected_label": "oracle/A_all/spsa/L1/it50/s42",
+    "selected_config": {
+      "roi_mode": "oracle",
+      "condition": "A_all",
+      "n_layers": 1,
+      "optimizer": "spsa",
+      "maxiter": 50,
+      "learning_rate": null,
+      "perturbation": null,
+      "seed": 42,
+      "class_weighting": true,
+      "n_qubits": 16,
+      "n_parameters": 32,
+      "amplitudes_per_state": 65536
+    },
+    "selected_validation_pr_auc": 0.087802,
+    "early_stopping": {
+      "used": false,
+      "reason": "SPSA's trajectory is stochastic; stopping on a noisy validation reading selects for the noise. Every candidate ran its full iteration budget and selection happened across candidates."
+    },
+    "threshold": {
+      "basis": "validation partition only",
+      "target_sensitivity": 0.85,
+      "target_sensitivity_source": "Settings.SCREENING_TARGET_SENSITIVITY",
+      "selected": {
+        "target_sensitivity": 0.85,
+        "threshold": 0.49692188240883983,
+        "sensitivity": 0.8571,
+        "specificity": 0.1199,
+        "precision": 0.0564,
+        "n_flagged": 319,
+        "false_negative": 3
+      },
+      "at_specificity_0_90": {
+        "target_specificity": 0.9,
+        "sensitivity": 0.1905,
+        "achieved_specificity": 0.9006,
+        "threshold": 0.5001550934166218
+      },
+      "sweep": [
+        {
+          "threshold": 0.05,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.1,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.15,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.2,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.25,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.3,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.35,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.4,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.45,
+          "sensitivity": 1.0,
+          "specificity": 0.0,
+          "precision": 0.0579,
+          "n_flagged": 363,
+          "true_positive": 21,
+          "false_negative": 0
+        },
+        {
+          "threshold": 0.5,
+          "sensitivity": 0.2381,
+          "specificity": 0.8743,
+          "precision": 0.1042,
+          "n_flagged": 48,
+          "true_positive": 5,
+          "false_negative": 16
+        },
+        {
+          "threshold": 0.55,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.6,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.65,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.7,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.75,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.8,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.85,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.9,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        },
+        {
+          "threshold": 0.95,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "precision": null,
+          "n_flagged": 0,
+          "true_positive": 0,
+          "false_negative": 21
+        }
+      ],
+      "score_distribution": {
+        "min": 0.49266971,
+        "max": 0.50397969,
+        "mean": 0.49846236,
+        "sd": 0.0014234
+      },
+      "note": "Chosen on the uncalibrated score (1 - <Z0>)/2. Calibration is a separate stage and is also fitted without the test partition.",
+      "validation_metrics_at_selected_threshold": {
+        "n_samples": 363,
+        "n_positive": 21,
+        "n_negative": 342,
+        "prevalence": 0.057851,
+        "threshold": 0.49692188240883983,
+        "accuracy": 0.162534,
+        "precision": 0.056426,
+        "recall": 0.857143,
+        "sensitivity": 0.857143,
+        "specificity": 0.119883,
+        "f1": 0.105882,
+        "balanced_accuracy": 0.488513,
+        "roc_auc": 0.583681,
+        "pr_auc": 0.087802,
+        "brier": 0.248602,
+        "log_loss": 0.690351,
+        "ece": 0.440611,
+        "mean_predicted": 0.498462,
+        "confusion_matrix": {
+          "true_positive": 18,
+          "false_positive": 301,
+          "true_negative": 41,
+          "false_negative": 3,
+          "threshold": 0.49692188240883983
+        }
+      }
+    },
+    "ranking": [
+      {
+        "label": "oracle/A_all/spsa/L1/it50/s42",
+        "validation_pr_auc": 0.087802,
+        "validation_roc_auc": 0.583681,
+        "final_train_loss": 0.69242637
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "config": {
+        "roi_mode": "oracle",
+        "condition": "A_all",
+        "n_layers": 1,
+        "optimizer": "spsa",
+        "maxiter": 50,
+        "learning_rate": null,
+        "perturbation": null,
+        "seed": 42,
+        "class_weighting": true,
+        "n_qubits": 16,
+        "n_parameters": 32,
+        "amplitudes_per_state": 65536
+      },
+      "label": "oracle/A_all/spsa/L1/it50/s42",
+      "weights": [
+        1.68483736297684,
+        0.006756818838740158,
+        -0.5297622834869227,
+        1.0515469150824246,
+        -2.5079397119058675,
+        4.897999147313538,
+        0.8040270048002774,
+        1.2218321836360664,
+        -1.9883501343823542,
+        0.3171091370248359,
+        -0.6143465036204857,
+        0.44000983188614706,
+        2.447799799005654,
+        5.256864042100087,
+        -2.7811426241907964,
+        -3.1562521814481035,
+        1.8328367225811149,
+        -4.526967757086606,
+        0.8836823138304571,
+        1.8189479866902705,
+        2.7821587372070424,
+        0.7821612372137231,
+        4.087632443312317,
+        3.9781024763247044,
+        2.1869424578268055,
+        -3.0519444858959237,
+        1.241324888197945,
+        -3.5823607440704763,
+        -1.533095005634094,
+        2.0046680823858343,
+        0.6449672174014439,
+        2.057783795733533
+      ],
+      "training": {
+        "initial_objective": 0.69318937,
+        "final_objective": 0.69242637,
+        "best_objective": 0.69242637,
+        "objective_improvement": 0.00076301,
+        "n_iterations": 50,
+        "n_objective_evaluations": 152,
+        "n_circuit_evaluations": 257184,
+        "duration_seconds": 6909.46,
+        "converged": true,
+        "objective_history": [
+          0.69318937,
+          0.69317102,
+          0.69310636,
+          0.69310663,
+          0.69313031,
+          0.69312467,
+          0.69309402,
+          0.6932406,
+          0.69329682,
+          0.69309019,
+          0.69315924,
+          0.69324078,
+          0.69310631,
+          0.69331564,
+          0.69317748,
+          0.6931944,
+          0.69312617,
+          0.69326232,
+          0.69311905,
+          0.69313537,
+          0.69316314,
+          0.6933405,
+          0.6931098,
+          0.6931092,
+          0.69327116,
+          0.69317685,
+          0.69318448,
+          0.69317336,
+          0.69315305,
+          0.69309654,
+          0.69343258,
+          0.69301184,
+          0.69309785,
+          0.69310253,
+          0.69349512,
+          0.69315896,
+          0.69315025,
+          0.69331037,
+          0.69313966,
+          0.69312783,
+          0.69315192,
+          0.69311603,
+          0.69329917,
+          0.69320422,
+          0.69292892,
+          0.69312417,
+          0.69318376,
+          0.69330014,
+          0.69323608,
+          0.69312228,
+          0.6936611,
+          0.69312203,
+          0.69309313,
+          0.6931872,
+          0.69313652,
+          0.69282621,
+          0.69317999,
+          0.69323205,
+          0.69319557,
+          0.69330872,
+          0.69314702,
+          0.69321903,
+          0.69319247,
+          0.69321035,
+          0.69328712,
+          0.69313876,
+          0.69334865,
+          0.69310942,
+          0.69344351,
+          0.6930417,
+          0.69310591,
+          0.69308308,
+          0.69304152,
+          0.69302846,
+          0.69310384,
+          0.69307995,
+          0.69304879,
+          0.69304449,
+          0.6930476,
+          0.69305263,
+          0.69308815,
+          0.6930538,
+          0.69301168,
+          0.69305477,
+          0.69302357,
+          0.69299693,
+          0.69305317,
+          0.69305712,
+          0.69306074,
+          0.69304022,
+          0.69302909,
+          0.69299664,
+          0.69301367,
+          0.69299332,
+          0.69305107,
+          0.69299421,
+          0.69301293,
+          0.69302307,
+          0.69301469,
+          0.69301742,
+          0.69297538,
+          0.69299274,
+          0.69301735,
+          0.69299239,
+          0.69304626,
+          0.69303494,
+          0.69306074,
+          0.69301119,
+          0.69303742,
+          0.69301027,
+          0.69301307,
+          0.69300627,
+          0.69302115,
+          0.6929995,
+          0.69302344,
+          0.69300836,
+          0.69302665,
+          0.69301002,
+          0.69303187,
+          0.69300644,
+          0.69301081,
+          0.69302275,
+          0.69301693,
+          0.69302498,
+          0.69302255,
+          0.69299745,
+          0.69303989,
+          0.692983,
+          0.69300639,
+          0.69300851,
+          0.69300544,
+          0.69302466,
+          0.69303056,
+          0.69302066,
+          0.69301439,
+          0.69301367,
+          0.69301665,
+          0.69301641,
+          0.69286662,
+          0.69295776,
+          0.69297994,
+          0.69295118,
+          0.69300155,
+          0.69273499,
+          0.69301779,
+          0.6927411,
+          0.69280508,
+          0.69242637,
+          0.69292566,
+          0.69256735,
+          0.6929119,
+          0.69269687
+        ],
+        "validation_trace": [
+          {
+            "objective_evaluation": 50,
+            "train_loss": 0.69312228,
+            "validation_loss": 0.69334988
+          },
+          {
+            "objective_evaluation": 100,
+            "train_loss": 0.69301742,
+            "validation_loss": 0.69334988
+          },
+          {
+            "objective_evaluation": 150,
+            "train_loss": 0.69256735,
+            "validation_loss": 0.69334988
+          }
+        ]
+      },
+      "train_metrics_uncalibrated": {
+        "n_samples": 1692,
+        "n_positive": 104,
+        "n_negative": 1588,
+        "prevalence": 0.061466,
+        "threshold": 0.5,
+        "accuracy": 0.855792,
+        "precision": 0.123656,
+        "recall": 0.221154,
+        "sensitivity": 0.221154,
+        "specificity": 0.897355,
+        "f1": 0.158621,
+        "balanced_accuracy": 0.559255,
+        "roc_auc": 0.637891,
+        "pr_auc": 0.138325,
+        "brier": 0.248561,
+        "log_loss": 0.690269,
+        "ece": 0.436984,
+        "mean_predicted": 0.49845,
+        "confusion_matrix": {
+          "true_positive": 23,
+          "false_positive": 163,
+          "true_negative": 1425,
+          "false_negative": 81,
+          "threshold": 0.5
+        }
+      },
+      "validation_metrics_uncalibrated": {
+        "n_samples": 363,
+        "n_positive": 21,
+        "n_negative": 342,
+        "prevalence": 0.057851,
+        "threshold": 0.5,
+        "accuracy": 0.837466,
+        "precision": 0.104167,
+        "recall": 0.238095,
+        "sensitivity": 0.238095,
+        "specificity": 0.874269,
+        "f1": 0.144928,
+        "balanced_accuracy": 0.556182,
+        "roc_auc": 0.583681,
+        "pr_auc": 0.087802,
+        "brier": 0.248602,
+        "log_loss": 0.690351,
+        "ece": 0.440611,
+        "mean_predicted": 0.498462,
+        "confusion_matrix": {
+          "true_positive": 5,
+          "false_positive": 43,
+          "true_negative": 299,
+          "false_negative": 16,
+          "threshold": 0.5
+        }
+      },
+      "selection_score_validation_pr_auc": 0.087802,
+      "notes": [
+        "Scores are (1 - <Z0>)/2, bounded and monotone but not calibrated probabilities. Metrics at threshold 0.50 are reported for comparability, not as an operating point.",
+        "Validation loss recorded every 50 objective evaluations for reporting only; the run was not stopped on it."
+      ]
+    }
+  ],
+  "selected_weights": [
+    1.68483736297684,
+    0.006756818838740158,
+    -0.5297622834869227,
+    1.0515469150824246,
+    -2.5079397119058675,
+    4.897999147313538,
+    0.8040270048002774,
+    1.2218321836360664,
+    -1.9883501343823542,
+    0.3171091370248359,
+    -0.6143465036204857,
+    0.44000983188614706,
+    2.447799799005654,
+    5.256864042100087,
+    -2.7811426241907964,
+    -3.1562521814481035,
+    1.8328367225811149,
+    -4.526967757086606,
+    0.8836823138304571,
+    1.8189479866902705,
+    2.7821587372070424,
+    0.7821612372137231,
+    4.087632443312317,
+    3.9781024763247044,
+    2.1869424578268055,
+    -3.0519444858959237,
+    1.241324888197945,
+    -3.5823607440704763,
+    -1.533095005634094,
+    2.0046680823858343,
+    0.6449672174014439,
+    2.057783795733533
+  ],
+  "hardware_feasibility": null,
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "1.26.4"
+  }
+}

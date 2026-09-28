@@ -49,6 +49,9 @@ def _payload(n: int = 3, pixels: int = V1_PIXEL_COUNT, qubits: int = V1_QUBIT_CO
         "roi_boxes": np.tile(np.array([[0, 0, 100, 100]], dtype=np.int32), (n, 1)),
         "roi_sources": ["region_polygon"] * n,
         "source_sizes": np.tile(np.array([[640, 480]], dtype=np.int32), (n, 1)),
+        # Deliberately omitted: localisation columns. An oracle payload has no
+        # localisation to report, and the save/load path must default them rather
+        # than requiring every caller to know about the localiser.
         "rejections": {},
         "failures": {},
         "n_candidates": n,
@@ -105,6 +108,57 @@ def test_cache_declaring_the_wrong_qubit_count_is_refused(tmp_path):
 def test_missing_cache_names_the_command_that_builds_it(tmp_path):
     with pytest.raises(FileNotFoundError, match="prepare_pixels"):
         load_pixel_cache(tmp_path / "absent.npz")
+
+
+def test_an_oracle_cache_has_no_localisation_columns_to_report(tmp_path):
+    """Absent localisation defaults to ``"oracle"``, not to a fabricated status.
+
+    A cache written before the localiser existed is still a correct oracle cache, so
+    it loads rather than demanding a rebuild -- but it must not come back claiming
+    its crops were localised.
+    """
+    path = save_pixel_cache(_payload(n=3), tmp_path / "oracle.npz")
+    loaded = load_pixel_cache(path)
+    assert loaded["localization_statuses"] == ["oracle"] * 3
+    assert np.all(np.isnan(loaded["localization_confidences"]))
+
+
+def test_a_predicted_cache_must_name_the_localiser_that_produced_it(tmp_path):
+    """Condition B is attributable or it is not reportable.
+
+    A predicted cache without a localiser version could not be traced to a model, so
+    a result computed from it could not be attributed to one either.
+    """
+    payload = _payload(n=2)
+    payload["roi_mode"] = "predicted"
+    payload["localization_statuses"] = ["localized", "localized"]
+    payload["localization_confidences"] = np.array([0.8, 0.7])
+    path = save_pixel_cache(payload, tmp_path / "anonymous.npz")
+    with pytest.raises(ValueError, match="localiser"):
+        load_pixel_cache(path)
+
+
+def test_misaligned_localisation_columns_are_refused_at_save(tmp_path):
+    """A status list shorter than the pixel matrix would mislabel every row after it."""
+    payload = _payload(n=3)
+    payload["localization_statuses"] = ["localized", "localized"]
+    with pytest.raises(ValueError, match="misaligned"):
+        save_pixel_cache(payload, tmp_path / "short.npz")
+
+
+def test_localisation_columns_round_trip(tmp_path):
+    payload = _payload(n=3)
+    payload["roi_mode"] = "predicted"
+    payload["localizer_version"] = "carescan-localizer-1"
+    payload["roi_sources"] = ["predicted", "predicted_rejected", "predicted"]
+    payload["localization_statuses"] = ["localized", "fallback_used", "localized"]
+    payload["localization_confidences"] = np.array([0.91, 0.12, 0.55])
+    loaded = load_pixel_cache(save_pixel_cache(payload, tmp_path / "predicted.npz"))
+    assert loaded["localization_statuses"] == payload["localization_statuses"]
+    assert np.allclose(
+        loaded["localization_confidences"], payload["localization_confidences"]
+    )
+    assert loaded["localizer_version"] == "carescan-localizer-1"
 
 
 # ============================= THE REAL CACHE ================================
@@ -230,6 +284,170 @@ def test_amplitudes_match_recomputing_from_the_source_image(pixel_dataset):
         assert np.array_equal(
             recomputed.amplitudes, partition.amplitudes([position])[0]
         )
+
+
+@requires_pixel_cache
+def test_the_oracle_cache_reports_no_localisation(pixel_dataset):
+    """Condition A must not be able to masquerade as condition B.
+
+    The oracle cache is annotation-derived; if it ever came back with localisation
+    statuses, an oracle number could be reported as a predicted one.
+    """
+    assert pixel_dataset.cache_metadata.get("roi_mode") == "oracle"
+    assert not pixel_dataset.cache_metadata.get("localizer_version")
+    for partition in pixel_dataset.partitions.values():
+        assert set(partition.localization_statuses) == {"oracle"}
+        assert partition.localized_rows.size == 0
+        assert partition.fallback_rows.size == 0
+
+
+# ========================= THE PREDICTED-ROI CACHE ===========================
+requires_predicted_cache = pytest.mark.skipif(
+    discover_dataset_root() is None
+    or not pixel_cache_path(ArtifactStore.from_settings(), "predicted").exists(),
+    reason="Predicted-ROI cache not built "
+    "(run `python -m backend.training.prepare_pixels --roi predicted`).",
+)
+
+
+@pytest.fixture(scope="module")
+def predicted_dataset():
+    from backend.training.pixel_data import load_pixel_partitions
+
+    return load_pixel_partitions(roi_mode="predicted")
+
+
+@requires_predicted_cache
+def test_the_predicted_cache_is_also_sixteen_qubits(predicted_dataset):
+    assert predicted_dataset.qubit_count == 16
+    for partition in predicted_dataset.partitions.values():
+        assert partition.raw.shape[1] == V1_PIXEL_COUNT
+        assert partition.raw.dtype == np.uint8
+
+
+@requires_predicted_cache
+def test_the_predicted_cache_names_its_localiser(predicted_dataset):
+    """Requirement 6, at the point the pixels are consumed rather than produced."""
+    assert predicted_dataset.cache_metadata["roi_mode"] == "predicted"
+    assert predicted_dataset.cache_metadata["localizer_version"]
+
+
+@requires_predicted_cache
+def test_no_patient_crosses_a_predicted_partition_boundary(predicted_dataset):
+    """MANDATORY: the leakage guarantee holds on the predicted path too.
+
+    A third consumer of the same manifest needs its own assertion; the ROI changed,
+    so the join is a different one even though the manifest is not.
+    """
+    seen = {}
+    for name, partition in predicted_dataset.partitions.items():
+        for patient_id in set(partition.patient_ids):
+            assert patient_id not in seen, (
+                f"LEAKAGE: patient {patient_id} in both {seen[patient_id]} and {name}"
+            )
+            seen[patient_id] = name
+    assert len(seen) > 100
+
+
+@requires_predicted_cache
+def test_the_predicted_and_oracle_caches_cover_the_same_images(
+    predicted_dataset, pixel_dataset
+):
+    """Conditions A and B must differ only in the ROI, not in the population.
+
+    If one cache held more images than the other, the A-versus-B comparison would be
+    between two different experiments and the ROI would not be the only variable.
+    """
+    for name in PARTITIONS:
+        assert set(predicted_dataset.partitions[name].image_ids) == set(
+            pixel_dataset.partitions[name].image_ids
+        ), name
+
+
+@requires_predicted_cache
+def test_every_predicted_row_is_localised_or_an_explicit_fallback(predicted_dataset):
+    """MANDATORY (requirement 9): no cached row has an unaccounted-for origin.
+
+    ``localized`` and ``fallback_used`` must partition the rows, and the ROI source
+    must agree with the status on every one -- a row labelled ``predicted`` whose
+    status was ``fallback_used`` would be exactly the silent conversion of a failure
+    into a successful crop that the requirement forbids.
+    """
+    for name, partition in predicted_dataset.partitions.items():
+        statuses = partition.localization_statuses
+        assert set(statuses) <= {"localized", "fallback_used"}, name
+        assert (
+            partition.localized_rows.size + partition.fallback_rows.size == len(partition)
+        ), name
+        for status, source in zip(statuses, partition.roi_sources):
+            expected = "predicted" if status == "localized" else "predicted_rejected"
+            assert source == expected, (name, status, source)
+
+
+@requires_predicted_cache
+def test_the_fallback_subset_is_selectable_as_condition_c(predicted_dataset):
+    """Condition C has to be addressable from a loaded partition, not reconstructed.
+
+    Also asserts the fallback rows are not simply everything: a localiser that failed
+    on every image would satisfy the partitioning check above while being useless.
+    """
+    total_fallback = sum(
+        p.fallback_rows.size for p in predicted_dataset.partitions.values()
+    )
+    total_images = sum(len(p) for p in predicted_dataset.partitions.values())
+    assert 0 < total_fallback < total_images * 0.5, (
+        f"{total_fallback}/{total_images} rows are localisation fallbacks; condition B "
+        f"would mostly be measuring the centre crop."
+    )
+    partition = predicted_dataset.test
+    rows = partition.fallback_rows
+    if rows.size:
+        states = partition.amplitudes(rows)
+        assert states.shape == (rows.size, V1_PIXEL_COUNT)
+
+
+@requires_predicted_cache
+def test_predicted_confidences_are_recorded_and_in_range(predicted_dataset):
+    for name, partition in predicted_dataset.partitions.items():
+        confidences = partition.localization_confidences
+        assert confidences.shape[0] == len(partition), name
+        assert np.all(np.isfinite(confidences)), name
+        assert np.all((confidences >= 0.0) & (confidences <= 1.0)), name
+
+
+@requires_predicted_cache
+def test_predicted_pixels_differ_from_oracle_pixels(predicted_dataset, pixel_dataset):
+    """The two conditions must actually be different inputs.
+
+    If they matched, condition B would be condition A under another name and the
+    comparison would be vacuous. Some rows legitimately coincide -- an unannotated
+    image whose predicted box was rejected falls back to a centre crop close to the
+    oracle centre crop -- so this asserts most rows differ, not all.
+    """
+    oracle = pixel_dataset.test
+    predicted = predicted_dataset.test
+    by_id = {image_id: i for i, image_id in enumerate(oracle.image_ids)}
+    compared = differing = 0
+    for position, image_id in enumerate(predicted.image_ids):
+        if image_id not in by_id:
+            continue
+        compared += 1
+        if not np.array_equal(predicted.raw[position], oracle.raw[by_id[image_id]]):
+            differing += 1
+    assert compared > 100
+    assert differing / compared > 0.9, (
+        f"Only {differing}/{compared} test images differ between the oracle and "
+        f"predicted ROIs; the two conditions are not distinct inputs."
+    )
+
+
+@requires_predicted_cache
+def test_amplitudes_from_the_predicted_cache_are_legal_states(predicted_dataset):
+    partition = predicted_dataset.test
+    states = partition.amplitudes(range(min(24, len(partition))))
+    norms = np.linalg.norm(states, axis=1)
+    assert np.allclose(norms, 1.0, atol=1e-9)
+    assert np.all(states >= 0.0) and np.all(np.isfinite(states))
 
 
 @requires_pixel_cache

@@ -11,12 +11,19 @@ Layout under ``ARTIFACT_DIR`` (default ``backend/artifacts``)::
         split_manifest.json         patient-level split (backend.dataset.split)
         inspection_report.json      dataset inspection (backend.dataset.inspect)
         features_<extractor>.npz    cached image descriptors, training only
+    dataset/
+        v1_pixels_<roi>.npz         cached 256x256 grayscale ROIs (prepare_pixels)
+        state_diagnostics_<roi>.json    16-qubit input-state diagnostics
     models/<model_version>/
         metadata.json               versions, seeds, config, provenance
         pipeline.json               clinical encoder + fusion scalers + reducer meta
         reduction.npz               PCA mean / components / variances
         quantum.json                VQC parameters + training record
         calibration.json            fitted calibrator
+    models/localizer/<version>/     frozen Phase C ROI localiser
+    models/pixel_vqc/<version>/     16-qubit pixel-path VQC (Phase D)
+        pixel_vqc.json              weights, config, training history
+        selection.json              validation-selected configuration
     models/current                  text file naming the active model version
 
 No pickle
@@ -54,6 +61,18 @@ BASELINES_FILE = "baselines.json"
 
 SPLIT_MANIFEST_FILE = "split_manifest.json"
 INSPECTION_REPORT_FILE = "inspection_report.json"
+
+# Phase D, the 16-qubit pixel path. Kept in its own file rather than merged into
+# quantum.json: that artifact holds the descriptor-path VQC, and the two read
+# different inputs (163 reduced features against 65,536 amplitudes). One filename
+# for both would make a loaded model's input representation ambiguous, which is
+# exactly the confusion the V1 architecture forbids.
+PIXEL_VQC_FILE = "pixel_vqc.json"
+PIXEL_VQC_SELECTION_FILE = "selection.json"
+PIXEL_VQC_HISTORY_FILE = "training_history.json"
+PIXEL_VQC_CALIBRATION_FILE = "calibration.json"
+PIXEL_VQC_EVALUATION_FILE = "evaluation.json"
+STATE_DIAGNOSTICS_FILE = "state_diagnostics_{roi}.json"
 
 
 class ArtifactError(RuntimeError):
@@ -114,6 +133,55 @@ class ArtifactStore:
 
     def feature_cache_path(self, extractor: str) -> Path:
         return self.dataset_dir / f"features_{extractor}.npz"
+
+    @staticmethod
+    def _validated_name(value: str, kind: str) -> str:
+        """Reject anything that could escape the artifact root when used as a path.
+
+        Version strings arrive from CLI flags and from inside artifacts, so they are
+        checked rather than sanitised: a silently rewritten version would make the
+        provenance record disagree with the directory that holds it.
+        """
+        if not value or any(sep in value for sep in ("/", "\\", "..")):
+            raise ArtifactError(f"Invalid {kind} for a directory name: {value!r}")
+        return value
+
+    def localizer_dir(self, version: str) -> Path:
+        """Directory holding one trained ROI localiser.
+
+        Keyed by localiser version and kept under ``models/`` rather than beside the
+        classical pipeline: the localiser is fitted on its own subset of the training
+        partition and is reused across pipeline versions, so tying it to one model
+        version would either duplicate it or make the reuse untraceable.
+        """
+        return self.models_dir / "localizer" / self._validated_name(
+            version, "localiser version"
+        )
+
+    def pixel_vqc_dir(self, version: str) -> Path:
+        """Directory holding one trained 16-qubit pixel-path VQC.
+
+        Separate from ``models/<model_version>/`` for the same reason the localiser
+        is: this model consumes the 65,536-amplitude pixel cache, not the reduced
+        descriptor vector, and one directory holding both would make it impossible to
+        tell from the layout which input a given artifact was fitted on. Also keyed by
+        its own version so a retrained VQC cannot overwrite a frozen one.
+        """
+        return self.models_dir / "pixel_vqc" / self._validated_name(
+            version, "pixel VQC version"
+        )
+
+    def state_diagnostics_path(self, roi_mode: str) -> Path:
+        """Where the input-state diagnostics for one ROI mode live.
+
+        Keyed by ROI mode because the oracle and predicted caches produce different
+        states for the same image, and a single filename would let one overwrite the
+        other -- which would silently turn a condition-B diagnostic into a
+        condition-A one.
+        """
+        return self.dataset_dir / STATE_DIAGNOSTICS_FILE.format(
+            roi=self._validated_name(roi_mode, "ROI mode")
+        )
 
     # -------------------------------------------------------- current model
     @property

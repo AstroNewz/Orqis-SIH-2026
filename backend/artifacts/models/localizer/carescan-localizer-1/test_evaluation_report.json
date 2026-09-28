@@ -1,0 +1,1029 @@
+{
+  "localizer_version": "carescan-localizer-1",
+  "frozen_artifact": {
+    "artifact_dir": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\models\\localizer\\carescan-localizer-1",
+    "checkpoint": "C:\\Users\\ISHAN SHUKLA\\Downloads\\Orqis-main\\Orqis-main\\backend\\artifacts\\models\\localizer\\carescan-localizer-1\\localizer.pt",
+    "checkpoint_sha256": "27d6036e458f1d660c3378bc9f19aa1f5b6b5cd7f4b6d9c8238774ab79c31dee",
+    "checkpoint_bytes": 4434955,
+    "config_sha256": "97b5d78b10e24210c7005ae640fc1fe2fd826a574d97ab3e79186d8155562378",
+    "min_confidence": 0.3,
+    "threshold_selected_on": "validation",
+    "threshold_objective": "F1 of accepted vs IoU>=0.25",
+    "selected_epoch": 17,
+    "epoch_selected_on": "validation_mean_iou",
+    "preprocessing": {
+      "input_size": [
+        224,
+        224
+      ],
+      "resample_filter": "bilinear",
+      "input_normalisation": "imagenet_mean_std",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "normalisation_fitted_on_dataset": false
+    },
+    "target": "lesion_bounding_box_normalised",
+    "target_decision": "DEC-020",
+    "seed": 42,
+    "split_manifest_seed": 42,
+    "index_fingerprint": "793cc12397ce3789"
+  },
+  "development": {
+    "partitions": [
+      "train",
+      "validation"
+    ],
+    "dataset": {
+      "train": {
+        "n_images": 214,
+        "n_patients": 112,
+        "classes": {
+          "opmd": 89,
+          "oral_cancer": 13,
+          "variation_from_normal": 112
+        }
+      },
+      "validation": {
+        "n_images": 50,
+        "n_patients": 24,
+        "classes": {
+          "opmd": 18,
+          "oral_cancer": 3,
+          "variation_from_normal": 29
+        }
+      },
+      "unannotated_by_partition": {
+        "test": 332,
+        "train": 1477,
+        "validation": 311
+      },
+      "excluded_unusable_annotations": {
+        "oral_cancer/right_buccal_mucosa/Ca 4": "annotation_outside_frame:box=(35, 4, 1082, 582) image=548x469 overshoot=0.974",
+        "variation_from_normal/left_buccal_mucosa/SMITA00116_R_LB": "annotation_outside_frame:box=(8, 168, 267, 760) image=415x519 overshoot=0.464",
+        "variation_from_normal/right_buccal_mucosa/SMITA00116_R_RB": "annotation_outside_frame:box=(12, 537, 927, 977) image=565x519 overshoot=0.882"
+      }
+    },
+    "selected_epoch": 17,
+    "validation": {
+      "n": 50,
+      "mean_iou": 0.5285,
+      "median_iou": 0.5652,
+      "iou_at_least_0.25": 0.96,
+      "iou_at_least_0.5": 0.58,
+      "mean_confidence": 0.6028,
+      "confidence_iou_correlation": 0.608
+    },
+    "threshold_selection": {
+      "min_iou_for_good": 0.25,
+      "grid": [
+        {
+          "threshold": 0.2,
+          "accept_rate": 1.0,
+          "precision": 0.96,
+          "recall": 1.0,
+          "f1": 0.9796,
+          "mean_iou_of_accepted": 0.5285
+        },
+        {
+          "threshold": 0.25,
+          "accept_rate": 1.0,
+          "precision": 0.96,
+          "recall": 1.0,
+          "f1": 0.9796,
+          "mean_iou_of_accepted": 0.5285
+        },
+        {
+          "threshold": 0.3,
+          "accept_rate": 1.0,
+          "precision": 0.96,
+          "recall": 1.0,
+          "f1": 0.9796,
+          "mean_iou_of_accepted": 0.5285
+        },
+        {
+          "threshold": 0.35,
+          "accept_rate": 0.92,
+          "precision": 0.9565,
+          "recall": 0.9167,
+          "f1": 0.9362,
+          "mean_iou_of_accepted": 0.5483
+        },
+        {
+          "threshold": 0.4,
+          "accept_rate": 0.86,
+          "precision": 0.9535,
+          "recall": 0.8542,
+          "f1": 0.9011,
+          "mean_iou_of_accepted": 0.558
+        },
+        {
+          "threshold": 0.45,
+          "accept_rate": 0.8,
+          "precision": 0.95,
+          "recall": 0.7917,
+          "f1": 0.8636,
+          "mean_iou_of_accepted": 0.5604
+        },
+        {
+          "threshold": 0.5,
+          "accept_rate": 0.74,
+          "precision": 0.9459,
+          "recall": 0.7292,
+          "f1": 0.8235,
+          "mean_iou_of_accepted": 0.5639
+        },
+        {
+          "threshold": 0.6,
+          "accept_rate": 0.54,
+          "precision": 0.963,
+          "recall": 0.5417,
+          "f1": 0.6933,
+          "mean_iou_of_accepted": 0.631
+        },
+        {
+          "threshold": 0.7,
+          "accept_rate": 0.28,
+          "precision": 0.9286,
+          "recall": 0.2708,
+          "f1": 0.4194,
+          "mean_iou_of_accepted": 0.6809
+        }
+      ],
+      "selected_threshold": 0.3,
+      "selected": {
+        "threshold": 0.3,
+        "accept_rate": 1.0,
+        "precision": 0.96,
+        "recall": 1.0,
+        "f1": 0.9796,
+        "mean_iou_of_accepted": 0.5285
+      },
+      "n_good": 48
+    },
+    "localization_rates": {
+      "train": {
+        "all_images": {
+          "n_images": 1692,
+          "localized": 1620,
+          "fallback_used": 72,
+          "rejected": 0,
+          "localization_rate": 0.9574,
+          "fallback_rate": 0.0426,
+          "rejection_rate": 0.0,
+          "failure_reasons": {
+            "low_confidence": 72
+          },
+          "confidence": {
+            "mean": 0.5846,
+            "min": 0.1428,
+            "max": 0.9398,
+            "median": 0.5831
+          },
+          "iou": {
+            "mean": 0.6886,
+            "median": 0.7375,
+            "at_least_0.25": 0.974,
+            "at_least_0.5": 0.8385,
+            "at_least_0.75": 0.4531
+          }
+        },
+        "lesion_annotated": {
+          "n_images": 214,
+          "localized": 192,
+          "fallback_used": 22,
+          "rejected": 0,
+          "localization_rate": 0.8972,
+          "fallback_rate": 0.1028,
+          "rejection_rate": 0.0,
+          "failure_reasons": {
+            "low_confidence": 22
+          },
+          "confidence": {
+            "mean": 0.6322,
+            "min": 0.1428,
+            "max": 0.9398,
+            "median": 0.6864
+          },
+          "iou": {
+            "mean": 0.6886,
+            "median": 0.7375,
+            "at_least_0.25": 0.974,
+            "at_least_0.5": 0.8385,
+            "at_least_0.75": 0.4531
+          }
+        },
+        "not_annotated": {
+          "n_images": 1477,
+          "localized": 1427,
+          "fallback_used": 50,
+          "rejected": 0,
+          "localization_rate": 0.9661,
+          "fallback_rate": 0.0339,
+          "rejection_rate": 0.0,
+          "failure_reasons": {
+            "low_confidence": 50
+          },
+          "confidence": {
+            "mean": 0.5775,
+            "min": 0.1808,
+            "max": 0.9135,
+            "median": 0.572
+          }
+        },
+        "unusable_annotation": {
+          "n_images": 1,
+          "localized": 1,
+          "fallback_used": 0,
+          "rejected": 0,
+          "localization_rate": 1.0,
+          "fallback_rate": 0.0,
+          "rejection_rate": 0.0,
+          "failure_reasons": {},
+          "confidence": {
+            "mean": 0.8317,
+            "min": 0.8317,
+            "max": 0.8317,
+            "median": 0.8317
+          }
+        },
+        "unreadable_images": {}
+      },
+      "validation": {
+        "all_images": {
+          "n_images": 363,
+          "localized": 353,
+          "fallback_used": 10,
+          "rejected": 0,
+          "localization_rate": 0.9725,
+          "fallback_rate": 0.0275,
+          "rejection_rate": 0.0,
+          "failure_reasons": {
+            "low_confidence": 10
+          },
+          "confidence": {
+            "mean": 0.5829,
+            "min": 0.2029,
+            "max": 0.9234,
+            "median": 0.5686
+          },
+          "iou": {
+            "mean": 0.5285,
+            "median": 0.5656,
+            "at_least_0.25": 0.96,
+            "at_least_0.5": 0.58,
+            "at_least_0.75": 0.16
+          }
+        },
+        "lesion_annotated": {
+          "n_images": 50,
+          "localized": 50,
+          "fallback_used": 0,
+          "rejected": 0,
+          "localization_rate": 1.0,
+          "fallback_rate": 0.0,
+          "rejection_rate": 0.0,
+          "failure_reasons": {},
+          "confidence": {
+            "mean": 0.6028,
+            "min": 0.3152,
+            "max": 0.8844,
+            "median": 0.6128
+          },
+          "iou": {
+            "mean": 0.5285,
+            "median": 0.5656,
+            "at_least_0.25": 0.96,
+            "at_least_0.5": 0.58,
+            "at_least_0.75": 0.16
+          }
+        },
+        "not_annotated": {
+          "n_images": 311,
+          "localized": 301,
+          "fallback_used": 10,
+          "rejected": 0,
+          "localization_rate": 0.9678,
+          "fallback_rate": 0.0322,
+          "rejection_rate": 0.0,
+          "failure_reasons": {
+            "low_confidence": 10
+          },
+          "confidence": {
+            "mean": 0.5798,
+            "min": 0.2029,
+            "max": 0.9234,
+            "median": 0.5588
+          }
+        },
+        "unusable_annotation": {
+          "n_images": 2,
+          "localized": 2,
+          "fallback_used": 0,
+          "rejected": 0,
+          "localization_rate": 1.0,
+          "fallback_rate": 0.0,
+          "rejection_rate": 0.0,
+          "failure_reasons": {},
+          "confidence": {
+            "mean": 0.5741,
+            "min": 0.5175,
+            "max": 0.6307,
+            "median": 0.5741
+          }
+        },
+        "unreadable_images": {}
+      }
+    },
+    "duration_seconds": 397.8
+  },
+  "final_test": {
+    "partition": "test",
+    "n_images_in_partition": 381,
+    "n_patients": 48,
+    "applied_threshold": 0.3,
+    "threshold_changed_for_this_evaluation": false,
+    "all_images": {
+      "n_images": 381,
+      "localized": 374,
+      "fallback_used": 7,
+      "rejected": 0,
+      "localization_rate": 0.9816,
+      "fallback_rate": 0.0184,
+      "rejection_rate": 0.0,
+      "failure_reasons": {
+        "low_confidence": 7
+      },
+      "confidence": {
+        "mean": 0.5794,
+        "min": 0.185,
+        "max": 0.8962,
+        "median": 0.5704
+      },
+      "iou": {
+        "mean": 0.5279,
+        "median": 0.5535,
+        "at_least_0.25": 0.9574,
+        "at_least_0.5": 0.5106,
+        "at_least_0.75": 0.1489,
+        "measured_on": "lesion_annotated_subset_only",
+        "n": 47
+      }
+    },
+    "lesion_annotated": {
+      "n_images": 49,
+      "localized": 47,
+      "fallback_used": 2,
+      "rejected": 0,
+      "localization_rate": 0.9592,
+      "fallback_rate": 0.0408,
+      "rejection_rate": 0.0,
+      "failure_reasons": {
+        "low_confidence": 2
+      },
+      "confidence": {
+        "mean": 0.5963,
+        "min": 0.2835,
+        "max": 0.8494,
+        "median": 0.622
+      },
+      "iou": {
+        "mean": 0.5279,
+        "median": 0.5535,
+        "at_least_0.25": 0.9574,
+        "at_least_0.5": 0.5106,
+        "at_least_0.75": 0.1489
+      },
+      "verified_against_ground_truth": true,
+      "iou_floor_for_verified": 0.25,
+      "accepted": 47,
+      "accepted_and_verified": 45,
+      "accepted_but_below_floor": 2,
+      "verified_share_of_all_annotated": 0.9184,
+      "verified_share_of_accepted": 0.9574,
+      "iou_of_accepted": {
+        "mean": 0.5279,
+        "median": 0.5535,
+        "min": 0.2084,
+        "max": 0.8942,
+        "std": 0.1761
+      },
+      "iou_of_used_roi_including_fallbacks": {
+        "mean": 0.5263,
+        "median": 0.5535,
+        "min": 0.2084,
+        "max": 0.8942,
+        "std": 0.1755
+      },
+      "confidence_iou_correlation": {
+        "value": 0.1884,
+        "n": 49,
+        "reason": null
+      },
+      "per_image": [
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00007_W_LB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.733485,
+          "iou_of_used_roi": 0.646283,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00014_W_LB1",
+          "diagnostic_class": "opmd",
+          "status": "fallback_used",
+          "confidence": 0.298642,
+          "iou_of_used_roi": 0.644859,
+          "accepted": false,
+          "reasons": [
+            "low_confidence:0.2986<0.3"
+          ]
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00014_W_LB2",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.385834,
+          "iou_of_used_roi": 0.40859,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00018_W_LB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.642963,
+          "iou_of_used_roi": 0.557002,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00108_R_LB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.668837,
+          "iou_of_used_roi": 0.311288,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00176_W_LB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.620428,
+          "iou_of_used_roi": 0.404812,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00272_W_LB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.78615,
+          "iou_of_used_roi": 0.369512,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/left_buccal_mucosa/SMITA00276_W_LB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.479245,
+          "iou_of_used_roi": 0.819304,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/lower_lip/SMITA00272_W_LL",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.627585,
+          "iou_of_used_roi": 0.20844,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00007_W_RB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.786899,
+          "iou_of_used_roi": 0.762484,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00014_W_RB",
+          "diagnostic_class": "opmd",
+          "status": "fallback_used",
+          "confidence": 0.283495,
+          "iou_of_used_roi": 0.331475,
+          "accepted": false,
+          "reasons": [
+            "low_confidence:0.2835<0.3"
+          ]
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00018_W-RB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.713858,
+          "iou_of_used_roi": 0.769692,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00084_R_RB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.665905,
+          "iou_of_used_roi": 0.498272,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00176_W_RB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.481255,
+          "iou_of_used_roi": 0.401004,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00220_W_RB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.617105,
+          "iou_of_used_roi": 0.64363,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "opmd/right_buccal_mucosa/SMITA00272_W_RB",
+          "diagnostic_class": "opmd",
+          "status": "localized",
+          "confidence": 0.387584,
+          "iou_of_used_roi": 0.433453,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "oral_cancer/left_buccal_mucosa/6098",
+          "diagnostic_class": "oral_cancer",
+          "status": "localized",
+          "confidence": 0.506716,
+          "iou_of_used_roi": 0.698114,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "oral_cancer/ventral_tongue/6026",
+          "diagnostic_class": "oral_cancer",
+          "status": "localized",
+          "confidence": 0.68361,
+          "iou_of_used_roi": 0.599214,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/dorsal_tongue/SMITA000221_R_DT",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.661536,
+          "iou_of_used_roi": 0.772284,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/dorsal_tongue/SMITA00083_R_DT",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.849403,
+          "iou_of_used_roi": 0.328679,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/dorsal_tongue/SMITA00084_R_DT",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.842985,
+          "iou_of_used_roi": 0.894239,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00083_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.626348,
+          "iou_of_used_roi": 0.282597,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00084_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.578036,
+          "iou_of_used_roi": 0.391248,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00089_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.611061,
+          "iou_of_used_roi": 0.582665,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00183_W_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.672347,
+          "iou_of_used_roi": 0.392207,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00191_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.572683,
+          "iou_of_used_roi": 0.46226,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00192_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.494823,
+          "iou_of_used_roi": 0.433309,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00197_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.658713,
+          "iou_of_used_roi": 0.269391,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/left_buccal_mucosa/SMITA00321_R_LB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.756533,
+          "iou_of_used_roi": 0.839961,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00014_R_LL",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.51757,
+          "iou_of_used_roi": 0.267164,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00018_R_LL",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.6694,
+          "iou_of_used_roi": 0.33329,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00072_R_LL2",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.702629,
+          "iou_of_used_roi": 0.461228,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00220_W_LL1",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.600349,
+          "iou_of_used_roi": 0.62284,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00220_W_LL2",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.685619,
+          "iou_of_used_roi": 0.563092,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00221_W_LL1",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.416764,
+          "iou_of_used_roi": 0.240367,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00221_W_LL2",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.525211,
+          "iou_of_used_roi": 0.632933,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00222_W_LL1",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.647764,
+          "iou_of_used_roi": 0.32167,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00222_W_LL2",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.557678,
+          "iou_of_used_roi": 0.718993,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/lower_lip/SMITA00276_W_LL",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.582267,
+          "iou_of_used_roi": 0.619305,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00083_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.64973,
+          "iou_of_used_roi": 0.568878,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00089_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.684747,
+          "iou_of_used_roi": 0.712716,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00092_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.471093,
+          "iou_of_used_roi": 0.553471,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00108_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.622,
+          "iou_of_used_roi": 0.479504,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00183_W_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.64724,
+          "iou_of_used_roi": 0.774539,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00192_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.506946,
+          "iou_of_used_roi": 0.602279,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00197_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.408737,
+          "iou_of_used_roi": 0.607279,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00321_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.548419,
+          "iou_of_used_roi": 0.678996,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/right_buccal_mucosa/SMITA00330_R_RB",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.639996,
+          "iou_of_used_roi": 0.47561,
+          "accepted": true,
+          "reasons": []
+        },
+        {
+          "image_id": "variation_from_normal/upper_arch/SMITA00197_R_UA",
+          "diagnostic_class": "variation_from_normal",
+          "status": "localized",
+          "confidence": 0.441487,
+          "iou_of_used_roi": 0.397004,
+          "accepted": true,
+          "reasons": []
+        }
+      ],
+      "accepted_iou_at_least_0.25": 0.9574,
+      "accepted_iou_at_least_0.5": 0.5106,
+      "accepted_iou_at_least_0.75": 0.1489,
+      "by_diagnostic_class": {
+        "opmd": {
+          "n_images": 16,
+          "accepted": 14,
+          "iou_of_used_roi": {
+            "mean": 0.5131,
+            "median": 0.4659,
+            "min": 0.2084,
+            "max": 0.8193,
+            "std": 0.1776
+          }
+        },
+        "oral_cancer": {
+          "n_images": 2,
+          "accepted": 2,
+          "iou_of_used_roi": {
+            "mean": 0.6487,
+            "median": 0.6487,
+            "min": 0.5992,
+            "max": 0.6981,
+            "std": 0.0494
+          }
+        },
+        "variation_from_normal": {
+          "n_images": 31,
+          "accepted": 31,
+          "iou_of_used_roi": {
+            "mean": 0.5252,
+            "median": 0.5535,
+            "min": 0.2404,
+            "max": 0.8942,
+            "std": 0.1766
+          }
+        }
+      }
+    },
+    "unannotated": {
+      "n_images": 332,
+      "localized": 327,
+      "fallback_used": 5,
+      "rejected": 0,
+      "localization_rate": 0.9849,
+      "fallback_rate": 0.0151,
+      "rejection_rate": 0.0,
+      "failure_reasons": {
+        "low_confidence": 5
+      },
+      "confidence": {
+        "mean": 0.5768,
+        "min": 0.185,
+        "max": 0.8962,
+        "median": 0.5629
+      },
+      "verified_against_ground_truth": false,
+      "unverified_localization": true,
+      "accepted": 327,
+      "note": "No ground-truth lesion box exists for these images, so 'localized' means only that the confidence cleared the frozen threshold. It is an acceptance rate, not an accuracy: none of these boxes has been verified to contain a lesion."
+    },
+    "unusable_annotation": {
+      "n_images": 0,
+      "localized": 0,
+      "fallback_used": 0,
+      "rejected": 0,
+      "localization_rate": 0.0,
+      "fallback_rate": 0.0,
+      "rejection_rate": 0.0,
+      "failure_reasons": {},
+      "scored": false,
+      "note": "Annotation lies outside its own image (DEC-021). The image is localised; only its label is discarded, so no IoU is reported."
+    },
+    "unreadable_images": {},
+    "roi_source_counts": {
+      "predicted": 374,
+      "predicted_rejected": 7
+    },
+    "confidence_by_outcome": {
+      "accepted": {
+        "mean": 0.5854,
+        "median": 0.5766,
+        "min": 0.3008,
+        "max": 0.8962,
+        "std": 0.1527
+      },
+      "fallback": {
+        "mean": 0.2571,
+        "median": 0.2516,
+        "min": 0.185,
+        "max": 0.2986,
+        "std": 0.0342
+      }
+    },
+    "duration_seconds": 7.8
+  },
+  "conditions": {
+    "A_oracle_lesion_roi": {
+      "definition": "ROI from the annotator's polygons; no localiser involved.",
+      "n_test_images_with_usable_lesion_annotation": 49,
+      "verifiable": true
+    },
+    "B_predicted_roi": {
+      "definition": "Localiser box accepted at the frozen threshold.",
+      "roi_source": "predicted",
+      "n": 374,
+      "n_verified_against_annotation": 45,
+      "n_accepted_but_below_iou_floor": 2
+    },
+    "C_fallback_or_rejected": {
+      "definition": "Localisation ran and its output was refused; the centre crop was used and is labelled predicted_rejected.",
+      "roi_source": "predicted_rejected",
+      "n": 7,
+      "n_with_no_roi_at_all": 0
+    }
+  },
+  "determinism": {
+    "n_images_checked": 12,
+    "repeats_per_image": 2,
+    "reloaded_checkpoint_compared": true,
+    "identical_on_repeat": true,
+    "identical_after_reload": true,
+    "mismatches": [],
+    "reload_mismatches": []
+  },
+  "test_isolation_audit": {
+    "trainer_partitions_used": [
+      "train",
+      "validation"
+    ],
+    "trainer_partitions_exclude_test": true,
+    "trainable_partitions_constant": [
+      "train",
+      "validation"
+    ],
+    "test_partition_touched_flag": false,
+    "n_test_images_in_fitted_set": 0,
+    "n_test_patients_in_development_patients": 0,
+    "development_report_has_no_test_section": true,
+    "threshold_selected_from_n_validation_images": 48,
+    "threshold_selection_population": "validation_lesion_annotated",
+    "normalisation_constants_are_imagenet_published": true,
+    "normalisation_fitted_on_dataset": false,
+    "checkpoint_selected_on": "validation_mean_iou",
+    "threshold_selected_on": "validation",
+    "passed": true,
+    "failures": []
+  },
+  "go_no_go": {
+    "documented_numeric_criteria": null,
+    "note": "No numeric acceptance criteria for the ROI stage exist in REQUIREMENTS.md, DESIGN.md, ARCHITECTURE.md, PROJECT.md or DECISIONS.md. The pass/fail decision therefore requires a project decision and is not asserted here."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "localizer_version": "carescan-localizer-1",
+  "target": "lesion_bounding_box_normalised",
+  "target_decision": "DEC-020",
+  "architecture": "mobilenet_v3_small",
+  "pretrained_weights": "IMAGENET1K_V1",
+  "head": "Linear(576,256)->Hardswish->Dropout(0.2)->Linear(256,5)",
+  "output_activation": "sigmoid",
+  "outputs": "4 normalised box coordinates + 1 confidence",
+  "input_size": [
+    224,
+    224
+  ],
+  "input_normalisation": "imagenet_mean_std",
+  "resample_filter": "bilinear",
+  "augmentation": [
+    "horizontal_flip_p0.5",
+    "brightness_jitter_0.85_1.15"
+  ],
+  "loss": "smooth_l1(beta=0.05) + 0.5 * bce(confidence, detached_iou)",
+  "optimizer": "AdamW",
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "lr_schedule": "cosine_annealing",
+  "grad_clip_norm": 5.0,
+  "epochs": 30,
+  "batch_size": 16,
+  "seed": 42,
+  "torch_version": "2.13.0+cpu",
+  "device": "cpu",
+  "python_version": "3.12.10",
+  "min_confidence": 0.3,
+  "min_box_edge_fraction": 0.05,
+  "max_box_area_fraction": 0.98,
+  "default_min_confidence_constant": 0.35,
+  "split_manifest_seed": 42,
+  "index_fingerprint": "793cc12397ce3789",
+  "partitions_used": [
+    "train",
+    "validation"
+  ],
+  "test_partition_touched": false
+}

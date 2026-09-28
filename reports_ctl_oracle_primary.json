@@ -1,0 +1,512 @@
+{
+  "controls_version": "v1-e0-controls-1",
+  "experiment": "E0 section 9 classical controls and complementarity test",
+  "roi_mode": "oracle",
+  "partitions_read": [
+    "train",
+    "validation"
+  ],
+  "test_partition_used": false,
+  "n_qubits": 16,
+  "amplitudes_per_state": 65536,
+  "controls": {
+    "random_forest": "frozen BaselineRecord, refit on TRAIN, 181 fused features",
+    "linear_svm_on_amplitudes": "linear kernel on the identical 65,536-dim amplitude vectors, C by patient-grouped CV inside TRAIN -- redone, not quoted",
+    "rbf_svm_on_amplitudes": "same Gram, gamma by median heuristic on TRAIN distances, C the same way",
+    "phase_d_vqc": "the frozen artifact re-scored on these rows, sha256 recorded"
+  },
+  "hyperparameter_discipline": {
+    "C_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "selection": "within-TRAIN patient-grouped CV, scoring average_precision",
+    "no_validation_selection": "no control's C, gamma, threshold or calibration map was chosen using a validation row. The only validation-based selection anywhere in this module is which E0.1 variant to stack, which the spec permits.",
+    "threshold": {
+      "value": 0.5,
+      "selection": "fixed, not swept"
+    }
+  },
+  "e0_payload_supplied": true,
+  "permutation_budget": {
+    "requested": 200,
+    "large_condition_train_rows_threshold": 400,
+    "large_condition_permutations": 50,
+    "reduced_conditions": {}
+  },
+  "seeds": {
+    "experiment": 42,
+    "permutation_base": 42
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "conditions": [
+    {
+      "condition": "A_lesion_polygon",
+      "description": "Condition A restricted to annotator lesion boxes: the tightest oracle ROI and the only one that isolates the lesion.",
+      "train": {
+        "n_samples": 215,
+        "n_positive": 103,
+        "n_patients": 112,
+        "prevalence": 0.47907
+      },
+      "validation": {
+        "n_samples": 52,
+        "n_positive": 21,
+        "prevalence": 0.403846
+      },
+      "permutation_budget_note": null,
+      "controls": {
+        "linear_svm_on_amplitudes": {
+          "measured": true,
+          "kernel": "linear (precomputed Gram on the unit-norm amplitude vectors)",
+          "input_dimension": 65536,
+          "selection": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+          "redone_note": "C selected inside TRAIN only. The previously reported linear figures had C chosen on the evaluation partition and are optimistic for the control; this number is the bar the quantum readout actually has to clear.",
+          "gram_seconds": 0.128,
+          "selected_C": 10.0,
+          "cv_average_precision_by_C": {
+            "0.001": 0.494247,
+            "0.01": 0.489999,
+            "0.1": 0.488738,
+            "1.0": 0.494412,
+            "10.0": 0.496725,
+            "100.0": 0.462932
+          },
+          "n_support_vectors": 197,
+          "platt_note": "probabilities from a 1-D logistic map fitted on out-of-fold TRAIN decision values; no validation row contributed to it",
+          "metrics_rank": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.538462,
+            "precision": 0.384615,
+            "recall": 0.238095,
+            "sensitivity": 0.238095,
+            "specificity": 0.741935,
+            "f1": 0.294118,
+            "balanced_accuracy": 0.490015,
+            "roc_auc": 0.569892,
+            "pr_auc": 0.463627,
+            "brier": 0.867474,
+            "log_loss": 6.796877,
+            "ece": 0.151505,
+            "mean_predicted": -0.051388,
+            "confusion_matrix": {
+              "true_positive": 5,
+              "false_positive": 8,
+              "true_negative": 23,
+              "false_negative": 16,
+              "threshold": 0.5
+            }
+          },
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.576923,
+            "precision": 0.444444,
+            "recall": 0.190476,
+            "sensitivity": 0.190476,
+            "specificity": 0.83871,
+            "f1": 0.266667,
+            "balanced_accuracy": 0.514593,
+            "roc_auc": 0.569892,
+            "pr_auc": 0.463627,
+            "brier": 0.243292,
+            "log_loss": 0.679661,
+            "ece": 0.07354,
+            "mean_predicted": 0.477386,
+            "confusion_matrix": {
+              "true_positive": 4,
+              "false_positive": 5,
+              "true_negative": 26,
+              "false_negative": 17,
+              "threshold": 0.5
+            }
+          },
+          "metrics_note": "`metrics_rank` is computed on the raw SVM decision function: PR-AUC and ROC-AUC are rank statistics and are exact there, while Brier and ECE in that block are meaningless and should be ignored. `metrics` is the same model through the train-only Platt map, where all four are defined."
+        },
+        "rbf_svm_on_amplitudes": {
+          "measured": true,
+          "kernel": "RBF from the same Gram via ||x-y||^2 = 2 - 2<x,y>",
+          "input_dimension": 65536,
+          "gamma": 5.14269878,
+          "gamma_selection": "median heuristic: gamma = 1 / median of the strict-upper-triangle TRAIN squared distances (median = 0.194450). No validation row contributed to the width.",
+          "selection": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision",
+          "selected_C": 10.0,
+          "cv_average_precision_by_C": {
+            "0.001": 0.4903,
+            "0.01": 0.490369,
+            "0.1": 0.486404,
+            "1.0": 0.513299,
+            "10.0": 0.524889,
+            "100.0": 0.514389
+          },
+          "n_support_vectors": 201,
+          "platt_note": "probabilities from a 1-D logistic map fitted on out-of-fold TRAIN decision values; no validation row contributed to it",
+          "metrics_rank": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.634615,
+            "precision": 0.666667,
+            "recall": 0.190476,
+            "sensitivity": 0.190476,
+            "specificity": 0.935484,
+            "f1": 0.296296,
+            "balanced_accuracy": 0.56298,
+            "roc_auc": 0.672811,
+            "pr_auc": 0.549501,
+            "brier": 0.692055,
+            "log_loss": 6.208905,
+            "ece": 0.118809,
+            "mean_predicted": -0.154361,
+            "confusion_matrix": {
+              "true_positive": 4,
+              "false_positive": 2,
+              "true_negative": 29,
+              "false_negative": 17,
+              "threshold": 0.5
+            }
+          },
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.653846,
+            "precision": 0.615385,
+            "recall": 0.380952,
+            "sensitivity": 0.380952,
+            "specificity": 0.83871,
+            "f1": 0.470588,
+            "balanced_accuracy": 0.609831,
+            "roc_auc": 0.672811,
+            "pr_auc": 0.549501,
+            "brier": 0.234183,
+            "log_loss": 0.661166,
+            "ece": 0.112288,
+            "mean_predicted": 0.476505,
+            "confusion_matrix": {
+              "true_positive": 8,
+              "false_positive": 5,
+              "true_negative": 26,
+              "false_negative": 13,
+              "threshold": 0.5
+            }
+          },
+          "metrics_note": "`metrics_rank` is computed on the raw SVM decision function: PR-AUC and ROC-AUC are rank statistics and are exact there, while Brier and ECE in that block are meaningless and should be ignored. `metrics` is the same model through the train-only Platt map, where all four are defined."
+        },
+        "random_forest": {
+          "measured": true,
+          "name": "random_forest",
+          "model_version": "v1-handcrafted",
+          "hyperparameters": {
+            "n_estimators": 600,
+            "max_depth": 12,
+            "min_samples_leaf": 4
+          },
+          "seed": 42,
+          "n_train_samples": 1692,
+          "feature_dimension": 181,
+          "input": "181 fused descriptor + clinical features, PCA-reduced",
+          "rebuilt_from": "baselines.json",
+          "n_scored": 52,
+          "n_not_in_descriptor_cache": 0,
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.692308,
+            "precision": 0.692308,
+            "recall": 0.428571,
+            "sensitivity": 0.428571,
+            "specificity": 0.870968,
+            "f1": 0.529412,
+            "balanced_accuracy": 0.64977,
+            "roc_auc": 0.847926,
+            "pr_auc": 0.790313,
+            "brier": 0.166377,
+            "log_loss": 0.497254,
+            "ece": 0.128588,
+            "mean_predicted": 0.362816,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 4,
+              "true_negative": 27,
+              "false_negative": 12,
+              "threshold": 0.5
+            }
+          }
+        },
+        "phase_d_vqc": {
+          "measured": true,
+          "artifact": "oracle_A_lesion_polygon_pixel_vqc.json",
+          "sha256": "7f2d0066873e1b95eeaa0e986b868c0c55f71b35f9a16243db299f1af1610a4e",
+          "weights_trained_on_condition": "A_lesion_polygon",
+          "weights_borrowed": false,
+          "n_circuit_parameters": 32,
+          "score_map": "(1 - <Z0>)/2, uncalibrated",
+          "metrics": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.576923,
+            "precision": 0.482759,
+            "recall": 0.666667,
+            "sensitivity": 0.666667,
+            "specificity": 0.516129,
+            "f1": 0.56,
+            "balanced_accuracy": 0.591398,
+            "roc_auc": 0.56682,
+            "pr_auc": 0.526376,
+            "brier": 0.249324,
+            "log_loss": 0.691794,
+            "ece": 0.096342,
+            "mean_predicted": 0.500188,
+            "confusion_matrix": {
+              "true_positive": 14,
+              "false_positive": 15,
+              "true_negative": 16,
+              "false_negative": 7,
+              "threshold": 0.5
+            }
+          },
+          "z0_range": [
+            -0.021406,
+            0.0388895
+          ],
+          "score_band_width": 0.0301478
+        }
+      },
+      "row_alignment": {
+        "n_validation_rows": 52,
+        "n_dropped_not_in_descriptor_cache": 0,
+        "prevalence": 0.403846,
+        "note": "PR-AUC is prevalence-sensitive, so the amplitude controls are re-reported here on exactly the rows the random forest could score. The unrestricted numbers above are the ones directly comparable to E0.1.",
+        "random_forest_pr_auc": 0.790313,
+        "amplitude_controls_pr_auc": {
+          "linear_svm_on_amplitudes": 0.463627,
+          "rbf_svm_on_amplitudes": 0.549501
+        }
+      },
+      "selected_quantum_readout": {
+        "variant": "A0",
+        "weight_setting": "W-untrained",
+        "n_observables": 1,
+        "n_readout_parameters": 0,
+        "readout_selection": "frozen Phase D map; nothing fitted",
+        "selected_on": "highest validation PR-AUC among the pre-registered E0.1 variant x weight settings for this condition (0.545337 in the E0.1 payload)",
+        "reproduced_validation_pr_auc": 0.545337,
+        "stack_fold_note": "5-fold StratifiedGroupKFold on TRAIN, grouped by patient, scoring average_precision"
+      },
+      "complementarity": {
+        "measured": true,
+        "n_train_rows_used": 215,
+        "features": [
+          "rf_score",
+          "quantum_readout_score"
+        ],
+        "fitted_on": "TRAIN only, on out-of-fold values of both features; standardised with train statistics",
+        "degenerate_feature_columns": [],
+        "coefficients": {
+          "rf_score": 1.377038,
+          "quantum_readout_score": 0.078732,
+          "note": "on standardised features, so the magnitudes are directly comparable. A quantum coefficient near zero means the stack found nothing to use."
+        },
+        "validation_metrics": {
+          "rf_score_alone": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.692308,
+            "precision": 0.692308,
+            "recall": 0.428571,
+            "sensitivity": 0.428571,
+            "specificity": 0.870968,
+            "f1": 0.529412,
+            "balanced_accuracy": 0.64977,
+            "roc_auc": 0.847926,
+            "pr_auc": 0.790313,
+            "brier": 0.166377,
+            "log_loss": 0.497254,
+            "ece": 0.128588,
+            "mean_predicted": 0.362816,
+            "confusion_matrix": {
+              "true_positive": 9,
+              "false_positive": 4,
+              "true_negative": 27,
+              "false_negative": 12,
+              "threshold": 0.5
+            }
+          },
+          "quantum_score_alone": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.442308,
+            "precision": 0.366667,
+            "recall": 0.52381,
+            "sensitivity": 0.52381,
+            "specificity": 0.387097,
+            "f1": 0.431373,
+            "balanced_accuracy": 0.455453,
+            "roc_auc": 0.514593,
+            "pr_auc": 0.545337,
+            "brier": 0.250052,
+            "log_loss": 0.693251,
+            "ece": 0.096192,
+            "mean_predicted": 0.500038,
+            "confusion_matrix": {
+              "true_positive": 11,
+              "false_positive": 19,
+              "true_negative": 12,
+              "false_negative": 10,
+              "threshold": 0.5
+            }
+          },
+          "stack": {
+            "n_samples": 52,
+            "n_positive": 21,
+            "n_negative": 31,
+            "prevalence": 0.403846,
+            "threshold": 0.5,
+            "accuracy": 0.769231,
+            "precision": 0.68,
+            "recall": 0.809524,
+            "sensitivity": 0.809524,
+            "specificity": 0.741935,
+            "f1": 0.73913,
+            "balanced_accuracy": 0.77573,
+            "roc_auc": 0.843318,
+            "pr_auc": 0.788582,
+            "brier": 0.165436,
+            "log_loss": 0.499339,
+            "ece": 0.149873,
+            "mean_predicted": 0.478792,
+            "confusion_matrix": {
+              "true_positive": 17,
+              "false_positive": 8,
+              "true_negative": 23,
+              "false_negative": 4,
+              "threshold": 0.5
+            }
+          }
+        },
+        "increment": {
+          "rf_only_logistic_pr_auc": 0.790313,
+          "stack_pr_auc": 0.788582,
+          "stack_minus_rf_only": -0.001731,
+          "note": "Both sides are logistic models fitted on the same standardised out-of-fold train features; they differ only in whether the quantum column is present. `rf_only_logistic_pr_auc` should equal the raw RF score's PR-AUC whenever the fitted coefficient is positive, since a one-feature logistic is monotone in its feature."
+        },
+        "raw_rf_score_pr_auc": 0.790313,
+        "score_correlation": {
+          "pearson": 0.001444,
+          "spearman": 0.056177,
+          "note": "computed on validation scores. High correlation means the quantum score is re-deriving the forest's ranking rather than adding to it."
+        },
+        "permutation_null": {
+          "n_requested": 200,
+          "n_usable": 200,
+          "quantity": "stack PR-AUC minus RF-only PR-AUC, both refitted per draw",
+          "blocking": "patient-level label permutation within TRAIN",
+          "increment": {
+            "n": 200,
+            "mean": 0.011167,
+            "sd": 0.100809,
+            "p50": 0.001261,
+            "p95": 0.185883,
+            "p99": 0.235649,
+            "max": 0.309195
+          },
+          "observed_increment_vs_null": {
+            "n_null_at_or_above_observed": 122,
+            "empirical_p": 0.61194,
+            "exceeds_null_p95": false,
+            "z_vs_null": -0.1279
+          },
+          "gates_the_claim": false,
+          "power_note": "Reported for consistency with every other E0 null, but structurally low-powered for an increment: a stack refitted on permuted labels has random coefficient signs and is then scored against the real validation labels, so roughly one draw in four reproduces the observed increment by luck and the empirical p is floored near 0.25. A p above 0.05 here is therefore not evidence against complementarity. `column_permutation_null` is the gating test."
+        },
+        "column_permutation_null": {
+          "n_requested": 200,
+          "n_usable": 200,
+          "quantity": "stack PR-AUC with a permuted quantum column, minus the unchanged RF-only PR-AUC",
+          "blocking": "quantum column permuted patient-blocked in TRAIN and (when patient labels for the evaluation partition are supplied) in VALIDATION; labels and the RF column untouched. This is the null the claim is gated on -- see the docstring for why the label-permutation null cannot answer 'yes' here.",
+          "increment": {
+            "n": 200,
+            "mean": -0.00513,
+            "sd": 0.01506,
+            "p50": -0.003668,
+            "p95": 0.016914,
+            "p99": 0.026578,
+            "max": 0.042983
+          },
+          "observed_increment_vs_null": {
+            "n_null_at_or_above_observed": 88,
+            "empirical_p": 0.442786,
+            "exceeds_null_p95": false,
+            "z_vs_null": 0.2257
+          },
+          "gates_the_claim": true
+        },
+        "stack_beats_rf_alone": false,
+        "gain_survives_its_own_null": false,
+        "gain_survives_label_permutation_null": false,
+        "complementarity_claimed": false,
+        "row_note": "Fitted on the 215 of 215 train rows present in both caches and evaluated on the 52 of 52 validation rows the forest could score. Both models see identical rows."
+      },
+      "runtime_seconds": 29.678
+    }
+  ],
+  "verdict": {
+    "per_condition": [
+      {
+        "condition": "A_lesion_polygon",
+        "validation_n": 52,
+        "validation_prevalence": 0.403846,
+        "best_control": "random_forest",
+        "best_control_pr_auc": 0.790313,
+        "control_pr_auc": {
+          "linear_svm_on_amplitudes": 0.463627,
+          "rbf_svm_on_amplitudes": 0.549501,
+          "random_forest": 0.790313,
+          "phase_d_vqc": 0.526376
+        },
+        "selected_quantum": "A0 / W-untrained",
+        "quantum_pr_auc": 0.545337,
+        "quantum_beats_best_control": false,
+        "margin_vs_best_control": -0.244976,
+        "complementarity_claimed": false,
+        "stack_minus_rf_only_pr_auc": -0.001731,
+        "increment_empirical_p": 0.442786,
+        "increment_empirical_p_label_null": 0.61194,
+        "quantum_rf_spearman": 0.056177
+      }
+    ],
+    "gate_rule": "Per the governing spec, a readout improvement does not validate the amplitude encoding. The encoding is credited only where the quantum score beats the best control on identical rows, or where the [RF, quantum] stack beats an RF-only logistic AND that increment survives its null. The null is on the increment, not on the stack's absolute PR-AUC, because the RF feature alone would clear the latter. The gating null permutes the quantum column patient-blocked and leaves labels and RF intact; the label-permutation null is reported beside it but does not gate, because refitting on permuted labels randomises the coefficient signs and floors its p near 0.25. Both conditions are reported above; neither is inferred from the other."
+  }
+}
