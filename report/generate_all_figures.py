@@ -18,80 +18,115 @@ os.makedirs(OUT_DIR, exist_ok=True)
 # FIGURE 1: END-TO-END SYSTEM PIPELINE ARCHITECTURE
 # -------------------------------------------------------------
 def make_fig1():
-    fig, ax = plt.subplots(figsize=(12, 6.5), dpi=300)
-    ax.set_facecolor('#F8FAFB')
+    fig, ax = plt.subplots(figsize=(14, 8.2), dpi=300)
+    ax.set_facecolor('#F8FAFC')
     fig.patch.set_facecolor('#FFFFFF')
     ax.axis('off')
-    ax.set_xlim(0, 12)
-    ax.set_ylim(0, 6.5)
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, 8.2)
 
-    # Title
-    ax.text(6.0, 6.1, "CareScan / Braket 3.1.0: End-to-End System Pipeline Architecture",
-            ha='center', va='center', fontsize=14, fontweight='bold', color='#00696E')
-    ax.text(6.0, 5.75, "Dual-Tier Quality Gating, Pinned Localization, Multimodal Fusion & Calibrated Clinical Export",
-            ha='center', va='center', fontsize=9.5, color='#50585E', style='italic')
+    # Colors - Curated Medical Teal Palette
+    TEAL_DARK = '#0F766E'
+    TEAL_PRIMARY = '#0D9488'
+    TEAL_LIGHT = '#F0FDFA'
+    TEAL_BORDER = '#14B8A6'
+    SLATE_DARK = '#0F172A'
+    SLATE_MUTED = '#475569'
 
-    # Stages definition
-    stages = [
-        {"x": 0.4, "y": 3.8, "w": 2.0, "h": 1.4, "title": "Stage 1: Client Intake", 
-         "sub": "Flutter Mobile Client\n- 60% ROI Viewfinder\n- Red-Tissue Heuristic\n- Focus / Lighting Guide", "color": "#00696E", "bg": "#E6F4F5"},
-        {"x": 2.8, "y": 3.8, "w": 2.0, "h": 1.4, "title": "Stage 2: Server QA Gate", 
-         "sub": "Deterministic Validation\n- 7 Parametric Checks\n- Normalized Laplacian\n- Rejection (HTTP 422)", "color": "#962828", "bg": "#FDF2F2"},
-        {"x": 5.2, "y": 3.8, "w": 2.0, "h": 1.4, "title": "Stage 3: Localization", 
-         "sub": "MobileNetV3-Small\n- SHA-256 Pinned\n- Acceptance: 0.9816\n- Evaluated IoU: 0.5279", "color": "#00696E", "bg": "#E6F4F5"},
-        {"x": 7.6, "y": 3.8, "w": 2.0, "h": 1.4, "title": "Stage 4: Feature Eng.", 
-         "sub": "Multimodal Vector (1,195d)\n- LAB Colorspace (163d)\n- HOG Gradients (1764d)\n- MobileNetV3 (576d)", "color": "#2563EB", "bg": "#EFF6FF"},
-        {"x": 10.0, "y": 3.8, "w": 1.6, "h": 1.4, "title": "Stage 5: QML Space", 
-         "sub": "Same-Shape Contract\n- Havlicek ZZ Map\n- Angle-Encoded VQC\n- Quantum Kernels", "color": "#7C3AED", "bg": "#F5F3FF"},
-        {"x": 2.8, "y": 1.2, "w": 2.8, "h": 1.4, "title": "Stage 6: Calibrated Classification", 
-         "sub": "Winning Candidate C7 (Logistic Reg, C=0.01)\n- Validation PR-AUC: 0.913038\n- Validation ROC-AUC: 0.933948\n- Sensitivity: 90.48% | Specificity: 80.65%", "color": "#1E783C", "bg": "#ECFDF5"},
-        {"x": 6.8, "y": 1.2, "w": 3.6, "h": 1.4, "title": "Stage 7: Clinical Triage & Export", 
-         "sub": "Risk Stratification & Telemedicine\n- Tri-Band Risk Tiers: Low / Medium / High\n- HL7 FHIR R4 DiagnosticReport / RiskAssessment\n- Offline SQLite Store + Secure Sync", "color": "#00696E", "bg": "#E6F4F5"}
-    ]
+    # Top Header
+    ax.text(7.0, 7.75, 'Orqis / Braket 3.1.0: End-to-End System Pipeline Architecture',
+            ha='center', va='center', fontsize=16, fontweight='bold', color=TEAL_DARK)
+    ax.text(7.0, 7.38, 'Point-of-Care Acquisition, Edge Quality Gate, Deep Localization, Multimodal Fusion & Calibrated Clinical Export',
+            ha='center', va='center', fontsize=10, color=SLATE_MUTED)
 
-    for s in stages:
-        rect = patches.FancyBboxPatch((s['x'], s['y']), s['w'], s['h'],
-                                      boxstyle="round,pad=0.08,rounding_size=0.15",
-                                      linewidth=1.2, edgecolor=s['color'], facecolor=s['bg'])
+    # Section Headers for Tiers
+    ax.text(0.7, 6.85, 'TIER 1: CLIENT-EDGE CAPTURE & LESION ISOLATION', fontsize=9.5, fontweight='bold', color=TEAL_DARK)
+    ax.text(0.7, 3.65, 'TIER 2: MULTIMODAL INFERENCE, QUANTUM HYBRID EVALUATION & CLINICAL TRIAGE', fontsize=9.5, fontweight='bold', color=TEAL_DARK)
+
+    # Function to draw a clean modern card
+    def draw_card(x, y, w, h, title, stage_num, bullets, border_color=TEAL_BORDER, bg_color=TEAL_LIGHT, tag_color=TEAL_DARK):
+        rect = patches.FancyBboxPatch((x, y), w, h, boxstyle='round,pad=0.08,rounding_size=0.14',
+                                      linewidth=1.2, edgecolor=border_color, facecolor=bg_color)
         ax.add_patch(rect)
-        ax.text(s['x'] + s['w']/2, s['y'] + s['h'] - 0.22, s['title'],
-                ha='center', va='center', fontsize=8.5, fontweight='bold', color=s['color'])
-        ax.text(s['x'] + s['w']/2, s['y'] + s['h']/2 - 0.14, s['sub'],
-                ha='center', va='center', fontsize=7.2, color='#2B303A')
+        
+        ax.text(x + 0.2, y + h - 0.28, stage_num, fontsize=8, fontweight='bold', color=tag_color,
+                bbox=dict(boxstyle='round,pad=0.2', fc='#FFFFFF', ec=border_color, lw=0.8))
+        
+        ax.text(x + 0.2, y + h - 0.62, title, fontsize=9.5, fontweight='bold', color=SLATE_DARK)
+        
+        cur_y = y + h - 0.95
+        for b in bullets:
+            ax.text(x + 0.2, cur_y, f'•  {b}', fontsize=7.6, color=SLATE_MUTED)
+            cur_y -= 0.28
 
-    # Draw arrows
-    def draw_arr(x1, y1, x2, y2, label=None):
-        ax.annotate('', xy=(x2, y2), xytext=(x1, y1),
-                    arrowprops=dict(arrowstyle="-|>", color='#00696E', lw=1.5, mutation_scale=14))
-        if label:
-            ax.text((x1+x2)/2, (y1+y2)/2 + 0.12, label, ha='center', va='center',
-                    fontsize=6.8, fontweight='bold', color='#50585E',
-                    bbox=dict(boxstyle="round,pad=0.15", fc="#FFFFFF", ec="#CCCCCC", lw=0.5))
+    # Row 1: 4 Cards
+    draw_card(0.7, 4.25, 2.7, 2.35, 'Client Intake & Viewfinder', 'STAGE 01',
+              ['Flutter point-of-care mobile client', 'Interactive mucosal retraction HUD', 'Real-time focus & lighting guidance', 'Sub-8ms on-device motion check'],
+              border_color='#0D9488', bg_color='#F0FDFA', tag_color='#0F766E')
 
-    draw_arr(2.4, 4.5, 2.8, 4.5, "RGB Photo")
-    draw_arr(4.8, 4.5, 5.2, 4.5, "QA Passed")
-    draw_arr(7.2, 4.5, 7.6, 4.5, "Crop BBox")
-    draw_arr(9.6, 4.5, 10.0, 4.5, "PCA-8")
-    
-    # Downward connection to stage 6
-    ax.annotate('', xy=(4.2, 2.6), xytext=(8.6, 3.8),
-                arrowprops=dict(arrowstyle="-|>", color='#00696E', lw=1.5, mutation_scale=14,
-                                connectionstyle="arc3,rad=-0.15"))
-    ax.text(6.4, 3.1, "Concatenated Multimodal Vector (Classical C7 vs QML)",
-            ha='center', va='center', fontsize=7.2, fontweight='bold', color='#00696E',
-            bbox=dict(boxstyle="round,pad=0.2", fc="#FFFFFF", ec="#00696E", lw=0.8))
+    draw_card(4.0, 4.25, 2.7, 2.35, 'Server Quality Gate', 'STAGE 02',
+              ['7 Parametric deterministic checks', 'Laplacian focus variance ≥ 120', 'Specular saliva glare cluster < 8%', 'Automated rejection (HTTP 422)'],
+              border_color='#E11D48', bg_color='#FFF1F2', tag_color='#BE123C')
 
-    draw_arr(5.6, 1.9, 6.8, 1.9, "Risk Probability")
+    draw_card(7.3, 4.25, 2.7, 2.35, 'Lesion Localization', 'STAGE 03',
+              ['MobileNetV3-Small box regressor', 'SHA-256 weight hash pinned', 'Acceptance rate: 98.16% (374/381)', 'Evaluated mean IoU: 0.5279'],
+              border_color='#0284C7', bg_color='#F0F9FF', tag_color='#0369A1')
 
-    # Legend / footer info box
-    footer_text = "Verified Repository Invariants: 1,231 Tests Passing (1,038 Backend + 193 Mobile) · Strict Patient-Disjoint Partitions (k=0 Overlap) · Pre-Registered Gating"
-    ax.text(6.0, 0.4, footer_text, ha='center', va='center', fontsize=7.8, fontweight='bold',
-            color='#00696E', bbox=dict(boxstyle="round,pad=0.3", fc="#E6F4F5", ec="#00696E", lw=1.0))
+    draw_card(10.6, 4.25, 2.7, 2.35, 'Feature Engineering', 'STAGE 04',
+              ['Crop ROI polygon (No leak)', 'LAB colorimetric histograms (163d)', 'Haralick & HOG texture (1,764d)', 'Deep spatial latent embeddings'],
+              border_color='#6366F1', bg_color='#EEF2FF', tag_color='#4338CA')
+
+    # Row 1 Horizontal Arrows
+    def draw_h_arrow(x1, x2, y, label):
+        ax.annotate('', xy=(x2, y), xytext=(x1, y),
+                    arrowprops=dict(arrowstyle='-|>', color='#0F766E', lw=1.6, mutation_scale=14))
+        ax.text((x1 + x2)/2, y + 0.16, label, ha='center', va='bottom', fontsize=7.2, fontweight='bold',
+                color='#0F766E', bbox=dict(boxstyle='round,pad=0.15', fc='#FFFFFF', ec='#99F6E4', lw=0.6))
+
+    draw_h_arrow(3.4, 4.0, 5.42, 'Raw Photo')
+    draw_h_arrow(6.7, 7.3, 5.42, 'QA Passed')
+    draw_h_arrow(10.0, 10.6, 5.42, 'Lesion BBox')
+
+    # Stepped Connector from Stage 4 down to Stage 5
+    ax.annotate('', xy=(12.0, 3.4), xytext=(12.0, 4.25),
+                arrowprops=dict(arrowstyle='-|>', color='#0F766E', lw=1.6, mutation_scale=14))
+    ax.text(12.0, 3.82, '16D Latent Vector', ha='center', va='center', fontsize=7.2, fontweight='bold',
+            color='#0F766E', bbox=dict(boxstyle='round,pad=0.15', fc='#FFFFFF', ec='#99F6E4', lw=0.6))
+
+    # Row 2: 3 Wide Cards
+    draw_card(9.4, 1.05, 3.9, 2.35, 'Quantum State Representation', 'STAGE 05',
+              ['Tensor-network PCA compression to d ≤ 16', 'Avoids O(2^n) exponential CNOT explosion', 'Shallow entangled circuits (CNOTs < 48)', '7 QML families evaluated against controls'],
+              border_color='#8B5CF6', bg_color='#F5F3FF', tag_color='#6D28D9')
+
+    draw_card(5.0, 1.05, 3.9, 2.35, 'Calibrated Clinical Inference', 'STAGE 06',
+              ['Winning Candidate C7 (Logistic Reg + Platt)', 'Validation PR-AUC: 0.913038 (Prevalence 0.3235)', 'Sensitivity: 90.48% | Specificity: 80.65%', 'Permutation null test p = 0.004975 (p_BH = 0.017)'],
+              border_color='#059669', bg_color='#ECFDF5', tag_color='#047857')
+
+    draw_card(0.7, 1.05, 3.8, 2.35, 'Clinical Tele-Triage & ABDM', 'STAGE 07',
+              ['Tri-Band Risk Triage: Low / Medium / High', 'Platt-calibrated Brier Score: 0.110620', 'Automated HL7 FHIR R4 Bundle generation', '14-Digit ABHA ID & 48h Referral SMS token'],
+              border_color='#0D9488', bg_color='#F0FDFA', tag_color='#0F766E')
+
+    # Row 2 Reverse Arrows (Stage 5 -> Stage 6 -> Stage 7)
+    def draw_rev_arrow(x1, x2, y, label):
+        ax.annotate('', xy=(x2, y), xytext=(x1, y),
+                    arrowprops=dict(arrowstyle='-|>', color='#0F766E', lw=1.6, mutation_scale=14))
+        ax.text((x1 + x2)/2, y + 0.16, label, ha='center', va='bottom', fontsize=7.2, fontweight='bold',
+                color='#0F766E', bbox=dict(boxstyle='round,pad=0.15', fc='#FFFFFF', ec='#99F6E4', lw=0.6))
+
+    draw_rev_arrow(9.4, 8.9, 2.22, 'QML Ansätze')
+    draw_rev_arrow(5.0, 4.5, 2.22, 'Calibrated Risk')
+
+    # Bottom Banner / Footer Badge
+    footer_box = patches.FancyBboxPatch((0.7, 0.28), 12.6, 0.45, boxstyle='round,pad=0.06,rounding_size=0.1',
+                                         linewidth=1.0, edgecolor=TEAL_DARK, facecolor='#E6F4F5')
+    ax.add_patch(footer_box)
+    ax.text(7.0, 0.50, 'VERIFIED SYSTEM INVARIANTS: 1,231 Automated Tests Passing (1,038 Backend + 193 Mobile)  •  Strict Patient-Disjoint Splits (k = 0 Overlap)  •  Pre-Registered Statistical Gating',
+            ha='center', va='center', fontsize=7.5, fontweight='bold', color=TEAL_DARK)
 
     plt.tight_layout()
-    plt.savefig(os.path.join(OUT_DIR, "fig1_pipeline_architecture.png"), dpi=300)
+    plt.savefig(os.path.join(OUT_DIR, 'fig1_pipeline_architecture.png'), dpi=300)
     plt.close()
-    print("Generated Fig 1: Pipeline Architecture")
+    print('Generated Fig 1: Pipeline Architecture')
 
 # -------------------------------------------------------------
 # FIGURE 2: DATASET PROVENANCE FUNNEL & PARTITIONING

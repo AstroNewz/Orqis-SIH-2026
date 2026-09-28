@@ -15,21 +15,16 @@
 
 ---
 
-## 🏆 Official Project Submission
+## 👥 Project Team & Domain Leadership
 
-* **Competition:** Smart India Hackathon (SIH) 2026
-* **Problem Statement:** **SIH26139** — *Hybrid Quantum Machine Learning Platform for Early Disease Detection*
-* **Theme:** MedTech / Healthcare & Biomedical Computing
-* **Category:** Software / Quantum Machine Learning
-* **Team:** **Team BraKet 3.1.0**
+* **Team Leader:** **Ishan Narayan Shukla**  
+* **Team Members:** Jay Karan Laxme, Rudransh Rajveer Singh, Pratyaksh Ranjan, Priyanshi Saraswat, Prajjwal Patel  
 
-### 👥 Engineering Team Roster
-1. **Ishan Narayan Shukla** — *Team Lead & Lead Technical Auditor* (ML Architecture, QML Algorithms, Pre-Registration Gating)
-2. **Jay Karan Laxme** — *Quantum Algorithm & Circuit Compilation Lead* (Havlicek ZZ Maps, VQC Ansätze, State-Prep CNOT Complexity)
-3. **Rudransh Rajveer Singh** — *Full-Stack Systems & Cloud Infrastructure Lead* (FastAPI Backend, Docker, ABDM Gateway)
-4. **Pratyaksh Ranjan** — *Software Architect & Mobile Systems Lead* (Flutter Client, Edge Quality Gate, Offline Storage)
-5. **Priyanshi Saraswat** — *Clinical AI & Medical Data Pipeline Lead* (Peradeniya/SMART-OM Curation, DUA Governance, Feature Engineering)
-6. **Prajjwal Patel** — *Biomedical Signal Processing & Verification Lead* (PTB-XL 12-Lead ECG Benchmark, Wavelet Transform, Test Automation)
+### 🔬 Domain Leadership & Work Breakdown
+* **Quantum Machine Learning:** Explored and led by **Ishan Narayan Shukla**
+* **Artificial Intelligence & Core Models:** Led by **Jay Karan Laxme**
+* **Clinical Research & Medical Data:** Led by **Priyanshi Saraswat** & **Prajjwal Patel**
+* **Frontend, Mobile Architecture & UI/UX:** Led by **Pratyaksh Ranjan** & **Rudransh Rajveer Singh**
 
 ---
 
