@@ -34,5 +34,9 @@ tools/
 *.exe
 *.log
 .claude/
+node_modules/
+.next/
+.vercel/
+
 
 

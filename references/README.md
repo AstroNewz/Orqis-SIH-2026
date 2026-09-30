@@ -20,7 +20,7 @@ This directory provides the comprehensive, modular evidence dossiers created to 
 | Slide # | Slide Placeholder  | Recommended Destination File           | Document Purpose           |
 +---------+--------------------+----------------------------------------+----------------------------+
 | Slide 2 | VIDEO LINK         | references/08_VIDEO_DEMO_SCRIPT.md     | 3-min pitch & demo script  |
-| Slide 2 | PROTOTYPE LINK     | orion-workspace/index.html             | Interactive Web Prototype  |
+| Slide 2 | PROTOTYPE LINK     | carescan-website/                      | Interactive Web Portal      |
 |         |                    | (Guide: references/07_PROTOTYPE_GUIDE) | Prototype Runbook & API    |
 | Slide 2 | REPORT LINK        | report/main.pdf                        | 53-Page Engineering Audit  |
 |         |                    | (Guide: references/06_PROJECT_REPORT)  | Executive Report Guide     |
@@ -106,9 +106,9 @@ This directory provides the comprehensive, modular evidence dossiers created to 
 * **File Specs:** 53 pages, 8.68 MB, compiled via Tectonic v0.15 with 9 high-resolution scientific diagrams.
 * **Author Roster:** Ishan Narayan Shukla, Jay Karan Laxme, Rudransh Rajveer Singh, Pratyaksh Ranjan, Priyanshi Saraswat, Prajjwal Patel.
 
-#### 7. [`orion-workspace/index.html`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/orion-workspace/index.html) & [`references/07_PROTOTYPE_GUIDE.md`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/references/07_PROTOTYPE_GUIDE.md)
-* **Title:** *Orqis Interactive Prototype Guide & Operational Runbook*
-* **Content:** Architecture walkthrough of the Flutter mobile client and FastAPI backend (`/api/v1/screen/oral`), step-by-step user journey, and local launch instructions.
+#### 7. [`carescan-website/`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/carescan-website/) & [`references/07_PROTOTYPE_GUIDE.md`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/references/07_PROTOTYPE_GUIDE.md)
+* **Title:** *Orqis Interactive Clinical Web Portal & Operational Runbook*
+* **Content:** Architecture walkthrough of the clinical web portal, Flutter mobile client, and FastAPI backend (`/api/screening/analyze`), step-by-step user journey, and local launch instructions.
 
 #### 8. [`references/08_VIDEO_DEMO_SCRIPT.md`](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/references/08_VIDEO_DEMO_SCRIPT.md)
 * **Title:** *Video Demonstration Script: 3-Minute Technical Pitch & Operational Demo*
@@ -122,7 +122,7 @@ If editing the PowerPoint deck (`.pptx`):
 
 1. **For Slide 2 (`VIDEO LINK`, `PROTOTYPE LINK`, `REPORT LINK`):**
    * Select the text `VIDEO LINK` $\to$ Press `Ctrl + K` (Insert Hyperlink) $\to$ Paste path to `references/08_VIDEO_DEMO_SCRIPT.md` (or your uploaded YouTube/Drive link).
-   * Select `PROTOTYPE LINK` $\to$ Press `Ctrl + K` $\to$ Paste path to `orion-workspace/index.html` (or your hosted web prototype).
+   * Select `PROTOTYPE LINK` $\to$ Press `Ctrl + K` $\to$ Paste path to `carescan-website/` (or your hosted web prototype).
    * Select `REPORT LINK` $\to$ Press `Ctrl + K` $\to$ Paste path to `report/main.pdf`.
 
 2. **For Slide 6 (`Datasets`, `Existing Methods`, `Research Gaps`, `Experimental Results`, `Future Scope`):**

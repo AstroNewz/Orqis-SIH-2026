@@ -6,7 +6,7 @@
 **Team:** **Team BraKet 3.1.0**  
 *(Ishan Narayan Shukla, Jay Karan Laxme, Rudransh Rajveer Singh, Pratyaksh Ranjan, Priyanshi Saraswat, Prajjwal Patel)*  
 **Document Link Identifier:** `SLIDE_2_PROTOTYPE_LINK`  
-**Web Demo Prototype:** [Orqis Interactive Web Workspace](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/orion-workspace/index.html)
+**Web Demo Prototype:** [Orqis Interactive Web Workspace](file:///c:/Users/ISHAN%20SHUKLA/Downloads/Orqis-main/Orqis-main/carescan-website/)
 
 ---
 
@@ -15,7 +15,7 @@
 The Orqis prototype is an operational, cross-platform medical screening application consisting of:
 1. **A Flutter Mobile Application:** A frontline point-of-care Android/iOS client featuring camera lifecycle management, real-time edge quality gating (Laplacian blur and glare detection), interactive bounding box overlays, and offline-first storage.
 2. **A FastAPI Backend Service:** A high-throughput REST service providing MobileNetV3 lesion localization, 16-D feature extraction, Platt-calibrated ensemble inference, and PennyLane/Braket QML circuit simulation.
-3. **An Interactive Web Dashboard:** A zero-install browser-based clinical workstation (`orion-workspace/index.html`) demonstrating the end-to-end triage pipeline for evaluators and clinicians.
+3. **An Interactive Web Dashboard:** A clinical workstation (`carescan-website/`) demonstrating the end-to-end triage pipeline for evaluators and clinicians.
 
 ---
 
@@ -78,10 +78,11 @@ The Orqis prototype is an operational, cross-platform medical screening applicat
 
 ## 4. How to Launch and Test the Prototype
 
-### 4.1 Option A: Interactive Web Workspace (Immediate Browser Preview)
+### 4.1 Option A: Interactive Web Workspace (Next.js Clinical Portal)
 The fastest way to experience the prototype without running a Python environment:
 1. Open the interactive web portal located at:
-   `c:\Users\ISHAN SHUKLA\Downloads\Orqis-main\Orqis-main\orion-workspace\index.html`
+   `c:\Users\ISHAN SHUKLA\Downloads\Orqis-main\Orqis-main\carescan-website`
+   Run `npm install && npm run dev` and navigate to `http://localhost:3000`.
 2. Features available in the web preview:
    * Interactive camera upload simulation with sample benign and malignant mucosal images.
    * Real-time Laplacian blur filter visualization.

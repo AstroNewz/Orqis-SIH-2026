@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
+@layer base {
+  :root {
+    /* Warm clinical palette — replaces neon/cyan startup colors */
+    --brand-teal: #0E7490;          /* Deep medical teal (cyan-700) */
+    --brand-teal-dark: #155E75;     /* Deeper teal for hover */
+    --brand-teal-light: #F0F9FF;    /* Very light teal wash */
+    --brand-blue: #1D4ED8;          /* Muted medical blue (blue-700) */
+    --brand-quantum: #6D28D9;       /* Restrained violet — quantum only */
+    --brand-quantum-light: #F5F3FF;
+
+    /* Warm editorial backgrounds */
+    --warm-bg: #F8F6F2;             /* Warm off-white body */
+    --warm-surface: #FEFCF9;        /* Slightly warmer white for cards */
+    --warm-border: #E5E1D8;         /* Warm stone border */
+    --warm-muted: #78716C;          /* Stone-500 for captions */
+
+    /* Typography — charcoal scale */
+    --slate-900: #1C1917;           /* stone-900 charcoal */
+    --slate-800: #292524;           /* stone-800 */
+    --slate-700: #44403C;           /* stone-700 */
+    --slate-600: #57534E;           /* stone-600 */
+    --slate-500: #78716C;           /* stone-500 */
+  }
+
+  html.dark,
+  html[data-theme="dark"] {
+    --warm-bg: #0F0E0D;
+    --warm-surface: #1A1917;
+    --warm-border: #2C2A27;
+    --slate-900: #F5F5F4;
+    --slate-800: #E7E5E4;
+    --slate-700: #D6D3D1;
+    --slate-600: #A8A29E;
+    --slate-500: #78716C;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--warm-bg);
+    color: var(--slate-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--slate-900);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+/* ─── Custom Font Family Classes ─────────────────────────── */
+.font-brand {
+  font-family: var(--font-brand), system-ui, -apple-system, sans-serif;
+}
+.font-heading {
+  font-family: var(--font-heading), system-ui, -apple-system, sans-serif;
+}
+.font-body {
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Glassmorphism — simplified, no glow ────────────────── */
+.glass-nav {
+  background: rgba(254, 252, 249, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 225, 216, 0.8);
+}
+.dark .glass-nav {
+  background: rgba(26, 25, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(44, 42, 39, 0.8);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card {
+  background: rgba(254, 252, 249, 0.97);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(229, 225, 216, 0.7);
+}
+.dark .glass-card {
+  background: rgba(26, 25, 23, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(44, 42, 39, 0.7);
+}
+
+/* ─── Floating Dock / Capsule Nav ────────────────────────── */
+.dock-nav-base {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock-pill-scrolled {
+  box-shadow:
+    0 4px 24px -8px rgba(28, 25, 23, 0.10),
+    0 1px 0 0 rgba(229, 225, 216, 0.6);
+}
+.dark .dock-pill-scrolled {
+  box-shadow:
+    0 4px 24px -8px rgba(0, 0, 0, 0.5),
+    0 1px 0 0 rgba(44, 42, 39, 0.8);
+}
+
+/* ─── Curtain Reveal Main Container ─────────────────────── */
+.curtain-main {
+  box-shadow:
+    0 24px 48px -12px rgba(28, 25, 23, 0.12),
+    0 12px 24px -8px rgba(28, 25, 23, 0.08);
+}
+.dark .curtain-main {
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.7),
+    0 12px 24px -8px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Section divider utility ────────────────────────────── */
+.section-rule {
+  border-top: 1px solid var(--warm-border);
+}
+
+/* ─── Editorial stat number utility ─────────────────────── */
+.editorial-stat {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* ─── Left-border accent for editorial callouts ──────────── */
+.border-l-accent {
+  border-left: 3px solid var(--brand-teal);
+  padding-left: 1.25rem;
+}
+
+/* ─── Scan line (kept for InteractiveDemo only) ──────────── */
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.animate-scan-line {
+  animation: scanLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ─── Subtle fade-in for section entrances ───────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* ─── Quantum circuit scientific figure style ────────────── */
+.quantum-figure {
+  background: var(--warm-surface);
+  border: 1px solid var(--warm-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.dark .quantum-figure {
+  background: var(--warm-surface);
+  border-color: var(--warm-border);
+}

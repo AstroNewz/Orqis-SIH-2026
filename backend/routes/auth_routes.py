@@ -39,7 +39,15 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)) -> LoginResponse
     addresses have accounts. The password is compared with bcrypt via
     ``verify_password``; neither it nor the stored hash is logged anywhere.
     """
-    user = crud.get_clinic_user_by_email(db, payload.email)
+    normalized_email = payload.email.strip().lower()
+    user = crud.get_clinic_user_by_email(db, normalized_email)
+
+    if user is None:
+        # Also resolve common aliases for the seeded clinic administrator
+        if normalized_email in ("clinician", "admin", "demo", "demo clinician", "doctor", "ishanshukla"):
+            user = crud.get_clinic_user_by_email(db, "clinician@orqis.local")
+        elif normalized_email in ("braket", "braket3.1"):
+            user = crud.get_clinic_user_by_email(db, "braket")
 
     if user is None or not user.is_active or not verify_password(
         payload.password, user.hashed_password

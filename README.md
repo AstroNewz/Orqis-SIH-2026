@@ -83,7 +83,7 @@ All reference dossiers, research papers, and guides referenced across **Slide 2*
 | Presentation Anchor | Destination File | Description & Technical Focus |
 |:---|:---|:---|
 | **Slide 2: Video Link** | [`references/08_VIDEO_DEMO_SCRIPT.md`](references/08_VIDEO_DEMO_SCRIPT.md) | Timestamped 3-minute pitch & operational demonstration script mapped slide-by-slide. |
-| **Slide 2: Prototype Link** | [`orion-workspace/index.html`](orion-workspace/index.html)<br>*(Guide: [`references/07_PROTOTYPE_GUIDE.md`](references/07_PROTOTYPE_GUIDE.md))* | Interactive zero-install browser prototype & mobile/FastAPI architecture walkthrough. |
+| **Slide 2: Prototype Link** | [`carescan-website/`](carescan-website/)<br>*(Guide: [`references/07_PROTOTYPE_GUIDE.md`](references/07_PROTOTYPE_GUIDE.md))* | Interactive clinical screening portal & mobile/FastAPI architecture walkthrough. |
 | **Slide 2: Report Link** | [`report/main.pdf`](report/main.pdf)<br>*(Guide: [`references/06_PROJECT_REPORT.md`](references/06_PROJECT_REPORT.md))* | Official **53-page engineering audit report** compiled with 9 high-resolution scientific diagrams. |
 | **Slide 6: Datasets** | [`references/01_DATASETS.md`](references/01_DATASETS.md) | **Separated Dossier:** Peradeniya/SMART-OM oral cohort ($N=414$), 33-exclusion ledger, $k=0$ splits. |
 | **Slide 6: Existing Methods** | [`references/02_EXISTING_METHODS.md`](references/02_EXISTING_METHODS.md) | **Separated Dossier:** Conventional examination (COE), VELscope, Toluidine Blue, ResNet, Havlicek ZZ map. |
@@ -161,8 +161,13 @@ The primary clinical oral mucosal photographic dataset utilized in this project 
 
 ## 🚀 Quickstart & Reproduction Runbook
 
-### 1. Launch Interactive Web Preview (Zero Install)
-Open [`orion-workspace/index.html`](orion-workspace/index.html) in any modern browser to test the interactive camera simulation, blur filters, bounding box HUD, and calibrated risk gauges.
+### 1. Launch Interactive Clinical Web Portal
+```bash
+cd carescan-website
+npm install
+npm run dev
+```
+Open `http://localhost:3000` to access the full clinical screening portal, research dashboard, patient worklist, and triage consultation system.
 
 ### 2. Run FastAPI Backend
 ```bash
